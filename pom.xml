@@ -13,7 +13,7 @@
         <module>ff-api</module>
         <module>ff-tools</module>
         <module>extension-web-socket</module>
-        <!--<module>extension-database</module> -->
+        <module>extension-database</module>
         <module>extension-gameobject</module>
         <module>extension-inventory-gui</module>
     </modules>
