@@ -1,7 +1,7 @@
-package io.github.jwdeveloper.ff.api.api.extention;
+package io.github.jwdeveloper.ff.plugin.api.extention;
 
-import io.github.jwdeveloper.spigot.fluent.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.FluentApiSpigot;
+import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
+import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 
 public interface FluentApiExtension {
 

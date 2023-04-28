@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.injector.api.containers;
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.search.ContainerSearch;
+import io.github.jwdeveloper.ff.core.injector.api.search.ContainerSearch;
 
 public interface FluentContainer extends Container, ContainerSearch {
 

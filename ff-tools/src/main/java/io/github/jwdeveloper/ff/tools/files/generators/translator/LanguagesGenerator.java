@@ -22,12 +22,12 @@
  * SOFTWARE.
  */
 
-package generators.translator;
+package io.github.jwdeveloper.ff.tools.files.generators.translator;
 
 import com.google.gson.JsonParser;
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.spigot.fluent.core.files.FileUtility;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.files.FileUtility;
 import lombok.Setter;
 import org.bukkit.configuration.file.YamlConfiguration;
 

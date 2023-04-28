@@ -1,7 +1,7 @@
-package io.github.jwdeveloper.spigot.extension.gameobject.implementation;
+package io.github.jwdeveloper.ff.extension.gameobject.implementation;
 
-import io.github.jwdeveloper.spigot.extension.gameobject.api.FluentGameObjectManager;
-import io.github.jwdeveloper.spigot.extension.gameobject.api.GameComponent;
+import io.github.jwdeveloper.ff.extension.gameobject.api.FluentGameObjectManager;
+import io.github.jwdeveloper.ff.extension.gameobject.api.GameComponent;
 import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventBase;
 import org.bukkit.Location;

@@ -1,10 +1,10 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.builder.ArgumentBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.enums.ArgumentDisplay;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.enums.ArgumentType;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.models.CommandArgument;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.validators.*;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.ArgumentBuilder;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.ArgumentDisplay;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.ArgumentType;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.models.CommandArgument;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.validators.*;
 import org.bukkit.ChatColor;
 
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.metrics;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.metrics;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

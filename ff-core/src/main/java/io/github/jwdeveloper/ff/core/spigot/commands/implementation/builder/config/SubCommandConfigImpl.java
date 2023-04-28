@@ -1,10 +1,10 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.config;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.FluentCommandManger;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.builder.CommandBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.builder.config.SubCommandConfig;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.SimpleCommand;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.builder.CommandBuilderImpl;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config.SubCommandConfig;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleCommand;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.CommandBuilderImpl;
 
 import java.util.List;
 import java.util.function.Consumer;

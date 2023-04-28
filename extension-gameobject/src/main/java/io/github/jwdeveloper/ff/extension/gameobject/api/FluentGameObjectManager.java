@@ -1,6 +1,6 @@
-package io.github.jwdeveloper.spigot.extension.gameobject.api;
+package io.github.jwdeveloper.ff.extension.gameobject.api;
 
-import io.github.jwdeveloper.spigot.extension.gameobject.implementation.GameObject;
+import io.github.jwdeveloper.ff.extension.gameobject.implementation.GameObject;
 import org.bukkit.Location;
 
 public interface FluentGameObjectManager

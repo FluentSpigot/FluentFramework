@@ -1,12 +1,12 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.translator;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.translator;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.spigot.fluent.core.files.FileUtility;
-import io.github.jwdeveloper.spigot.fluent.core.translator.api.FluentTranslator;
-import io.github.jwdeveloper.spigot.fluent.core.translator.api.models.LangData;
-import io.github.jwdeveloper.spigot.fluent.core.translator.implementation.SimpleLang;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.files.FileUtility;
+import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
+import io.github.jwdeveloper.ff.core.translator.api.models.LangData;
+import io.github.jwdeveloper.ff.core.translator.implementation.SimpleLang;
 import lombok.SneakyThrows;
 import org.bukkit.configuration.file.YamlConfiguration;
 

@@ -1,5 +1,5 @@
 package io.github.jwdeveloper.ff.core.injector.api.models;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.enums.LifeTime;
+import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import lombok.Data;
 
 import java.lang.annotation.Annotation;

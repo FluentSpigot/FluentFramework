@@ -1,9 +1,9 @@
 package io.github.jwdeveloper.ff.core.spigot.commands;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.FluentCommandManger;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.builder.CommandBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.SimpleCommandManger;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.builder.CommandBuilderImpl;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleCommandManger;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.CommandBuilderImpl;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 

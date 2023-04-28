@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.api.services;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.events.CommandEvent;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.events.ConsoleCommandEvent;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.events.PlayerCommandEvent;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.events.CommandEvent;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.events.ConsoleCommandEvent;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.events.PlayerCommandEvent;
 import org.bukkit.command.CommandSender;
 
 import java.util.function.Consumer;

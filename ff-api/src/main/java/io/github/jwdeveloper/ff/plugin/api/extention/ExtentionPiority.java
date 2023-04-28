@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.api.api.extention;
+package io.github.jwdeveloper.ff.plugin.api.extention;
 
 public enum ExtentionPiority
 {

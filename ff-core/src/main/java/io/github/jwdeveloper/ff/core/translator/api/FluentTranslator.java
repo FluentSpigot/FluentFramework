@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.translator.api;
 
-import io.github.jwdeveloper.spigot.fluent.core.translator.api.models.LangData;
+import io.github.jwdeveloper.ff.core.translator.api.models.LangData;
 
 import java.util.List;
 

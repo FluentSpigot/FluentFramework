@@ -1,11 +1,11 @@
 package io.github.jwdeveloper.ff.core.documentation.api;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.TextBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
-import io.github.jwdeveloper.spigot.fluent.core.documentation.api.builders.YmlBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.documentation.api.models.Documentation;
-import io.github.jwdeveloper.spigot.fluent.core.documentation.api.models.DocumentationSection;
-import io.github.jwdeveloper.spigot.fluent.core.documentation.api.models.SectionType;
+import io.github.jwdeveloper.ff.core.common.TextBuilder;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.documentation.api.builders.YmlBuilder;
+import io.github.jwdeveloper.ff.core.documentation.api.models.Documentation;
+import io.github.jwdeveloper.ff.core.documentation.api.models.DocumentationSection;
+import io.github.jwdeveloper.ff.core.documentation.api.models.SectionType;
 
 import java.util.ArrayList;
 import java.util.Arrays;

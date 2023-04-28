@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.injector.api.containers;
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.models.RegistrationInfo;
+import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
 
 public interface Container extends Cloneable
 {

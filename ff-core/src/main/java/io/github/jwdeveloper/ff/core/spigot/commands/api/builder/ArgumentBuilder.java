@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.api.builder;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.enums.ArgumentDisplay;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.enums.ArgumentType;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.validators.CommandArgumentValidator;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.ArgumentDisplay;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.ArgumentType;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.validators.CommandArgumentValidator;
 
 import java.util.List;
 

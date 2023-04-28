@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.extension.gui.core.implementation.managers;
 
-import core.api.managers.events.*;
+
+import io.github.jwdeveloper.ff.extension.gui.core.api.managers.events.*;
 
 import java.util.function.Consumer;
 

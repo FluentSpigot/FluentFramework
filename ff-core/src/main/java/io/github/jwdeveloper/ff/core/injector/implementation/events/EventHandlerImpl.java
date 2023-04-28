@@ -1,9 +1,9 @@
 package io.github.jwdeveloper.ff.core.injector.implementation.events;
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.events.ContainerEvents;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.events.EventHandler;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.events.events.OnInjectionEvent;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.events.events.OnRegistrationEvent;
+import io.github.jwdeveloper.ff.core.injector.api.events.ContainerEvents;
+import io.github.jwdeveloper.ff.core.injector.api.events.EventHandler;
+import io.github.jwdeveloper.ff.core.injector.api.events.events.OnInjectionEvent;
+import io.github.jwdeveloper.ff.core.injector.api.events.events.OnRegistrationEvent;
 
 import java.util.List;
 

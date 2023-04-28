@@ -1,8 +1,6 @@
-package io.github.jwdeveloper.spigot.extension.gameobject;
+package io.github.jwdeveloper.ff.extension.gameobject;
 
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
-
-import java.util.function.Consumer;
 
 public class FluentGameObjectAPI
 {

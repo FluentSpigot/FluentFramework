@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.injector.api.annotations;
 
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.enums.LifeTime;
+import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

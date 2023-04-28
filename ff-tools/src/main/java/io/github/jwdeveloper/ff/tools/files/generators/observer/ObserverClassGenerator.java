@@ -1,8 +1,7 @@
-package generators.observer;
+package io.github.jwdeveloper.ff.tools.files.generators.observer;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.builders.code.ClassCodeBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
-import io.github.jwdeveloper.spigot.fluent.core.observer.api.ObserverField;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.tools.files.code.ClassCodeBuilder;
 
 import java.lang.reflect.Field;
 import java.util.*;

@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.files.yaml.api;
 
-import io.github.jwdeveloper.spigot.fluent.core.files.yaml.api.models.YamlModel;
+import io.github.jwdeveloper.ff.core.files.yaml.api.models.YamlModel;
 
 public interface YamlModelFactory
 {

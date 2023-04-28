@@ -1,6 +1,6 @@
-package io.github.jwdeveloper.ff.api.implementation.config.sections;
+package io.github.jwdeveloper.ff.plugin.implementation.config.sections;
 
-import io.github.jwdeveloper.spigot.fluent.core.files.yaml.api.annotations.YamlProperty;
+import io.github.jwdeveloper.ff.core.files.yaml.api.annotations.YamlProperty;
 import lombok.Data;
 import org.bukkit.plugin.Plugin;
 

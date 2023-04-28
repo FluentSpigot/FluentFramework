@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.observers.list;
 
 import lombok.Setter;
-import new_version.implementation.observers.NotifierOptions;
-import new_version.implementation.observers.events.onSelectEvent;
+import io.github.jwdeveloper.ff.extension.gui.implementation.observers.NotifierOptions;
+import io.github.jwdeveloper.ff.extension.gui.implementation.observers.events.onSelectEvent;
 
 import java.util.function.Consumer;
 import java.util.function.Function;

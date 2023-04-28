@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.events.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.events.api.FluentEventManager;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;

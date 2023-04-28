@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.core.injector.api.models;
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.events.ContainerEvents;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.events.events.OnInjectionEvent;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.events.events.OnRegistrationEvent;
+import io.github.jwdeveloper.ff.core.injector.api.events.ContainerEvents;
+import io.github.jwdeveloper.ff.core.injector.api.events.events.OnInjectionEvent;
+import io.github.jwdeveloper.ff.core.injector.api.events.events.OnRegistrationEvent;
 import lombok.Getter;
 import lombok.Setter;
 

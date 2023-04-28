@@ -1,12 +1,12 @@
 package io.github.jwdeveloper.ff.core.files.yaml.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.TextBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
-import io.github.jwdeveloper.spigot.fluent.core.files.yaml.api.YamlModelFactory;
-import io.github.jwdeveloper.spigot.fluent.core.files.yaml.api.annotations.YamlFile;
-import io.github.jwdeveloper.spigot.fluent.core.files.yaml.api.annotations.YamlProperty;
-import io.github.jwdeveloper.spigot.fluent.core.files.yaml.api.models.YamlContent;
-import io.github.jwdeveloper.spigot.fluent.core.files.yaml.api.models.YamlModel;
+import io.github.jwdeveloper.ff.core.common.TextBuilder;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.files.yaml.api.YamlModelFactory;
+import io.github.jwdeveloper.ff.core.files.yaml.api.annotations.YamlFile;
+import io.github.jwdeveloper.ff.core.files.yaml.api.annotations.YamlProperty;
+import io.github.jwdeveloper.ff.core.files.yaml.api.models.YamlContent;
+import io.github.jwdeveloper.ff.core.files.yaml.api.models.YamlModel;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;

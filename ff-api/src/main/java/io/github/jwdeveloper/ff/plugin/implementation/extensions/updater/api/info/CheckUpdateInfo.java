@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.updater.api.info;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.info;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

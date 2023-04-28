@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.injector.decorator.api.models;
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.models.InjectionInfo;
+import io.github.jwdeveloper.ff.core.injector.api.models.InjectionInfo;
 
 import java.util.List;
 

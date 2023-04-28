@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.extension.gui.implementation.buttons;
 
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers.ButtonObservable;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
-import new_version.implementation.events.ButtonClickEvent;
+import io.github.jwdeveloper.ff.extension.gui.implementation.events.ButtonClickEvent;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;

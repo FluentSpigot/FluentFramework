@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.api.implementation.file_handlers;
+package io.github.jwdeveloper.ff.plugin.implementation.file_handlers;
 
 public interface SimpleFilesBuilder {
 

@@ -1,8 +1,8 @@
-package io.github.jwdeveloper.ff.api.implementation;
+package io.github.jwdeveloper.ff.plugin.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.FluentCommand;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.extention.FluentApiExtension;
+import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
+import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
+import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;

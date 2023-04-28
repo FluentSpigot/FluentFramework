@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.core.files.json.execution;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
-import io.github.jwdeveloper.spigot.fluent.core.observer.implementation.Observer;
+import io.github.jwdeveloper.ff.core.observer.implementation.Observer;
 
 
 public class BindingFieldSkip implements ExclusionStrategy {

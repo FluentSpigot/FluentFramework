@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation.validators;
 
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.models.ValidationResult;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.models.ValidationResult;
 
 public class BoolValidator implements CommandArgumentValidator{
     @Override

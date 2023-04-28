@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.spigot.extension.gameobject.implementation;
+package io.github.jwdeveloper.ff.extension.gameobject.implementation;
 
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;

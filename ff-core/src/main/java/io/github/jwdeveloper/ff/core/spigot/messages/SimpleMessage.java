@@ -1,9 +1,9 @@
 package io.github.jwdeveloper.ff.core.spigot.messages;
 
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.messages.boss_bar.BossBarBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.messages.title.SimpleTitleBuilder;
+import io.github.jwdeveloper.ff.core.spigot.messages.boss_bar.BossBarBuilder;
+import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
+import io.github.jwdeveloper.ff.core.spigot.messages.title.SimpleTitleBuilder;
 
 public class SimpleMessage
 {

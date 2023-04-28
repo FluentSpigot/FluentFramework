@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.core.injector.api.containers.builders;
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.containers.Container;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.models.ContainerConfiguration;
+import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
+import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+import io.github.jwdeveloper.ff.core.injector.api.models.ContainerConfiguration;
 
 import java.util.function.Consumer;
 import java.util.function.Function;

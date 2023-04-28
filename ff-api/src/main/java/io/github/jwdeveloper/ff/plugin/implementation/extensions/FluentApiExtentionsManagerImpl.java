@@ -1,12 +1,12 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.extention.ExtensionModel;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.extention.ExtentionPiority;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.extention.FluentApiExtension;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.extention.FluentApiExtensionsManager;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.FluentApiSpigot;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
+import io.github.jwdeveloper.ff.plugin.api.extention.ExtensionModel;
+import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPiority;
+import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
+import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtensionsManager;
+import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 
 import java.util.Collection;
 import java.util.Comparator;

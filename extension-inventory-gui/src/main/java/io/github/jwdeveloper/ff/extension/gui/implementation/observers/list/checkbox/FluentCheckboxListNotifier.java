@@ -2,8 +2,8 @@ package io.github.jwdeveloper.ff.extension.gui.implementation.observers.list.che
 
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers.ButtonObserverEvent;
 import io.github.jwdeveloper.ff.core.common.Emoticons;
-import new_version.implementation.observers.list.FluentListNotifier;
-import new_version.implementation.observers.list.ListNotifierOptions;
+import io.github.jwdeveloper.ff.extension.gui.implementation.observers.list.FluentListNotifier;
+import io.github.jwdeveloper.ff.extension.gui.implementation.observers.list.ListNotifierOptions;
 import org.bukkit.ChatColor;
 
 import java.util.List;

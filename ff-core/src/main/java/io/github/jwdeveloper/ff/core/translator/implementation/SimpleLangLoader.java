@@ -1,9 +1,8 @@
 package io.github.jwdeveloper.ff.core.translator.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.files.FileUtility;
-import io.github.jwdeveloper.spigot.fluent.core.files.yaml.implementation.YmlPathReader;
-import io.github.jwdeveloper.spigot.fluent.core.translator.api.models.LangData;
-import org.apache.commons.lang.StringUtils;
+import io.github.jwdeveloper.ff.core.files.FileUtility;
+import io.github.jwdeveloper.ff.core.files.yaml.implementation.YmlPathReader;
+import io.github.jwdeveloper.ff.core.translator.api.models.LangData;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -32,7 +31,9 @@ public class SimpleLangLoader {
         var reader = new YmlPathReader();
         var files = FileUtility.getFolderFilesName(folderPath, "yml");
         for (var file : files) {
-            var name = StringUtils.split(file, ".")[0];
+
+            //TO DO
+           /* var name = StringUtils.split(file, ".")[0];
             var langData = new LangData();
             langData.setCountry(name);
             Map<String, String> translations = new LinkedHashMap<String, String>();
@@ -45,7 +46,7 @@ public class SimpleLangLoader {
                 translations = reader.read(path);
             }
             langData.setTranslations(translations);
-            result.add(langData);
+            result.add(langData);*/
         }
         return result;
     }

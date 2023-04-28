@@ -1,4 +1,4 @@
-package benchmark;
+package io.github.jwdeveloper.ff.tools.files.benchmark;
 
 import java.util.function.Consumer;
 

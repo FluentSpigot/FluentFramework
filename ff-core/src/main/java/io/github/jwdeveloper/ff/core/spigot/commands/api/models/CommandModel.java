@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.api.models;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.enums.AccessType;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.AccessType;
 import lombok.Getter;
 import lombok.Setter;
 

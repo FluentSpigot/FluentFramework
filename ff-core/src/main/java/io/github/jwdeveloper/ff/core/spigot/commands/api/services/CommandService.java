@@ -1,10 +1,10 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.api.services;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.enums.AccessType;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.models.CommandArgument;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.models.CommandTarget;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.models.ValidationResult;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.SimpleCommand;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.AccessType;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.models.CommandArgument;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.models.CommandTarget;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.models.ValidationResult;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleCommand;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;

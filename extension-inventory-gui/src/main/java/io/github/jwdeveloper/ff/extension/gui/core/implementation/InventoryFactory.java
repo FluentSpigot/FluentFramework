@@ -7,10 +7,10 @@ import io.github.jwdeveloper.ff.extension.gui.core.implementation.managers.Butto
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.managers.ChildernManagerImpl;
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.managers.EventManagerImpl;
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.managers.PermissionManagerImpl;
-import new_version.implementation.FluentInventoryImpl;
+import io.github.jwdeveloper.ff.extension.gui.implementation.FluentInventoryImpl;
 import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
 import lombok.Getter;
-import new_version.implementation.InventorySpigotListener;
+import io.github.jwdeveloper.ff.extension.gui.implementation.InventorySpigotListener;
 
 public class InventoryFactory {
     private InventorySpigotListener listener;

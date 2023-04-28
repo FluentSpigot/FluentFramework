@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.updater.api.options;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.options;
 
 import lombok.Data;
 

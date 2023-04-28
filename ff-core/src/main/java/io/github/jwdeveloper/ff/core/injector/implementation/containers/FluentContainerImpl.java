@@ -1,12 +1,12 @@
 package io.github.jwdeveloper.ff.core.injector.implementation.containers;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.containers.FluentContainer;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.events.EventHandler;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.factory.InjectionInfoFactory;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.models.RegistrationInfo;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.provider.InstanceProvider;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.search.SearchAgent;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
+import io.github.jwdeveloper.ff.core.injector.api.events.EventHandler;
+import io.github.jwdeveloper.ff.core.injector.api.factory.InjectionInfoFactory;
+import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
+import io.github.jwdeveloper.ff.core.injector.api.provider.InstanceProvider;
+import io.github.jwdeveloper.ff.core.injector.api.search.SearchAgent;
 
 import java.util.List;
 

@@ -1,10 +1,10 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.player_context.implementation;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.containers.Container;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.models.InjectionInfo;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.provider.InstanceProvider;
-import io.github.jwdeveloper.spigot.fluent.core.injector.implementation.utilites.Messages;
+import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
+import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+import io.github.jwdeveloper.ff.core.injector.api.models.InjectionInfo;
+import io.github.jwdeveloper.ff.core.injector.api.provider.InstanceProvider;
+import io.github.jwdeveloper.ff.core.injector.implementation.utilites.Messages;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;

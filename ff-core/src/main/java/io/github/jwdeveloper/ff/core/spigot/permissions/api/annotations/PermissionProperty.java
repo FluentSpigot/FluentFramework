@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.permissions.api.annotations;
 
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.permissions.api.enums.Visibility;
+import io.github.jwdeveloper.ff.core.spigot.permissions.api.enums.Visibility;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

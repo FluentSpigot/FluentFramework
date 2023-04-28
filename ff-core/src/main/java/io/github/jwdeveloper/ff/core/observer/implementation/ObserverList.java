@@ -1,7 +1,8 @@
 package io.github.jwdeveloper.ff.core.observer.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.observer.api.ObserverListEvent;
-import org.apache.commons.lang.NotImplementedException;
+import io.github.jwdeveloper.ff.core.observer.api.Observable;
+import io.github.jwdeveloper.ff.core.observer.api.ObserverListEvent;
+
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -68,12 +69,12 @@ public class ObserverList<T> extends ArrayList<T> implements Observable<Observer
 
     @Override
     public ObserverListEvent get() {
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override
     public void invoke() {
-        throw new NotImplementedException();
+
     }
 
     @Override

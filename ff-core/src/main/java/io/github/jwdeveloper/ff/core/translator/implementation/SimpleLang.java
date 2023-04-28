@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.translator.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.spigot.fluent.core.translator.api.models.LangData;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.translator.api.models.LangData;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 

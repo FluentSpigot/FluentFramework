@@ -1,9 +1,9 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.builder.ArgumentBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.builder.BuilderConfig;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.enums.ArgumentType;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.models.CommandArgument;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.ArgumentBuilder;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.BuilderConfig;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.ArgumentType;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.models.CommandArgument;
 
 import java.util.function.Consumer;
 

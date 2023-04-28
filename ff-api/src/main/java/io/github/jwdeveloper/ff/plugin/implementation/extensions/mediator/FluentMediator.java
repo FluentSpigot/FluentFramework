@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.mediator;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator;
 
 public interface FluentMediator
 {

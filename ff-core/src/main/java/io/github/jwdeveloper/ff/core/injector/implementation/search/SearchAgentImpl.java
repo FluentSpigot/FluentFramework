@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.injector.implementation.search;
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.models.InjectionInfo;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.search.SearchAgent;
+import io.github.jwdeveloper.ff.core.injector.api.models.InjectionInfo;
+import io.github.jwdeveloper.ff.core.injector.api.search.SearchAgent;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;

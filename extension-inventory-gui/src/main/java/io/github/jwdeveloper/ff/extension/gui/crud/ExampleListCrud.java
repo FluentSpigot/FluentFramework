@@ -3,7 +3,7 @@ package io.github.jwdeveloper.ff.extension.gui.crud;
 import io.github.jwdeveloper.ff.extension.gui.core.ExampleList;
 import io.github.jwdeveloper.ff.extension.gui.core.api.InventoryDecorator;
 import io.github.jwdeveloper.ff.extension.gui.core.api.InventoryComponent;
-import new_version.implementation.events.ButtonClickEvent;
+import io.github.jwdeveloper.ff.extension.gui.implementation.events.ButtonClickEvent;
 
 public class ExampleListCrud<T> implements InventoryComponent {
 

@@ -1,3 +1,5 @@
+package io.github.jwdeveloper.ff.tools.files;
+
 import lombok.Getter;
 
 public class FluentPluginMock

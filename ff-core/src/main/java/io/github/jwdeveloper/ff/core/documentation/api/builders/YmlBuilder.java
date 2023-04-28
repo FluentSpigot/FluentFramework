@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.core.documentation.api.builders;
 
 
-import io.github.jwdeveloper.spigot.fluent.core.common.TextBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.common.TextBuilder;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 
 public class YmlBuilder
 {

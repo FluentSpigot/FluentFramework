@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.tasks.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.tasks.api.TaskAction;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.TaskAction;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;

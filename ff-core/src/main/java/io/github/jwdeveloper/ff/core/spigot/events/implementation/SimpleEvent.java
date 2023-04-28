@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.events.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import lombok.Getter;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

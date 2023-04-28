@@ -1,18 +1,18 @@
-package io.github.jwdeveloper.ff.api.implementation;
+package io.github.jwdeveloper.ff.plugin.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.containers.FluentContainer;
-import io.github.jwdeveloper.spigot.fluent.core.injector.decorator.api.builder.DecoratorBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.injector.implementation.containers.FluentContainerImpl;
-import io.github.jwdeveloper.spigot.fluent.core.injector.implementation.containers.builder.ContainerBuilderImpl;
-import io.github.jwdeveloper.spigot.fluent.core.injector.implementation.events.EventHandlerImpl;
-import io.github.jwdeveloper.spigot.fluent.core.injector.implementation.factory.InjectionInfoFactoryImpl;
-import io.github.jwdeveloper.spigot.fluent.core.injector.implementation.provider.InstanceProviderImpl;
-import io.github.jwdeveloper.spigot.fluent.core.injector.implementation.search.SearchAgentImpl;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.FluentApiContainerBuilder;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.extention.FluentApiExtensionsManager;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.decorator.FluentDecorator;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.decorator.FluentDecoratorExtention;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
+import io.github.jwdeveloper.ff.core.injector.decorator.api.builder.DecoratorBuilder;
+import io.github.jwdeveloper.ff.core.injector.implementation.containers.FluentContainerImpl;
+import io.github.jwdeveloper.ff.core.injector.implementation.containers.builder.ContainerBuilderImpl;
+import io.github.jwdeveloper.ff.core.injector.implementation.events.EventHandlerImpl;
+import io.github.jwdeveloper.ff.core.injector.implementation.factory.InjectionInfoFactoryImpl;
+import io.github.jwdeveloper.ff.core.injector.implementation.provider.InstanceProviderImpl;
+import io.github.jwdeveloper.ff.core.injector.implementation.search.SearchAgentImpl;
+import io.github.jwdeveloper.ff.plugin.api.FluentApiContainerBuilder;
+import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtensionsManager;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator.FluentDecorator;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator.FluentDecoratorExtention;
 
 
 public class FluentApiContainerBuilderImpl extends ContainerBuilderImpl<FluentApiContainerBuilder> implements FluentApiContainerBuilder {

@@ -1,6 +1,6 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.documentation;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.documentation;
 
-import io.github.jwdeveloper.spigot.fluent.core.documentation.api.DocumentationDecorator;
+import io.github.jwdeveloper.ff.core.documentation.api.DocumentationDecorator;
 import lombok.Data;
 
 import java.util.ArrayList;

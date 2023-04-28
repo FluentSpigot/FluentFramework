@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.builder.BuilderConfig;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.enums.AccessType;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.BuilderConfig;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.AccessType;
 
 public interface PropertiesConfig extends BuilderConfig {
     PropertiesConfig setUsageMessage(String usageMessage);

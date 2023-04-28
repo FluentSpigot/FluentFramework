@@ -1,8 +1,8 @@
-package io.github.jwdeveloper.ff.api.implementation.file_handlers;
+package io.github.jwdeveloper.ff.plugin.implementation.file_handlers;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.java.ObjectUtility;
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.spigot.fluent.core.files.json.JsonUtility;
+import io.github.jwdeveloper.ff.core.common.java.ObjectUtility;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.files.json.JsonUtility;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.core.files;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 

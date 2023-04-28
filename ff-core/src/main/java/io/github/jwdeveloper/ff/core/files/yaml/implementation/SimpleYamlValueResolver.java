@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.core.files.yaml.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.spigot.fluent.core.files.yaml.api.models.YamlContent;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.files.yaml.api.models.YamlContent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;

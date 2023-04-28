@@ -1,9 +1,9 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.command;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.command;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.builder.CommandBuilder;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.extention.FluentApiExtension;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.FluentApiSpigot;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
+import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
+import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
+import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 
 public class FluentDefaultCommandExtension implements FluentApiExtension {
 

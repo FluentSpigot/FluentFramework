@@ -1,13 +1,13 @@
-package io.github.jwdeveloper.ff.api.implementation.config;
+package io.github.jwdeveloper.ff.plugin.implementation.config;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
-import io.github.jwdeveloper.spigot.fluent.core.files.FileUtility;
-import io.github.jwdeveloper.spigot.fluent.core.files.yaml.api.YamlReader;
-import io.github.jwdeveloper.spigot.fluent.core.files.yaml.implementation.SimpleYamlReader;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.config.ConfigSection;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.assemby_scanner.AssemblyScanner;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.config.migrations.FluentConfigMigrator;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.config.sections.DefaultConfigSection;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.files.FileUtility;
+import io.github.jwdeveloper.ff.core.files.yaml.api.YamlReader;
+import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlReader;
+import io.github.jwdeveloper.ff.plugin.api.config.ConfigSection;
+import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.AssemblyScanner;
+import io.github.jwdeveloper.ff.plugin.implementation.config.migrations.FluentConfigMigrator;
+import io.github.jwdeveloper.ff.plugin.implementation.config.sections.DefaultConfigSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 

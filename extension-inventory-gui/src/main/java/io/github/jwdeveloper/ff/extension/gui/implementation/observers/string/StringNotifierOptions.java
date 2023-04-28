@@ -3,7 +3,7 @@ package io.github.jwdeveloper.ff.extension.gui.implementation.observers.string;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import lombok.Getter;
 import lombok.Setter;
-import new_version.implementation.observers.NotifierOptions;
+import io.github.jwdeveloper.ff.extension.gui.implementation.observers.NotifierOptions;
 
 import java.util.function.Consumer;
 

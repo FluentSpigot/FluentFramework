@@ -1,10 +1,10 @@
 package io.github.jwdeveloper.ff.core.injector.implementation.factory;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.java.Pair;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.annotations.Inject;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.factory.InjectionInfoFactory;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.models.InjectionInfo;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.models.RegistrationInfo;
+import io.github.jwdeveloper.ff.core.common.java.Pair;
+import io.github.jwdeveloper.ff.core.injector.api.annotations.Inject;
+import io.github.jwdeveloper.ff.core.injector.api.factory.InjectionInfoFactory;
+import io.github.jwdeveloper.ff.core.injector.api.models.InjectionInfo;
+import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;

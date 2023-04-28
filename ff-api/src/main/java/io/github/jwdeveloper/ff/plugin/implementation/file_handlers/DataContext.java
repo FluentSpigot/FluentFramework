@@ -1,6 +1,6 @@
-package io.github.jwdeveloper.ff.api.implementation.file_handlers;
+package io.github.jwdeveloper.ff.plugin.implementation.file_handlers;
 
-import io.github.jwdeveloper.spigot.fluent.core.repository.api.CustomFile;
+import io.github.jwdeveloper.ff.core.repository.api.CustomFile;
 
 public interface DataContext
 {

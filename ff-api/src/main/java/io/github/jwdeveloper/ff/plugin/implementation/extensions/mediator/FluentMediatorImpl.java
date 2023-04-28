@@ -1,8 +1,8 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.mediator;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.spigot.fluent.core.mediator.api.MediatorHandler;
-import io.github.jwdeveloper.spigot.fluent.core.mediator.implementation.SimpleMediator;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.mediator.api.MediatorHandler;
+import io.github.jwdeveloper.ff.core.mediator.implementation.SimpleMediator;
 
 import java.util.Collection;
 import java.util.function.Function;

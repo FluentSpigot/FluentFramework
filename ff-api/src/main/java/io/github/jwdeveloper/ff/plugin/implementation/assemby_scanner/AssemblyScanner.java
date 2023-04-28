@@ -1,8 +1,8 @@
-package io.github.jwdeveloper.ff.api.implementation.assemby_scanner;
+package io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.java.ClassTypeUtility;
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.assembly_scanner.FluentAssemblyScanner;
+import io.github.jwdeveloper.ff.core.common.java.ClassTypeUtility;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.FluentAssemblyScanner;
 import lombok.Getter;
 import org.bukkit.plugin.Plugin;
 

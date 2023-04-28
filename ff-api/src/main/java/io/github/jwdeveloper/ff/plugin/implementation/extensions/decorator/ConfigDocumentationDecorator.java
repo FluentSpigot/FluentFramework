@@ -1,9 +1,9 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.decorator;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.spigot.fluent.core.documentation.api.DocumentationDecorator;
-import io.github.jwdeveloper.spigot.fluent.core.documentation.api.models.Documentation;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.documentation.api.DocumentationDecorator;
+import io.github.jwdeveloper.ff.core.documentation.api.models.Documentation;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;

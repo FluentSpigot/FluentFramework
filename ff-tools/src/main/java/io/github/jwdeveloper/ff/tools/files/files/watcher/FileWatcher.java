@@ -1,7 +1,7 @@
-package files.watcher;
+package io.github.jwdeveloper.ff.tools.files.files.watcher;
 
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 
 import java.io.File;
 import java.nio.file.*;

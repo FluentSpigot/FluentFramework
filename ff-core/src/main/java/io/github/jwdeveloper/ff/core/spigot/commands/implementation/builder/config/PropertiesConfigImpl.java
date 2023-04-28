@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.config;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.builder.config.PropertiesConfig;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.enums.AccessType;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.models.CommandModel;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config.PropertiesConfig;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.AccessType;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.models.CommandModel;
 
 import java.util.Arrays;
 

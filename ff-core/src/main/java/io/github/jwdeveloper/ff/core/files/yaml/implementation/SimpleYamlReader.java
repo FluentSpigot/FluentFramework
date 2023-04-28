@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.files.yaml.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.files.yaml.api.YamlReader;
+import io.github.jwdeveloper.ff.core.files.yaml.api.YamlReader;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;

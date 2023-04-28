@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.dependecy_injection;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.dependecy_injection;
 
 import java.lang.annotation.Annotation;
 import java.util.Collection;

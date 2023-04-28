@@ -1,7 +1,7 @@
-package io.github.jwdeveloper.ff.api.api;
+package io.github.jwdeveloper.ff.plugin.api;
 
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.containers.builders.ContainerBuilder;
+import io.github.jwdeveloper.ff.core.injector.api.containers.builders.ContainerBuilder;
 
 
 public interface FluentApiContainerBuilder extends ContainerBuilder<FluentApiContainerBuilder> {

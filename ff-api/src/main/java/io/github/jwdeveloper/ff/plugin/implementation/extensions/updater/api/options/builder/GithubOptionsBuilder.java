@@ -1,6 +1,6 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.updater.api.options.builder;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.options.builder;
 
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.updater.api.options.GithubUpdaterOptions;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.options.GithubUpdaterOptions;
 
 public class GithubOptionsBuilder
 {

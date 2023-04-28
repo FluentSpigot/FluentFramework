@@ -3,7 +3,7 @@ package io.github.jwdeveloper.ff.extension.gui.core.api.managers.events;
 
 import io.github.jwdeveloper.ff.extension.gui.core.api.FluentInventory;
 import lombok.Getter;
-import new_version.implementation.buttons.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 

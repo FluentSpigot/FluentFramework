@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.common.logger;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.TextBuilder;
+import io.github.jwdeveloper.ff.core.common.TextBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;

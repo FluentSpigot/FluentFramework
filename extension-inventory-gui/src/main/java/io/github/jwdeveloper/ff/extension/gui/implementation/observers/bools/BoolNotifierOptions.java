@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.observers.bools;
 
 import lombok.Setter;
-import new_version.implementation.observers.NotifierOptions;
+import io.github.jwdeveloper.ff.extension.gui.implementation.observers.NotifierOptions;
 import org.bukkit.Material;
 
 @Setter

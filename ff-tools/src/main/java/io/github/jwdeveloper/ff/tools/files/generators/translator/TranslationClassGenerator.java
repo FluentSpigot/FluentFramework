@@ -1,7 +1,8 @@
-package generators.translator;
+package io.github.jwdeveloper.ff.tools.files.generators.translator;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.TextBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.files.FileUtility;
+
+import io.github.jwdeveloper.ff.core.common.TextBuilder;
+import io.github.jwdeveloper.ff.core.files.FileUtility;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 

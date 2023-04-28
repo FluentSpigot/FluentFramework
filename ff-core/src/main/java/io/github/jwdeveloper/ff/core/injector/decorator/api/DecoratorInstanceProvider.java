@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.injector.decorator.api;
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.containers.Container;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.models.InjectionInfo;
+import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
+import io.github.jwdeveloper.ff.core.injector.api.models.InjectionInfo;
 
 import java.util.Map;
 

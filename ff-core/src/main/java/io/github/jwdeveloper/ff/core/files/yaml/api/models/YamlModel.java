@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.files.yaml.api.models;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
-import io.github.jwdeveloper.spigot.fluent.core.files.json.JsonUtility;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.files.json.JsonUtility;
 import lombok.Data;
 
 import java.util.ArrayList;

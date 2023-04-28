@@ -1,6 +1,6 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.files;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.files;
 
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.file_handlers.FilesDataContext;
+import io.github.jwdeveloper.ff.plugin.implementation.file_handlers.FilesDataContext;
 
 
 public class FluentFilesImpl extends FilesDataContext implements FluentFiles {

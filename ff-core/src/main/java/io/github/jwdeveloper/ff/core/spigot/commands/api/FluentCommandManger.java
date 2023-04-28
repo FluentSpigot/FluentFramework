@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.api;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.SimpleCommand;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleCommand;
 import org.bukkit.command.Command;
 import org.bukkit.plugin.Plugin;
 

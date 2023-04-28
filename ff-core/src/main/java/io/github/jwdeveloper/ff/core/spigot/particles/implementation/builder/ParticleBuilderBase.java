@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.particles.implementation.builder;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.particles.api.ParticleSettings;
+import io.github.jwdeveloper.ff.core.spigot.particles.api.ParticleSettings;
 
 public class ParticleBuilderBase
 {

@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.core.spigot.permissions.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.Emoticons;
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.messages.message.MessageBuilder;
+import io.github.jwdeveloper.ff.core.common.Emoticons;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachmentInfo;

@@ -1,7 +1,7 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.dependecy_injection;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.dependecy_injection;
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.containers.Container;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.containers.FluentContainer;
+import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
+import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
 
 import java.lang.annotation.Annotation;
 import java.util.Collection;

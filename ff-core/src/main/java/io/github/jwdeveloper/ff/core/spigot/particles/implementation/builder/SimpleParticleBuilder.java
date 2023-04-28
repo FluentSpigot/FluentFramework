@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.particles.implementation.builder;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.particles.api.NextStep;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.particles.api.ParticleSettings;
+import io.github.jwdeveloper.ff.core.spigot.particles.api.NextStep;
+import io.github.jwdeveloper.ff.core.spigot.particles.api.ParticleSettings;
 
 public class SimpleParticleBuilder extends ParticleBuilderBase implements NextStep<DetailBuilder>
 {

@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.api.api.config.migrations;
+package io.github.jwdeveloper.ff.plugin.api.config.migrations;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 

@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.resourcepack;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.resourcepack;
 
 import lombok.Data;
 

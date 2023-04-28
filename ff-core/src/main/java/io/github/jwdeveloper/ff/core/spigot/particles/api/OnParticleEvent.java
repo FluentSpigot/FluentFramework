@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.particles.api;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.particles.implementation.ParticleEvent;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.particles.implementation.ParticleInvoker;
+import io.github.jwdeveloper.ff.core.spigot.particles.implementation.ParticleEvent;
+import io.github.jwdeveloper.ff.core.spigot.particles.implementation.ParticleInvoker;
 
 public interface OnParticleEvent
 {

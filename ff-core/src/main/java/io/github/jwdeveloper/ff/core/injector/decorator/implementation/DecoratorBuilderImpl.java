@@ -1,14 +1,14 @@
 package io.github.jwdeveloper.ff.core.injector.decorator.implementation;
 
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.enums.RegistrationType;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.factory.InjectionInfoFactory;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.models.InjectionInfo;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.models.RegistrationInfo;
-import io.github.jwdeveloper.spigot.fluent.core.injector.decorator.api.Decorator;
-import io.github.jwdeveloper.spigot.fluent.core.injector.decorator.api.builder.DecoratorBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.injector.decorator.api.models.DecorationDto;
+import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+import io.github.jwdeveloper.ff.core.injector.api.enums.RegistrationType;
+import io.github.jwdeveloper.ff.core.injector.api.factory.InjectionInfoFactory;
+import io.github.jwdeveloper.ff.core.injector.api.models.InjectionInfo;
+import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
+import io.github.jwdeveloper.ff.core.injector.decorator.api.Decorator;
+import io.github.jwdeveloper.ff.core.injector.decorator.api.builder.DecoratorBuilder;
+import io.github.jwdeveloper.ff.core.injector.decorator.api.models.DecorationDto;
 
 import java.util.ArrayList;
 import java.util.HashMap;

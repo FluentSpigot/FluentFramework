@@ -3,7 +3,7 @@ package io.github.jwdeveloper.ff.extension.gui.implementation.observers.enums;
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers.ButtonObserverEvent;
 import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import new_version.implementation.observers.ButtonNotifierBase;
+import io.github.jwdeveloper.ff.extension.gui.implementation.observers.ButtonNotifierBase;
 import org.bukkit.ChatColor;
 
 import java.util.ArrayList;

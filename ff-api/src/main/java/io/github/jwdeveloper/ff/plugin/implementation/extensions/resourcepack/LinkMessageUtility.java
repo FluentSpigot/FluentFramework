@@ -23,10 +23,10 @@
  *
  */
 
-package io.github.jwdeveloper.ff.api.implementation.extensions.resourcepack;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.resourcepack;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.FluentApi;
+import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
+import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import org.bukkit.entity.Player;
 
 public class LinkMessageUtility

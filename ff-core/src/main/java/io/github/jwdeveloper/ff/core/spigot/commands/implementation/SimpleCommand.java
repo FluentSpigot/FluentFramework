@@ -1,13 +1,13 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation;
 
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.models.CommandArgument;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.models.CommandModel;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.services.CommandService;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.services.EventsService;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.services.MessagesService;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.permissions.implementation.PermissionsUtility;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.models.CommandArgument;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.models.CommandModel;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.services.CommandService;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.services.EventsService;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.services.MessagesService;
+import io.github.jwdeveloper.ff.core.spigot.permissions.implementation.PermissionsUtility;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.command.Command;

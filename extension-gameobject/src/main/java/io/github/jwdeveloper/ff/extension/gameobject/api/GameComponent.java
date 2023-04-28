@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.spigot.extension.gameobject.api;
+package io.github.jwdeveloper.ff.extension.gameobject.api;
 
 import org.bukkit.Location;
 

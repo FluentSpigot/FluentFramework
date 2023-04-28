@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.spigot.extension.gameobject.api.models;
+package io.github.jwdeveloper.ff.extension.gameobject.api.models;
 
 import lombok.Getter;
 import org.bukkit.Material;

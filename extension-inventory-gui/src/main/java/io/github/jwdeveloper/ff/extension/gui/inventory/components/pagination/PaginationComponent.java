@@ -3,7 +3,7 @@ package io.github.jwdeveloper.ff.extension.gui.inventory.components.pagination;
 import io.github.jwdeveloper.ff.extension.gui.core.api.InventoryDecorator;
 import io.github.jwdeveloper.ff.extension.gui.inventory.InventoryComponent;
 import io.github.jwdeveloper.ff.extension.gui.inventory.IPaginationa;
-import new_version.implementation.buttons.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
 
 public class PaginationComponent<T> extends InventoryComponent implements IPaginationa
 {

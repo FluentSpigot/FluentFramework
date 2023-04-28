@@ -1,10 +1,10 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.decorator;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
-import io.github.jwdeveloper.spigot.fluent.core.documentation.api.DocumentationDecorator;
-import io.github.jwdeveloper.spigot.fluent.core.documentation.api.builders.YmlBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.documentation.api.models.Documentation;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.SimpleCommand;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.documentation.api.DocumentationDecorator;
+import io.github.jwdeveloper.ff.core.documentation.api.builders.YmlBuilder;
+import io.github.jwdeveloper.ff.core.documentation.api.models.Documentation;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleCommand;
 
 import java.util.Collection;
 

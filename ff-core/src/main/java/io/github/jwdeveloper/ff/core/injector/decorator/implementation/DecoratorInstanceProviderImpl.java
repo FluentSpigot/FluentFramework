@@ -1,10 +1,10 @@
 package io.github.jwdeveloper.ff.core.injector.decorator.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.containers.Container;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.models.InjectionInfo;
-import io.github.jwdeveloper.spigot.fluent.core.injector.decorator.api.DecoratorInstanceProvider;
-import io.github.jwdeveloper.spigot.fluent.core.injector.implementation.utilites.Messages;
+import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
+import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+import io.github.jwdeveloper.ff.core.injector.api.models.InjectionInfo;
+import io.github.jwdeveloper.ff.core.injector.decorator.api.DecoratorInstanceProvider;
+import io.github.jwdeveloper.ff.core.injector.implementation.utilites.Messages;
 
 import java.util.Map;
 

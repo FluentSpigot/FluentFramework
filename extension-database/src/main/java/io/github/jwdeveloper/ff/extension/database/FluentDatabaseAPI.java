@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.spigot.database;
+package io.github.jwdeveloper.ff.extension.database;
 
 public class FluentDatabaseAPI
 {

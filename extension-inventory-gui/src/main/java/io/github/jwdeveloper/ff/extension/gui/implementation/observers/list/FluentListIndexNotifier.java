@@ -5,8 +5,8 @@ import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonU
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers.ButtonObserverEvent;
 import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import new_version.implementation.observers.ButtonNotifierBase;
-import new_version.implementation.observers.events.onSelectEvent;
+import io.github.jwdeveloper.ff.extension.gui.implementation.observers.ButtonNotifierBase;
+import io.github.jwdeveloper.ff.extension.gui.implementation.observers.events.onSelectEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 

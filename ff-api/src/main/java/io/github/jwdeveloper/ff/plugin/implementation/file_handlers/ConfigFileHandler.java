@@ -1,7 +1,7 @@
-package io.github.jwdeveloper.ff.api.implementation.file_handlers;
+package io.github.jwdeveloper.ff.plugin.implementation.file_handlers;
 
-import io.github.jwdeveloper.spigot.fluent.core.files.yaml.api.YamlReader;
-import io.github.jwdeveloper.spigot.fluent.core.files.yaml.implementation.SimpleYamlReader;
+import io.github.jwdeveloper.ff.core.files.yaml.api.YamlReader;
+import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlReader;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;

@@ -1,14 +1,14 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.updater.implementation;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.spigot.fluent.core.common.versions.VersionCompare;
-import io.github.jwdeveloper.spigot.fluent.core.files.FileUtility;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.tasks.api.FluentTaskManager;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.updater.api.FluentUpdater;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.updater.api.UpdateInfoProvider;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.updater.api.info.CheckUpdateInfo;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.updater.api.info.UpdateInfo;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.versions.VersionCompare;
+import io.github.jwdeveloper.ff.core.files.FileUtility;
+import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.FluentUpdater;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.UpdateInfoProvider;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.info.CheckUpdateInfo;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.info.UpdateInfo;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;

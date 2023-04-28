@@ -1,6 +1,6 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.player_context.implementation;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.events.implementation.EventBase;
+import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventBase;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;

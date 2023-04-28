@@ -1,7 +1,7 @@
-package io.github.jwdeveloper.spigot.fluent.core.common.builders.code;
+package io.github.jwdeveloper.ff.tools.files.code;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.TextBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.common.TextBuilder;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

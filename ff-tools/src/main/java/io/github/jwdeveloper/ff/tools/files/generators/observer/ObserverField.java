@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.spigot.fluent.core.observer.api;
+package io.github.jwdeveloper.ff.tools.files.generators.observer;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

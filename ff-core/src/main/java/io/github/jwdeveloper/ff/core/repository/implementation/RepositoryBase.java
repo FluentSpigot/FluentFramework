@@ -1,12 +1,12 @@
 package io.github.jwdeveloper.ff.core.repository.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.java.ObjectUtility;
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.spigot.fluent.core.files.FileUtility;
-import io.github.jwdeveloper.spigot.fluent.core.files.json.JsonUtility;
-import io.github.jwdeveloper.spigot.fluent.core.repository.api.CustomFile;
-import io.github.jwdeveloper.spigot.fluent.core.repository.api.DataModel;
-import io.github.jwdeveloper.spigot.fluent.core.repository.api.Repository;
+import io.github.jwdeveloper.ff.core.common.java.ObjectUtility;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.files.FileUtility;
+import io.github.jwdeveloper.ff.core.files.json.JsonUtility;
+import io.github.jwdeveloper.ff.core.repository.api.CustomFile;
+import io.github.jwdeveloper.ff.core.repository.api.DataModel;
+import io.github.jwdeveloper.ff.core.repository.api.Repository;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 

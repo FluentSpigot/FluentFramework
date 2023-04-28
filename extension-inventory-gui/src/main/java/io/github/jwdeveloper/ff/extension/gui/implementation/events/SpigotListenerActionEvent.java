@@ -3,7 +3,7 @@ package io.github.jwdeveloper.ff.extension.gui.implementation.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import new_version.implementation.FluentInventoryImpl;
+import io.github.jwdeveloper.ff.extension.gui.implementation.FluentInventoryImpl;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

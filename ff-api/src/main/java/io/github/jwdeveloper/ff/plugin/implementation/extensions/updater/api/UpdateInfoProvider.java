@@ -1,6 +1,6 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.updater.api;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api;
 
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.updater.api.info.UpdateInfo;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.info.UpdateInfo;
 
 import java.io.IOException;
 

@@ -1,9 +1,9 @@
 package io.github.jwdeveloper.ff.core.documentation.implementation.renderer;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.TextBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
-import io.github.jwdeveloper.spigot.fluent.core.documentation.api.DocumentationRenderer;
-import io.github.jwdeveloper.spigot.fluent.core.documentation.api.models.DocumentationSection;
+import io.github.jwdeveloper.ff.core.common.TextBuilder;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.documentation.api.DocumentationRenderer;
+import io.github.jwdeveloper.ff.core.documentation.api.models.DocumentationSection;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

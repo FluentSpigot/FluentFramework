@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.permissions.api;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import lombok.Data;
 
 import java.util.ArrayList;

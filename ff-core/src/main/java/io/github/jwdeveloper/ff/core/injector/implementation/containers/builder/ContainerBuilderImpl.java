@@ -1,19 +1,19 @@
 package io.github.jwdeveloper.ff.core.injector.implementation.containers.builder;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.containers.Container;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.containers.builders.ContainerBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.containers.builders.ContainerBuilderConfiguration;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.enums.RegistrationType;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.models.ContainerConfiguration;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.models.RegistrationInfo;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.search.ContainerSearch;
-import io.github.jwdeveloper.spigot.fluent.core.injector.implementation.containers.DefaultContainer;
-import io.github.jwdeveloper.spigot.fluent.core.injector.implementation.events.EventHandlerImpl;
-import io.github.jwdeveloper.spigot.fluent.core.injector.implementation.factory.InjectionInfoFactoryImpl;
-import io.github.jwdeveloper.spigot.fluent.core.injector.implementation.provider.InstanceProviderImpl;
-import io.github.jwdeveloper.spigot.fluent.core.injector.implementation.search.SearchAgentImpl;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
+import io.github.jwdeveloper.ff.core.injector.api.containers.builders.ContainerBuilder;
+import io.github.jwdeveloper.ff.core.injector.api.containers.builders.ContainerBuilderConfiguration;
+import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+import io.github.jwdeveloper.ff.core.injector.api.enums.RegistrationType;
+import io.github.jwdeveloper.ff.core.injector.api.models.ContainerConfiguration;
+import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
+import io.github.jwdeveloper.ff.core.injector.api.search.ContainerSearch;
+import io.github.jwdeveloper.ff.core.injector.implementation.containers.DefaultContainer;
+import io.github.jwdeveloper.ff.core.injector.implementation.events.EventHandlerImpl;
+import io.github.jwdeveloper.ff.core.injector.implementation.factory.InjectionInfoFactoryImpl;
+import io.github.jwdeveloper.ff.core.injector.implementation.provider.InstanceProviderImpl;
+import io.github.jwdeveloper.ff.core.injector.implementation.search.SearchAgentImpl;
 import lombok.SneakyThrows;
 
 import java.util.ArrayList;

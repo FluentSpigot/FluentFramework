@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.observer.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.spigot.fluent.core.observer.api.Observable;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.observer.api.Observable;
 
 import java.lang.reflect.Field;
 import java.util.LinkedHashSet;

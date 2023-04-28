@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.observers.enums;
 
 import lombok.Setter;
-import new_version.implementation.observers.NotifierOptions;
+import io.github.jwdeveloper.ff.extension.gui.implementation.observers.NotifierOptions;
 
 import java.util.function.Function;
 

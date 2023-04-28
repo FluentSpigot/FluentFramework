@@ -1,4 +1,4 @@
-/*
+package io.github.jwdeveloper.ff.tools.files;/*
  * MIT License
  *
  * Copyright (c)  2023. jwdeveloper

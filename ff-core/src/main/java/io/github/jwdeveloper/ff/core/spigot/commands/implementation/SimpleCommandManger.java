@@ -1,10 +1,10 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation;
 
 
-import io.github.jwdeveloper.spigot.fluent.core.common.java.ObjectUtility;
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.FluentCommandManger;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.events.implementation.EventBase;
+import io.github.jwdeveloper.ff.core.common.java.ObjectUtility;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
+import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventBase;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;

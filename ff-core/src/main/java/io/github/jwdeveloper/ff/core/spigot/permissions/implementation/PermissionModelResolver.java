@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.core.spigot.permissions.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.permissions.api.PermissionModel;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.permissions.api.annotations.PermissionGroup;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.permissions.api.annotations.PermissionProperty;
+import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
+import io.github.jwdeveloper.ff.core.spigot.permissions.api.annotations.PermissionGroup;
+import io.github.jwdeveloper.ff.core.spigot.permissions.api.annotations.PermissionProperty;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

@@ -1,10 +1,10 @@
-package generators.permissions;
+package io.github.jwdeveloper.ff.tools.files.generators.permissions;
 
 
-import io.github.jwdeveloper.spigot.fluent.core.files.FileUtility;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.permissions.api.PermissionModel;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.permissions.implementation.PermissionModelResolver;
+import io.github.jwdeveloper.ff.core.files.FileUtility;
+import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
+import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
+import io.github.jwdeveloper.ff.core.spigot.permissions.implementation.PermissionModelResolver;
 
 import java.io.File;
 import java.io.FileWriter;

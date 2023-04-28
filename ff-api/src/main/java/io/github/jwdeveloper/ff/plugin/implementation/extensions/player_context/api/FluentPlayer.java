@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.player_context.api;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.api;
 
 import org.bukkit.entity.Player;
 

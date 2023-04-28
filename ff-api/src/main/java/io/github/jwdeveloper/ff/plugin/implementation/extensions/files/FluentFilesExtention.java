@@ -1,18 +1,18 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.files;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.files;
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.containers.FluentContainer;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.spigot.fluent.core.repository.api.CustomFile;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.tasks.api.FluentTaskManager;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.tasks.implementation.SimpleTaskTimer;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.config.ConfigProperty;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.config.ConfigSection;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.config.FluentConfig;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.extention.FluentApiExtension;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.FluentApiSpigot;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.file_handlers.FilesDataContext;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.file_handlers.JsonFile;
+import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
+import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+import io.github.jwdeveloper.ff.core.repository.api.CustomFile;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.implementation.SimpleTaskTimer;
+import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
+import io.github.jwdeveloper.ff.plugin.api.config.ConfigProperty;
+import io.github.jwdeveloper.ff.plugin.api.config.ConfigSection;
+import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
+import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
+import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
+import io.github.jwdeveloper.ff.plugin.implementation.file_handlers.FilesDataContext;
+import io.github.jwdeveloper.ff.plugin.implementation.file_handlers.JsonFile;
 
 public class FluentFilesExtention implements FluentApiExtension {
 

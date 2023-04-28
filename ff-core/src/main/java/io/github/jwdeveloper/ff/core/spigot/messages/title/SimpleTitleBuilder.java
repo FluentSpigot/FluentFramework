@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.messages.title;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.messages.message.MessageBuilder;
+import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import org.bukkit.entity.Player;
 
 public class SimpleTitleBuilder {

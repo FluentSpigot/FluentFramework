@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.api.implementation.file_handlers;
+package io.github.jwdeveloper.ff.plugin.implementation.file_handlers;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

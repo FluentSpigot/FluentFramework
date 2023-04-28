@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation.services;
 
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.services.MessagesService;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.messages.message.MessageBuilder;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.services.MessagesService;
+import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 

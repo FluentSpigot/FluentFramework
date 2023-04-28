@@ -1,10 +1,10 @@
 package io.github.jwdeveloper.ff.core.spigot.tasks;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.tasks.api.FluentTaskManager;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.tasks.api.TaskAction;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.tasks.implementation.SimpleTaskManager;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.tasks.implementation.SimpleTaskTimer;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.TaskAction;
+import io.github.jwdeveloper.ff.core.spigot.tasks.implementation.SimpleTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.implementation.SimpleTaskTimer;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 

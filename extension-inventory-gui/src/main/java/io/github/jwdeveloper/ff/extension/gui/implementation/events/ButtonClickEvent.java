@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.extension.gui.implementation.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import new_version.implementation.buttons.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
 import org.bukkit.entity.Player;
 
 @AllArgsConstructor

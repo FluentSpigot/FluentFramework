@@ -1,14 +1,14 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation.services;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.enums.AccessType;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.models.CommandArgument;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.models.CommandTarget;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.models.ValidationResult;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.services.CommandService;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.SimpleCommand;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.permissions.implementation.PermissionsUtility;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.AccessType;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.models.CommandArgument;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.models.CommandTarget;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.models.ValidationResult;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.services.CommandService;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleCommand;
+import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
+import io.github.jwdeveloper.ff.core.spigot.permissions.implementation.PermissionsUtility;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;

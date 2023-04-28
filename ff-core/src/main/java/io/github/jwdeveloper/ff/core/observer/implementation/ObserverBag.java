@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.observer.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.observer.api.Observable;
+import io.github.jwdeveloper.ff.core.observer.api.Observable;
 import lombok.Getter;
 
 import java.util.function.Consumer;

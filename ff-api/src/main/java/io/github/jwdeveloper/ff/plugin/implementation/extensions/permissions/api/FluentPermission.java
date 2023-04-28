@@ -1,6 +1,6 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.permissions.api;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.permissions.api.PermissionModel;
+import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
 
 import java.util.List;
 

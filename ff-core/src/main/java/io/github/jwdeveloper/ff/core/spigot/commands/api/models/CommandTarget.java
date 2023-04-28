@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.api.models;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.SimpleCommand;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleCommand;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

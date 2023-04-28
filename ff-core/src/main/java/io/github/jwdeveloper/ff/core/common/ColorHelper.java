@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.common;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 

@@ -1,10 +1,10 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.updater.implementation.providers;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.implementation.providers;
 
 import com.google.gson.JsonParser;
-import io.github.jwdeveloper.spigot.fluent.core.common.java.StringUtils;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.updater.api.UpdateInfoProvider;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.updater.api.info.UpdateInfo;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.updater.api.options.GithubUpdaterOptions;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.UpdateInfoProvider;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.info.UpdateInfo;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.options.GithubUpdaterOptions;
 
 import java.io.BufferedReader;
 import java.io.IOException;

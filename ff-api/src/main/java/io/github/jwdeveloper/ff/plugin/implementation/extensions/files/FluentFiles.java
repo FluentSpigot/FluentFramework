@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.files;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.files;
 
 
 public interface FluentFiles {

@@ -1,13 +1,13 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.decorator;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.TextBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.spigot.fluent.core.documentation.api.DocumentationDecorator;
-import io.github.jwdeveloper.spigot.fluent.core.documentation.api.builders.YmlBuilder;
-import io.github.jwdeveloper.spigot.fluent.core.documentation.api.models.Documentation;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.permissions.api.PermissionDto;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.permissions.api.PermissionModel;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.permissions.implementation.PermissionModelResolver;
+import io.github.jwdeveloper.ff.core.common.TextBuilder;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.documentation.api.DocumentationDecorator;
+import io.github.jwdeveloper.ff.core.documentation.api.builders.YmlBuilder;
+import io.github.jwdeveloper.ff.core.documentation.api.models.Documentation;
+import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionDto;
+import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
+import io.github.jwdeveloper.ff.core.spigot.permissions.implementation.PermissionModelResolver;
 
 import java.util.ArrayList;
 import java.util.List;

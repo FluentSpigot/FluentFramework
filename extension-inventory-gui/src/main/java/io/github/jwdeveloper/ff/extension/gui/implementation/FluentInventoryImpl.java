@@ -11,8 +11,8 @@ import io.github.jwdeveloper.ff.extension.gui.core.api.managers.buttons.ButtonMa
 import io.github.jwdeveloper.ff.extension.gui.core.api.managers.events.*;
 import io.github.jwdeveloper.ff.extension.gui.core.api.managers.permissions.PermissionManager;
 import lombok.Getter;
-import new_version.implementation.buttons.ButtonUI;
-import new_version.implementation.events.SpigotListenerActionEvent;
+import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.implementation.events.SpigotListenerActionEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -20,7 +20,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import core.api.managers.events.*;
 
 public class FluentInventoryImpl implements FluentInventory {
     @Getter

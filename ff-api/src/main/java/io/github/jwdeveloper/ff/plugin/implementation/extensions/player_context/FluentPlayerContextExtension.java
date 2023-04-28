@@ -1,16 +1,16 @@
-package io.github.jwdeveloper.ff.api.implementation.extensions.player_context;
+package io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.containers.FluentContainer;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.models.RegistrationInfo;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.extention.FluentApiExtension;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.player_context.api.PlayerContainerBuilder;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.player_context.api.PlayerContext;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.player_context.implementation.FluentPlayerContext;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.player_context.implementation.FluentPlayerContextListener;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.extensions.player_context.implementation.PlayerContainerBuilderImpl;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
+import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
+import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
+import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.api.PlayerContainerBuilder;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.api.PlayerContext;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.implementation.FluentPlayerContext;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.implementation.FluentPlayerContextListener;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.implementation.PlayerContainerBuilderImpl;
 
 import java.util.ArrayList;
 import java.util.List;

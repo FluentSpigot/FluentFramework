@@ -1,12 +1,11 @@
-package generators.injector_container;
+package io.github.jwdeveloper.ff.tools.files.generators.injector_container;
 
-import jw.fluent.api.desing_patterns.dependecy_injection.api.enums.LifeTime;
-import jw.fluent.api.desing_patterns.dependecy_injection.api.models.RegistrationInfo;
-import jw.fluent.api.spigot.messages.message.MessageBuilder;
-import jw.fluent.api.utilites.code_generator.builders.ClassCodeBuilder;
-import jw.fluent.api.utilites.code_generator.builders.MethodCodeGenerator;
-import jw.fluent.api.utilites.java.StringUtils;
-
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
+import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
+import io.github.jwdeveloper.ff.tools.files.code.ClassCodeBuilder;
+import io.github.jwdeveloper.ff.tools.files.code.MethodCodeGenerator;
 import java.io.IOException;
 import java.util.List;
 

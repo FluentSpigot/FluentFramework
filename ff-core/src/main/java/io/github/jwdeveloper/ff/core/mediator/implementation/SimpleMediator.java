@@ -1,9 +1,9 @@
 package io.github.jwdeveloper.ff.core.mediator.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.java.Pair;
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.spigot.fluent.core.mediator.api.Mediator;
-import io.github.jwdeveloper.spigot.fluent.core.mediator.api.MediatorHandler;
+import io.github.jwdeveloper.ff.core.common.java.Pair;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.mediator.api.Mediator;
+import io.github.jwdeveloper.ff.core.mediator.api.MediatorHandler;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;

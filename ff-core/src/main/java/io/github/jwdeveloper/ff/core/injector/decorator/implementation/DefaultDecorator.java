@@ -1,10 +1,10 @@
 package io.github.jwdeveloper.ff.core.injector.decorator.implementation;
 
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.events.events.OnInjectionEvent;
-import io.github.jwdeveloper.spigot.fluent.core.injector.api.events.events.OnRegistrationEvent;
-import io.github.jwdeveloper.spigot.fluent.core.injector.decorator.api.Decorator;
-import io.github.jwdeveloper.spigot.fluent.core.injector.decorator.api.DecoratorInstanceProvider;
-import io.github.jwdeveloper.spigot.fluent.core.injector.decorator.api.models.DecorationDto;
+import io.github.jwdeveloper.ff.core.injector.api.events.events.OnInjectionEvent;
+import io.github.jwdeveloper.ff.core.injector.api.events.events.OnRegistrationEvent;
+import io.github.jwdeveloper.ff.core.injector.decorator.api.Decorator;
+import io.github.jwdeveloper.ff.core.injector.decorator.api.DecoratorInstanceProvider;
+import io.github.jwdeveloper.ff.core.injector.decorator.api.models.DecorationDto;
 
 import java.util.Map;
 

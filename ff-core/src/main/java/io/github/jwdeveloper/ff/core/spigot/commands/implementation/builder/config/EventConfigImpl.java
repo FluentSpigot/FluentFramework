@@ -1,10 +1,10 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.config;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.builder.config.EventConfig;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.api.services.EventsService;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.events.CommandEvent;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.events.ConsoleCommandEvent;
-import io.github.jwdeveloper.spigot.fluent.core.spigot.commands.implementation.events.PlayerCommandEvent;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config.EventConfig;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.services.EventsService;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.events.CommandEvent;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.events.ConsoleCommandEvent;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.events.PlayerCommandEvent;
 
 import java.util.function.Consumer;
 

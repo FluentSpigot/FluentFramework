@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.extension.gui.implementation;
 
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventBase;
 import io.github.jwdeveloper.ff.extension.gui.core.api.enums.InventoryState;
-import new_version.implementation.events.SpigotListenerActionEvent;
+import io.github.jwdeveloper.ff.extension.gui.implementation.events.SpigotListenerActionEvent;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

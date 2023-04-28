@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.events.api;
 
-import io.github.jwdeveloper.spigot.fluent.core.spigot.events.implementation.SimpleEvent;
+import io.github.jwdeveloper.ff.core.spigot.events.implementation.SimpleEvent;
 import org.bukkit.event.Event;
 
 import java.util.function.Consumer;

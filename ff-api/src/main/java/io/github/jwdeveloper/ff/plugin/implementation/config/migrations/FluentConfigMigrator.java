@@ -1,11 +1,11 @@
-package io.github.jwdeveloper.ff.api.implementation.config.migrations;
+package io.github.jwdeveloper.ff.plugin.implementation.config.migrations;
 
-import io.github.jwdeveloper.spigot.fluent.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.spigot.fluent.core.common.versions.VersionCompare;
-import io.github.jwdeveloper.spigot.fluent.core.common.versions.VersionNumberComparator;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.config.migrations.ConfigMigration;
-import io.github.jwdeveloper.spigot.fluent.plugin.api.config.migrations.ConfigMigrator;
-import io.github.jwdeveloper.spigot.fluent.plugin.implementation.assemby_scanner.AssemblyScanner;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.common.versions.VersionCompare;
+import io.github.jwdeveloper.ff.core.common.versions.VersionNumberComparator;
+import io.github.jwdeveloper.ff.plugin.api.config.migrations.ConfigMigration;
+import io.github.jwdeveloper.ff.plugin.api.config.migrations.ConfigMigrator;
+import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.AssemblyScanner;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 

@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.api.api.config;
+package io.github.jwdeveloper.ff.plugin.api.config;
 
 
 
