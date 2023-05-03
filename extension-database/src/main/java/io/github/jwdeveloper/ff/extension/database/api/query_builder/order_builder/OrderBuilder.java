@@ -5,7 +5,7 @@ import io.github.jwdeveloper.ff.extension.database.api.query_abstract.order.Abst
 
 public interface OrderBuilder extends AbstractQuery, AbstractOrderQuery<OrderBuilder>
 {
-    public OrderBuilder desc(String table);
+     OrderBuilder desc(String table);
 
-    public OrderBuilder asc(String table);
+     OrderBuilder asc(String table);
 }

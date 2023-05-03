@@ -21,13 +21,13 @@ public class GroupBuilderImpl extends QueryBuilderImpl implements GroupBuilder
     }
 
 
-    public GroupBuilder table(String table) {
+    public GroupBuilder column(String table) {
         query.append(table);
         return this;
     }
 
     public WhereBuilder having() {
-        return new WhereBuilderImpl(query).custom(SqlSyntaxUtils.HAVING);
+        return new WhereBuilderImpl(query).rawSql(SqlSyntaxUtils.HAVING);
     }
 
     public OrderBuilder orderBy() {

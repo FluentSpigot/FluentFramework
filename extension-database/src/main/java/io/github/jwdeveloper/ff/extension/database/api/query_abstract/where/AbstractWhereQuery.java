@@ -24,5 +24,5 @@ public interface AbstractWhereQuery<T> extends AbstractQuery
 
      T and();
 
-     T custom(String custom);
+     T rawSql(String custom);
 }

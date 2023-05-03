@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.extension.database.mysql.query_fluent;
 
 import io.github.jwdeveloper.ff.extension.database.api.database_table.models.TableModel;
+import io.github.jwdeveloper.ff.extension.database.api.query_fluent.group.GroupFluent;
 import io.github.jwdeveloper.ff.extension.database.api.query_fluent.order.OrderFluent;
 import io.github.jwdeveloper.ff.extension.database.api.query_fluent.where.WhereFluent;
 import io.github.jwdeveloper.ff.extension.database.mysql.query_builder.SqlSyntaxUtils;
@@ -14,7 +15,7 @@ public class SqlWhere<T> extends SqlQuery<T> implements WhereFluent<T> {
 
     public SqlWhere(StringBuilder query, Connection connection, TableModel tableModel)
     {
-        super(connection, tableModel);
+        super(query, connection, tableModel);
         whereBuilder = new WhereBuilderImpl(query);
         whereBuilder.where();
     }
@@ -79,8 +80,8 @@ public class SqlWhere<T> extends SqlQuery<T> implements WhereFluent<T> {
     }
 
 
-    public SqlWhere<T> custom(String custom) {
-        whereBuilder.custom(custom);
+    public SqlWhere<T> rawSql(String custom) {
+        whereBuilder.rawSql(custom);
         return this;
     }
 
@@ -97,5 +98,10 @@ public class SqlWhere<T> extends SqlQuery<T> implements WhereFluent<T> {
     @Override
     public OrderFluent<T> orderBy() {
         return new SqlOrder<T>(query,connection,tableModel);
+    }
+
+    @Override
+    public GroupFluent<T> groupBy() {
+        return new SqlGroup<>(query,connection,tableModel);
     }
 }

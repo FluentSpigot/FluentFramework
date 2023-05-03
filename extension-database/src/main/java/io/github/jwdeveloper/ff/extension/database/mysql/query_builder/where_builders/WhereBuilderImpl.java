@@ -58,7 +58,7 @@ public class WhereBuilderImpl extends QueryBuilderImpl implements WhereBuilderBr
     }
 
     @Override
-    public WhereBuilder custom(String custom) {
+    public WhereBuilder rawSql(String custom) {
         query.append(custom);
         return this;
     }

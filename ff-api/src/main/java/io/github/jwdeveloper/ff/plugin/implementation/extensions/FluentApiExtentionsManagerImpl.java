@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions;
 
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtensionModel;
@@ -26,7 +27,7 @@ public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManage
 
     @Override
     public void register(FluentApiExtension extension) {
-        register(extension, ExtentionPiority.MEDIUM);
+        register(extension, extension.getPiority());
     }
 
     @Override
@@ -57,6 +58,7 @@ public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManage
             var sorted = sortByPiority();
             for(var extension : sorted)
             {
+
                 extension.getExtension().onFluentApiEnable(fluentAPI);
             }
         }

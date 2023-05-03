@@ -39,17 +39,17 @@ public class SqlQueryExecutor<T> {
 
     @SneakyThrows
     public List<T> toList() {
-        var stopper = new StopWatch();
-        stopper.start();
+       // var stopper = new StopWatch();
+      //  stopper.start();
         var tables = getModelConfig();
        // stopper.stop("Get columns info ");
-        stopper.stop();
+       // stopper.stop();
 
 
-        stopper.start();
+        //stopper.start();
         var result = getMappedResult(tables);
         //stopper.stop("Get mapped objects ");
-        stopper.stop();
+      //  stopper.stop();
 
         return result;
     }

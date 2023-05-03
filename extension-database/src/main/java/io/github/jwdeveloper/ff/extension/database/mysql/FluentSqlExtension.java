@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.extension.database.mysql;
 
 
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.extension.database.mysql.factories.SqlConnectionFactory;
 import io.github.jwdeveloper.ff.extension.database.mysql.factories.SqlDbContextFactory;
 import io.github.jwdeveloper.ff.extension.database.mysql.models.SqlConnection;
@@ -8,35 +9,55 @@ import io.github.jwdeveloper.ff.extension.database.mysql.models.SqlDbContext;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.extension.database.mysql.models.SqlTable;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
+import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPiority;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
+import org.bukkit.entity.Player;
 
+import java.lang.reflect.ParameterizedType;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.function.Consumer;
 
-public class FluentSqlExtension<T> implements FluentApiExtension {
-    private final Class contextType;
-    private final SqlConnection connectionDto;
+public class FluentSqlExtension implements FluentApiExtension {
+    private final Consumer<SqlConnection> consumerConnection;
+
+    private Class<?> contextClass;
     private Connection connection;
-    private SqlDbContext context;
 
-    public FluentSqlExtension(Class<T> contextType, SqlConnection connectionDto) {
-        this.contextType = contextType;
-        this.connectionDto = connectionDto;
+
+    public FluentSqlExtension(Consumer<SqlConnection> consumerConnection) {
+        this.consumerConnection = consumerConnection;
+    }
+
+
+    @Override
+    public ExtentionPiority getPiority() {
+        return ExtentionPiority.LOW;
     }
 
     @Override
     public void onConfiguration(FluentApiSpigotBuilder builder) {
-
-        builder.container().register(SqlDbContext.class, LifeTime.SINGLETON, (x) ->
+        FluentLogger.LOGGER.info("Lanching SQL extension");
+        var contextClasses = builder.classFinder().findBySuperClass(SqlDbContext.class);
+        if(contextClasses.isEmpty())
         {
-            context = SqlDbContextFactory.getDbContext(contextType);
-            return context;
-        });
+            throw new RuntimeException("Context class not found");
+        }
+        var contextClassOptional = contextClasses.stream().findFirst();
+        contextClass = contextClassOptional.get();
+        builder.container().register(contextClass, LifeTime.SINGLETON);
     }
 
     @Override
     public void onFluentApiEnable(FluentApiSpigot fluentAPI) throws Exception {
+
+        var context = (SqlDbContext) fluentAPI.container().findInjection(contextClass);
+        setTables(context);
+
+
+        var connectionDto = new SqlConnection();
+        consumerConnection.accept(connectionDto);
         var conn = new SqlConnectionFactory().getConnection(connectionDto);
         if (conn.isEmpty()) {
             throw new Exception("Can not establish connection");
@@ -47,12 +68,28 @@ public class FluentSqlExtension<T> implements FluentApiExtension {
             var sqlTable = (SqlTable) table;
             sqlTable.createTable();
         }
-          /*var table = (SqlTable<Player>)context.tables.get(0);
-        var player = table.select()
-                .columns("Name","Age","Gender")
-                .where().isEqual("Age",2)
-                .and().isEqual("Name","Adam")
-                .toList();*/
+    }
+
+
+    private void setTables(SqlDbContext context) throws IllegalAccessException {
+
+        for (var field : contextClass.getDeclaredFields()) {
+            field.setAccessible(true);
+            var value = field.get(context);
+            if (value != null)
+                continue;
+            var type = field.getType();
+            if (!type.isInterface()) {
+                continue;
+            }
+
+            var genericType = (ParameterizedType)field.getGenericType();
+            var genericTypeArg = genericType.getActualTypeArguments()[0];
+            var obj = new SqlTable((Class)genericTypeArg);
+            context.tables.add(obj);
+            field.set(context,obj);
+
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package io.github.jwdeveloper.ff.extension.database.mysql.query_fluent;
+
 import io.github.jwdeveloper.ff.extension.database.api.database_table.models.TableModel;
+import io.github.jwdeveloper.ff.extension.database.api.query_fluent.group.GroupFluent;
 import io.github.jwdeveloper.ff.extension.database.api.query_fluent.order.OrderFluent;
 import io.github.jwdeveloper.ff.extension.database.api.query_fluent.select.SelectFluent;
 import io.github.jwdeveloper.ff.extension.database.api.query_fluent.select.SelectFluentBridge;
@@ -10,8 +12,7 @@ import lombok.SneakyThrows;
 
 import java.sql.Connection;
 
-public class SqlSelect<T> extends SqlQuery<T> implements SelectFluentBridge<T>, SelectFluent<T>
-{
+public class SqlSelect<T> extends SqlQuery<T> implements SelectFluentBridge<T>, SelectFluent<T> {
     private String[] columns;
     private final SelectBuilderImpl selectBuilder;
 
@@ -21,8 +22,7 @@ public class SqlSelect<T> extends SqlQuery<T> implements SelectFluentBridge<T>, 
         selectBuilder = new SelectBuilderImpl();
     }
 
-    public SelectFluent<T> columns(String ... columns)
-    {
+    public SelectFluent<T> columns(String... columns) {
         this.columns = columns;
         return this;
     }
@@ -45,32 +45,34 @@ public class SqlSelect<T> extends SqlQuery<T> implements SelectFluentBridge<T>, 
         return this;
     }
 
-    public WhereFluent<T> where()
-    {
+    public WhereFluent<T> where() {
         getQuery();
-        return new SqlWhere<T>(query,connection,tableModel);
+        return new SqlWhere<T>(query, connection, tableModel);
     }
 
     @Override
-    public OrderFluent<T> orderBy()
-    {
+    public OrderFluent<T> orderBy() {
         getQuery();
-        return new SqlOrder<T>(query,connection,tableModel);
+        return new SqlOrder<T>(query, connection, tableModel);
+    }
+
+
+    @Override
+    public GroupFluent<T> groupBy() {
+        getQuery();
+        return new SqlGroup<>(query, connection, tableModel);
     }
 
     @SneakyThrows
-    public SelectFluent<T> join(Class<?> foreignTable)
-    {
+    public SelectFluent<T> join(Class<?> foreignTable) {
         var foreignColumns = tableModel.getForeignKeys();
         var containsKey = foreignColumns.stream()
                 .filter(c -> c.getField().getType().equals(foreignTable))
                 .findFirst();
-        if(containsKey.isEmpty())
-        {
+        if (containsKey.isEmpty()) {
             throw new Exception("Not ForeignKey not found");
         }
-        if(joinedColumns.contains(containsKey.get()))
-        {
+        if (joinedColumns.contains(containsKey.get())) {
             throw new Exception("ForeignKey already joined");
         }
         this.joinedColumns.add(containsKey.get());
@@ -86,23 +88,21 @@ public class SqlSelect<T> extends SqlQuery<T> implements SelectFluentBridge<T>, 
     @Override
     public String getQuery() {
 
-        if(columns == null)
+        if (columns == null)
             selectBuilder.columns("*");
         else
             selectBuilder.columns(columns);
 
         var bridgeBuilder = selectBuilder.from(tableModel.getName());
-        for (var column: joinedColumns)
-        {
+        for (var column : joinedColumns) {
             bridgeBuilder.join()
                     .inner(tableModel.getName(),
-                    column.getForeignKeyName(),
-                    column.getForeignKeyTableName(),
-                    column.getForeignKeyReference());
+                            column.getForeignKeyName(),
+                            column.getForeignKeyTableName(),
+                            column.getForeignKeyReference());
         }
         return query.append(selectBuilder.getQuery()).toString();
     }
-
 
 
 }

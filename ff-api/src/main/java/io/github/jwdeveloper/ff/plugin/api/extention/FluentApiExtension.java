@@ -14,6 +14,6 @@ public interface FluentApiExtension {
     }
 
     default ExtentionPiority getPiority() {
-        return ExtentionPiority.HIGH;
+        return ExtentionPiority.MEDIUM;
     }
 }

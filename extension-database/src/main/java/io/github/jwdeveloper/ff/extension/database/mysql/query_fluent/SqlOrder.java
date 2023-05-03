@@ -9,11 +9,12 @@ import java.sql.Connection;
 
 public class SqlOrder<T>  extends SqlQuery<T> implements OrderFluent<T> {
 
-    private final OrderBuilder orderBuilder;
+    private final OrderBuilderImpl orderBuilder;
 
     public SqlOrder(StringBuilder query, Connection connection, TableModel tableModel) {
         super(query, connection, tableModel);
         orderBuilder = new OrderBuilderImpl(query);
+        orderBuilder.orderBy();
     }
 
     @Override

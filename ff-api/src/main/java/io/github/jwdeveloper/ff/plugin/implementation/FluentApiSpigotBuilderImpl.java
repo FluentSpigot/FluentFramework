@@ -121,7 +121,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
 
     @Override
     public FluentApiSpigotBuilder useExtension(FluentApiExtension extension) {
-        extensionsManager.register(extension, ExtentionPiority.MEDIUM);
+        extensionsManager.register(extension, extension.getPiority());
         return this;
     }
 

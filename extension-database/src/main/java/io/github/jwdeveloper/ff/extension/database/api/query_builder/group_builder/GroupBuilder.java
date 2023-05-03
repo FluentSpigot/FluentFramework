@@ -8,7 +8,7 @@ public interface GroupBuilder extends AbstractQuery
 {
      GroupBuilder groupBy();
 
-     GroupBuilder table(String table);
+     GroupBuilder column(String table);
 
      WhereBuilder having();
 

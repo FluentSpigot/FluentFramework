@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 public class WebsocketExtension implements FluentApiExtension {
 
     private boolean runServer;
-    private Consumer<WebsocketOptions> consumer;
+    private final Consumer<WebsocketOptions> consumer;
 
     public WebsocketExtension(Consumer<WebsocketOptions> optionsConsumer) {
         consumer = optionsConsumer;
@@ -37,6 +37,7 @@ public class WebsocketExtension implements FluentApiExtension {
             logger.info("Websocket is disabled in order to enable change piano.websocket.run to true in config.yml");
             return;
         }
+        builder.container().registerList(FluentWebsocketPacket.class, LifeTime.SINGLETON);
         builder.container().registerSigleton(FluentWebsocket.class, container ->
         {
             try {
@@ -50,7 +51,6 @@ public class WebsocketExtension implements FluentApiExtension {
                 return null;
             }
         });
-        builder.container().registerList(FluentWebsocketPacket.class, LifeTime.SINGLETON);
     }
 
     @Override

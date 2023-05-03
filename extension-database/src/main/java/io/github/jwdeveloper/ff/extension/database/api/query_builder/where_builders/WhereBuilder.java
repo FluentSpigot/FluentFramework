@@ -7,7 +7,5 @@ import io.github.jwdeveloper.ff.extension.database.api.query_builder.order_build
 
 public interface WhereBuilder extends AbstractWhereQuery<WhereBuilder>, AbstractQuery, OrderBuilderBridge
 {
-
-
     public GroupBuilder groupBy();
 }

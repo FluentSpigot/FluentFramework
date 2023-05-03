@@ -24,24 +24,7 @@ public class SqlDbContextFactory
         var injection = (FluentInjectionImpl) FluentApi.container();
         injection.getContainer().register(registrationInfo);
         var context = (SqlDbContext)injection.findInjection(contextType);
-        for (var field : contextType.getDeclaredFields()) {
-            field.setAccessible(true);
-            var value = field.get(context);
-            if (value != null)
-                continue;
 
-            var type = field.getType();
-            if (!type.isInterface()) {
-                continue;
-            }
-
-
-            var genericType = (ParameterizedType)field.getGenericType();
-            var genericTypeArg = genericType.getActualTypeArguments()[0];
-            var obj = new SqlTable((Class)genericTypeArg);
-            context.tables.add(obj);
-            field.set(context,obj);
-        }
         return (T)context;
     }
 }
