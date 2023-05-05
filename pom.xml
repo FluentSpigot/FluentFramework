@@ -16,6 +16,7 @@
         <module>extension-database</module>
         <module>extension-gameobject</module>
         <module>extension-inventory-gui</module>
+        <module>extension-mysql</module>
     </modules>
     <packaging>pom</packaging>
 

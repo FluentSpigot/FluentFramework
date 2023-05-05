@@ -1,7 +1,7 @@
-package io.github.jwdeveloper.ff.extension.database.mysql.query_builder;
+package io.github.jwdeveloper.ff.extension.mysql.implementation.query;
 
-public final class SqlSyntaxUtils {
-
+public class SqlSyntaxUtils
+{
     public static final String SELECT = " SELECT ";
     public static final String UPDATE = " UPDATE ";
     public static final String INSERT_INTO = " INSERT INTO ";
@@ -9,12 +9,18 @@ public final class SqlSyntaxUtils {
     public static final String GROUP_BY = " GROUP BY ";
     public static final String ORDER_BY = " ORDER BY ";
     public static final String WHERE = " WHERE ";
+    public static final String AS = " AS ";
     public static final String IN = " IN ";
     public static final String NOT_IN = " NOT IN ";
     public static final String OR = " OR ";
     public static final String AND = " AND ";
     public static final String SET = " SET ";
+    public static final String LIKE = " LIKE ";
+    public static final String NOT_LIKE =" NOT LIKE ";
     public static final String FROM = " FROM ";
+
+    public static final String BETWEEN = " BETWEEN ";
+    public static final String NOT_BETWEEN = " NOT BETWEEN ";
     public static final String DESC = " DESC ";
     public static final String ASC = " ASC ";
     public static final String JOIN = " JOIN ";
@@ -28,14 +34,19 @@ public final class SqlSyntaxUtils {
     public static final String PRIMARY_KEY = " PRIMARY KEY ";
     public static final String NULL = " NULL ";
     public static final String EQUALS = " = ";
+    public static final String NOT_EQUALS = " != ";
+    public static final String GREATER = " > ";
+    public static final String LESSER = " < ";
     public static final String SEMI_COL = ";";
     public static final String OPEN = "(";
     public static final String CLOSE = ")";
+    public static final String LIMIT = " LIMIT ";
     public static final String COMMA = ",";
     public static final String SPACE = " ";
     public static final String SINGLE_QUOTE = "'";
     public static final String EMPTY = "";
     public static final String DOT = ".";
+    public static final String STAR = "*";
     public static String getWrapper(Object object) {
 
         if(object == null)
@@ -54,5 +65,4 @@ public final class SqlSyntaxUtils {
 
         return EMPTY;
     }
-
 }
