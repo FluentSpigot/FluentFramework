@@ -7,10 +7,10 @@ import java.sql.Statement;
 import java.util.Collection;
 
 public class SqlQueryExecutor {
-    private Connection connection;
+    private final Connection connection;
 
     public SqlQueryExecutor(Connection connection) {
-
+          this.connection = connection;
     }
 
 

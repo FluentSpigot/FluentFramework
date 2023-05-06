@@ -42,12 +42,6 @@ public class SqlSelectOptions implements SelectOptions {
     }
 
     @Override
-    public SelectOptions from(Class<?> tableModel) {
-        selectModel.setFromTableClass(tableModel);
-        return this;
-    }
-
-    @Override
     public SelectOptions queryType(SelectQueryType queryType) {
         selectModel.setQueryType(queryType);
         return this;

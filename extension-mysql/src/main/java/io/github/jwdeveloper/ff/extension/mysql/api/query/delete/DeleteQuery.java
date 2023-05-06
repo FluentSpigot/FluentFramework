@@ -6,5 +6,5 @@ import java.util.function.Consumer;
 
 public interface DeleteQuery<T>
 {
-    T delete(Consumer<SelectOptions> options);
+    T delete(Consumer<DeleteOptions> options);
 }

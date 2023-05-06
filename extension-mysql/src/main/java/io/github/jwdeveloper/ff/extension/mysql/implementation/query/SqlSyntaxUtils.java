@@ -19,6 +19,7 @@ public class SqlSyntaxUtils
     public static final String NOT_LIKE =" NOT LIKE ";
     public static final String FROM = " FROM ";
 
+    public static final String FOREIGN_KEY = " FOREIGN KEY REFERENCES ";
     public static final String BETWEEN = " BETWEEN ";
     public static final String NOT_BETWEEN = " NOT BETWEEN ";
     public static final String DESC = " DESC ";
@@ -47,6 +48,8 @@ public class SqlSyntaxUtils
     public static final String EMPTY = "";
     public static final String DOT = ".";
     public static final String STAR = "*";
+
+
     public static String getWrapper(Object object) {
 
         if(object == null)

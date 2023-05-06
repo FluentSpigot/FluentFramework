@@ -23,9 +23,9 @@ public interface WhereOptions extends SqlFunctionsQuery<WhereOptions>
 
     WhereOptions isNotBetween(String column, Object value1, Object value2);
 
-    WhereOptions isLike(Object value);
+    WhereOptions isLike(String column,Object value);
 
-    WhereOptions isNotLike(Object value);
+    WhereOptions isNotLike(String column,Object value);
 
     WhereOptions or();
 

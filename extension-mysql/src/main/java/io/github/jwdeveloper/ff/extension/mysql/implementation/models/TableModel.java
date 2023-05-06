@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.extension.mysql.api.models;
+package io.github.jwdeveloper.ff.extension.mysql.implementation.models;
 
 import lombok.Data;
 
@@ -20,18 +20,14 @@ public class TableModel
     {
         return columnList.stream().filter(c -> c.getName().equals(name)).findAny();
     }
-    public int getColumnCount()
+    public int getColumnsCount()
     {
-        int i =0;
-        for(var a : columnList)
-        {
-            if(a.isForeignKey())
-            {
-                continue;
-            }
-            i++;
-        }
-        return i;
+        return columnList.stream().filter(e -> !e.isForeignKey()).toList().size();
+    }
+
+    public int getForeignKeysCount()
+    {
+        return getForeignKeys().size();
     }
     public List<ColumnModel> getForeignKeys()
     {

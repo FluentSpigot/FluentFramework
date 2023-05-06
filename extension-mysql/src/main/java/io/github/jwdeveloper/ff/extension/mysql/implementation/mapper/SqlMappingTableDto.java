@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.mysql.implementation.mapper;
 
-import io.github.jwdeveloper.ff.extension.mysql.api.models.ColumnModel;
-import io.github.jwdeveloper.ff.extension.mysql.api.models.TableModel;
+import io.github.jwdeveloper.ff.extension.mysql.implementation.models.ColumnModel;
+import io.github.jwdeveloper.ff.extension.mysql.implementation.models.TableModel;
 import lombok.Data;
 
 import java.util.HashMap;

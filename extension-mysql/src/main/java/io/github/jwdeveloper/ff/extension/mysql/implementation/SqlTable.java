@@ -1,16 +1,12 @@
-package io.github.jwdeveloper.ff.extension.mysql.implementation.models;
+package io.github.jwdeveloper.ff.extension.mysql.implementation;
 
 import io.github.jwdeveloper.ff.extension.mysql.api.DbEntry;
 import io.github.jwdeveloper.ff.extension.mysql.api.DbTable;
-import io.github.jwdeveloper.ff.extension.mysql.api.models.TableModel;
-import io.github.jwdeveloper.ff.extension.mysql.api.query.QueryContext;
-import io.github.jwdeveloper.ff.extension.mysql.api.query.QueryModel;
+import io.github.jwdeveloper.ff.extension.mysql.implementation.models.TableModel;
 import io.github.jwdeveloper.ff.extension.mysql.api.query.select.SelectBridge;
 import io.github.jwdeveloper.ff.extension.mysql.api.query.select.SelectOptions;
 import io.github.jwdeveloper.ff.extension.mysql.implementation.executor.SqlQueryExecutor;
-import io.github.jwdeveloper.ff.extension.mysql.implementation.mapper.SqlQueryMapper;
 import io.github.jwdeveloper.ff.extension.mysql.implementation.query.SqlQueryFactory;
-import io.github.jwdeveloper.ff.extension.mysql.implementation.query.SqlQueryModelTranslator;
 import io.github.jwdeveloper.ff.extension.mysql.implementation.tracker.SqlChangeTracker;
 
 import java.sql.Connection;
@@ -37,7 +33,7 @@ public class SqlTable<T> implements DbTable<T> {
     }
 
     public SelectBridge<T> select(Consumer<SelectOptions> options) {
-        return queryFactory.select(getQueryContext(), x ->
+        return queryFactory.select(x ->
         {
             x.from(tableModel.getName());
             options.accept(x);
@@ -47,7 +43,6 @@ public class SqlTable<T> implements DbTable<T> {
     @Override
     public SelectBridge<T> select() {
         return select((x) -> {
-            x.from(tableModel.getName());
         });
     }
 
@@ -63,14 +58,38 @@ public class SqlTable<T> implements DbTable<T> {
         return changeTracker.delete(entity);
     }
 
-
-    public void createTable() {
-        try {
-            var createTableQuery = queryFactory.createTable(tableModel);
-            queryExecutor.executeQuery(createTableQuery);
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to create table", e);
-        }
+    public void createTable() throws SQLException {
+            var createTableQuery = queryFactory.createTable(createTableOptions ->
+            {
+                createTableOptions.withTableName(tableModel.getName());
+                for(var column : tableModel.getColumnList())
+                {
+                    createTableOptions.withColumn(columnOptions ->
+                    {
+                        columnOptions.withColumnName(column.getName());
+                        columnOptions.withType(column.getType(),column.getSize());
+                        if(column.isForeignKey())
+                        {
+                            columnOptions.withForeignKey(
+                                    column.getForeignKeyTableName(),
+                                    column.getForeignKeyReference());
+                        }
+                        if(column.isAutoIncrement())
+                        {
+                            columnOptions.withAutoIncrement();
+                        }
+                        if(column.isRequired())
+                        {
+                            columnOptions.withRequired();
+                        }
+                        if (column.isPrimaryKey())
+                        {
+                            columnOptions.withPrimaryKey();
+                        }
+                    });
+                }
+            }).toRawQuery();
+            queryExecutor.executeStatement(createTableQuery);
     }
 
 
@@ -86,8 +105,7 @@ public class SqlTable<T> implements DbTable<T> {
         }
     }
 
-    public void saveChanges() throws SQLException {
-
+    public void saveChanges() throws Exception {
         var queriesDto = getEntryQueryDto();
         var connection = queryExecutor.getConnection();
         connection.setAutoCommit(false);
@@ -104,7 +122,7 @@ public class SqlTable<T> implements DbTable<T> {
         final var entries = changeTracker.getTrackedEntries();
         final var dto = new EntryQueryDto();
         for (final var entry : entries) {
-            switch (entry.getAction()) {
+            switch (entry.getEntryState()) {
                 case INSERT -> dto.insertQueries.put(entry, insertQuery(entry));
                 case UPDATE -> dto.updateQuery.put(entry, updateQuery(entry));
                 case DELETE -> dto.deleteQuery.put(entry, deleteQuery(entry));
@@ -113,10 +131,9 @@ public class SqlTable<T> implements DbTable<T> {
         return dto;
     }
 
-
     private String insertQuery(SqlEntry<T> entry) {
         return queryFactory
-                .delete(getQueryContext(), selectOptions ->
+                .delete(selectOptions ->
                 {
                     selectOptions.from(tableModel.getName());
                 })
@@ -129,7 +146,7 @@ public class SqlTable<T> implements DbTable<T> {
 
     private String updateQuery(SqlEntry<T> entry) {
         return queryFactory
-                .delete(getQueryContext(), selectOptions ->
+                .delete(selectOptions ->
                 {
                     selectOptions.from(tableModel.getName());
                 })
@@ -142,7 +159,7 @@ public class SqlTable<T> implements DbTable<T> {
 
     private String deleteQuery(SqlEntry<T> entry) {
         return queryFactory
-                .delete(getQueryContext(), selectOptions ->
+                .delete(selectOptions ->
                 {
                     selectOptions.from(tableModel.getName());
                 })
@@ -153,15 +170,7 @@ public class SqlTable<T> implements DbTable<T> {
                 .toRawQuery();
     }
 
-    private QueryContext getQueryContext() {
-        return new QueryContext(new QueryModel(),
-                queryExecutor,
-                new SqlQueryMapper(tableModel),
-                new SqlQueryModelTranslator());
-    }
-
-    private void executeInsertQuery(HashMap<SqlEntry<T>, String> queries) throws SQLException {
-
+    private void executeInsertQuery(HashMap<SqlEntry<T>, String> queries) throws Exception {
         for (var entrySet : queries.entrySet()) {
             var query = entrySet.getValue();
             var entity = entrySet.getKey();

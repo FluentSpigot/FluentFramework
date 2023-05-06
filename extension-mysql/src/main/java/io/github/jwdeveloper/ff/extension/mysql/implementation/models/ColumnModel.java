@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.extension.mysql.api.models;
+package io.github.jwdeveloper.ff.extension.mysql.implementation.models;
 
 import io.github.jwdeveloper.ff.extension.mysql.api.enums.ReferenceOption;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 @Data
 public class ColumnModel
 {
-    private String name ="";
+    private String name;
 
     private boolean isRequired;
 
@@ -32,13 +32,17 @@ public class ColumnModel
     private ReferenceOption onDelete;
 
     private ReferenceOption onUpdate;
+    private Field field;
+
+
+    public Object getFieldValue(Object owner) throws IllegalAccessException {
+        return field.get(owner);
+    }
 
     public String getOnDeleteString()
     {
         return onDelete.name().replace("_"," ");
     }
-    private Field field;
-
     public void setField(Field field) {
         field.setAccessible(true);
         this.field = field;

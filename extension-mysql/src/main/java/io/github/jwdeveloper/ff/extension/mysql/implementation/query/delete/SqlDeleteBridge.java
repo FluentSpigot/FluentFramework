@@ -3,6 +3,7 @@ package io.github.jwdeveloper.ff.extension.mysql.implementation.query.delete;
 
 import io.github.jwdeveloper.ff.extension.mysql.api.query.QueryContext;
 import io.github.jwdeveloper.ff.extension.mysql.api.query.delete.DeleteBridge;
+import io.github.jwdeveloper.ff.extension.mysql.api.query.delete.DeleteOptions;
 import io.github.jwdeveloper.ff.extension.mysql.api.query.delete.DeleteQuery;
 import io.github.jwdeveloper.ff.extension.mysql.api.query.select.SelectOptions;
 import io.github.jwdeveloper.ff.extension.mysql.api.query.where.WhereBridge;
@@ -20,11 +21,11 @@ public class SqlDeleteBridge<T> extends SqlQuery<T> implements DeleteBridge<T>, 
     }
 
     @Override
-    public DeleteBridge<T> delete(Consumer<SelectOptions> options) {
-        var sqlOptions = new SqlSelectOptions("DELETE");
+    public DeleteBridge<T> delete(Consumer<DeleteOptions> options) {
+        var sqlOptions = new SqlDeleteOptions();
         options.accept(sqlOptions);
         var model = sqlOptions.build();
-        context.getQueryModel().setSelectModel(model);
+        context.getQueryModel().setDeleteModel(model);
         return this;
     }
 

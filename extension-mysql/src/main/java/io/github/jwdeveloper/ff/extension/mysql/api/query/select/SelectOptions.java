@@ -9,9 +9,5 @@ public interface SelectOptions
     SelectOptions columns(String ... columns);
 
     SelectOptions from(String table);
-
-
-    SelectOptions from(Class<?> tableModel);
-
     SelectOptions queryType(SelectQueryType queryType);
 }

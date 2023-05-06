@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.mysql.implementation.mapper;
 
-import io.github.jwdeveloper.ff.extension.mysql.api.models.TableModel;
+import io.github.jwdeveloper.ff.extension.mysql.implementation.models.TableModel;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -60,7 +60,7 @@ public class SqlQueryMapper {
 
 
     public SqlMappingTableDto getTable(TableModel tableModel, ResultSetMetaData metaData, int start) throws SQLException {
-        var currentTableColumns = tableModel.getColumnCount();
+        var currentTableColumns = tableModel.getColumnsCount();
         var resultColumnsCount = metaData.getColumnCount();
         var endIndex = Math.min(resultColumnsCount, currentTableColumns);
 

@@ -19,5 +19,5 @@ public interface DbTable<T>
 
     DbEntry<T> delete(T entity);
 
-    void saveChanges() throws SQLException;
+    void saveChanges() throws Exception;
 }
