@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.mysql;
 
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.ff.extension.mysql.implementation.SqlDbContext;
+import io.github.jwdeveloper.ff.extension.mysql.implementation.DbContext;
 import io.github.jwdeveloper.ff.extension.mysql.implementation.SqlInitializer;
 import io.github.jwdeveloper.ff.extension.mysql.implementation.models.SqlConnectionModel;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
@@ -39,7 +39,7 @@ public class FluentSqlExtension implements FluentApiExtension {
 
         var contextClassOptional = builder
                 .classFinder()
-                .findBySuperClass(SqlDbContext.class)
+                .findBySuperClass(DbContext.class)
                 .stream()
                 .findFirst();
         if (contextClassOptional.isEmpty()) {
@@ -52,7 +52,7 @@ public class FluentSqlExtension implements FluentApiExtension {
     @Override
     public void onFluentApiEnable(FluentApiSpigot fluentAPI) throws Exception {
 
-        var context = (SqlDbContext) fluentAPI.container().findInjection(contextClass);
+        var context = (DbContext) fluentAPI.container().findInjection(contextClass);
         var initializer = new SqlInitializer();
         var connectionDto = new SqlConnectionModel();
         consumerConnection.accept(connectionDto);

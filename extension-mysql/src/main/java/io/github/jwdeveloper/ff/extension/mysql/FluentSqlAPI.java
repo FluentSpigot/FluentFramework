@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.mysql;
 
-import io.github.jwdeveloper.ff.extension.mysql.implementation.SqlDbContext;
+import io.github.jwdeveloper.ff.extension.mysql.implementation.DbContext;
 import io.github.jwdeveloper.ff.extension.mysql.implementation.models.SqlConnectionModel;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 
@@ -11,7 +11,7 @@ public class FluentSqlAPI {
         return new FluentSqlExtension(null, connectionConsumer);
     }
 
-    public static FluentApiExtension useMySql(Class<? extends SqlDbContext> dbContextClass, Consumer<SqlConnectionModel> connectionConsumer) {
+    public static FluentApiExtension useMySql(Class<? extends DbContext> dbContextClass, Consumer<SqlConnectionModel> connectionConsumer) {
         return new FluentSqlExtension(dbContextClass, connectionConsumer);
     }
 }

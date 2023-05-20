@@ -1,10 +1,9 @@
 package io.github.jwdeveloper.ff.extension.mysql.implementation;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SqlDbContext {
+public abstract class DbContext {
     final List<SqlTable<?>> tables = new ArrayList<>();
 
     void addTable(SqlTable<?> table) {

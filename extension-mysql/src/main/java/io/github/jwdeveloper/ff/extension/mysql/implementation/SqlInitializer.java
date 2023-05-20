@@ -32,7 +32,7 @@ public class SqlInitializer {
         return connection.get();
     }
 
-    public void intialize(Connection connection, SqlDbContext dbContext) throws Exception {
+    public void intialize(Connection connection, DbContext dbContext) throws Exception {
         var queryExecutor = new SqlQueryExecutor(connection);
         var dbClass = dbContext.getClass();
         for (var field : dbClass.getDeclaredFields()) {
