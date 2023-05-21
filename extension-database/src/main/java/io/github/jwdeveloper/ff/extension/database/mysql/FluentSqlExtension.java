@@ -3,16 +3,14 @@ package io.github.jwdeveloper.ff.extension.database.mysql;
 
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.extension.database.mysql.factories.SqlConnectionFactory;
-import io.github.jwdeveloper.ff.extension.database.mysql.factories.SqlDbContextFactory;
 import io.github.jwdeveloper.ff.extension.database.mysql.models.SqlConnection;
 import io.github.jwdeveloper.ff.extension.database.mysql.models.SqlDbContext;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.extension.database.mysql.models.SqlTable;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPiority;
+import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
-import org.bukkit.entity.Player;
 
 import java.lang.reflect.ParameterizedType;
 import java.sql.Connection;
@@ -32,8 +30,8 @@ public class FluentSqlExtension implements FluentApiExtension {
 
 
     @Override
-    public ExtentionPiority getPiority() {
-        return ExtentionPiority.LOW;
+    public ExtentionPriority getPriority() {
+        return ExtentionPriority.LOW;
     }
 
     @Override

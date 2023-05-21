@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.implementation;
 
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermissionBuilder;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermissionBuilder;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;

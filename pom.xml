@@ -17,6 +17,8 @@
         <module>extension-gameobject</module>
         <module>extension-inventory-gui</module>
         <module>extension-mysql</module>
+        <module>extension-translator</module>
+        <module>ff-plugin</module>
     </modules>
     <packaging>pom</packaging>
 

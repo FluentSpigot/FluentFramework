@@ -1,24 +1,13 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
-import io.github.jwdeveloper.ff.core.spigot.events.FluentEvent;
-import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
-import io.github.jwdeveloper.ff.core.spigot.tasks.FluentTask;
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
-import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiContainerBuilder;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.FluentAssemblyScanner;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
-import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPiority;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.AssemblyScanner;
 import io.github.jwdeveloper.ff.plugin.implementation.config.FluentConfigImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.config.FluentConfigLoader;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.FluentApiExtentionsManagerImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiDefaultCommandBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentDefaultCommandExtension;
@@ -38,12 +27,23 @@ import io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.implementation.FluentPlayerContext;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.resourcepack.ResourcepackExtention;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.resourcepack.ResourcepackOptions;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.translator.FluentTranslationExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.UpdaterApiOptions;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
+import io.github.jwdeveloper.ff.core.spigot.events.FluentEvent;
+import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.FluentTask;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
+import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.FluentApiExtentionsManagerImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.implementation.FluentUpdaterExtension;
 import lombok.SneakyThrows;
 import org.bukkit.plugin.Plugin;
 
+import java.nio.file.Path;
 import java.util.function.Consumer;
 
 public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
@@ -105,6 +105,11 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     }
 
     @Override
+    public Path pluginPath() {
+        return plugin.getDataFolder().toPath();
+    }
+
+    @Override
     public FluentAssemblyScanner classFinder() {
         return assemblyScanner;
     }
@@ -121,7 +126,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
 
     @Override
     public FluentApiSpigotBuilder useExtension(FluentApiExtension extension) {
-        extensionsManager.register(extension, extension.getPiority());
+        extensionsManager.register(extension, extension.getPriority());
         return this;
     }
 
@@ -139,7 +144,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
 
     @Override
     public FluentApiSpigotBuilder useDocumentation(Consumer<DocumentationOptions> options) {
-        extensionsManager.register(new FluentDocumentationExtention(options), ExtentionPiority.HIGH);
+        extensionsManager.register(new FluentDocumentationExtention(options), ExtentionPriority.HIGH);
         return this;
     }
 
@@ -161,8 +166,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         extensionsManager.registerLow(new FluentPermissionExtention(fluentPermissionBuilder));
         extensionsManager.registerLow(new FluentMediatorExtention());
         extensionsManager.registerLow(new FluentFilesExtention());
-        extensionsManager.registerLow(new FluentTranslationExtension());
-        extensionsManager.register(new FluentDefaultCommandExtension(commandBuilder), ExtentionPiority.HIGH);
+        extensionsManager.register(new FluentDefaultCommandExtension(commandBuilder), ExtentionPriority.HIGH);
         extensionsManager.register(new FluentPlayerContextExtension(logger));
         extensionsManager.onConfiguration(this);
 
@@ -179,7 +183,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         final var injection = result.fluentInjection();
         final var mediator = injection.findInjection(FluentMediator.class);
         final var files = injection.findInjection(FluentFiles.class);
-        final var translator = injection.findInjection(FluentTranslator.class);
+        final var translator = injection.tryFindInjection(FluentTranslator.class);
         final var permissions = injection.findInjection(FluentPermission.class);
         final var playerContext = injection.findInjection(FluentPlayerContext.class);
 

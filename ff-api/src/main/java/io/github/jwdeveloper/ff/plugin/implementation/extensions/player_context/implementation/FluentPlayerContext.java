@@ -1,11 +1,11 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.implementation;
 
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.api.FluentPlayer;
 import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
 import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.api.FluentPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.List;

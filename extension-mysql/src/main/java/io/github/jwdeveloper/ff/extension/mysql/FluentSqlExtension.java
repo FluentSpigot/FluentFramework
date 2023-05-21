@@ -5,7 +5,7 @@ import io.github.jwdeveloper.ff.extension.mysql.implementation.DbContext;
 import io.github.jwdeveloper.ff.extension.mysql.implementation.SqlInitializer;
 import io.github.jwdeveloper.ff.extension.mysql.implementation.models.SqlConnectionModel;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPiority;
+import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 
@@ -26,8 +26,8 @@ public class FluentSqlExtension implements FluentApiExtension {
 
 
     @Override
-    public ExtentionPiority getPiority() {
-        return ExtentionPiority.LOW;
+    public ExtentionPriority getPriority() {
+        return ExtentionPriority.LOW;
     }
 
     @Override

@@ -1,10 +1,10 @@
 package io.github.jwdeveloper.ff.plugin.implementation.config;
 
+import io.github.jwdeveloper.ff.plugin.api.config.ConfigProperty;
 import io.github.jwdeveloper.ff.core.common.TextBuilder;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlModelFactory;
 import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlModelMapper;
-import io.github.jwdeveloper.ff.plugin.api.config.ConfigProperty;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;

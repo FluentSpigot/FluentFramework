@@ -1,9 +1,5 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.implementation;
 
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
-import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.config.ConfigProperty;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
@@ -17,6 +13,10 @@ import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.Upd
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.options.GithubUpdaterOptions;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.options.UpdaterOptions;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.implementation.providers.GithubInfoProvider;
+import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
+import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
 import org.bukkit.Bukkit;
 
 import java.util.function.Consumer;

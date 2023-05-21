@@ -1,12 +1,12 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.dependecy_injection;
 
+import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
+import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.core.injector.api.annotations.IgnoreInjection;
 import io.github.jwdeveloper.ff.core.injector.api.annotations.Injection;
 import io.github.jwdeveloper.ff.core.injector.api.models.ContainerConfiguration;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiContainerBuilderImpl;
-import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.AssemblyScanner;
 
 import java.util.ArrayList;

@@ -5,7 +5,8 @@ import java.util.Collection;
 
 public interface FluentInjection
 {
-    public  <T> T findInjection(Class<T> injectionType);
+    <T> T tryFindInjection(Class<T> injectionType);
+    <T> T findInjection(Class<T> injectionType);
 
     <T> Collection<T> findAllByInterface(Class<T> _interface);
 

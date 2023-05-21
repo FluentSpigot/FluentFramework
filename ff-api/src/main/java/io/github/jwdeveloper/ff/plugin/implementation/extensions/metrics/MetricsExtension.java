@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.metrics;
 
-import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
+import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 
 public class MetricsExtension implements FluentApiExtension {
     private final int metricsId;

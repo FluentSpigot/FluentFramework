@@ -1,7 +1,5 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiContainerBuilder;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.FluentAssemblyScanner;
@@ -12,10 +10,13 @@ import io.github.jwdeveloper.ff.plugin.implementation.extensions.documentation.D
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermissionBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.resourcepack.ResourcepackOptions;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.UpdaterApiOptions;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.nio.file.Path;
 import java.util.function.Consumer;
 
 public class FluentApiBuilder implements FluentApiSpigotBuilder {
@@ -94,6 +95,11 @@ public class FluentApiBuilder implements FluentApiSpigotBuilder {
     @Override
     public Plugin plugin() {
         return builder.plugin();
+    }
+
+    @Override
+    public Path pluginPath() {
+        return builder.pluginPath();
     }
 
     @Override

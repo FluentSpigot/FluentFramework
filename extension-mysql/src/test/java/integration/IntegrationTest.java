@@ -3,7 +3,6 @@ package integration;
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.command.ConsoleCommandSenderMock;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.extension.mysql.FluentSqlAPI;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiBuilder;
 import org.junit.After;

@@ -9,5 +9,5 @@ public class ExtensionModel
 {
     private FluentApiExtension extension;
 
-    private ExtentionPiority priority;
+    private ExtentionPriority priority;
 }

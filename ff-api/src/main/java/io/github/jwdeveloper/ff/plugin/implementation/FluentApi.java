@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
 
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.files.FluentFiles;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
@@ -9,7 +10,6 @@ import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
 import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.dependecy_injection.FluentInjection;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.files.FluentFiles;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator.FluentMediator;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermission;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.implementation.FluentPlayerContext;

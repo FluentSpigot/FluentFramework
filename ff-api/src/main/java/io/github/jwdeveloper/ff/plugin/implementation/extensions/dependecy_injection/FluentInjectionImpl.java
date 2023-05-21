@@ -14,6 +14,17 @@ public class FluentInjectionImpl implements FluentInjection
         this.pluginContainer = pluginContainer;
     }
 
+    @Override
+    public <T> T tryFindInjection(Class<T> injectionType) {
+        try {
+          return  findInjection(injectionType);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+
     public  <T> T findInjection(Class<T> injectionType)
     {
         return (T)pluginContainer.find(injectionType);

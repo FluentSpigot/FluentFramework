@@ -1,9 +1,9 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.implementation.providers;
 
 import com.google.gson.JsonParser;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.info.UpdateInfo;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.UpdateInfoProvider;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.info.UpdateInfo;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.options.GithubUpdaterOptions;
 
 import java.io.BufferedReader;

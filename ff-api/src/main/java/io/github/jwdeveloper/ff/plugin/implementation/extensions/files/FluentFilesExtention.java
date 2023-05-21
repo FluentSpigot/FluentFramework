@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.files;
 
+import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.core.repository.api.CustomFile;
@@ -10,7 +11,6 @@ import io.github.jwdeveloper.ff.plugin.api.config.ConfigProperty;
 import io.github.jwdeveloper.ff.plugin.api.config.ConfigSection;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
-import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.plugin.implementation.file_handlers.FilesDataContext;
 import io.github.jwdeveloper.ff.plugin.implementation.file_handlers.JsonFile;
 

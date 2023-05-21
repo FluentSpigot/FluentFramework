@@ -1,9 +1,9 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator;
 
+import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.core.mediator.api.MediatorHandler;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 
 public class FluentMediatorExtention implements FluentApiExtension {
 

@@ -1,11 +1,11 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.resourcepack;
 
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.config.ConfigProperty;
-import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
+import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
+import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.io.File;

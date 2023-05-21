@@ -1,13 +1,12 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtensionModel;
-import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPiority;
+import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtensionsManager;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -27,17 +26,17 @@ public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManage
 
     @Override
     public void register(FluentApiExtension extension) {
-        register(extension, extension.getPiority());
+        register(extension, extension.getPriority());
     }
 
     @Override
-    public void register(FluentApiExtension extention, ExtentionPiority piority) {
+    public void register(FluentApiExtension extention, ExtentionPriority piority) {
         extensions.add(new ExtensionModel(extention,piority));
     }
 
     @Override
     public void registerLow(FluentApiExtension extention) {
-        register(extention, ExtentionPiority.LOW);
+        register(extention, ExtentionPriority.LOW);
     }
 
 

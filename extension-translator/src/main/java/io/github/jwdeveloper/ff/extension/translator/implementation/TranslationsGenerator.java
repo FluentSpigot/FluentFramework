@@ -1,55 +1,14 @@
-package io.github.jwdeveloper.ff.plugin.implementation.extensions.translator;
+package io.github.jwdeveloper.ff.extension.translator.implementation;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
-import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
-import io.github.jwdeveloper.ff.core.translator.api.models.LangData;
-import io.github.jwdeveloper.ff.core.translator.implementation.SimpleLang;
 import lombok.SneakyThrows;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.util.List;
+public class TranslationsGenerator
+{
 
-public class FluentTranslatorImpl implements FluentTranslator {
-    private SimpleLang lang;
-    private final SimpleLogger logger;
-    private final String path;
-    public FluentTranslatorImpl(SimpleLogger logger, String path)
-    {
-        this.logger = logger;
-        this.path = path;
-    }
-
-
-    @Override
-    public String get(String key) {
-        return lang.get(key);
-    }
-
-    @Override
-    public List<LangData> getLanguages() {
-        return lang.getLanguages();
-    }
-
-    @Override
-    public List<String> getLanguagesName() {
-        return getLanguages().stream().map(c -> c.getCountry()).toList();
-    }
-
-    @Override
-    public boolean setLanguage(String name) {
-        return lang.setLanguage(name);
-    }
-
-    @Override
-    public boolean langAvailable(String name) {
-        return lang.langExists(name);
-    }
-
-    @Override
-    @SneakyThrows
     public void generateEmptyTranlations() {
         logger.info("Generating empty tranlations");
         var Optional = getLanguages().stream().filter(f -> f.getCountry().equals("en")).findFirst();
@@ -87,11 +46,5 @@ public class FluentTranslatorImpl implements FluentTranslator {
             configuration.save(path2);
         }
         logger.success("Generating done");
-    }
-
-    public void setLanguages(List<LangData> language, String name) {
-        lang = new SimpleLang(language, logger);
-        lang.setDefaultLang("en");
-        lang.setLanguage(name);
     }
 }

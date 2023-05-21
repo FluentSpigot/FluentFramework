@@ -89,6 +89,10 @@ public final class FluentApiSpigot {
         return fluentFiles;
     }
     public FluentTranslator translator() {
+        if(fluentTranslator == null)
+        {
+            throw new RuntimeException("FluentTranslator has not been implemented, use extension-translator project or make own implementation");
+        }
         return fluentTranslator;
     }
 
@@ -101,7 +105,6 @@ public final class FluentApiSpigot {
     }
 
     public String path() {
-
         return FileUtility.pluginPath(plugin);
     }
 
