@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.events.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
@@ -19,16 +19,18 @@ public class SimpleEventManager implements Listener, FluentEventManager
 {
     private final List<SimpleEvent<PluginDisableEvent>> onPluginDisableEvents;
     private final List<SimpleEvent<PluginEnableEvent>> onPluginEnableEvents;
+    private final List<SimpleEvent<?>> events;
     private final Plugin plugin;
-    private final SimpleLogger logger;
+    private final BukkitLogger logger;
 
-    public SimpleEventManager(Plugin plugin, SimpleLogger logger)
+    public SimpleEventManager(Plugin plugin, BukkitLogger logger)
     {
         this.plugin = plugin;
         this.logger = logger;
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
         onPluginDisableEvents = new ArrayList<>();
         onPluginEnableEvents = new ArrayList<>();
+        events = new ArrayList<>();
     }
 
     public void unregister()
@@ -61,6 +63,12 @@ public class SimpleEventManager implements Listener, FluentEventManager
         }
     }
 
+
+    public List<SimpleEvent<?>> getEvents()
+    {
+        return events;
+    }
+
     public  <T extends Event> SimpleEvent<T> onEvent(Class<T> eventType, Consumer<T> action)
     {
         var fluentEvent = new SimpleEvent<T>(action, logger);
@@ -90,12 +98,13 @@ public class SimpleEventManager implements Listener, FluentEventManager
                     }
                     fluentEvent.invoke((T) event);
                 }, plugin);
+
+        events.add(fluentEvent);
         return fluentEvent;
     }
 
     public <T extends Event> SimpleEvent<T> onEventAsync(Class<T> tClass, Consumer<T> action)
     {
-
         var fluentEvent = new SimpleEvent<T>(action, logger);
         Bukkit.getPluginManager().registerEvent(tClass,this, EventPriority.NORMAL,
                 (listener, event) ->
@@ -105,6 +114,7 @@ public class SimpleEventManager implements Listener, FluentEventManager
                         fluentEvent.invoke((T)event);
                     });
                 }, plugin);
+        events.add(fluentEvent);
         return fluentEvent;
     }
 }

@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.injector.implementation.containers;
 
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
 import io.github.jwdeveloper.ff.core.injector.api.events.EventHandler;
 import io.github.jwdeveloper.ff.core.injector.api.events.events.OnInjectionEvent;
@@ -23,7 +23,7 @@ import java.util.Map;
 public class DefaultContainer implements Container, ContainerSearch {
     protected final EventHandler eventHandler;
     protected final InstanceProvider instaneProvider;
-    protected final SimpleLogger logger;
+    protected final BukkitLogger logger;
     protected final Map<Class<?>, InjectionInfo> injections;
     protected final InjectionInfoFactory injectionInfoFactory;
     protected final SearchAgent searchAgent;
@@ -31,7 +31,7 @@ public class DefaultContainer implements Container, ContainerSearch {
     public DefaultContainer(SearchAgent searchAgent,
                             InstanceProvider instaneProvider,
                             EventHandler eventHandler,
-                            SimpleLogger logger,
+                            BukkitLogger logger,
                             InjectionInfoFactory injectionInfoFactory,
                             List<RegistrationInfo> registrationInfos) {
         this.instaneProvider = instaneProvider;

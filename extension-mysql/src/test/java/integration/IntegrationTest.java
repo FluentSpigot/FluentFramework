@@ -3,7 +3,7 @@ package integration;
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.command.ConsoleCommandSenderMock;
-import io.github.jwdeveloper.ff.extension.mysql.FluentSqlAPI;
+import io.github.jwdeveloper.ff.extension.mysql.FluentSqlApi;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiBuilder;
 import org.junit.After;
 import org.junit.Before;
@@ -29,7 +29,7 @@ public class IntegrationTest {
     @Test
     public void run() throws Exception {
         var plugin = MockBukkit.createMockPlugin();
-        var extension = FluentSqlAPI.useMySql(ExampleContext.class, model ->
+        var extension = FluentSqlApi.useMySql(ExampleContext.class, model ->
         {
             model.setUser("root");
             model.setPassword("password123");

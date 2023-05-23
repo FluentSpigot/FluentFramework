@@ -43,7 +43,7 @@ public class FluentConfigMigrator implements ConfigMigrator {
         {
             FluentLogger.LOGGER.info("Migrating config to plugin version",migration.version());
             try {
-                migration.onPluginUpdate(configuration);
+                migration.onUpdate(configuration);
             }
             catch (Exception e)
             {

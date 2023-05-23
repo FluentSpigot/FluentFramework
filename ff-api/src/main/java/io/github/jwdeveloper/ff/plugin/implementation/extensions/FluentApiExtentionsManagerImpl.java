@@ -6,7 +6,7 @@ import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtensionsManager;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -15,9 +15,9 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManager {
     private final Collection<ExtensionModel> extensions;
-    private final SimpleLogger logger;
+    private final BukkitLogger logger;
 
-    public FluentApiExtentionsManagerImpl(SimpleLogger logger)
+    public FluentApiExtentionsManagerImpl(BukkitLogger logger)
     {
         this.logger = logger;
         extensions = new ConcurrentLinkedDeque<>();

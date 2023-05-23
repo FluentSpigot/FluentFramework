@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.gui.core.implementation;
 
 import io.github.jwdeveloper.ff.extension.gui.core.api.FluentInventory;
-import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
+import io.github.jwdeveloper.ff.plugin.api.features.FluentTranslator;
 import lombok.Getter;
 
 public abstract class InventoryComponent implements io.github.jwdeveloper.ff.extension.gui.core.api.InventoryComponent

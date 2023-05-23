@@ -18,15 +18,9 @@ import java.util.function.Consumer;
 
 public class MessageBuilder extends TextBuilder<MessageBuilder>
 {
-    private final StringBuilder stringBuilder;
-
-    public MessageBuilder() {
-        stringBuilder = new StringBuilder();
-    }
-
 
     public MessageBuilder reset() {
-        stringBuilder.append(ChatColor.RESET);
+        builder.append(ChatColor.RESET);
         return this;
     }
 
@@ -90,7 +84,7 @@ public class MessageBuilder extends TextBuilder<MessageBuilder>
     }
 
     public MessageBuilder color(ChatColor chatColor) {
-        stringBuilder.append(chatColor);
+        builder.append(chatColor);
         return this;
     }
 
@@ -110,22 +104,22 @@ public class MessageBuilder extends TextBuilder<MessageBuilder>
     }
 
     public MessageBuilder color(int r, int g, int b) {
-        stringBuilder.append(net.md_5.bungee.api.ChatColor.of(new java.awt.Color(r, g, b)));
+        builder.append(net.md_5.bungee.api.ChatColor.of(new java.awt.Color(r, g, b)));
         return this;
     }
 
     public MessageBuilder bold(Object text) {
-        stringBuilder.append(ChatColor.BOLD).append(text);
+        builder.append(ChatColor.BOLD).append(text);
         return this;
     }
 
     public MessageBuilder bold() {
-        stringBuilder.append(ChatColor.BOLD);
+        builder.append(ChatColor.BOLD);
         return this;
     }
 
     public MessageBuilder color(String color) {
-        stringBuilder.append(color);
+        builder.append(color);
         return this;
     }
 
@@ -137,54 +131,54 @@ public class MessageBuilder extends TextBuilder<MessageBuilder>
     }
 
     public MessageBuilder space() {
-        stringBuilder.append(" ");
+        builder.append(" ");
         return this;
     }
 
     public MessageBuilder inBrackets(String message) {
-        stringBuilder.append("[").append(message).append("]").append(ChatColor.RESET);
+        builder.append("[").append(message).append("]").append(ChatColor.RESET);
         return this;
     }
 
 
     public MessageBuilder inBrackets(String message, ChatColor color) {
-        stringBuilder.append(color).append("[").append(message).append("]");
+        builder.append(color).append("[").append(message).append("]");
         return this;
     }
 
     public MessageBuilder inBrackets(String message, ChatColor color, ChatColor colorBorder) {
-        stringBuilder.append(colorBorder).append("[").append(color).append(message).append(colorBorder).append("]");
+        builder.append(colorBorder).append("[").append(color).append(message).append(colorBorder).append("]");
         return this;
     }
 
     public MessageBuilder withFix(String message, String fix) {
-        stringBuilder.append(fix).append(message).append(fix);
+        builder.append(fix).append(message).append(fix);
         return this;
     }
 
     public MessageBuilder withFix(String message, String prefix, String endfix) {
-        stringBuilder.append(prefix).append(message).append(endfix);
+        builder.append(prefix).append(message).append(endfix);
         return this;
     }
 
 
     public MessageBuilder withPrefix(String message, String prefix) {
-        stringBuilder.append(prefix).append(message);
+        builder.append(prefix).append(message);
         return this;
     }
 
     public MessageBuilder withEndfix(String message, String endfix) {
-        stringBuilder.append(message).append(endfix);
+        builder.append(message).append(endfix);
         return this;
     }
 
     public MessageBuilder underLine(String message) {
-        stringBuilder.append(ChatColor.UNDERLINE).append(message).append(ChatColor.RESET);
+        builder.append(ChatColor.UNDERLINE).append(message).append(ChatColor.RESET);
         return this;
     }
 
     public MessageBuilder strikeThrough(String message) {
-        stringBuilder.append(ChatColor.STRIKETHROUGH).append(message).append(ChatColor.RESET);
+        builder.append(ChatColor.STRIKETHROUGH).append(message).append(ChatColor.RESET);
         return this;
     }
 
@@ -195,7 +189,7 @@ public class MessageBuilder extends TextBuilder<MessageBuilder>
 
     @Override
     public String toString() {
-        return stringBuilder.toString();
+        return builder.toString();
     }
 
 
@@ -221,7 +215,7 @@ public class MessageBuilder extends TextBuilder<MessageBuilder>
     public void sendToConsole() {
         if (Bukkit.getServer() == null) {
 
-            System.out.println(stringBuilder.toString());
+            System.out.println(builder.toString());
             return;
         }
         Bukkit.getConsoleSender().sendMessage(toString());
@@ -233,7 +227,7 @@ public class MessageBuilder extends TextBuilder<MessageBuilder>
 
     public void sendLog(String prefix) {
 
-        var message = stringBuilder.toString();
+        var message = builder.toString();
         if (!StringUtils.isNullOrEmpty(prefix)) {
 
             message = prefix + message;
@@ -249,7 +243,7 @@ public class MessageBuilder extends TextBuilder<MessageBuilder>
 
     public void sendToAllPlayer() {
         if (Bukkit.getServer() == null) {
-            System.out.println(stringBuilder.toString());
+            System.out.println(builder.toString());
             return;
         }
         for (var player : Bukkit.getOnlinePlayers()) {

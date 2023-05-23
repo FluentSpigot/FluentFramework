@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.extension.gui.inventory.observers.ints;
 
 import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
+import io.github.jwdeveloper.ff.plugin.api.features.FluentTranslator;
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers.ButtonObserverEvent;
 import io.github.jwdeveloper.ff.extension.gui.inventory.styles.ButtonColorSet;
 import io.github.jwdeveloper.ff.extension.gui.inventory.styles.FluentButtonStyle;

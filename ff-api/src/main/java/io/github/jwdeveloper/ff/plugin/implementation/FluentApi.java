@@ -1,18 +1,15 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
 
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.files.FluentFiles;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.messages.SimpleMessage;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
-import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.dependecy_injection.FluentInjection;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.FluentInjection;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator.FluentMediator;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermission;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.implementation.FluentPlayerContext;
 
 public class FluentApi {
     private static FluentApiSpigot fluentApiSpigot;
@@ -36,10 +33,6 @@ public class FluentApi {
     }
 
 
-    public static FluentPlayerContext playerContext() {
-        return getFluentApiSpigot().playerContext();
-    }
-
     public static FluentPermission permission() {
         return getFluentApiSpigot().permission();
     }
@@ -50,14 +43,6 @@ public class FluentApi {
 
     public static FluentMediator mediator() {
         return getFluentApiSpigot().mediator();
-    }
-
-    public static FluentFiles files() {
-        return getFluentApiSpigot().files();
-    }
-
-    public static FluentTranslator translator() {
-        return getFluentApiSpigot().translator();
     }
 
     public static FluentConfig config() {
@@ -74,8 +59,8 @@ public class FluentApi {
         return getFluentApiSpigot().tasks();
     }
 
-    public static CommandBuilder commands(String commandName) {
-        return getFluentApiSpigot().commands(commandName);
+    public static CommandBuilder createCommand(String commandName) {
+        return getFluentApiSpigot().createCommand(commandName);
     }
 
     /*public static FluentParticlebuilder particles() {

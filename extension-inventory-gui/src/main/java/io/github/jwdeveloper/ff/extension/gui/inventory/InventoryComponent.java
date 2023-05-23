@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.extension.gui.inventory;
 
 import io.github.jwdeveloper.ff.extension.gui.core.api.FluentInventory;
 import io.github.jwdeveloper.ff.extension.gui.core.api.InventoryDecorator;
-import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
+import io.github.jwdeveloper.ff.plugin.api.features.FluentTranslator;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 

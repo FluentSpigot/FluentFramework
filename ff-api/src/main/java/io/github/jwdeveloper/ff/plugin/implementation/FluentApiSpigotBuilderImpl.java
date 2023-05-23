@@ -1,50 +1,38 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
-import io.github.jwdeveloper.ff.plugin.api.FluentApiContainerBuilder;
-import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.FluentAssemblyScanner;
-import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
-import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
-import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.AssemblyScanner;
-import io.github.jwdeveloper.ff.plugin.implementation.config.FluentConfigImpl;
-import io.github.jwdeveloper.ff.plugin.implementation.config.FluentConfigLoader;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiDefaultCommandBuilder;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentDefaultCommandExtension;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.dependecy_injection.FluentInjectionExtention;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.documentation.DocumentationOptions;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.documentation.FluentDocumentationExtention;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.files.FluentFiles;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.files.FluentFilesExtention;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator.FluentMediator;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator.FluentMediatorExtention;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.metrics.MetricsExtension;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermission;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermissionBuilder;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.implementation.FluentPermissionBuilderImpl;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.implementation.FluentPermissionExtention;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.FluentPlayerContextExtension;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.implementation.FluentPlayerContext;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.resourcepack.ResourcepackExtention;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.resourcepack.ResourcepackOptions;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.UpdaterApiOptions;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
 import io.github.jwdeveloper.ff.core.spigot.events.FluentEvent;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.tasks.FluentTask;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
-import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
+import io.github.jwdeveloper.ff.plugin.api.FluentApiContainerBuilder;
+import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
+import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.FluentAssemblyScanner;
+import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
+import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
+import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.AssemblyScanner;
+import io.github.jwdeveloper.ff.plugin.implementation.config.FluentConfigImpl;
+import io.github.jwdeveloper.ff.plugin.implementation.config.FluentConfigLoader;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.FluentApiExtentionsManagerImpl;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.implementation.FluentUpdaterExtension;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiDefaultCommandBuilder;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentDefaultCommandExtension;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator.FluentDecorator;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.FluentInjectionFactory;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator.FluentMediator;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator.FluentMediatorExtention;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermission;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermissionBuilder;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.implementation.FluentPermissionBuilderImpl;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.implementation.FluentPermissionExtention;
 import lombok.SneakyThrows;
 import org.bukkit.plugin.Plugin;
 
 import java.nio.file.Path;
-import java.util.function.Consumer;
 
 public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     private final FluentApiContainerBuilderImpl containerBuilder;
@@ -54,7 +42,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     private final FluentConfigImpl configFile;
     private final Plugin plugin;
     private final AssemblyScanner assemblyScanner;
-    private final SimpleLogger logger;
+    private final BukkitLogger logger;
     private final FluentTaskManager taskManager;
     private final FluentCommandManger commandManger;
     private final FluentEventManager eventManager;
@@ -62,17 +50,13 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     @SneakyThrows
     public FluentApiSpigotBuilderImpl(Plugin plugin) {
         this.plugin = plugin;
-        FluentLogger.setLogger(plugin.getLogger());
-        logger = FluentLogger.LOGGER;
-        FluentCommand.enable(plugin);
-        FluentEvent.enable(plugin);
-        FluentTask.enable(plugin);
-        commandManger = FluentCommand.getManager();
-        eventManager = FluentEvent.getManager();
-        taskManager = FluentTask.getManager();
+        logger = FluentLogger.setLogger(plugin.getLogger());
+        commandManger =FluentCommand.enable(plugin);
+        eventManager =FluentEvent.enable(plugin);
+        taskManager = FluentTask.enable(plugin);
 
         extensionsManager = new FluentApiExtentionsManagerImpl(logger);
-        containerBuilder = new FluentApiContainerBuilderImpl(extensionsManager, logger);
+        containerBuilder = new FluentApiContainerBuilderImpl(extensionsManager, logger, FluentDecorator.CreateDecorator());
         commandBuilder = new FluentApiDefaultCommandBuilder(plugin.getName(), commandManger);
         fluentPermissionBuilder = new FluentPermissionBuilderImpl(plugin);
         assemblyScanner = new AssemblyScanner(plugin, logger);
@@ -115,7 +99,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     }
 
     @Override
-    public SimpleLogger logger() {
+    public BukkitLogger logger() {
         return logger;
     }
 
@@ -130,72 +114,38 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         return this;
     }
 
-    @Override
-    public FluentApiSpigotBuilder useMetrics(int metricsId) {
-        extensionsManager.register(new MetricsExtension(metricsId));
-        return this;
-    }
-
-    @Override
-    public FluentApiSpigotBuilder useUpdater(Consumer<UpdaterApiOptions> options) {
-        extensionsManager.register(new FluentUpdaterExtension(options));
-        return this;
-    }
-
-    @Override
-    public FluentApiSpigotBuilder useDocumentation(Consumer<DocumentationOptions> options) {
-        extensionsManager.register(new FluentDocumentationExtention(options), ExtentionPriority.HIGH);
-        return this;
-    }
-
-    @Override
-    public FluentApiSpigotBuilder useDocumentation() {
-        extensionsManager.register(new FluentDocumentationExtention((e) -> {
-        }));
-        return this;
-    }
-
-    @Override
-    public FluentApiSpigotBuilder useResourcePack(Consumer<ResourcepackOptions> options) {
-        extensionsManager.register(new ResourcepackExtention(options));
-        return this;
-    }
-
-
     public FluentApiSpigot build() throws Exception {
         extensionsManager.registerLow(new FluentPermissionExtention(fluentPermissionBuilder));
         extensionsManager.registerLow(new FluentMediatorExtention());
-        extensionsManager.registerLow(new FluentFilesExtention());
+       // extensionsManager.registerLow(new FluentFilesExtention());
         extensionsManager.register(new FluentDefaultCommandExtension(commandBuilder), ExtentionPriority.HIGH);
-        extensionsManager.register(new FluentPlayerContextExtension(logger));
         extensionsManager.onConfiguration(this);
 
+        containerBuilder.registerSigleton(Plugin.class, plugin);
+        containerBuilder.registerSigleton(FluentConfig.class, configFile);
         containerBuilder.registerSigleton(FluentTaskManager.class, taskManager);
         containerBuilder.registerSigleton(FluentEventManager.class, eventManager);
         containerBuilder.registerSigleton(FluentCommandManger.class, commandManger);
-        containerBuilder.registerSigleton(FluentConfig.class, configFile);
-        containerBuilder.registerSigleton(Plugin.class, plugin);
         containerBuilder.registerSigleton(FluentAssemblyScanner.class, assemblyScanner);
-        final var injectionFactory = new FluentInjectionExtention(containerBuilder, assemblyScanner);
-        final var result = injectionFactory.create();
-        useExtension(injectionFactory);
+        final var injectionFactory = new FluentInjectionFactory(containerBuilder, logger, plugin, assemblyScanner);
+        final var factoryResult = injectionFactory.create();
+        final var injection = factoryResult.fluentInjection();
+        useExtension(builder ->
+        {
+            for (var toActivate : factoryResult.toInitializeTypes()) {
+                injection.findInjection(toActivate);
+            }
+        });
 
-        final var injection = result.fluentInjection();
         final var mediator = injection.findInjection(FluentMediator.class);
-        final var files = injection.findInjection(FluentFiles.class);
-        final var translator = injection.tryFindInjection(FluentTranslator.class);
         final var permissions = injection.findInjection(FluentPermission.class);
-        final var playerContext = injection.findInjection(FluentPlayerContext.class);
 
         return new FluentApiSpigot(
                 plugin,
                 injection,
                 mediator,
-                files,
-                translator,
                 configFile,
                 permissions,
-                playerContext,
                 extensionsManager,
                 logger,
                 commandManger,

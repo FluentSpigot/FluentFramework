@@ -21,10 +21,11 @@ public class FluentCommand {
         }
         return manger;
     }
-    public static void enable(Plugin plugin) {
+    public static FluentCommandManger enable(Plugin plugin) {
         if (manger != null) {
             manger.onPluginStop(new PluginDisableEvent(plugin));
         }
         manger = new SimpleCommandManger(plugin);
+        return manger;
     }
 }

@@ -26,7 +26,7 @@
 package io.github.jwdeveloper.ff.extension.websocket.core.implementation;
 
 
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.extension.websocket.core.api.FluentWebsocketPacket;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -39,9 +39,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class WebSocketBase extends WebSocketServer {
     private final ConcurrentHashMap<Integer, WebSocketPacket> webSocketEvents;
-    private final SimpleLogger logger;
+    private final BukkitLogger logger;
 
-    public WebSocketBase(int port, SimpleLogger logger) {
+    public WebSocketBase(int port, BukkitLogger logger) {
         super(new InetSocketAddress(port));
         webSocketEvents = new ConcurrentHashMap<>();
         this.logger = logger;

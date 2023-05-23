@@ -1,14 +1,14 @@
 package io.github.jwdeveloper.ff.extension.translator.implementation;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
-import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
-import io.github.jwdeveloper.ff.core.translator.implementation.SimpleLangLoader;
+import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslatorOptions;
 import io.github.jwdeveloper.ff.extension.translator.implementation.commands.LanguageCommand;
+import io.github.jwdeveloper.ff.extension.translator.implementation.langs.SimpleLangLoader;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.config.ConfigProperty;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
@@ -46,7 +46,7 @@ public class FluentTranslationExtension implements FluentApiExtension {
         fluentTranslator = new FluentTranslatorImpl(builder.logger(), translatorPath);
 
         builder.container()
-               .register(FluentTranslator.class, LifeTime.SINGLETON, (x) -> fluentTranslator);
+                .register(FluentTranslator.class, LifeTime.SINGLETON, (x) -> fluentTranslator);
 
         builder.permissions()
                 .registerPermission(createPermission(builder.permissions()));
@@ -54,10 +54,11 @@ public class FluentTranslationExtension implements FluentApiExtension {
         builder.defaultCommand()
                 .subCommandsConfig(subCommandConfig ->
                 {
-                    var languageCmd = new LanguageCommand();
-                    var command = languageCmd.create();
-
-                    subCommandConfig.addSubCommand(command);
+                    var languageCmd = new LanguageCommand(builder.defaultCommand(),
+                            builder.config(),
+                            fluentTranslator,
+                            options);
+                    subCommandConfig.addSubCommand(languageCmd.create());
                 });
     }
 
@@ -73,7 +74,7 @@ public class FluentTranslationExtension implements FluentApiExtension {
         // fluentTranslator.generateEmptyTranlations();
     }
 
-    private String getPluginLanguage(FluentConfig configFile, SimpleLogger logger) {
+    private String getPluginLanguage(FluentConfig configFile, BukkitLogger logger) {
 
         var configProperty = createConfigLanguage();
         var languageValue = configFile.getOrCreate(configProperty);

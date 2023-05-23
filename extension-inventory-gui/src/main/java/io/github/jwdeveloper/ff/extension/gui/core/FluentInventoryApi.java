@@ -6,7 +6,7 @@ import io.github.jwdeveloper.ff.extension.gui.core.implementation.InventoryDecor
 import io.github.jwdeveloper.ff.extension.gui.implementation.FluentInventoryImpl;
 import io.github.jwdeveloper.ff.extension.gui.implementation.InventorySpigotListener;
 import io.github.jwdeveloper.ff.core.injector.api.containers.PlayersContainer;
-import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
+import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 

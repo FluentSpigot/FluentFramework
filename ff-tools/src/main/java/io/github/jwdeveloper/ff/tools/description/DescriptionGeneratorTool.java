@@ -6,12 +6,15 @@ import io.github.jwdeveloper.descrabble.api.elements.Element;
 import io.github.jwdeveloper.descrabble.api.elements.ElementFactory;
 import io.github.jwdeveloper.descrabble.github.DescrabbleGithub;
 import io.github.jwdeveloper.descrabble.spigot.DescrabbleSpigot;
+import io.github.jwdeveloper.ff.plugin.FluentPlugin;
+import io.github.jwdeveloper.ff.plugin.FluentPluginBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import org.bukkit.plugin.Plugin;
 
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.Set;
 
 public class DescriptionGeneratorTool {
@@ -19,29 +22,38 @@ public class DescriptionGeneratorTool {
     private final FluentApiExtension extension;
     private final Path templatePath;
 
+    private final HashMap<String, String> parameters;
+
     public DescriptionGeneratorTool(Plugin plugin, FluentApiExtension extension, Path templatePath) {
         this.plugin = plugin;
         this.extension = extension;
         this.templatePath = templatePath;
+        parameters = new HashMap<>();
+    }
+
+    public DescriptionGeneratorTool addParameter(String key, String value)
+    {
+        parameters.put(key, value);
+        return this;
     }
 
     public Set<Path> generate(String output) {
-        var builder = FluentApiBuilder.create(plugin, extension);
-        var fluentApiSpigot = builder.build();
-        fluentApiSpigot.enable();
-
-        fluentApiSpigot.disable();
-        DescriptionGenerator descriptionGenerator = Descrabble.create()
+        var spigot =  FluentPlugin.initialize(plugin).withExtension(extension).create();
+        var descrableBuilder = Descrabble.create()
                 .withDecorator(this::createBanner)
                 .withDecorator(this::createCommands)
-                .withDecorator((a, b) -> createConfig(a, b, fluentApiSpigot))
+                .withDecorator((a, b) -> createConfig(a, b, spigot))
                 .withDecorator(this::createPermissions)
                 .withPlugin(DescrabbleGithub.plugin())
                 .withPlugin(DescrabbleSpigot.plugin())
-                .withTemplate(templatePath)
-                .build();
+                .withTemplate(templatePath);
 
-        return descriptionGenerator.generate(output);
+        for(var entry : parameters.entrySet())
+        {
+            descrableBuilder.withVariable(entry.getKey(), entry.getValue());
+        }
+
+        return descrableBuilder.build().generate(output);
     }
 
 

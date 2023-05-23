@@ -98,7 +98,7 @@ public class SimpleCommandManger extends EventBase implements FluentCommandMange
     }
 
     @Override
-    public List<String> getAllServerCommandsName() {
+    public List<String> getBukkitCommandsNames() {
         List<String> result = new ArrayList<>();
         try {
             var commandMap = ObjectUtility.getPrivateField(Bukkit.getPluginManager(), "commandMap");
@@ -111,7 +111,7 @@ public class SimpleCommandManger extends EventBase implements FluentCommandMange
     }
 
     @Override
-    public List<Command> getAllServerCommands() {
+    public List<Command> getBukkitCommands() {
         try {
 
             var commandMap = ObjectUtility.getPrivateField(Bukkit.getPluginManager(), "commandMap");
@@ -124,7 +124,7 @@ public class SimpleCommandManger extends EventBase implements FluentCommandMange
     }
 
     @Override
-    public Collection<SimpleCommand> getRegisteredCommands() {
+    public Collection<SimpleCommand> getSimpleCommands() {
         return commands.values();
     }
 }

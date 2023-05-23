@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface FluentPermission
 {
-    public List<PermissionModel> getPermissions();
+     List<PermissionModel> getPermissions();
 }

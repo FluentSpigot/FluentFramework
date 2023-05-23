@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.injector.implementation.containers.builder;
 
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
 import io.github.jwdeveloper.ff.core.injector.api.containers.builders.ContainerBuilder;
 import io.github.jwdeveloper.ff.core.injector.api.containers.builders.ContainerBuilderConfiguration;
@@ -179,7 +179,7 @@ public class ContainerBuilderImpl<Builder extends ContainerBuilder<Builder>> imp
                 searchAgent,
                 instanceProvider,
                 eventHandler,
-                new SimpleLogger(Logger.getLogger("container")),
+                new BukkitLogger(Logger.getLogger("container")),
                 injectionInfoFactory,
                 config.getRegistrations());
     }

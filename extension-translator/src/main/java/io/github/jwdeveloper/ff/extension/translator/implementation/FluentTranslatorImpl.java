@@ -1,14 +1,9 @@
 package io.github.jwdeveloper.ff.extension.translator.implementation;
 
-import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.ff.core.files.FileUtility;
-import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
-import io.github.jwdeveloper.ff.core.translator.api.models.LangData;
-import io.github.jwdeveloper.ff.core.translator.implementation.SimpleLang;
-import lombok.SneakyThrows;
-import org.bukkit.configuration.file.YamlConfiguration;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.extension.translator.api.models.LangData;
+import io.github.jwdeveloper.ff.extension.translator.implementation.langs.SimpleLang;
+import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import org.bukkit.entity.Player;
 
 import java.nio.file.Path;
@@ -16,9 +11,9 @@ import java.util.List;
 
 public class FluentTranslatorImpl implements FluentTranslator {
     private SimpleLang lang;
-    private final SimpleLogger logger;
+    private final BukkitLogger logger;
     private final String path;
-    public FluentTranslatorImpl(SimpleLogger logger, Path path)
+    public FluentTranslatorImpl(BukkitLogger logger, Path path)
     {
         this.logger = logger;
         this.path = path.toString();
@@ -41,18 +36,8 @@ public class FluentTranslatorImpl implements FluentTranslator {
     }
 
     @Override
-    public LangData getDefaultLanguage() {
-        return null;
-    }
-
-    @Override
-    public List<LangData> getLanguages() {
-        return lang.getLanguages();
-    }
-
-    @Override
     public List<String> getLanguagesName() {
-        return getLanguages().stream().map(c -> c.getCountry()).toList();
+        return null;
     }
 
     @Override

@@ -8,5 +8,9 @@ public interface ConfigMigration
 {
 
     String version();
-    void onPluginUpdate(YamlConfiguration config) throws IOException;
+    void onUpdate(YamlConfiguration config) throws IOException;
+
+    default void onDowngrade(YamlConfiguration config) throws IOException
+    {
+    }
 }

@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner;
 
 import io.github.jwdeveloper.ff.core.common.java.ClassTypeUtility;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.FluentAssemblyScanner;
 import lombok.Getter;
 import org.bukkit.plugin.Plugin;
@@ -13,7 +13,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 
-public class AssemblyScanner extends ClassLoader implements FluentAssemblyScanner  {
+public class AssemblyScanner extends ClassLoader implements FluentAssemblyScanner {
 
 
     @Getter
@@ -27,14 +27,14 @@ public class AssemblyScanner extends ClassLoader implements FluentAssemblyScanne
 
     private final Map<Class<? extends Annotation>, List<Class<?>>> byAnnotationCatch;
 
-    private final SimpleLogger logger;
+    private final BukkitLogger logger;
 
-    public AssemblyScanner(Plugin plugin, SimpleLogger logger) {
+    public AssemblyScanner(Plugin plugin, BukkitLogger logger) {
         //TODO check if PLUGIN will works instead of JAVAPLUGIN
         this(plugin.getClass(), logger);
     }
 
-    public AssemblyScanner(Class<?> clazz, SimpleLogger logger) {
+    public AssemblyScanner(Class<?> clazz, BukkitLogger logger) {
         this.logger = logger;
         classes = loadPluginClasses(clazz);
         byInterfaceCatch = new IdentityHashMap<>();
@@ -46,26 +46,30 @@ public class AssemblyScanner extends ClassLoader implements FluentAssemblyScanne
 
     private List<Class<?>> loadPluginClasses(final Class<?> clazz) {
         final var source = clazz.getProtectionDomain().getCodeSource();
-        if (source == null) return Collections.emptyList();
+        if (source == null)
+            return Collections.emptyList();
         final var url = source.getLocation();
         try (final var zip = new ZipInputStream(url.openStream())) {
             final List<Class<?>> classes = new ArrayList<>();
-            while (true) {
-                final ZipEntry entry = zip.getNextEntry();
-                if (entry == null) break;
-                if (entry.isDirectory()) continue;
+            ZipEntry entry;
+            while ((entry = zip.getNextEntry()) != null) {
+                if (entry.isDirectory())
+                    continue;
                 var name = entry.getName();
-                if (!name.endsWith(".class")) continue;
+                if (name.startsWith("META-INF"))
+                    continue;
+                if (!name.endsWith(".class"))
+                    continue;
                 name = name.replace('/', '.').substring(0, name.length() - 6);
                 try {
                     classes.add(Class.forName(name, false, clazz.getClassLoader()));
                 } catch (NoClassDefFoundError | ClassNotFoundException e) {
-                    logger.warning("Unable to load class:" + name);
+                    logger.error("Unable to load class:" + name, e);
                 }
             }
             return classes;
         } catch (IOException e) {
-            logger.error("Unable to open classes loader for: " + clazz.getName(), e);
+            logger.error("Unable open plugin Jar file :", e);
             return Collections.emptyList();
         }
     }

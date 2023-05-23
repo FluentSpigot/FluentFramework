@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.plugin.api.extention;
 
-import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
+import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 
 public interface FluentApiExtension {
 
@@ -17,7 +17,11 @@ public interface FluentApiExtension {
     default ExtentionPriority getPriority() {
         return ExtentionPriority.MEDIUM;
     }
+
     default String getVersion() {
         return StringUtils.EMPTY;
     }
+
+    FluentApiExtension EMPTY = (E) -> {
+    };
 }

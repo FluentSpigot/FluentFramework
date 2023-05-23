@@ -10,9 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public abstract class FluentPlugin extends JavaPlugin implements FluentApiExtension {
 
     public abstract void onConfiguration(FluentApiSpigotBuilder builder);
-
     public abstract void onFluentApiEnable(FluentApiSpigot fluentAPI);
-
     public abstract void onFluentApiDisabled(FluentApiSpigot fluentAPI);
 
     @Override

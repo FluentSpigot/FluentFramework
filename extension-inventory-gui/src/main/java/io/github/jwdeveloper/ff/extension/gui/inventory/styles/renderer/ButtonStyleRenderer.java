@@ -6,7 +6,7 @@ import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.spigot.messages.SimpleMessage;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
+import io.github.jwdeveloper.ff.plugin.api.features.FluentTranslator;
 import org.bukkit.ChatColor;
 
 import java.util.ArrayList;

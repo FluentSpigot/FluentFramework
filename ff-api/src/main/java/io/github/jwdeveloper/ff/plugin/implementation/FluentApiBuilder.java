@@ -6,18 +6,13 @@ import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.FluentAssemblyScanne
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.documentation.DocumentationOptions;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermissionBuilder;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.resourcepack.ResourcepackOptions;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.updater.api.UpdaterApiOptions;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
-import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import java.nio.file.Path;
-import java.util.function.Consumer;
+
 
 public class FluentApiBuilder implements FluentApiSpigotBuilder {
 
@@ -36,7 +31,7 @@ public class FluentApiBuilder implements FluentApiSpigotBuilder {
         return new FluentApiBuilder(new FluentApiSpigotBuilderImpl(plugin));
     }
 
-    private FluentApiSpigotBuilderImpl builder;
+    private final FluentApiSpigotBuilderImpl builder;
 
     FluentApiBuilder(FluentApiSpigotBuilderImpl builder) {
         this.builder = builder;
@@ -56,32 +51,6 @@ public class FluentApiBuilder implements FluentApiSpigotBuilder {
     public FluentApiSpigotBuilder useExtension(FluentApiExtension extension) {
         return builder.useExtension(extension);
     }
-
-    @Override
-    public FluentApiSpigotBuilder useMetrics(int metricsId) {
-        return builder.useMetrics(metricsId);
-    }
-
-    @Override
-    public FluentApiSpigotBuilder useUpdater(Consumer<UpdaterApiOptions> options) {
-        return builder.useUpdater(options);
-    }
-
-    @Override
-    public FluentApiSpigotBuilder useDocumentation(Consumer<DocumentationOptions> options) {
-        return builder.useDocumentation(options);
-    }
-
-    @Override
-    public FluentApiSpigotBuilder useDocumentation() {
-        return builder.useDocumentation();
-    }
-
-    @Override
-    public FluentApiSpigotBuilder useResourcePack(Consumer<ResourcepackOptions> options) {
-        return builder.useResourcePack(options);
-    }
-
     @Override
     public FluentConfig config() {
         return builder.config();
@@ -108,7 +77,7 @@ public class FluentApiBuilder implements FluentApiSpigotBuilder {
     }
 
     @Override
-    public SimpleLogger logger() {
+    public BukkitLogger logger() {
         return builder.logger();
     }
 
@@ -117,19 +86,9 @@ public class FluentApiBuilder implements FluentApiSpigotBuilder {
         return builder.tasks();
     }
 
-    public FluentApiSpigot build() {
-        try {
-            var api = builder.build();
-            FluentApi.setFluentApiSpigot(api);
-            api.enable();
-            api.events().onEvent(PluginDisableEvent.class, event ->
-            {
-                api.disable();
-            });
-            return api;
-        } catch (Exception e) {
-            builder.logger().error("Unable to initialize FluentAPI", e);
-        }
-        return null;
+    public FluentApiSpigot build() throws Exception {
+        var api = builder.build();
+        FluentApi.setFluentApiSpigot(api);
+        return api;
     }
 }

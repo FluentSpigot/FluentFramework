@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.mediator.implementation;
 
 import io.github.jwdeveloper.ff.core.common.java.Pair;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.core.mediator.api.Mediator;
 import io.github.jwdeveloper.ff.core.mediator.api.MediatorHandler;
 
@@ -14,9 +14,9 @@ public class SimpleMediator implements Mediator {
     private static final String MEDIATOR_CLASS_NAME = MediatorHandler.class.getTypeName();
     private final Map<Pair, Class> handlers;
     private final Function<Class<?>,Object> serviceResolver;
-    private final SimpleLogger logger;
+    private final BukkitLogger logger;
 
-    public SimpleMediator(Function<Class<?>,Object> serviceResolver, SimpleLogger logger)
+    public SimpleMediator(Function<Class<?>,Object> serviceResolver, BukkitLogger logger)
     {
         handlers = new HashMap<>();
         this.serviceResolver = serviceResolver;

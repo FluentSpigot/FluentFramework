@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
@@ -8,70 +8,57 @@ import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.Comm
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.messages.SimpleMessage;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
-import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtensionsManager;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.dependecy_injection.FluentInjection;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.files.FluentFiles;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.FluentInjection;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator.FluentMediator;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermission;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.player_context.implementation.FluentPlayerContext;
 import org.bukkit.plugin.Plugin;
 
 public final class FluentApiSpigot {
 
     private final FluentInjection fluentInjection;
     private final FluentMediator fluentMediator;
-    private final FluentFiles fluentFiles;
-    private final FluentTranslator fluentTranslator;
     private final FluentConfig fluentConfig;
     private final FluentPermission fluentPermission;
-    private final FluentPlayerContext playerContext;
     private final Plugin plugin;
     private final SimpleMessage simpleMessages;
     private final FluentEventManager fluentEvents;
     private final FluentTaskManager simpleTasks;
     private final FluentCommandManger commandManger;
     private final FluentApiExtensionsManager extensionsManager;
-    private final SimpleLogger logger;
+    private final BukkitLogger logger;
 
     public FluentApiSpigot(
             Plugin plugin,
             FluentInjection injection,
             FluentMediator mediator,
-            FluentFiles files,
-            FluentTranslator translator,
             FluentConfig fluentConfig,
             FluentPermission permission,
-            FluentPlayerContext playerContext,
             FluentApiExtensionsManager extensionsManager,
-            SimpleLogger logger,
+            BukkitLogger logger,
             FluentCommandManger commandManger,
             FluentEventManager eventManager,
             FluentTaskManager taskManager) {
         this.plugin = plugin;
         this.fluentConfig = fluentConfig;
-        this.playerContext = playerContext;
         this.extensionsManager = extensionsManager;
         this.commandManger = commandManger;
         this.logger = logger;
         fluentInjection = injection;
         fluentMediator = mediator;
-        fluentFiles = files;
-        fluentTranslator = translator;
         fluentPermission = permission;
         fluentEvents = eventManager;
         simpleTasks = taskManager;
         simpleMessages = new SimpleMessage();
     }
+
     public void enable() {
         extensionsManager.onEnable(this);
     }
+
     public void disable() {
         extensionsManager.onDisable(this);
-    }
-    public FluentPlayerContext playerContext() {
-        return playerContext;
     }
 
     public FluentPermission permission() {
@@ -81,47 +68,33 @@ public final class FluentApiSpigot {
     public FluentInjection container() {
         return fluentInjection;
     }
+
     public FluentMediator mediator() {
         return fluentMediator;
-    }
-
-    public FluentFiles files() {
-        return fluentFiles;
-    }
-    public FluentTranslator translator() {
-        if(fluentTranslator == null)
-        {
-            throw new RuntimeException("FluentTranslator has not been implemented, use extension-translator project or make own implementation");
-        }
-        return fluentTranslator;
     }
 
     public FluentConfig config() {
         return fluentConfig;
     }
 
-    public SimpleLogger logger() {
-        return logger;
-    }
-
-    public String path() {
-        return FileUtility.pluginPath(plugin);
-    }
-
     public FluentEventManager events() {
         return fluentEvents;
-    }
-
-    public SimpleMessage messages() {
-        return simpleMessages;
     }
 
     public FluentTaskManager tasks() {
         return simpleTasks;
     }
 
-    public CommandBuilder commands(String commandName) {
+    public FluentCommandManger commands() {
+        return commandManger;
+    }
+
+    public CommandBuilder createCommand(String commandName) {
         return new CommandBuilderImpl(commandName, commandManger);
+    }
+
+    public SimpleMessage messages() {
+        return simpleMessages;
     }
 
    /* public static FluentParticlebuilder particles() {
@@ -130,6 +103,14 @@ public final class FluentApiSpigot {
 
     public Plugin plugin() {
         return plugin;
+    }
+
+    public BukkitLogger logger() {
+        return logger;
+    }
+
+    public String path() {
+        return FileUtility.pluginPath(plugin);
     }
 
     public String dataPath() {

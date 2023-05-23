@@ -1,0 +1,21 @@
+      textDisplay = location.getWorld().spawn(location.clone().add(0,0,3),TextDisplay.class);
+
+
+        var start = StringUtils.EMPTY;
+        start += Emoticons.music+ "                                                                          [_] [#] [x]\n";
+        for(var i =0;i<10;i++)
+        {            start += Emoticons.music+ "   dupa dupa dupa                                                                                           \n";
+
+
+        }
+
+        textDisplay.setText(start);
+        textDisplay.setGlowColorOverride(Color.GREEN);
+        textDisplay.setBackgroundColor(Color.BLACK);
+        textDisplay.setLineWidth(200);
+        textDisplay.setAlignment(TextDisplay.TextAligment.CENTER);
+        textDisplay.setTransformation(new Transformation(
+                new Vector3f(0,0,0),
+                new AxisAngle4f(0,0,0,0),
+                new Vector3f(0.05f,0.05f,0.05f),
+                new AxisAngle4f(0,0,0,0)));

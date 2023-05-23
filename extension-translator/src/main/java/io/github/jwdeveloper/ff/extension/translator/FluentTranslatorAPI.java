@@ -8,11 +8,11 @@ import java.util.function.Consumer;
 
 public class FluentTranslatorAPI
 {
-    public static FluentApiExtension useTranslator(Consumer<FluentTranslatorOptions> options) {
+    public static FluentApiExtension use(Consumer<FluentTranslatorOptions> options) {
         return new FluentTranslationExtension(options);
     }
 
-    public static FluentApiExtension useTranslator() {
-        return useTranslator(e -> {});
+    public static FluentApiExtension use() {
+        return use(e -> {});
     }
 }

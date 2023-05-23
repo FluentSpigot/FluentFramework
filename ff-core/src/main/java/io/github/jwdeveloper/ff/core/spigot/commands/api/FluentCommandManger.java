@@ -12,10 +12,9 @@ public interface FluentCommandManger {
 
     boolean unregister(SimpleCommand command);
 
-    List<String> getAllServerCommandsName();
+    List<String> getBukkitCommandsNames();
 
-    List<Command> getAllServerCommands();
+    List<Command> getBukkitCommands();
 
-    Collection<SimpleCommand> getRegisteredCommands();
-    Plugin getPlugin();
+    Collection<SimpleCommand> getSimpleCommands();
 }

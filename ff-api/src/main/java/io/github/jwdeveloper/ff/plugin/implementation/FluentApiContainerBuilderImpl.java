@@ -2,9 +2,8 @@ package io.github.jwdeveloper.ff.plugin.implementation;
 
 import io.github.jwdeveloper.ff.plugin.api.FluentApiContainerBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtensionsManager;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator.FluentDecorator;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator.FluentDecoratorExtention;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
 import io.github.jwdeveloper.ff.core.injector.decorator.api.builder.DecoratorBuilder;
 import io.github.jwdeveloper.ff.core.injector.implementation.containers.FluentContainerImpl;
@@ -18,16 +17,15 @@ import io.github.jwdeveloper.ff.core.injector.implementation.search.SearchAgentI
 public class FluentApiContainerBuilderImpl extends ContainerBuilderImpl<FluentApiContainerBuilder> implements FluentApiContainerBuilder {
     private final FluentApiExtensionsManager extentionsManager;
     private final DecoratorBuilder decoratorBuilder;
-    private final SimpleLogger logger;
+    private final BukkitLogger logger;
 
     public FluentApiContainerBuilderImpl(FluentApiExtensionsManager eventBuilder,
-                                         SimpleLogger logger) {
-        this.extentionsManager = eventBuilder;
+                                         BukkitLogger logger,
+                                         DecoratorBuilder decoratorBuilder) {
         this.logger = logger;
-        this.decoratorBuilder = FluentDecorator.CreateDecorator();
+        this.extentionsManager = eventBuilder;
+        this.decoratorBuilder = decoratorBuilder;
     }
-
-
 
 
 

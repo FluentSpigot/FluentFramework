@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.particles.implementation;
 
 
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.core.spigot.particles.api.ParticleSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -13,7 +13,7 @@ import org.bukkit.scheduler.BukkitTask;
 public class SimpleParticle {
 
     private final Plugin plugin;
-    private final SimpleLogger logger;
+    private final BukkitLogger logger;
     private final ParticleInvoker particleInvoker;
     private final ParticleSettings settings;
     private BukkitTask bukkitTask;
@@ -21,7 +21,7 @@ public class SimpleParticle {
 
     public SimpleParticle(ParticleSettings particleSettings,
                           Plugin plugin,
-                          SimpleLogger logger) {
+                          BukkitLogger logger) {
         this.plugin = plugin;
         this.logger = logger;
         this.settings = particleSettings;

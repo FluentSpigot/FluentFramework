@@ -21,7 +21,7 @@ import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.observer.implementation.Observer;
 import io.github.jwdeveloper.ff.core.observer.implementation.ObserverBag;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
+import io.github.jwdeveloper.ff.plugin.api.features.FluentTranslator;
 import org.bukkit.Material;
 
 import java.util.List;

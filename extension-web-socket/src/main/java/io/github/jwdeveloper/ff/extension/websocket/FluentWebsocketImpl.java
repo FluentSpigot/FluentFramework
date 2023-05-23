@@ -3,7 +3,7 @@ package io.github.jwdeveloper.ff.extension.websocket;
 import io.github.jwdeveloper.ff.extension.websocket.api.FluentWebsocket;
 import io.github.jwdeveloper.ff.extension.websocket.core.api.FluentWebsocketPacket;
 import io.github.jwdeveloper.ff.extension.websocket.core.implementation.WebSocketBase;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 
 import java.util.Collection;
 
@@ -26,7 +26,7 @@ public class FluentWebsocketImpl extends WebSocketBase implements FluentWebsocke
         return super.getPort();
     }
 
-    public FluentWebsocketImpl(int port, SimpleLogger logger) {
+    public FluentWebsocketImpl(int port, BukkitLogger logger) {
         super(port, logger);
     }
 

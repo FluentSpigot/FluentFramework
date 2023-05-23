@@ -5,7 +5,7 @@ import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.core.injector.api.enums.RegistrationType;
 import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.dependecy_injection.FluentInjectionImpl;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.FluentInjectionImpl;
 import lombok.SneakyThrows;
 
 public class SqlDbContextFactory

@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.events.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import lombok.Getter;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -18,9 +18,9 @@ public class SimpleEvent<T extends Event> {
     @Getter
     private boolean isRegister =true;
     private String permission;
-    private final SimpleLogger logger;
+    private final BukkitLogger logger;
 
-    public SimpleEvent(Consumer<T> onEvent, SimpleLogger logger) {
+    public SimpleEvent(Consumer<T> onEvent, BukkitLogger logger) {
         this.onEvent = onEvent;
         this.nextActions = new ArrayList<>();
         this.isActive = true;

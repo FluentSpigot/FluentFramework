@@ -30,9 +30,10 @@ public class FluentEvent
         return manager;
     }
 
-    public static void enable(Plugin plugin)
+    public static FluentEventManager enable(Plugin plugin)
     {
         JavaUtils.ifNotNull(manager, SimpleEventManager::unregister);
         manager = new SimpleEventManager(plugin, FluentLogger.LOGGER);
+        return manager;
     }
 }

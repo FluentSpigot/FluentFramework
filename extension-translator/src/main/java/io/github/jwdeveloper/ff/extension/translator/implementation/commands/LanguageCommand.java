@@ -1,23 +1,24 @@
 package io.github.jwdeveloper.ff.extension.translator.implementation.commands;
 
-import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.ArgumentDisplay;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
+import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslatorOptions;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
+import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
 import org.bukkit.ChatColor;
 
 public class LanguageCommand {
 
-    private final String defaultCommand;
+    private final FluentApiCommandBuilder defaultCommand;
 
     private final FluentConfig configFile;
     private final FluentTranslator translator;
     private final FluentTranslatorOptions options;
 
-    public LanguageCommand(String defaultCommand,
+    public LanguageCommand(FluentApiCommandBuilder defaultCommand,
                            FluentConfig configFile,
                            FluentTranslator translator,
                            FluentTranslatorOptions options) {
@@ -29,12 +30,12 @@ public class LanguageCommand {
 
 
     public CommandBuilder create() {
-        return FluentCommand.create(options.getCommandName())
+        return FluentApi.createCommand(options.getCommandName())
                 .propertiesConfig(propertiesConfig ->
                 {
                     propertiesConfig.addPermissions(options.getPermissionName());
                     propertiesConfig.setDescription("Changes plugin languages, changes will be applied after server reload. Change be use both be player or console");
-                    propertiesConfig.setUsageMessage("/" + defaultCommand + " " + options.getCommandName() + " <language>");
+                    propertiesConfig.setUsageMessage("/" + defaultCommand.getName() + " " + options.getCommandName() + " <language>");
                 })
                 .argumentsConfig(argumentConfig ->
                 {
@@ -61,8 +62,7 @@ public class LanguageCommand {
                         }
                         configFile.configFile().set(options.getConfigPath(), languageName);
                         configFile.save();
-                        new MessageBuilder()
-                                .info()
+                        FluentApi.messages().chat().info()
                                 .textSecondary(" Language has been changed to ")
                                 .textPrimary(languageName)
                                 .textSecondary(" use ")

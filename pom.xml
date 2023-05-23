@@ -19,6 +19,12 @@
         <module>extension-mysql</module>
         <module>extension-translator</module>
         <module>ff-plugin</module>
+        <module>extension-color-picker</module>
+        <module>ff-plugin-tests</module>
+        <module>ff-api-tests</module>
+        <module>extension-files</module>
+        <module>extension-resourcepack</module>
+        <module>extension-updater</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -121,6 +127,17 @@
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.5</version>
         </dependency>
     </dependencies>
 

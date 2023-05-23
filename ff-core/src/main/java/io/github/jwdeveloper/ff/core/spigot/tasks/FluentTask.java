@@ -34,7 +34,8 @@ public class FluentTask {
         return manger;
     }
 
-    public static void enable(Plugin plugin) {
+    public static FluentTaskManager enable(Plugin plugin) {
         manger = new SimpleTaskManager(plugin, FluentLogger.LOGGER);
+        return manger;
     }
 }

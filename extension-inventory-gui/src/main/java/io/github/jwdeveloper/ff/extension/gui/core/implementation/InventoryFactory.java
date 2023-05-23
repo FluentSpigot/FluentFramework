@@ -7,8 +7,7 @@ import io.github.jwdeveloper.ff.extension.gui.core.implementation.managers.Butto
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.managers.ChildernManagerImpl;
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.managers.EventManagerImpl;
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.managers.PermissionManagerImpl;
-import io.github.jwdeveloper.ff.extension.gui.implementation.FluentInventoryImpl;
-import io.github.jwdeveloper.ff.core.translator.api.FluentTranslator;
+import io.github.jwdeveloper.ff.plugin.api.features.FluentTranslator;
 import lombok.Getter;
 import io.github.jwdeveloper.ff.extension.gui.implementation.InventorySpigotListener;
 
