@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.plugin.implementation;
 
 import io.github.jwdeveloper.ff.plugin.api.FluentApiContainerBuilder;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.FluentAssemblyScanner;
+import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
@@ -10,24 +10,19 @@ import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api
 import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
+
 import java.nio.file.Path;
 
 
 public class FluentApiBuilder implements FluentApiSpigotBuilder {
 
     public static FluentApiBuilder create(Plugin plugin, FluentApiExtension extension) {
-        var builder = new FluentApiBuilder(new FluentApiSpigotBuilderImpl(plugin));
+        var builder = create(plugin);
         builder.useExtension(extension);
         return builder;
     }
 
-
     public static FluentApiBuilder create(Plugin plugin) {
-        return create((JavaPlugin) plugin);
-    }
-
-    public static FluentApiBuilder create(JavaPlugin plugin) {
         return new FluentApiBuilder(new FluentApiSpigotBuilderImpl(plugin));
     }
 
@@ -72,8 +67,8 @@ public class FluentApiBuilder implements FluentApiSpigotBuilder {
     }
 
     @Override
-    public FluentAssemblyScanner classFinder() {
-        return builder.classFinder();
+    public JarScanner jarScanner() {
+        return builder.jarScanner();
     }
 
     @Override

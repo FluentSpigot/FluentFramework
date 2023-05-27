@@ -1,7 +1,8 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlReader;
 import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
 import io.github.jwdeveloper.ff.core.spigot.events.FluentEvent;
@@ -10,19 +11,21 @@ import io.github.jwdeveloper.ff.core.spigot.tasks.FluentTask;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiContainerBuilder;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.FluentAssemblyScanner;
+import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
+import io.github.jwdeveloper.ff.plugin.api.config.ConfigSection;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
-import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.AssemblyScanner;
+import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.JarScannerImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.config.FluentConfigImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.config.FluentConfigLoader;
+import io.github.jwdeveloper.ff.plugin.implementation.config.migrations.DefaultConfigMigrator;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.FluentApiExtentionsManagerImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiDefaultCommandBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentDefaultCommandExtension;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator.FluentDecorator;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.FluentInjectionFactory;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator.FluentDecorator;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator.FluentMediator;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator.FluentMediatorExtention;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermission;
@@ -41,7 +44,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     private final FluentPermissionBuilderImpl fluentPermissionBuilder;
     private final FluentConfigImpl configFile;
     private final Plugin plugin;
-    private final AssemblyScanner assemblyScanner;
+    private final JarScannerImpl assemblyScanner;
     private final BukkitLogger logger;
     private final FluentTaskManager taskManager;
     private final FluentCommandManger commandManger;
@@ -51,16 +54,16 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     public FluentApiSpigotBuilderImpl(Plugin plugin) {
         this.plugin = plugin;
         logger = FluentLogger.setLogger(plugin.getLogger());
-        commandManger =FluentCommand.enable(plugin);
-        eventManager =FluentEvent.enable(plugin);
+        commandManger = FluentCommand.enable(plugin);
+        eventManager = FluentEvent.enable(plugin);
         taskManager = FluentTask.enable(plugin);
 
         extensionsManager = new FluentApiExtentionsManagerImpl(logger);
         containerBuilder = new FluentApiContainerBuilderImpl(extensionsManager, logger, FluentDecorator.CreateDecorator());
         commandBuilder = new FluentApiDefaultCommandBuilder(plugin.getName(), commandManger);
         fluentPermissionBuilder = new FluentPermissionBuilderImpl(plugin);
-        assemblyScanner = new AssemblyScanner(plugin, logger);
-        configFile = FluentConfigLoader.loadConfig(plugin, assemblyScanner);
+        assemblyScanner = new JarScannerImpl(plugin, logger);
+        configFile = new FluentConfigLoader(plugin, assemblyScanner).load();
     }
 
     @Override
@@ -94,7 +97,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     }
 
     @Override
-    public FluentAssemblyScanner classFinder() {
+    public JarScanner jarScanner() {
         return assemblyScanner;
     }
 
@@ -117,8 +120,25 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     public FluentApiSpigot build() throws Exception {
         extensionsManager.registerLow(new FluentPermissionExtention(fluentPermissionBuilder));
         extensionsManager.registerLow(new FluentMediatorExtention());
-       // extensionsManager.registerLow(new FluentFilesExtention());
         extensionsManager.register(new FluentDefaultCommandExtension(commandBuilder), ExtentionPriority.HIGH);
+        extensionsManager.getBeforeOnConfigure().subscribe(fluentApiExtension ->
+        {
+            new DefaultConfigMigrator(fluentApiExtension, assemblyScanner, logger)
+                    .makeMigration(configFile.getFileConfiguration());
+        });
+        extensionsManager.getBeforeEnable().subscribe(fluentApiExtension ->
+        {
+            var yamlMapper = new SimpleYamlReader();
+            var sectionsClasses = assemblyScanner.findByInterface(ConfigSection.class);
+            try {
+                for (var clazz : sectionsClasses) {
+                    var sectionObject = (ConfigSection) clazz.newInstance();
+                    yamlMapper.toConfiguration(sectionObject, configFile.getFileConfiguration());
+                }
+            } catch (Exception e) {
+                throw new RuntimeException("Unable to map config", e);
+            }
+        });
         extensionsManager.onConfiguration(this);
 
         containerBuilder.registerSigleton(Plugin.class, plugin);
@@ -126,7 +146,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         containerBuilder.registerSigleton(FluentTaskManager.class, taskManager);
         containerBuilder.registerSigleton(FluentEventManager.class, eventManager);
         containerBuilder.registerSigleton(FluentCommandManger.class, commandManger);
-        containerBuilder.registerSigleton(FluentAssemblyScanner.class, assemblyScanner);
+        containerBuilder.registerSigleton(JarScanner.class, assemblyScanner);
         final var injectionFactory = new FluentInjectionFactory(containerBuilder, logger, plugin, assemblyScanner);
         final var factoryResult = injectionFactory.create();
         final var injection = factoryResult.fluentInjection();

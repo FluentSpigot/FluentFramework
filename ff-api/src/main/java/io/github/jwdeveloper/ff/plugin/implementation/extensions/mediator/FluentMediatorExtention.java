@@ -9,7 +9,7 @@ public class FluentMediatorExtention implements FluentApiExtension {
 
     @Override
     public void onConfiguration(FluentApiSpigotBuilder builder) {
-        var mediators = builder.classFinder().findByInterface(MediatorHandler.class);
+        var mediators = builder.jarScanner().findByInterface(MediatorHandler.class);
         builder.container().register(
                 FluentMediator.class,
                 LifeTime.SINGLETON,

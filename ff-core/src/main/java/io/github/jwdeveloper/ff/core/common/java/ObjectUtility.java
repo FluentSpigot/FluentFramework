@@ -5,6 +5,7 @@ import org.bukkit.Material;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -15,6 +16,10 @@ public class ObjectUtility {
     private static final Set<Class<?>> WRAPPER_TYPES = new HashSet(Arrays.asList(
             Boolean.class, Character.class, Byte.class, Short.class, Integer.class, Long.class, Float.class, Double.class, Void.class));
 
+
+    public static <T> T initialize(Class<?> clazz, Object ... params) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+       return (T) clazz.getConstructors()[0].newInstance(params);
+    }
     public static boolean isPrimitiveType(Class<?> clazz) {
         return WRAPPER_TYPES.contains(clazz);
     }

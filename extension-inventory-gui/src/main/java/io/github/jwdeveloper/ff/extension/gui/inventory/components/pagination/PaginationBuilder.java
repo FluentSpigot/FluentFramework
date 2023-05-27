@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.inventory.components.pagination;
 
 import io.github.jwdeveloper.ff.extension.gui.core.api.managers.events.CreateGuiEvent;
-import io.github.jwdeveloper.ff.extension.gui.core.api.managers.events.EventsGroup;
 import io.github.jwdeveloper.ff.extension.gui.inventory.FluentButtonUIBuilder;
 
 import java.util.Collection;

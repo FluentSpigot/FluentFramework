@@ -37,7 +37,7 @@ public class FluentSqlExtension implements FluentApiExtension {
     @Override
     public void onConfiguration(FluentApiSpigotBuilder builder) {
         FluentLogger.LOGGER.info("Lanching SQL extension");
-        var contextClasses = builder.classFinder().findBySuperClass(SqlDbContext.class);
+        var contextClasses = builder.jarScanner().findBySuperClass(SqlDbContext.class);
         if(contextClasses.isEmpty())
         {
             throw new RuntimeException("Context class not found");

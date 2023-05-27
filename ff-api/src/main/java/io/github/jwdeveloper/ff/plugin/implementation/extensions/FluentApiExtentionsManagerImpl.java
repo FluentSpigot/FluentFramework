@@ -1,5 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions;
 
+import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
+import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventsGroupCancelable;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtensionModel;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
@@ -7,20 +9,34 @@ import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtensionsManager;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManager {
-    private final Collection<ExtensionModel> extensions;
+    private final Collection<ExtensionModel> extensionsModels;
     private final BukkitLogger logger;
+
+
+    @Getter
+    private final EventGroup<FluentApiExtension> beforeOnConfigure;
+    @Getter
+    private final EventGroup<FluentApiExtension> beforeEnable;
+    @Getter
+    private final EventGroup<FluentApiExtension> beforeDisable;
+
 
     public FluentApiExtentionsManagerImpl(BukkitLogger logger)
     {
         this.logger = logger;
-        extensions = new ConcurrentLinkedDeque<>();
+        extensionsModels = new ConcurrentLinkedDeque<>();
+        beforeOnConfigure= new EventGroup<>();
+        beforeEnable = new EventGroup<>();
+        beforeDisable = new EventGroup<>();
     }
 
 
@@ -31,7 +47,7 @@ public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManage
 
     @Override
     public void register(FluentApiExtension extention, ExtentionPriority piority) {
-        extensions.add(new ExtensionModel(extention,piority));
+        extensionsModels.add(new ExtensionModel(extention,piority));
     }
 
     @Override
@@ -43,9 +59,10 @@ public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManage
     @Override
     public void onConfiguration(FluentApiSpigotBuilder builder) {
         //FluentLogger.LOGGER.success("onConfiguration");
-        for(var extention : extensions)
+        for(var extention : extensionsModels)
         {
            // FluentLogger.LOGGER.log("Piority",extention.getPiority().name(),extention.getExtention().getClass().getSimpleName());
+            beforeOnConfigure.invoke(extention.getExtension());
             extention.getExtension().onConfiguration(builder);
         }
     }
@@ -57,13 +74,13 @@ public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManage
             var sorted = sortByPiority();
             for(var extension : sorted)
             {
-
+                beforeEnable.invoke(extension.getExtension());
                 extension.getExtension().onFluentApiEnable(fluentAPI);
             }
         }
         catch (Exception e)
         {
-            logger.error("onFluentApiEnable Fluent API Extension exception",e);
+            throw new RuntimeException("FluentApiExtension onEnable error",e);
         }
     }
 
@@ -74,19 +91,19 @@ public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManage
         {
             try
             {
+                beforeDisable.invoke(extention.getExtension());
                 extention.getExtension().onFluentApiDisabled(fluentAPI);
             }
             catch (Exception e)
             {
-               logger.error("disable error",e);
+               logger.error("FluentApiExtension onDisable error",e);
             }
         }
     }
 
 
-
     private List<ExtensionModel> sortByPiority()
     {
-        return extensions.stream().toList().stream().sorted(Comparator.comparing(item -> item.getPriority().getLevel())).toList();
+        return extensionsModels.stream().toList().stream().sorted(Comparator.comparing(item -> item.getPriority().getLevel())).toList();
     }
 }

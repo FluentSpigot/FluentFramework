@@ -1,11 +1,11 @@
 package io.github.jwdeveloper.ff.plugin.implementation.config.migrations;
 
-import io.github.jwdeveloper.ff.plugin.api.config.migrations.ConfigMigration;
+import io.github.jwdeveloper.ff.plugin.api.config.migrations.ExtensionMigration;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.common.versions.VersionCompare;
 import io.github.jwdeveloper.ff.core.common.versions.VersionNumberComparator;
 import io.github.jwdeveloper.ff.plugin.api.config.migrations.ConfigMigrator;
-import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.AssemblyScanner;
+import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.JarScannerImpl;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -13,26 +13,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FluentConfigMigrator implements ConfigMigrator {
-    private final AssemblyScanner assemblyScanner;
+    private final JarScannerImpl assemblyScanner;
     private final Plugin plugin;
     private final String VERSION_PATH = "plugin.version";
 
-    public FluentConfigMigrator(AssemblyScanner assemblyScanner, Plugin plugin) {
+    public FluentConfigMigrator(JarScannerImpl assemblyScanner, Plugin plugin) {
         this.assemblyScanner = assemblyScanner;
         this.plugin = plugin;
     }
 
 
-    public boolean isPluginUpdated(YamlConfiguration yamlConfig) {
+    public boolean isConfigUpdated(YamlConfiguration yamlConfig) {
         return VersionCompare.isHigher(getCurrentPluginVersion(), getConfigVersion(yamlConfig));
     }
 
     @Override
     public void makeMigration(YamlConfiguration configuration) throws InstantiationException, IllegalAccessException {
-        var migrations = new ArrayList<ConfigMigration>();
-        var migrationsClasses = assemblyScanner.findByInterface(ConfigMigration.class);
+        var migrations = new ArrayList<ExtensionMigration>();
+        var migrationsClasses = assemblyScanner.findByInterface(ExtensionMigration.class);
         for (var clazz : migrationsClasses) {
-            var instance = (ConfigMigration) clazz.newInstance();
+            var instance = (ExtensionMigration) clazz.newInstance();
             migrations.add(instance);
         }
         var currentVersion = getCurrentPluginVersion();
@@ -55,10 +55,10 @@ public class FluentConfigMigrator implements ConfigMigrator {
     }
 
 
-    private List<ConfigMigration> getMigrationsBetween(List<ConfigMigration> migrations, String lastVersion, String currentVersion)
+    private List<ExtensionMigration> getMigrationsBetween(List<ExtensionMigration> migrations, String lastVersion, String currentVersion)
     {
         var sorted = sortMigrations(migrations);;
-        var result = new ArrayList<ConfigMigration>();
+        var result = new ArrayList<ExtensionMigration>();
         for (var migration : sorted)
         {
            var equalCurrent = currentVersion.equals(migration.version());
@@ -74,9 +74,9 @@ public class FluentConfigMigrator implements ConfigMigrator {
     }
 
 
-    private List<ConfigMigration> sortMigrations(List<ConfigMigration> migrations) {
-        var result = new ArrayList<ConfigMigration>();
-        var versionNames = new ArrayList<>(migrations.stream().map(ConfigMigration::version).toList());
+    private List<ExtensionMigration> sortMigrations(List<ExtensionMigration> migrations) {
+        var result = new ArrayList<ExtensionMigration>();
+        var versionNames = new ArrayList<>(migrations.stream().map(ExtensionMigration::version).toList());
         versionNames.sort(VersionNumberComparator.getInstance());
 
         for (var version : versionNames) {

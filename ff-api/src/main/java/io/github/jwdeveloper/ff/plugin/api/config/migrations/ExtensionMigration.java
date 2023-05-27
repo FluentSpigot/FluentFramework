@@ -4,7 +4,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.IOException;
 
-public interface ConfigMigration
+public interface ExtensionMigration
 {
 
     String version();

@@ -8,6 +8,7 @@ import be.seeseemelk.mockbukkit.command.ConsoleCommandSenderMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import be.seeseemelk.mockbukkit.plugin.PluginManagerMock;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
@@ -16,6 +17,8 @@ import lombok.Getter;
 import org.bukkit.event.Event;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+
+import java.util.List;
 
 public abstract class FluentApiTest
 {
@@ -40,8 +43,7 @@ public abstract class FluentApiTest
     {
         return serverMock.getPluginManager();
     }
-
-    public abstract FluentApiExtension useExtension();
+    public abstract void onBuild(FluentApiSpigotBuilder fluentApiBuilder);
 
     public void sendMessage(String ... message)
     {
@@ -86,7 +88,7 @@ public abstract class FluentApiTest
         pluginMock = MockBukkit.createMockPlugin();
 
         var apiBuilder = FluentApiBuilder.create(pluginMock);
-        apiBuilder.useExtension(useExtension());
+        onBuild(apiBuilder);
         fluentApiMock = apiBuilder.build();
         fluentApiMock.enable();
     }

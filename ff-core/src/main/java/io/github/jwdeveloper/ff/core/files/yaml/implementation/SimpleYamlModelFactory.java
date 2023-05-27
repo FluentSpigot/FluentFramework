@@ -3,8 +3,9 @@ package io.github.jwdeveloper.ff.core.files.yaml.implementation;
 import io.github.jwdeveloper.ff.core.common.TextBuilder;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.files.yaml.api.YamlModelFactory;
+import io.github.jwdeveloper.ff.core.files.yaml.api.YamlSymbols;
 import io.github.jwdeveloper.ff.core.files.yaml.api.annotations.YamlFile;
-import io.github.jwdeveloper.ff.core.files.yaml.api.annotations.YamlProperty;
+import io.github.jwdeveloper.ff.core.files.yaml.api.annotations.YamlSection;
 import io.github.jwdeveloper.ff.core.files.yaml.api.models.YamlContent;
 import io.github.jwdeveloper.ff.core.files.yaml.api.models.YamlModel;
 
@@ -29,7 +30,7 @@ public class SimpleYamlModelFactory implements YamlModelFactory {
     private List<YamlContent> createContent(Class<?> clazz, String path) throws ClassNotFoundException {
         var result = new ArrayList<YamlContent>();
         for (var field : clazz.getDeclaredFields()) {
-            var annotation = field.getAnnotation(YamlProperty.class);
+            var annotation = field.getAnnotation(YamlSection.class);
             if (annotation == null) {
                 continue;
             }
@@ -38,7 +39,7 @@ public class SimpleYamlModelFactory implements YamlModelFactory {
             var content = getYamlContent(clazz, field, annotation);
 
             var fieldClazz = field.getType();
-            var fieldPath = path.isEmpty() ? content.getPath() : path + "." + content.getPath();
+            var fieldPath = path.isEmpty() ? content.getPath() : path + YamlSymbols.DOT + content.getPath();
 
             List<YamlContent> children = new ArrayList<YamlContent>();
             if (field.getType().isAssignableFrom(List.class)) {
@@ -70,7 +71,7 @@ public class SimpleYamlModelFactory implements YamlModelFactory {
             var parentPath = ymlContent.getFullPath();
 
 
-            if (StringUtils.isNotNullOrEmpty(ymlContent.getDescription()) && !ymlContent.getDescription().equals(" ")) {
+            if (StringUtils.isNotNullOrEmpty(ymlContent.getDescription()) && !ymlContent.getDescription().equals(YamlSymbols.SPACE)) {
                 builder.newLine().text(parentPath).newLine()
                         .space().text(ymlContent.getDescription()).newLine().newLine();
             }
@@ -78,10 +79,10 @@ public class SimpleYamlModelFactory implements YamlModelFactory {
 
             for (var child : ymlContent.getChildren()) {
                 var description = child.getDescription();
-                if (description.isEmpty() || StringUtils.isNullOrEmpty(description) || description.equals(" ")) {
+                if (description.isEmpty() || StringUtils.isNullOrEmpty(description) || description.equals(YamlSymbols.SPACE)) {
                     continue;
                 }
-                builder.newLine().text(parentPath + "." + child.getFullPath()).newLine()
+                builder.newLine().text(parentPath).text(YamlSymbols.DOT).text(child.getFullPath()).newLine()
                         .space().text(description).newLine();
             }
         }
@@ -111,7 +112,7 @@ public class SimpleYamlModelFactory implements YamlModelFactory {
     }
 
 
-    private YamlContent getYamlContent(Class<?> clazz, Field field, YamlProperty property) {
+    private YamlContent getYamlContent(Class<?> clazz, Field field, YamlSection property) {
         var result = new YamlContent();
         result.setField(field);
         result.setName(field.getName());

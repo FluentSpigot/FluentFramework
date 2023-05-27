@@ -4,7 +4,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public interface ConfigMigrator
 {
-     boolean isPluginUpdated(YamlConfiguration configuration);
+
+     boolean isConfigUpdated(YamlConfiguration configuration);
 
      void makeMigration(YamlConfiguration configuration) throws InstantiationException, IllegalAccessException;
 }

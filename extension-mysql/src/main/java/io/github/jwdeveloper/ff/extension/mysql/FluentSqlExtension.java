@@ -38,7 +38,7 @@ public class FluentSqlExtension implements FluentApiExtension {
         }
 
         var contextClassOptional = builder
-                .classFinder()
+                .jarScanner()
                 .findBySuperClass(DbContext.class)
                 .stream()
                 .findFirst();

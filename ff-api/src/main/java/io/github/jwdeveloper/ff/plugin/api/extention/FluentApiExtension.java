@@ -2,7 +2,13 @@ package io.github.jwdeveloper.ff.plugin.api.extention;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
+import io.github.jwdeveloper.ff.plugin.api.config.migrations.ExtensionMigration;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public interface FluentApiExtension {
 
@@ -22,6 +28,10 @@ public interface FluentApiExtension {
         return StringUtils.EMPTY;
     }
 
-    FluentApiExtension EMPTY = (E) -> {
-    };
+    default String getName() {
+        return getClass().getSimpleName();
+    }
+    default List<ExtensionMigration> getMigrations() { return Collections.EMPTY_LIST;};
+
+    FluentApiExtension EMPTY = (builder) -> { };
 }

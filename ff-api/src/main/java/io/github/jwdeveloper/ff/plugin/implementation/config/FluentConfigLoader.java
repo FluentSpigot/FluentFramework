@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.plugin.implementation.config;
 
+import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
 import io.github.jwdeveloper.ff.plugin.implementation.config.migrations.FluentConfigMigrator;
 import io.github.jwdeveloper.ff.plugin.implementation.config.sections.DefaultConfigSection;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
@@ -7,7 +8,7 @@ import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.files.yaml.api.YamlReader;
 import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlReader;
 import io.github.jwdeveloper.ff.plugin.api.config.ConfigSection;
-import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.AssemblyScanner;
+import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.JarScannerImpl;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -18,32 +19,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FluentConfigLoader {
-    private final FluentConfigMigrator migrator;
     private final YamlReader yamlMapper;
-    private final AssemblyScanner assemblyScanner;
+    private final JarScanner assemblyScanner;
     private final Plugin plugin;
-    public FluentConfigLoader(Plugin plugin, AssemblyScanner assemblyScanner, FluentConfigMigrator migrator) {
+    public FluentConfigLoader(Plugin plugin, JarScanner assemblyScanner) {
         yamlMapper = new SimpleYamlReader();
         this.assemblyScanner = assemblyScanner;
-        this.migrator = migrator;
         this.plugin = plugin;
     }
 
-    public static FluentConfigImpl loadConfig(Plugin plugin,  AssemblyScanner assemblyScanner) throws Exception {
-        var loader = new FluentConfigLoader(plugin, assemblyScanner, new FluentConfigMigrator(assemblyScanner, plugin));
+
+
+    public FluentConfigImpl load() throws Exception {
         var path = FileUtility.pluginPath(plugin) + File.separator + "config.yml";
-        return loader.load(path);
-    }
-
-
-    public FluentConfigImpl load(String path) throws Exception {
         var yamlConfiguration = getConfigFile(path);
         yamlConfiguration.options().header(StringUtils.EMPTY);
-
-        if (migrator.isPluginUpdated(yamlConfiguration)) {
-            migrator.makeMigration(yamlConfiguration);
-            yamlConfiguration.save(path);
-        }
         var sections = createAndMapSections(yamlConfiguration);
         yamlConfiguration.save(path);
         return new FluentConfigImpl(yamlConfiguration, path, false, false);

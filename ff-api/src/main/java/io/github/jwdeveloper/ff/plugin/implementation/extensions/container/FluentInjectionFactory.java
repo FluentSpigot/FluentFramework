@@ -8,7 +8,7 @@ import io.github.jwdeveloper.ff.core.injector.api.annotations.IgnoreInjection;
 import io.github.jwdeveloper.ff.core.injector.api.annotations.Injection;
 import io.github.jwdeveloper.ff.core.injector.api.models.ContainerConfiguration;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiContainerBuilderImpl;
-import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.AssemblyScanner;
+import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.JarScannerImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.implementation.FluentPlayerContext;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.implementation.FluentPlayerContextListener;
 import org.bukkit.plugin.Plugin;
@@ -20,7 +20,7 @@ public class FluentInjectionFactory {
     public record Result(FluentInjectionImpl fluentInjection, List<Class<?>> toInitializeTypes){}
     private final Plugin plugin;
     private final FluentApiContainerBuilderImpl builder;
-    private final AssemblyScanner typeManager;
+    private final JarScannerImpl typeManager;
     private final BukkitLogger logger;
     private final List<Class<?>> toInitializeTypes;
 
@@ -30,7 +30,7 @@ public class FluentInjectionFactory {
     public FluentInjectionFactory(FluentApiContainerBuilderImpl builder,
                                   BukkitLogger logger,
                                   Plugin plugin,
-                                  AssemblyScanner classTypesManager)
+                                  JarScannerImpl classTypesManager)
     {
         this.builder = builder;
         this.typeManager = classTypesManager;

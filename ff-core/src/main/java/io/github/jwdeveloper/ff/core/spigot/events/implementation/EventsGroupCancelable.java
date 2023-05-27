@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.extension.gui.core.api.managers.events;
+package io.github.jwdeveloper.ff.core.spigot.events.implementation;
 
 import org.bukkit.event.Cancellable;
 
@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class EventsGroup<T extends Cancellable>
+public class EventsGroupCancelable<T extends Cancellable>
 {
     private final List<Consumer<T>> events;
 
-    public EventsGroup()
+    public EventsGroupCancelable()
     {
         events = new ArrayList<>();
     }

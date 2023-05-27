@@ -13,10 +13,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 @Getter
 public class FluentConfigImpl implements FluentConfig {
 
-    private final FileConfiguration fileConfiguration;
+    private final YamlConfiguration fileConfiguration;
     private final String path;
 
-    public FluentConfigImpl(FileConfiguration fileConfiguration, String path, boolean updated, boolean created) {
+    public FluentConfigImpl(YamlConfiguration fileConfiguration, String path, boolean updated, boolean created) {
         this.fileConfiguration = fileConfiguration;
         this.path = path;
     }

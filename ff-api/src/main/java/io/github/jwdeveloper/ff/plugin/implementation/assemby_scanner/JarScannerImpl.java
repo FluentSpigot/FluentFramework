@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner;
 
 import io.github.jwdeveloper.ff.core.common.java.ClassTypeUtility;
 import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
-import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.FluentAssemblyScanner;
+import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
 import lombok.Getter;
 import org.bukkit.plugin.Plugin;
 
@@ -13,8 +13,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 
-public class AssemblyScanner extends ClassLoader implements FluentAssemblyScanner {
-
+public class JarScannerImpl extends ClassLoader implements JarScanner {
 
     @Getter
     private final List<Class<?>> classes;
@@ -29,14 +28,14 @@ public class AssemblyScanner extends ClassLoader implements FluentAssemblyScanne
 
     private final BukkitLogger logger;
 
-    public AssemblyScanner(Plugin plugin, BukkitLogger logger) {
+    public JarScannerImpl(Plugin plugin, BukkitLogger logger) {
         //TODO check if PLUGIN will works instead of JAVAPLUGIN
         this(plugin.getClass(), logger);
     }
 
-    public AssemblyScanner(Class<?> clazz, BukkitLogger logger) {
+    public JarScannerImpl(Class<?> clazz, BukkitLogger logger) {
         this.logger = logger;
-        classes = loadPluginClasses(clazz);
+        classes = loadClassess(clazz);
         byInterfaceCatch = new IdentityHashMap<>();
         byParentCatch = new IdentityHashMap<>();
         byPackageCatch = new IdentityHashMap<>();
@@ -44,7 +43,7 @@ public class AssemblyScanner extends ClassLoader implements FluentAssemblyScanne
     }
 
 
-    private List<Class<?>> loadPluginClasses(final Class<?> clazz) {
+    private List<Class<?>> loadClassess(final Class<?> clazz) {
         final var source = clazz.getProtectionDomain().getCodeSource();
         if (source == null)
             return Collections.emptyList();
@@ -72,6 +71,15 @@ public class AssemblyScanner extends ClassLoader implements FluentAssemblyScanne
             logger.error("Unable open plugin Jar file :", e);
             return Collections.emptyList();
         }
+    }
+
+    public void attacheAllClassesFromPackage(Class<?> clazz)
+    {
+        classes.addAll(loadClassess(clazz));
+        byInterfaceCatch.clear();;
+        byAnnotationCatch.clear();
+        byPackageCatch.clear();;
+        byParentCatch.clear();;
     }
 
 
@@ -136,5 +144,6 @@ public class AssemblyScanner extends ClassLoader implements FluentAssemblyScanne
         byPackageCatch.put(_package, result);
         return result;
     }
+
 
 }
