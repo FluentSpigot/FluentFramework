@@ -5,14 +5,13 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.regex.Pattern;
 
 public class LanguageGeneratorTask
 {
     public static void run(String outputPath)
     {
-        var list = ResourceSearch.getResources(Pattern.compile("^.*\\.(yml)$"));
+        var list = ResourceSearch.getResourcesPaths(Pattern.compile("^.*\\.(yml)$"));
         YamlConfiguration configuration = null;
         for (var name : list) {
             if (!name.contains("template")) {

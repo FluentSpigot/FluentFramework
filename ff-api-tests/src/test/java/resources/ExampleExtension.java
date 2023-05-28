@@ -8,8 +8,7 @@ import resources.migration.Migration_3_0_0;
 
 import java.util.List;
 
-public class ExampleExtension implements FluentApiExtension
-{
+public class ExampleExtension implements FluentApiExtension {
     @Override
     public void onConfiguration(FluentApiSpigotBuilder builder) {
 

@@ -1,24 +1,20 @@
 package io.github.jwdeveloper.ff.extension.translator.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
-import io.github.jwdeveloper.ff.extension.translator.api.models.LangData;
-import io.github.jwdeveloper.ff.extension.translator.implementation.langs.SimpleLang;
+import io.github.jwdeveloper.ff.extension.translator.api.models.TranslationModel;
+import io.github.jwdeveloper.ff.extension.translator.implementation.langs.SimpleTranslator;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
-import org.bukkit.entity.Player;
 
 import java.nio.file.Path;
 import java.util.List;
 
 public class FluentTranslatorImpl implements FluentTranslator {
-    private SimpleLang lang;
-    private final BukkitLogger logger;
+    private final SimpleTranslator translator;
     private final String path;
-    public FluentTranslatorImpl(BukkitLogger logger, Path path)
+    public FluentTranslatorImpl(SimpleTranslator lang, Path path)
     {
-        this.logger = logger;
         this.path = path.toString();
+        this.translator = lang;
     }
-
 
     @Override
     public String getTranslationsPath() {
@@ -26,49 +22,38 @@ public class FluentTranslatorImpl implements FluentTranslator {
     }
 
     @Override
-    public String get(String key, Player player) {
-        return null;
-    }
-
-    @Override
     public String get(String key) {
-        return lang.get(key);
+        return translator.get(key);
     }
 
     @Override
     public List<String> getLanguagesName() {
-        return null;
+        return translator.getLanguages().stream().map(TranslationModel::getCountry).toList();
     }
 
     @Override
-    public String getPlayerLanguage(Player player) {
-        return null;
+    public void addTranslationModel(List<TranslationModel> translationModels) {
+        translator.addTranslationModel(translationModels);
+    }
+
+    @Override
+    public boolean setLanguage(String name) {
+        return translator.setCurrentTranslation(name);
     }
 
     @Override
     public boolean setDefaultLanguage(String name) {
-        return lang.setLanguage(name);
+        return translator.setCurrentTranslation(name);
     }
+
 
     @Override
-    public boolean setPlayerLanguage(String name, Player player) {
-        return false;
+    public boolean isCurrentLanguage(String name) {
+        return translator.isCurrentLanguage(name);
     }
-
     @Override
     public boolean isLanguageExists(String name) {
-        return lang.langExists(name);
+        return translator.isTranslationExists(name);
     }
 
-    @Override
-    public boolean isLanguageDefault(String name) {
-        return false;
-    }
-
-
-    public void setLanguages(List<LangData> language, String name) {
-        lang = new SimpleLang(language, logger);
-        lang.setDefaultLang("en");
-        lang.setLanguage(name);
-    }
 }

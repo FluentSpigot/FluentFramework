@@ -1,12 +1,14 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.implementation;
 
 import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
+import lombok.Getter;
 
+@Getter
 public class DefaultPermissions
 {
-    private PermissionModel commands;
-    private PermissionModel gui;
-    private PermissionModel plugin;
+    private final PermissionModel commands;
+    private final PermissionModel gui;
+    private final PermissionModel plugin;
 
     public DefaultPermissions()
     {
@@ -14,23 +16,6 @@ public class DefaultPermissions
         commands = createDefaultModel("commands");
         gui = createDefaultModel("gui");
     }
-
-
-    public PermissionModel commands()
-    {
-        return commands;
-    }
-
-    public PermissionModel gui()
-    {
-        return gui;
-    }
-
-    public PermissionModel plugin()
-    {
-        return plugin;
-    }
-
 
     private PermissionModel createDefaultModel(String name)
     {

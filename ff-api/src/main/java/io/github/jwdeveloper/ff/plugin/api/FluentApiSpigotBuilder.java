@@ -18,9 +18,9 @@ public interface FluentApiSpigotBuilder {
     FluentApiContainerBuilder container();
 
     FluentApiSpigotBuilder useExtension(FluentApiExtension extension);
-
+    FluentApiSpigotBuilder bindToConfig(Class<?> clazz, String ymlPath);
+    FluentApiSpigotBuilder bindToConfig(Class<?> clazz);
     FluentConfig config();
-
     FluentPermissionBuilder permissions();
 
     Plugin plugin();

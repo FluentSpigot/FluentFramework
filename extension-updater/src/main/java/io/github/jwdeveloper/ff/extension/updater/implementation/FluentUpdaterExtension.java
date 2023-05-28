@@ -99,7 +99,7 @@ public class FluentUpdaterExtension implements FluentApiExtension {
         var permission = new PermissionModel();
         permission.setName("update");
         permission.setDescription("Players with this permission can update plugin");
-        builder.defaultPermissionSections().commands().addChild(permission);
+        builder.defaultPermissions().getCommands().registerChild(permission);
         return permission;
     }
 

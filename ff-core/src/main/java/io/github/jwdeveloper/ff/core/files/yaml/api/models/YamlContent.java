@@ -21,7 +21,10 @@ public class YamlContent {
 
     private boolean isList;
 
-
+    public boolean hasDescription()
+    {
+        return description != null && !description.equals(StringUtils.EMPTY);
+    }
     public boolean isObject() {
         return children.size() != 0;
     }
@@ -30,6 +33,24 @@ public class YamlContent {
         if (path.isEmpty()) {
             return name;
         }
+        if(name.isEmpty())
+        {
+            return path;
+        }
         return path + "." + name;
+    }
+
+    @Override
+    public YamlContent clone()
+    {
+        var temp = new YamlContent();
+        temp.setPath(path);
+        temp.setName(name);
+        temp.setField(field);
+        temp.setChildren(children);
+        temp.setClazz(clazz);
+        temp.setDescription(description);
+        temp.setList(isList);
+        return temp;
     }
 }

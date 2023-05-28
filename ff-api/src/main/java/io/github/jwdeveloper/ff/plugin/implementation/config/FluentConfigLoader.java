@@ -20,35 +20,18 @@ import java.util.List;
 
 public class FluentConfigLoader {
     private final YamlReader yamlMapper;
-    private final JarScanner assemblyScanner;
     private final Plugin plugin;
-    public FluentConfigLoader(Plugin plugin, JarScanner assemblyScanner) {
+    public FluentConfigLoader(Plugin plugin) {
         yamlMapper = new SimpleYamlReader();
-        this.assemblyScanner = assemblyScanner;
         this.plugin = plugin;
     }
-
-
 
     public FluentConfigImpl load() throws Exception {
         var path = FileUtility.pluginPath(plugin) + File.separator + "config.yml";
         var yamlConfiguration = getConfigFile(path);
         yamlConfiguration.options().header(StringUtils.EMPTY);
-        var sections = createAndMapSections(yamlConfiguration);
         yamlConfiguration.save(path);
-        return new FluentConfigImpl(yamlConfiguration, path, false, false);
-    }
-
-
-    private List<ConfigSection> createAndMapSections(YamlConfiguration configuration) throws InstantiationException, IllegalAccessException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException {
-
-        var sections = new ArrayList<ConfigSection>();
-        var sectionsClasses = assemblyScanner.findByInterface(ConfigSection.class);
-        for (var clazz : sectionsClasses) {
-            var sectionObject = (ConfigSection) clazz.newInstance();
-            yamlMapper.toConfiguration(sectionObject, configuration);
-        }
-        return sections;
+        return new FluentConfigImpl(yamlConfiguration, path);
     }
 
     private YamlConfiguration getConfigFile(String path) throws IllegalAccessException, IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException {
@@ -56,7 +39,7 @@ public class FluentConfigLoader {
 
         if (!FileUtility.pathExists(path)) {
             var yamlConfig = new YamlConfiguration();
-            yamlMapper.toConfiguration(new DefaultConfigSection(plugin), yamlConfig);
+           // yamlMapper.toConfiguration(new DefaultConfigSection(plugin), yamlConfig);
             yamlConfig.save(path);
             return yamlConfig;
         }

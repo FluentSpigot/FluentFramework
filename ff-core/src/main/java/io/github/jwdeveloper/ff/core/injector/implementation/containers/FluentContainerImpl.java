@@ -7,10 +7,15 @@ import io.github.jwdeveloper.ff.core.injector.api.factory.InjectionInfoFactory;
 import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
 import io.github.jwdeveloper.ff.core.injector.api.provider.InstanceProvider;
 import io.github.jwdeveloper.ff.core.injector.api.search.SearchAgent;
+import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FluentContainerImpl extends DefaultContainer implements FluentContainer {
+
+    @Getter
+    private List<RegistrationInfo> registrations;
 
     public FluentContainerImpl(
             SearchAgent searchAgent,
@@ -23,6 +28,18 @@ public class FluentContainerImpl extends DefaultContainer implements FluentConta
     }
 
 
+    @Override
+    public boolean register(RegistrationInfo registrationInfo) {
+        if(!super.register(registrationInfo))
+        {
+            return false;
+        }
+        if(registrations ==null)
+        {
+           registrations = new  ArrayList<RegistrationInfo>();
+        }
 
-
+        registrations.add(registrationInfo);
+        return true;
+    }
 }

@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlReader;
 import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
 import io.github.jwdeveloper.ff.core.spigot.events.FluentEvent;
@@ -12,14 +12,11 @@ import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiContainerBuilder;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
-import io.github.jwdeveloper.ff.plugin.api.config.ConfigSection;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.JarScannerImpl;
-import io.github.jwdeveloper.ff.plugin.implementation.config.FluentConfigImpl;
-import io.github.jwdeveloper.ff.plugin.implementation.config.FluentConfigLoader;
-import io.github.jwdeveloper.ff.plugin.implementation.config.migrations.DefaultConfigMigrator;
+import io.github.jwdeveloper.ff.plugin.implementation.config.FluentConfigManager;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.FluentApiExtentionsManagerImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiDefaultCommandBuilder;
@@ -42,13 +39,14 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     private final FluentApiDefaultCommandBuilder commandBuilder;
     private final FluentApiExtentionsManagerImpl extensionsManager;
     private final FluentPermissionBuilderImpl fluentPermissionBuilder;
-    private final FluentConfigImpl configFile;
+    private final FluentConfig configFile;
     private final Plugin plugin;
     private final JarScannerImpl assemblyScanner;
     private final BukkitLogger logger;
     private final FluentTaskManager taskManager;
     private final FluentCommandManger commandManger;
     private final FluentEventManager eventManager;
+    private final FluentConfigManager configManager;
 
     @SneakyThrows
     public FluentApiSpigotBuilderImpl(Plugin plugin) {
@@ -63,7 +61,8 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         commandBuilder = new FluentApiDefaultCommandBuilder(plugin.getName(), commandManger);
         fluentPermissionBuilder = new FluentPermissionBuilderImpl(plugin);
         assemblyScanner = new JarScannerImpl(plugin, logger);
-        configFile = new FluentConfigLoader(plugin, assemblyScanner).load();
+        configManager = new FluentConfigManager(assemblyScanner, logger, plugin);
+        configFile = configManager.getConfig();
     }
 
     @Override
@@ -117,29 +116,32 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         return this;
     }
 
+    @Override
+    public FluentApiSpigotBuilder bindToConfig(Class<?> clazz, String ymlPath) {
+        configManager.bindToConfig(clazz, ymlPath);
+        return this;
+    }
+
+    @Override
+    public FluentApiSpigotBuilder bindToConfig(Class<?> clazz) {
+        return bindToConfig(clazz, StringUtils.EMPTY);
+    }
+
     public FluentApiSpigot build() throws Exception {
+
         extensionsManager.registerLow(new FluentPermissionExtention(fluentPermissionBuilder));
         extensionsManager.registerLow(new FluentMediatorExtention());
         extensionsManager.register(new FluentDefaultCommandExtension(commandBuilder), ExtentionPriority.HIGH);
-        extensionsManager.getBeforeOnConfigure().subscribe(fluentApiExtension ->
-        {
-            new DefaultConfigMigrator(fluentApiExtension, assemblyScanner, logger)
-                    .makeMigration(configFile.getFileConfiguration());
-        });
-        extensionsManager.getBeforeEnable().subscribe(fluentApiExtension ->
-        {
-            var yamlMapper = new SimpleYamlReader();
-            var sectionsClasses = assemblyScanner.findByInterface(ConfigSection.class);
-            try {
-                for (var clazz : sectionsClasses) {
-                    var sectionObject = (ConfigSection) clazz.newInstance();
-                    yamlMapper.toConfiguration(sectionObject, configFile.getFileConfiguration());
-                }
-            } catch (Exception e) {
-                throw new RuntimeException("Unable to map config", e);
-            }
-        });
+
+        extensionsManager.getBeforeEachOnConfigure().subscribe(configManager::handleMigration);
+        extensionsManager.getAfterOnConfigure().subscribe(configManager::handleRegisterBindings);
+        extensionsManager.getBeforeOnEnable().subscribe(configManager::handleOptionsClassMapping);
+
+        extensionsManager.getAfterOnEnable().subscribe(configManager::handleSaveConfig);
+        extensionsManager.getAfterOnDisable().subscribe(configManager::handleSaveConfig);
+
         extensionsManager.onConfiguration(this);
+
 
         containerBuilder.registerSigleton(Plugin.class, plugin);
         containerBuilder.registerSigleton(FluentConfig.class, configFile);
@@ -150,10 +152,10 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         final var injectionFactory = new FluentInjectionFactory(containerBuilder, logger, plugin, assemblyScanner);
         final var factoryResult = injectionFactory.create();
         final var injection = factoryResult.fluentInjection();
-        useExtension(builder ->
+        extensionsManager.getBeforeOnEnable().subscribe(apiSpigot ->
         {
-            for (var toActivate : factoryResult.toInitializeTypes()) {
-                injection.findInjection(toActivate);
+            for (var toInitializeClasses : factoryResult.toInitializeTypes()) {
+                injection.findInjection(toInitializeClasses);
             }
         });
 

@@ -14,11 +14,6 @@ import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api
 public class FluentApi {
     private static FluentApiSpigot fluentApiSpigot;
     public static void setFluentApiSpigot(FluentApiSpigot fluentApiSpigot) {
-        if (FluentApi.fluentApiSpigot != null) {
-            FluentLogger.LOGGER.error("FluentAPI has been already initialized ");
-
-            return;
-        }
         FluentApi.fluentApiSpigot = fluentApiSpigot;
     }
 
@@ -63,6 +58,10 @@ public class FluentApi {
         return getFluentApiSpigot().createCommand(commandName);
     }
 
+    public static boolean isTestEnvironment()
+    {
+        return fluentApiSpigot.plugin().getClass().getSimpleName().contains("MockPlugin");
+    }
     /*public static FluentParticlebuilder particles() {
         return getFluentApiSpigot().particles();
     }*/

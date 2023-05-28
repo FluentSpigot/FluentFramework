@@ -44,7 +44,7 @@ public class FluentPermissionBuilderImpl implements FluentPermissionBuilder {
         return basePermission;
     }
 
-    public DefaultPermissions defaultPermissionSections()
+    public DefaultPermissions defaultPermissions()
     {
         return defaultPermissionBuilder;
     }
@@ -52,15 +52,15 @@ public class FluentPermissionBuilderImpl implements FluentPermissionBuilder {
 
     public FluentPermissionImpl build()
     {
-        var pluginPermission = defaultPermissionBuilder.plugin();
+        var pluginPermission = defaultPermissionBuilder.getPlugin();
         pluginPermission.setName(getBasePermissionName());
 
-        var commands = defaultPermissionBuilder.commands();
-        var gui  = defaultPermissionBuilder.gui();
+        var commands = defaultPermissionBuilder.getCommands();
+        var gui  = defaultPermissionBuilder.getGui();
 
 
-        pluginPermission.addChild(commands);
-        pluginPermission.addChild(gui);
+        pluginPermission.registerChild(commands);
+        pluginPermission.registerChild(gui);
 
         models.add(pluginPermission);
         models.add(commands);

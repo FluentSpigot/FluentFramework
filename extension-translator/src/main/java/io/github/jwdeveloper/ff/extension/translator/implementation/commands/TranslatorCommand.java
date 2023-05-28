@@ -10,24 +10,22 @@ import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
 import org.bukkit.ChatColor;
 
-public class LanguageCommand {
+public class TranslatorCommand {
 
     private final FluentApiCommandBuilder defaultCommand;
-
     private final FluentConfig configFile;
     private final FluentTranslator translator;
     private final FluentTranslatorOptions options;
 
-    public LanguageCommand(FluentApiCommandBuilder defaultCommand,
-                           FluentConfig configFile,
-                           FluentTranslator translator,
-                           FluentTranslatorOptions options) {
+    public TranslatorCommand(FluentApiCommandBuilder defaultCommand,
+                             FluentConfig configFile,
+                             FluentTranslator translator,
+                             FluentTranslatorOptions options) {
         this.defaultCommand = defaultCommand;
         this.configFile = configFile;
         this.translator = translator;
         this.options = options;
     }
-
 
     public CommandBuilder create() {
         return FluentApi.createCommand(options.getCommandName())

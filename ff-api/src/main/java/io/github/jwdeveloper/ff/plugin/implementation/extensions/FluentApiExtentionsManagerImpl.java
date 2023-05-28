@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions;
 
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
-import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventsGroupCancelable;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtensionModel;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
@@ -11,7 +10,6 @@ import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -21,22 +19,34 @@ public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManage
     private final Collection<ExtensionModel> extensionsModels;
     private final BukkitLogger logger;
 
+    @Getter
+    private final EventGroup<FluentApiExtension> beforeEachOnConfigure;
+    @Getter
+    private final EventGroup<FluentApiSpigotBuilder> afterOnConfigure;
+    @Getter
+    private final EventGroup<FluentApiSpigot> beforeOnEnable;
+    @Getter
+    private final EventGroup<FluentApiSpigot> afterOnEnable;
+    @Getter
+    private final EventGroup<FluentApiExtension> beforeEachOnEnable;
+    @Getter
+    private final EventGroup<FluentApiExtension> beforeEachDisable;
 
     @Getter
-    private final EventGroup<FluentApiExtension> beforeOnConfigure;
-    @Getter
-    private final EventGroup<FluentApiExtension> beforeEnable;
-    @Getter
-    private final EventGroup<FluentApiExtension> beforeDisable;
+    private final EventGroup<FluentApiSpigot> afterOnDisable;
 
 
     public FluentApiExtentionsManagerImpl(BukkitLogger logger)
     {
         this.logger = logger;
         extensionsModels = new ConcurrentLinkedDeque<>();
-        beforeOnConfigure= new EventGroup<>();
-        beforeEnable = new EventGroup<>();
-        beforeDisable = new EventGroup<>();
+        beforeEachOnConfigure = new EventGroup<>();
+        beforeOnEnable = new EventGroup<>();
+        beforeEachOnEnable = new EventGroup<>();
+        beforeEachDisable = new EventGroup<>();
+        afterOnConfigure = new EventGroup<>();
+        afterOnEnable = new EventGroup<>();
+        afterOnDisable = new EventGroup<>();
     }
 
 
@@ -62,24 +72,28 @@ public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManage
         for(var extention : extensionsModels)
         {
            // FluentLogger.LOGGER.log("Piority",extention.getPiority().name(),extention.getExtention().getClass().getSimpleName());
-            beforeOnConfigure.invoke(extention.getExtension());
+            beforeEachOnConfigure.invoke(extention.getExtension());
             extention.getExtension().onConfiguration(builder);
         }
+        afterOnConfigure.invoke(builder);
     }
 
     @Override
     public void onEnable(FluentApiSpigot fluentAPI) {
         try
         {
+            beforeOnEnable.invoke(fluentAPI);
             var sorted = sortByPiority();
             for(var extension : sorted)
             {
-                beforeEnable.invoke(extension.getExtension());
+                beforeEachOnEnable.invoke(extension.getExtension());
                 extension.getExtension().onFluentApiEnable(fluentAPI);
             }
+            afterOnEnable.invoke(fluentAPI);
         }
         catch (Exception e)
         {
+            logger.error("FluentApiExtension onEnable error",e);
             throw new RuntimeException("FluentApiExtension onEnable error",e);
         }
     }
@@ -91,7 +105,7 @@ public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManage
         {
             try
             {
-                beforeDisable.invoke(extention.getExtension());
+                beforeEachDisable.invoke(extention.getExtension());
                 extention.getExtension().onFluentApiDisabled(fluentAPI);
             }
             catch (Exception e)
@@ -99,6 +113,7 @@ public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManage
                logger.error("FluentApiExtension onDisable error",e);
             }
         }
+        afterOnDisable.invoke(fluentAPI);
     }
 
 

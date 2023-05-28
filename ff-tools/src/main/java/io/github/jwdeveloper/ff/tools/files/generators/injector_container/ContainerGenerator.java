@@ -21,19 +21,21 @@ public class ContainerGenerator {
 
     }
 
-
     public String generate(String package_, String className) throws IOException {
         builder = new ClassCodeBuilder();
 
-        builder.setPackage(package_);
+        if(StringUtils.isNotNullOrEmpty(package_))
+        {
+            builder.setPackage(package_);
+        }
 
-        builder.addImport("jw.fluent.api.desing_patterns.dependecy_injection.api.containers.Container");
+        builder.addImport("io.github.jwdeveloper.ff.core.injector.api.containers.Container");
         builder.addImport("java.util.HashMap");
         builder.addImport("java.util.Map");
-        builder.addImport("jw.fluent.api.desing_patterns.dependecy_injection.api.models.RegistrationInfo");
+        builder.addImport("io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo");
         builder.addImport("java.util.function.Supplier");
         builder.addImport("java.util.function.Function");
-        builder.addImport("jw.fluent.api.desing_patterns.dependecy_injection.api.enums.RegistrationType");
+        builder.addImport("io.github.jwdeveloper.ff.core.injector.api.enums.RegistrationType");
 
         builder.setModifiers("public");
         builder.setClassName(className);

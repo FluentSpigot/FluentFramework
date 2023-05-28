@@ -25,14 +25,14 @@ public class PermissionModelResolver
               var duplication = findParent(root, model);
               if(duplication.isEmpty())
               {
-                  root.addChild(model);
+                  root.registerChild(model);
                   continue;
               }
               var parent = duplication.get();
               var isChildDuplciated = parent.getChildren().stream().filter(s -> s.getName().equals(model.getName())).findFirst();
               if(isChildDuplciated.isEmpty())
               {
-                  parent.addChild(model);
+                  parent.registerChild(model);
                   continue;
               }
               var duplicated  = isChildDuplciated.get();
@@ -86,12 +86,12 @@ public class PermissionModelResolver
         for (var field : _clazz.getDeclaredFields())
         {
             var model = getPermissionModelFromField(field);
-            root.addChild(model);
+            root.registerChild(model);
         }
         for (var clazz : _clazz.getDeclaredClasses())
         {
             var model = getPermissionModelFromClass(clazz);
-            root.addChild(model);
+            root.registerChild(model);
         }
         return root;
     }

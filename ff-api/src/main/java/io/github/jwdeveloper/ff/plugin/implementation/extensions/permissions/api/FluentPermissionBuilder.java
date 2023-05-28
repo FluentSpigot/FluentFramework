@@ -5,12 +5,12 @@ import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
 
 public interface FluentPermissionBuilder
 {
-    public FluentPermissionBuilder registerPermission(PermissionModel model);
+     FluentPermissionBuilder registerPermission(PermissionModel model);
 
-    public FluentPermissionBuilder setBasePermissionName(String name);
+     FluentPermissionBuilder setBasePermissionName(String name);
 
-    public DefaultPermissions defaultPermissionSections();
+     DefaultPermissions defaultPermissions();
 
-    public String getBasePermissionName();
+     String getBasePermissionName();
 
 }

@@ -2,6 +2,7 @@ package io.github.jwdeveloper.ff.core.files.yaml.implementation;
 
 import io.github.jwdeveloper.ff.core.common.TextBuilder;
 import io.github.jwdeveloper.ff.core.files.yaml.api.YamlModelMapper;
+import io.github.jwdeveloper.ff.core.files.yaml.api.models.YamlContent;
 import io.github.jwdeveloper.ff.core.files.yaml.api.models.YamlModel;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -17,10 +18,10 @@ public class SimpleYamlModelMapper implements YamlModelMapper {
 
     @Override
     public <T> YamlConfiguration mapToConfiguration(T data,
-                                                    YamlModel model,
+                                                    YamlContent model,
                                                     YamlConfiguration configuration,
                                                     boolean overrite) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        for (var content : model.getContents())
+        for (var content : model.getChildren())
         {
             if(content.isList())
             {
@@ -63,10 +64,15 @@ public class SimpleYamlModelMapper implements YamlModelMapper {
     }
 
     @Override
-    public Object mapFromConfiguration(Object object, YamlModel model, YamlConfiguration configuration) throws IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException {
-        for (var content : model.getContents())
+    public Object mapFromConfiguration(Object object, YamlContent model, YamlConfiguration configuration) throws Exception{
+        for (var content : model.getChildren())
         {
             var field = content.getField();
+            if(field == null)
+            {
+                continue;
+            }
+
             field.setAccessible(true);
             if(content.isList())
             {

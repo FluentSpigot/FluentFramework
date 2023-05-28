@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Data
 public class PermissionModel {
@@ -16,10 +17,18 @@ public class PermissionModel {
     private String title = StringUtils.EMPTY;
     private List<PermissionModel> children = new ArrayList<>();
 
-    public void addChild(PermissionModel dto)
+    public void registerChild(PermissionModel dto)
     {
         dto.setParent(this);
         children.add(dto);
+    }
+
+    public PermissionModel registerChild(Consumer<PermissionModel> consumer)
+    {
+        var model = new PermissionModel();
+        consumer.accept(model);
+        registerChild(model);
+        return model;
     }
 
     public boolean hasDescription()

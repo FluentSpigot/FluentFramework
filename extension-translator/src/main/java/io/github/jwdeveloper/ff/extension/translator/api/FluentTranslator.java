@@ -1,20 +1,19 @@
 package io.github.jwdeveloper.ff.extension.translator.api;
 
 
+import io.github.jwdeveloper.ff.extension.translator.api.models.TranslationModel;
 import org.bukkit.entity.Player;
 
 import java.util.List;
-import java.util.Stack;
 
 public interface FluentTranslator
 {
     String getTranslationsPath();
-    String get(String key, Player player);
     String get(String key);
-    List<String> getLanguagesName();
-    String getPlayerLanguage(Player player);
+    boolean setLanguage(String name);
     boolean setDefaultLanguage(String name);
-    boolean setPlayerLanguage(String name, Player player);
+    boolean isCurrentLanguage(String name);
     boolean isLanguageExists(String name);
-    boolean isLanguageDefault(String name);
+    List<String> getLanguagesName();
+    void addTranslationModel(List<TranslationModel> translationModels);
 }

@@ -1,21 +1,17 @@
 package io.github.jwdeveloper.ff.extension.translator.implementation;
 
-import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslatorOptions;
-import io.github.jwdeveloper.ff.extension.translator.implementation.commands.LanguageCommand;
-import io.github.jwdeveloper.ff.extension.translator.implementation.langs.SimpleLangLoader;
+import io.github.jwdeveloper.ff.extension.translator.implementation.commands.TranslatorCommand;
+import io.github.jwdeveloper.ff.extension.translator.implementation.config.TranslatorConfig;
+import io.github.jwdeveloper.ff.extension.translator.implementation.langs.SimpleTranslator;
+import io.github.jwdeveloper.ff.extension.translator.implementation.langs.TranslationLoader;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.ff.plugin.api.config.ConfigProperty;
-import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermissionBuilder;
 
 import java.util.function.Consumer;
 
@@ -30,12 +26,6 @@ public class FluentTranslationExtension implements FluentApiExtension {
         options = new FluentTranslatorOptions();
     }
 
-
-    @Override
-    public ExtentionPriority getPriority() {
-        return ExtentionPriority.LOW;
-    }
-
     @Override
     public void onConfiguration(FluentApiSpigotBuilder builder) {
         optionsConsumer.accept(options);
@@ -43,18 +33,26 @@ public class FluentTranslationExtension implements FluentApiExtension {
         var translatorPath = builder.pluginPath().resolve(options.getTranslationsPath());
         FileUtility.ensurePath(translatorPath.toString());
 
-        fluentTranslator = new FluentTranslatorImpl(builder.logger(), translatorPath);
+        fluentTranslator = new FluentTranslatorImpl(new SimpleTranslator(builder.logger()), translatorPath);
+
+
+        builder.bindToConfig(TranslatorConfig.class, options.getConfigPath());
 
         builder.container()
                 .register(FluentTranslator.class, LifeTime.SINGLETON, (x) -> fluentTranslator);
 
         builder.permissions()
-                .registerPermission(createPermission(builder.permissions()));
+                .defaultPermissions()
+                .getCommands().registerChild(p ->
+                {
+                    p.setName(options.getPermissionName());
+                    p.setDescription("Change plugin language");
+                });
 
         builder.defaultCommand()
                 .subCommandsConfig(subCommandConfig ->
                 {
-                    var languageCmd = new LanguageCommand(builder.defaultCommand(),
+                    var languageCmd = new TranslatorCommand(builder.defaultCommand(),
                             builder.config(),
                             fluentTranslator,
                             options);
@@ -64,45 +62,29 @@ public class FluentTranslationExtension implements FluentApiExtension {
 
     @Override
     public void onFluentApiEnable(FluentApiSpigot fluentAPI) throws Exception {
-        var loader = new SimpleLangLoader(fluentAPI.plugin());
+        var config = fluentAPI.container().findInjection(TranslatorConfig.class);
 
-        loader.generateFiles(fluentTranslator.getTranslationsPath());
-        var langName = getPluginLanguage(fluentAPI.config(), fluentAPI.logger());
-        var langDatas = loader.load(fluentTranslator.getTranslationsPath(), langName);
-        fluentTranslator.setLanguages(langDatas, langName);
+        var loader = new TranslationLoader(fluentAPI.plugin(), options);
+        var language = config.getLanguage();
+        var translations = loader.load(fluentTranslator.getTranslationsPath());
 
-        // fluentTranslator.generateEmptyTranlations();
-    }
-
-    private String getPluginLanguage(FluentConfig configFile, BukkitLogger logger) {
-
-        var configProperty = createConfigLanguage();
-        var languageValue = configFile.getOrCreate(configProperty);
-        if (StringUtils.isNullOrEmpty(languageValue)) {
-            logger.warning("Unable to load `" + options.getConfigPath() + "` from config");
-            return "en";
-        }
-        return languageValue;
-    }
-
-
-    private PermissionModel createPermission(FluentPermissionBuilder builder) {
-        var permission = new PermissionModel();
-        permission.setName(options.getPermissionName());
-        permission.setDescription("Allow player to change plugin language");
-        builder.defaultPermissionSections().commands().addChild(permission);
-        return permission;
-    }
-
-
-    private ConfigProperty<String> createConfigLanguage() {
-        return new ConfigProperty<String>(options.getConfigPath(), "en",
-                "If you want add your language open `languages` folder copy `en.yml` call it as you want \\n\" +\n" +
-                        " \"set `language` property to your file name and /reload server ");
+        fluentTranslator.addTranslationModel(translations);
+        fluentTranslator.setLanguage(language);
+        fluentTranslator.setDefaultLanguage("en");
     }
 
     @Override
     public String getVersion() {
         return "1.0.0";
+    }
+
+    @Override
+    public String getName() {
+        return "translator";
+    }
+
+    @Override
+    public ExtentionPriority getPriority() {
+        return ExtentionPriority.LOW;
     }
 }

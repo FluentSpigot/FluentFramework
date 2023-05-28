@@ -1,13 +1,13 @@
 package io.github.jwdeveloper.ff.plugin.implementation.config;
 
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlModelFactory;
 import io.github.jwdeveloper.ff.plugin.api.config.ConfigProperty;
 import io.github.jwdeveloper.ff.core.common.TextBuilder;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlModelFactory;
 import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlModelMapper;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import lombok.Getter;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 @Getter
@@ -16,7 +16,7 @@ public class FluentConfigImpl implements FluentConfig {
     private final YamlConfiguration fileConfiguration;
     private final String path;
 
-    public FluentConfigImpl(YamlConfiguration fileConfiguration, String path, boolean updated, boolean created) {
+    public FluentConfigImpl(YamlConfiguration fileConfiguration, String path) {
         this.fileConfiguration = fileConfiguration;
         this.path = path;
     }
@@ -25,7 +25,7 @@ public class FluentConfigImpl implements FluentConfig {
         return (T) fileConfiguration.get(name);
     }
 
-    public FileConfiguration configFile()
+    public YamlConfiguration configFile()
     {
         return fileConfiguration;
     }
@@ -52,25 +52,29 @@ public class FluentConfigImpl implements FluentConfig {
 
     public void save(Object configSection)
     {
+        save(configSection, StringUtils.EMPTY);
+    }
+
+    @Override
+    public void save(Object configSection, String ymlPath) {
         try
         {
             var factory = new SimpleYamlModelFactory();
-            var model = factory.createModel(configSection.getClass());
+            var model = factory.createModel(configSection.getClass(),ymlPath);
             var mapper = new SimpleYamlModelMapper();
-            mapper.mapToConfiguration(configSection, model,(YamlConfiguration)fileConfiguration ,true);
+            mapper.mapToConfiguration(configSection, model, fileConfiguration ,true);
             fileConfiguration.save(path);
         }
         catch (Exception e)
         {
             FluentLogger.LOGGER.error("Unable to save config path!",e);
         }
-
     }
 
-    public Object getRequired(String name) throws Exception {
+    public Object getRequired(String name) {
         var value = get(name);
         if (value == null) {
-            throw new Exception("Value " + name + " is required");
+            throw new RuntimeException("Value " + name + " is required");
         }
         return value;
     }

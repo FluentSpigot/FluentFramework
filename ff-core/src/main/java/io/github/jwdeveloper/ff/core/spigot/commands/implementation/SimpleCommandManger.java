@@ -59,9 +59,7 @@ public class SimpleCommandManger extends EventBase implements FluentCommandMange
 
     private boolean registerBukkitCommand(SimpleCommand simpleCommand) {
         try {
-            var bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
-            bukkitCommandMap.setAccessible(true);
-            var commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
+            var commandMap =  (SimpleCommandMap)ObjectUtility.getPrivateField(Bukkit.getServer(), "commandMap");
             return commandMap.register(plugin.getName(), simpleCommand);
         } catch (Exception e) {
             FluentLogger.LOGGER.error("Unable to register command " + simpleCommand.getName(), e);
@@ -71,8 +69,7 @@ public class SimpleCommandManger extends EventBase implements FluentCommandMange
 
     private boolean unregisterBukkitCommand(SimpleCommand command) {
         try {
-            var result = ObjectUtility.getPrivateField(Bukkit.getPluginManager(), "commandMap");
-            var commandMap = (SimpleCommandMap) result;
+            var commandMap = (SimpleCommandMap)  ObjectUtility.getPrivateField(Bukkit.getServer(), "commandMap");
             var field = SimpleCommandMap.class.getDeclaredField("knownCommands");
             field.setAccessible(true);
             var map = field.get(commandMap);
@@ -101,7 +98,7 @@ public class SimpleCommandManger extends EventBase implements FluentCommandMange
     public List<String> getBukkitCommandsNames() {
         List<String> result = new ArrayList<>();
         try {
-            var commandMap = ObjectUtility.getPrivateField(Bukkit.getPluginManager(), "commandMap");
+            var commandMap = ObjectUtility.getPrivateField(Bukkit.getServer(), "commandMap");
             var simpleCommandMap = (SimpleCommandMap) commandMap;
             return simpleCommandMap.getCommands().stream().map(c -> c.getName()).toList();
         } catch (Exception e) {
@@ -113,8 +110,7 @@ public class SimpleCommandManger extends EventBase implements FluentCommandMange
     @Override
     public List<Command> getBukkitCommands() {
         try {
-
-            var commandMap = ObjectUtility.getPrivateField(Bukkit.getPluginManager(), "commandMap");
+            var commandMap = ObjectUtility.getPrivateField(Bukkit.getServer(), "commandMap");
             var simpleCommandMap = (SimpleCommandMap) commandMap;
             return simpleCommandMap.getCommands().stream().toList();
         } catch (Exception e) {

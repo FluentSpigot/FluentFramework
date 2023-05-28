@@ -24,6 +24,7 @@ public class DefaultContainer implements Container, ContainerSearch {
     protected final EventHandler eventHandler;
     protected final InstanceProvider instaneProvider;
     protected final BukkitLogger logger;
+
     protected final Map<Class<?>, InjectionInfo> injections;
     protected final InjectionInfoFactory injectionInfoFactory;
     protected final SearchAgent searchAgent;

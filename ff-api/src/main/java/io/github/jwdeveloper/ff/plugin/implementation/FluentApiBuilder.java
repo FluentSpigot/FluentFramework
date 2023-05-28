@@ -46,6 +46,17 @@ public class FluentApiBuilder implements FluentApiSpigotBuilder {
     public FluentApiSpigotBuilder useExtension(FluentApiExtension extension) {
         return builder.useExtension(extension);
     }
+
+    @Override
+    public FluentApiSpigotBuilder bindToConfig(Class<?> clazz, String ymlPath) {
+        return builder.bindToConfig(clazz, ymlPath);
+    }
+
+    @Override
+    public FluentApiSpigotBuilder bindToConfig(Class<?> clazz) {
+        return builder.bindToConfig(clazz);
+    }
+
     @Override
     public FluentConfig config() {
         return builder.config();

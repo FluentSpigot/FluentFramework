@@ -35,7 +35,7 @@ public class SimpleYamlValueResolver {
         return value;
     }
 
-    private Object getDefaultValue(Class<?> type) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private Object getDefaultValue(Class<?> type) {
         if (type.equals(String.class)) {
             return StringUtils.EMPTY;
         }
@@ -67,6 +67,21 @@ public class SimpleYamlValueResolver {
         return StringUtils.EMPTY;
     }
 
+    private boolean isPrimitiveClass(Class<?> type) {
+        if (type.isEnum()) {
+            return true;
+        }
+
+        var primitiveClasses = new ArrayList<Class<?>>();
+        primitiveClasses.add(ChatColor.class);
+        primitiveClasses.add(Material.class);
+        primitiveClasses.add(Boolean.class);
+        primitiveClasses.add(Float.class);
+        primitiveClasses.add(Integer.class);
+        primitiveClasses.add(String.class);
+        return primitiveClasses.contains(type);
+    }
+
     public <T> void setValue(T data, YamlConfiguration configuration, YamlContent content, boolean override) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         Object value = getFieldValue(data, content);
         if (configuration.contains(content.getFullPath()) && !override) {
@@ -95,7 +110,12 @@ public class SimpleYamlValueResolver {
                 if (section.contains(child.getFullPath()) && !overrite) {
                     continue;
                 }
-                section.set(child.getFullPath(), value);
+                if(isPrimitiveClass(value.getClass()))
+                {
+                    configuration.set(child.getFullPath(), value);
+                    continue;
+                }
+                setObject(instance, configuration, child, overrite);
             }
             content.getField().setAccessible(false);
         } catch (Exception e) {
@@ -133,10 +153,16 @@ public class SimpleYamlValueResolver {
     }
 
 
-    public Object getValue(ConfigurationSection section, YamlContent content) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+    public Object getValue(ConfigurationSection section, YamlContent content) throws Exception {
 
-        var value = section.get(content.getFullPath());
-        if (value == null) {
+        var path = content.getFullPath();
+        var value = section.get(path);
+        if(value instanceof ConfigurationSection)
+        {
+            return getObject(section, content);
+        }
+        if (value == null)
+        {
             return getDefaultValue(content.getClazz());
         }
 
@@ -149,15 +175,15 @@ public class SimpleYamlValueResolver {
     }
 
 
-    public Object getObject(ConfigurationSection section, YamlContent content) throws InstantiationException, IllegalAccessException {
-        var nestedObjectSection = section.getConfigurationSection(content.getFullPath());
+    public Object getObject(ConfigurationSection rootSection, YamlContent content) throws Exception {
+        var path = content.getFullPath();
         var instance = content.getClazz().newInstance();
-        if (nestedObjectSection == null) {
+        if (!rootSection.isConfigurationSection(path)) {
             return instance;
         }
         try {
             for (var child : content.getChildren()) {
-                var value = getValue(nestedObjectSection, child);
+                var value = getValue(rootSection, child);
                 var field = child.getField();
                 field.setAccessible(true);
                 field.set(instance, value);
@@ -171,16 +197,16 @@ public class SimpleYamlValueResolver {
     }
 
 
-    public Object getListContent(ConfigurationSection configuration, YamlContent content) {
+    public Object getListContent(ConfigurationSection rootConfig, YamlContent content) {
         List<?> result = new ArrayList<>();
         try {
             var listPath = content.getFullPath();
-            var listSection = configuration.getConfigurationSection(listPath);
-            if (listSection == null) {
+            if (!rootConfig.isConfigurationSection(listPath)) {
                 return result;
             }
-            var field = content.getField();
-            var arrayType = (ParameterizedType) field.getGenericType();
+            var listSection = rootConfig.getConfigurationSection(listPath);
+            var listField = content.getField();
+            var arrayType = (ParameterizedType) listField.getGenericType();
             var memberType = arrayType.getActualTypeArguments()[0];
             var memberClass = Class.forName(memberType.getTypeName());
 
@@ -189,17 +215,20 @@ public class SimpleYamlValueResolver {
             var methodAdd = result.getClass().getDeclaredMethod("add", Object.class);
             for (var path : sectionKeys) {
                 var temp = memberClass.newInstance();
-                var propertiesPath = configuration.getConfigurationSection(listPath + "." + path).getKeys(false);
+                var propertiesPath = rootConfig.getConfigurationSection(listPath + "." + path).getKeys(false);
                 for (var childContent : content.getChildren()) {
                     if (!propertiesPath.contains(childContent.getName())) {
                         continue;
                     }
-                    var childPath2 = listPath + "." + path + "." + childContent.getName();
-                    var value = configuration.get(childPath2);
+                    var contentClone = childContent.clone();
+                    contentClone.setPath(listPath + "." + path);
 
-                    childContent.getField().setAccessible(true);
-                    childContent.getField().set(temp, value);
-                    childContent.getField().setAccessible(false);
+                    var value = getValue(rootConfig, contentClone);
+                    var field = childContent.getField();
+
+                    field.setAccessible(true);
+                    field.set(temp, value);
+                    field.setAccessible(false);
                 }
                 methodAdd.invoke(result, temp);
             }

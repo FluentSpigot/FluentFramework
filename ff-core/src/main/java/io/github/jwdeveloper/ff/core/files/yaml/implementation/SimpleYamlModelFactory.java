@@ -4,7 +4,6 @@ import io.github.jwdeveloper.ff.core.common.TextBuilder;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.files.yaml.api.YamlModelFactory;
 import io.github.jwdeveloper.ff.core.files.yaml.api.YamlSymbols;
-import io.github.jwdeveloper.ff.core.files.yaml.api.annotations.YamlFile;
 import io.github.jwdeveloper.ff.core.files.yaml.api.annotations.YamlSection;
 import io.github.jwdeveloper.ff.core.files.yaml.api.models.YamlContent;
 import io.github.jwdeveloper.ff.core.files.yaml.api.models.YamlModel;
@@ -15,48 +14,93 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleYamlModelFactory implements YamlModelFactory {
-
     @Override
-    public <T> YamlModel createModel(Class<T> clazz) throws ClassNotFoundException {
-        var model = new YamlModel();
-        var globalPath = getGlobalPath(clazz);
-        var content = createContent(clazz, globalPath);
-        model.setContents(content);
-        model.setFileName(getFileName(clazz));
-        model.setDescription(generateDescription(content));
-        return model;
+    public <T> YamlContent createModel(Class<T> clazz) throws ClassNotFoundException
+    {
+        return createModel(clazz, StringUtils.EMPTY);
     }
 
-    private List<YamlContent> createContent(Class<?> clazz, String path) throws ClassNotFoundException {
+    @Override
+    public <T> YamlContent createModel(Class<T> clazz, String ymlPath) throws ClassNotFoundException {
+        try
+        {
+            var root = getYamlContentModel(clazz);
+            if(StringUtils.isNotNullOrEmpty(ymlPath))
+            {
+                root.setPath(ymlPath);
+            }
+            createContent(root, clazz);
+
+            root.setDescription(generateDescription(root.getChildren()));
+            return root;
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Unable to create Yaml Model",e);
+        }
+    }
+
+    private void createContent(YamlContent root, Class<?> clazz) throws ClassNotFoundException {
         var result = new ArrayList<YamlContent>();
-        for (var field : clazz.getDeclaredFields()) {
-            var annotation = field.getAnnotation(YamlSection.class);
-            if (annotation == null) {
+        for (var field : clazz.getDeclaredFields())
+        {
+            if (!field.isAnnotationPresent(YamlSection.class)) {
                 continue;
             }
-
-
-            var content = getYamlContent(clazz, field, annotation);
-
-            var fieldClazz = field.getType();
-            var fieldPath = path.isEmpty() ? content.getPath() : path + YamlSymbols.DOT + content.getPath();
-
-            List<YamlContent> children = new ArrayList<YamlContent>();
-            if (field.getType().isAssignableFrom(List.class)) {
-                ParameterizedType arrayType = (ParameterizedType) field.getGenericType();
+            var contentModel = getYamlContentModel(field);
+            contentModel.setPath(root.getFullPath());
+            if (field.getType().isAssignableFrom(List.class))
+            {
+                var arrayType = (ParameterizedType) field.getGenericType();
                 var memberType = arrayType.getActualTypeArguments()[0];
                 var memberClass = Class.forName(memberType.getTypeName());
-                children = createContent(memberClass, fieldPath);
-                content.setList(true);
-            } else {
-                children = createContent(fieldClazz, fieldPath);
+                createContent(contentModel, memberClass);
+                contentModel.setList(true);
+            } else
+            {
+                createContent(contentModel, field.getType());
             }
+            result.add(contentModel);
+        }
+        root.setChildren(result);
+    }
 
-            content.setClazz(fieldClazz);
-            content.setPath(fieldPath);
-            content.setChildren(children);
+    private YamlContent getYamlContentModel(Class<?> clazz) {
+        var result = new YamlContent();
+        result.setClazz(clazz);
+        if (!clazz.isAnnotationPresent(YamlSection.class)) {
+            return result;
+        }
 
-            result.add(content);
+        var annotation = clazz.getAnnotation(YamlSection.class);
+        result.setDescription(annotation.description());
+        if (!annotation.name().isEmpty())
+        {
+            result.setName(annotation.name());
+        }
+        if (!annotation.path().isEmpty()) {
+            result.setPath(annotation.path());
+        }
+        return result;
+    }
+
+    private YamlContent getYamlContentModel(Field field) {
+        var result = new YamlContent();
+        result.setClazz(field.getType());
+        result.setField(field);
+        result.setName(field.getName());
+        if (!field.isAnnotationPresent(YamlSection.class)) {
+            return result;
+        }
+
+        var annotation = field.getAnnotation(YamlSection.class);
+        result.setDescription(annotation.description());
+        if (!annotation.name().isEmpty())
+        {
+            result.setName(annotation.name());
+        }
+        if (!annotation.path().isEmpty()) {
+            result.setPath(annotation.path());
         }
         return result;
     }
@@ -65,17 +109,14 @@ public class SimpleYamlModelFactory implements YamlModelFactory {
         if (contents.isEmpty())
             return StringUtils.EMPTY;
 
-
         var builder = new TextBuilder();
         for (var ymlContent : contents) {
             var parentPath = ymlContent.getFullPath();
-
 
             if (StringUtils.isNotNullOrEmpty(ymlContent.getDescription()) && !ymlContent.getDescription().equals(YamlSymbols.SPACE)) {
                 builder.newLine().text(parentPath).newLine()
                         .space().text(ymlContent.getDescription()).newLine().newLine();
             }
-
 
             for (var child : ymlContent.getChildren()) {
                 var description = child.getDescription();
@@ -85,46 +126,9 @@ public class SimpleYamlModelFactory implements YamlModelFactory {
                 builder.newLine().text(parentPath).text(YamlSymbols.DOT).text(child.getFullPath()).newLine()
                         .space().text(description).newLine();
             }
+            generateDescription(ymlContent.getChildren());
         }
 
         return builder.toString();
-    }
-
-
-    private <T> String getFileName(Class<T> clazz) {
-        var defaultName = clazz.getSimpleName();
-        var ymlFileAnnotation = clazz.getAnnotation(YamlFile.class);
-        if (ymlFileAnnotation == null) {
-            return defaultName;
-        }
-        if (ymlFileAnnotation.fileName().isEmpty()) {
-            return defaultName;
-        }
-        return ymlFileAnnotation.fileName();
-    }
-
-    private <T> String getGlobalPath(Class<T> clazz) {
-        var ymlFileAnnotation = clazz.getAnnotation(YamlFile.class);
-        if (ymlFileAnnotation == null) {
-            return StringUtils.EMPTY;
-        }
-        return ymlFileAnnotation.globalPath();
-    }
-
-
-    private YamlContent getYamlContent(Class<?> clazz, Field field, YamlSection property) {
-        var result = new YamlContent();
-        result.setField(field);
-        result.setName(field.getName());
-        result.setClazz(clazz);
-
-        result.setDescription(property.description());
-        if (!property.name().isEmpty()) {
-            result.setName(property.name());
-        }
-        if (!property.path().isEmpty()) {
-            result.setPath(property.path());
-        }
-        return result;
     }
 }

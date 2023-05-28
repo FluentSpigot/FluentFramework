@@ -6,11 +6,11 @@ import lombok.Data;
 @Data
 public class FluentTranslatorOptions extends ExtensionOptions
 {
-      private String configPath = "plugin.languages";
+      private String configPath = "plugin.translator";
 
-      private String commandName = "lang";
+      private String commandName = "language";
 
-      private String permissionName = "lang";
+      private String permissionName = "language";
 
       // server/plugins/<plugin>/ + translationsPath
       private String translationsPath = "languages";

@@ -40,8 +40,11 @@ public interface FileUtility {
         return path;
     }
 
+     static String getPathFileName(String path) {
+        return Paths.get(path).getFileName().toString();
+    }
 
-    public static void saveClassFile(String result, boolean useTestPath, String _package, String fileName, String path) throws IOException {
+     static void saveClassFile(String result, boolean useTestPath, String _package, String fileName, String path) throws IOException {
 
         path = useTestPath ? path + "src\\test\\java\\" : path + "src\\main\\java\\";
         path = path + _package.replace(".", "\\");

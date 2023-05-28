@@ -1,9 +1,10 @@
 package io.github.jwdeveloper.ff.plugin.api.config;
 
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 public interface FluentConfig {
-    Object getRequired(String name) throws Exception;
+    Object getRequired(String name) ;
 
     <T> T getOrCreate(String path, T defaultValue, String... description);
 
@@ -17,5 +18,7 @@ public interface FluentConfig {
 
     void save(Object object);
 
-    FileConfiguration configFile();
+    void save(Object object, String ymlPath);
+
+    YamlConfiguration configFile();
 }
