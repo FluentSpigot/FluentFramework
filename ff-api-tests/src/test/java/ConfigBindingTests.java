@@ -1,11 +1,18 @@
 import io.github.jwdeveloper.ff.api.tests.FluentApiTest;
+import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
+import io.github.jwdeveloper.ff.plugin.implementation.config.options.ConfigOptions;
+import org.bukkit.entity.Player;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import resources.config.AnotherOptions;
 import resources.config.ConfigListContent;
-import resources.config.ConfigOptions;
+import resources.config.TestConfig;
 import resources.ExampleExtension;
+
+import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 
 public class ConfigBindingTests extends FluentApiTest
 {
@@ -36,11 +43,14 @@ public class ConfigBindingTests extends FluentApiTest
 
         config.getOrCreate("custom.path.say-my-name", "Heisenberg");
 
-        builder.bindToConfig(ConfigOptions.class);
+        builder.bindToConfig(TestConfig.class);
         builder.bindToConfig(AnotherOptions.class,"custom.path");
 
         builder.useExtension(new ExampleExtension());
+
+
     }
+
 
     @Test
     public void ShouldHandleCustomBindingPath()
@@ -52,7 +62,7 @@ public class ConfigBindingTests extends FluentApiTest
     @Test
     public void shouldMapConfigToObject()
     {
-        var options = getFluentApiMock().container().findInjection(ConfigOptions.class);
+        var options = getFluentApiMock().container().findInjection(TestConfig.class);
 
         Assertions.assertEquals(options.getName(),"Mark");
         Assertions.assertEquals(options.getAge(),10);
@@ -85,7 +95,7 @@ public class ConfigBindingTests extends FluentApiTest
     @Test
     public void shouldSaveObjectToConfig()
     {
-        var options = getFluentApiMock().container().findInjection(ConfigOptions.class);
+        var options = getFluentApiMock().container().findInjection(TestConfig.class);
         options.setName("John");
         options.setAge(200);
         options.setSpeed(15f);

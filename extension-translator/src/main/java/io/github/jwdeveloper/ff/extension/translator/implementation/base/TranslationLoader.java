@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.extension.translator.implementation.langs;
+package io.github.jwdeveloper.ff.extension.translator.implementation.base;
 
 import io.github.jwdeveloper.ff.core.common.ResourceSearch;
 import io.github.jwdeveloper.ff.core.files.FileUtility;

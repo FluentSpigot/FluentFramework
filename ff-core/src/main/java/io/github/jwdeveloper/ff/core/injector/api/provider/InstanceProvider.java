@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface InstanceProvider
 {
-    public Object getInstance(InjectionInfo info, Map<Class<?>, InjectionInfo> injections, Container container) throws Exception;
+     Object getInstance(InjectionInfo info, Map<Class<?>, InjectionInfo> injections, Container container) throws Exception;
 }

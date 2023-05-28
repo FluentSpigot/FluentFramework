@@ -39,16 +39,17 @@ public class SimpleYamlValueResolver {
         if (type.equals(String.class)) {
             return StringUtils.EMPTY;
         }
-        if (type.equals(Integer.class)) {
+
+        if (type.equals(int.class) || type.equals(Integer.class)) {
             return 0;
         }
-        if (type.equals(Float.class)) {
-            return 0;
+        if (type.equals(float.class) ||    type.equals(Float.class)) {
+            return 0f;
         }
-        if (type.equals(Double.class)) {
-            return 0;
+        if (type.equals(double.class) ||type.equals(Double.class)) {
+            return 0d;
         }
-        if (type.equals(Boolean.class)) {
+        if (type.equals(boolean.class) ||type.equals(Boolean.class)) {
             return false;
         }
         if (type.equals(Material.class)) {
@@ -110,8 +111,7 @@ public class SimpleYamlValueResolver {
                 if (section.contains(child.getFullPath()) && !overrite) {
                     continue;
                 }
-                if(isPrimitiveClass(value.getClass()))
-                {
+                if (isPrimitiveClass(value.getClass())) {
                     configuration.set(child.getFullPath(), value);
                     continue;
                 }
@@ -157,12 +157,10 @@ public class SimpleYamlValueResolver {
 
         var path = content.getFullPath();
         var value = section.get(path);
-        if(value instanceof ConfigurationSection)
-        {
+        if (value instanceof ConfigurationSection) {
             return getObject(section, content);
         }
-        if (value == null)
-        {
+        if (value == null) {
             return getDefaultValue(content.getClazz());
         }
 

@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.extension.translator.implementation.langs;
+package io.github.jwdeveloper.ff.extension.translator.implementation.base;
 
 import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.extension.translator.api.models.TranslationModel;

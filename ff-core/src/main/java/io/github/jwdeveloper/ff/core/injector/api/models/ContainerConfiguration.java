@@ -61,8 +61,8 @@ public class ContainerConfiguration
             return event.apply(e);
          }
          @Override
-         public Object OnInjection(OnInjectionEvent event) throws Exception {
-            return event.result();
+         public Object OnInjection(OnInjectionEvent e) throws Exception {
+            return e.output();
          }
 
       });

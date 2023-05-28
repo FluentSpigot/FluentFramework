@@ -2,15 +2,20 @@ package io.github.jwdeveloper.ff.plugin.implementation.config;
 
 import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
 import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlReader;
+import io.github.jwdeveloper.ff.core.injector.api.events.events.OnInjectionEvent;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.plugin.implementation.config.migrations.DefaultConfigMigrator;
+import io.github.jwdeveloper.ff.plugin.implementation.config.options.ConfigOptions;
+import io.github.jwdeveloper.ff.plugin.implementation.config.options.ConfigOptionsImpl;
 import org.bukkit.plugin.Plugin;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FluentConfigManager {
@@ -59,7 +64,7 @@ public class FluentConfigManager {
         new DefaultConfigMigrator(extension, jarScanner, logger).makeMigration(getConfig().configFile());
     }
 
-    public void handleOptionsClassMapping(FluentApiSpigot extension) {
+    public void handleClassMappingFromFile(FluentApiSpigot extension) {
         var ymlReader = new SimpleYamlReader();
         try {
             for (var entry : bindings.entrySet()) {
@@ -82,5 +87,47 @@ public class FluentConfigManager {
                 throw new RuntimeException("Unable to map config", e);
             }
         }
+    }
+
+    public Object handleConfigInjection(OnInjectionEvent event)
+    {
+        if(!event.input().isAssignableFrom(ConfigOptions.class))
+        {
+            return event.output();
+        }
+
+        if(!event.hasGenericParameters())
+        {
+            throw new RuntimeException("ConfigOptions need to has specified config type");
+        }
+
+        try
+        {
+
+            var parameterType = event.inputGenericParameters()[0];
+            Class<?> parameterClass = null;
+            if(parameterType instanceof ParameterizedType pt)
+            {
+                 parameterClass = Class.forName(pt.getActualTypeArguments()[0].getTypeName());
+            }
+            else
+            {
+                parameterClass = Class.forName(parameterType.getTypeName());
+            }
+
+
+            if(!bindings.containsKey(parameterClass))
+            {
+                throw new RuntimeException("ConfigOptions can't be created since class  "+parameterClass.getSimpleName()+" is not register to bindings");
+            }
+            var instance = event.container().find(parameterClass);
+            var ymlPath = bindings.get(parameterClass);
+            return new ConfigOptionsImpl<>(config, instance, ymlPath);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Unable to create ConfigOptions for "+event.input().getSimpleName());
+        }
+
     }
 }

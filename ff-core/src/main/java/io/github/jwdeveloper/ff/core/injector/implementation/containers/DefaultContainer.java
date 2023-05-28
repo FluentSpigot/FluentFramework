@@ -15,6 +15,7 @@ import io.github.jwdeveloper.ff.core.injector.implementation.utilites.Messages;
 import lombok.SneakyThrows;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -73,15 +74,19 @@ public class DefaultContainer implements Container, ContainerSearch {
 
     @SneakyThrows
     @Override
-    public Object find(Class<?> _injection) {
+    public Object find(Class<?> _injection, Type... genericParameters) {
         var injectionInfo = injections.get(_injection);
         if (injectionInfo == null) {
-            logger.error(String.format(Messages.INJECTION_NOT_FOUND, _injection.getSimpleName()));
-            return eventHandler.OnInjection(new OnInjectionEvent(_injection, injectionInfo, null, injections, this));
+            var result = eventHandler.OnInjection(new OnInjectionEvent(_injection, genericParameters, injectionInfo, null, injections, this));
+            if(result == null)
+            {
+                logger.error(String.format(Messages.INJECTION_NOT_FOUND, _injection.getSimpleName()));
+            }
+            return result;
         }
         try {
             var result = instaneProvider.getInstance(injectionInfo, injections, this);
-            return eventHandler.OnInjection(new OnInjectionEvent(_injection, injectionInfo, result, injections, this));
+            return eventHandler.OnInjection(new OnInjectionEvent(_injection,genericParameters, injectionInfo, result, injections, this));
         } catch (Exception e) {
             logger.error(String.format(Messages.INJECTION_CANT_CREATE, _injection.getSimpleName()), e);
             return null;

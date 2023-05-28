@@ -104,7 +104,7 @@ public class SqlTable<T> implements DbTable<T> {
             final var entity = entrySet.getKey();
             final var statement = connection.createStatement();
             final var result = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
-            //FluentLogger.success("Result  " + result);
+            //FluentLogger.success("Result  " + output);
             System.out.println(query);
             final var resultSet = statement.getGeneratedKeys();
             if (!resultSet.next()) {

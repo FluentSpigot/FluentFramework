@@ -10,19 +10,15 @@ import java.util.List;
 public class EventHandlerImpl implements EventHandler {
     private final List<ContainerEvents> events;
 
-    public EventHandlerImpl(List<ContainerEvents> events)
-    {
-       this.events = events;
+    public EventHandlerImpl(List<ContainerEvents> events) {
+        this.events = events;
     }
 
     @Override
-    public boolean OnRegistration(OnRegistrationEvent event)
-    {
-        for(var handler : events)
-        {
-            var res =handler.OnRegistration(event);
-            if(!res)
-            {
+    public boolean OnRegistration(OnRegistrationEvent event) {
+        for (var handler : events) {
+            var res = handler.OnRegistration(event);
+            if (!res) {
                 return false;
             }
         }
@@ -31,14 +27,15 @@ public class EventHandlerImpl implements EventHandler {
 
     @Override
     public Object OnInjection(OnInjectionEvent event) throws Exception {
-        for(var handler : events)
-        {
-            var obj = handler.OnInjection(event);
-            if(obj != event.result())
-            {
-                return obj;
-            }
+        var output = event.output();
+        for (var handler : events) {
+            output = handler.OnInjection(new OnInjectionEvent(event.input(),
+                    event.inputGenericParameters(),
+                    event.injectionInfo(),
+                    output,
+                    event.injectionInfoMap(),
+                    event.container()));
         }
-        return event.result();
+        return output;
     }
 }

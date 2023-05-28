@@ -28,9 +28,9 @@ public class DefaultDecorator implements Decorator
         var decoratorDto =  decorators.get(event.input());
         if(decoratorDto == null)
         {
-            return event.result();
+            return event.output();
         }
-        var result = event.result();
+        var result = event.output();
         for(var injectionInfo : decoratorDto.implementations())
         {
 

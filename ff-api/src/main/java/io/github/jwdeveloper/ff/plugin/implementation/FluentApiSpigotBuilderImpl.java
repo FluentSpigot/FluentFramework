@@ -135,13 +135,14 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
 
         extensionsManager.getBeforeEachOnConfigure().subscribe(configManager::handleMigration);
         extensionsManager.getAfterOnConfigure().subscribe(configManager::handleRegisterBindings);
-        extensionsManager.getBeforeOnEnable().subscribe(configManager::handleOptionsClassMapping);
+        extensionsManager.getBeforeOnEnable().subscribe(configManager::handleClassMappingFromFile);
 
         extensionsManager.getAfterOnEnable().subscribe(configManager::handleSaveConfig);
         extensionsManager.getAfterOnDisable().subscribe(configManager::handleSaveConfig);
 
         extensionsManager.onConfiguration(this);
 
+        containerBuilder.getConfiguration().onInjection(configManager::handleConfigInjection);
 
         containerBuilder.registerSigleton(Plugin.class, plugin);
         containerBuilder.registerSigleton(FluentConfig.class, configFile);

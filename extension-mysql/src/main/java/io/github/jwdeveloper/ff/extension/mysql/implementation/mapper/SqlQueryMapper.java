@@ -33,7 +33,7 @@ public class SqlQueryMapper {
             var dto = getTable(table, metadata, size);
             dto.joinedColumn = ref;
             size += table.getColumnCount();
-            result.add(dto);
+            output.add(dto);
         }*/
         return result;
     }

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @YamlSection(path = "config")
-public class ConfigOptions
+public class TestConfig
 {
     @YamlSection(name = "info")
     private List<ConfigListContent> listContents;

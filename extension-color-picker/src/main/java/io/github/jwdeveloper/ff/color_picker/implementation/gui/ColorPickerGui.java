@@ -107,9 +107,9 @@ public class ColorPickerGui extends PickerUI<ColorInfo> {
                 .setOnLeftClick((player, button) ->
                 {
                     close();
-                    colorPicker.register(player, result ->
+                    colorPicker.register(player, output ->
                     {
-                        colorsService.addColor(new ColorInfo(result.getAsHex(), result.getAsBukkitColor(), false));
+                        colorsService.addColor(new ColorInfo(output.getAsHex(), output.getAsBukkitColor(), false));
                         open(player);
                     });
                 })

@@ -22,8 +22,8 @@ public class ConfigFileHandler implements FileHandler {
        /* var pluginConfig =  (YamlConfiguration) FluentApi.plugin().getConfig();
         for (var configSection: configSections)
         {
-            var result = reader.fromConfiguration(pluginConfig,configSection.getClass());
-            ObjectUtility.copyToObject(result, configSection, result.getClass());
+            var output = reader.fromConfiguration(pluginConfig,configSection.getClass());
+            ObjectUtility.copyToObject(output, configSection, output.getClass());
         }
         pluginConfig.save(FluentApi.path()+ File.separator+"config.yml");*/
     }

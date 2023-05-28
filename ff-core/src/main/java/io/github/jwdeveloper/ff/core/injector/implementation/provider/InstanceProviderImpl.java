@@ -25,17 +25,7 @@ public class InstanceProviderImpl implements InstanceProvider
             for (var parameterType : info.getConstructorTypes())
             {
                 parameterClass = parameterType;
-                if(parameterClass.isAssignableFrom(List.class))
-                {
-                    var parameterizedType = (ParameterizedType)info.getInjectedConstructor().getGenericParameterTypes()[i];
-                    parameterClass =  (Class<?>)parameterizedType.getActualTypeArguments()[0];
-                }
-                if (!injections.containsKey(parameterClass))
-                {
-                    throw new Exception(String.format(Messages.INJECTION_NOT_FOUND, parameterClass.getTypeName(), info.getInjectionKeyType()));
-                }
-                handler = injections.get(parameterClass);
-                info.getConstructorPayLoadTemp()[i] = getInstance(handler, injections, container);
+                info.getConstructorPayLoadTemp()[i] = container.find(parameterClass, info.getInjectedConstructor().getGenericParameterTypes()[i]);
                 i++;
             }
             result = info.getInjectedConstructor().newInstance(info.getConstructorPayLoadTemp());

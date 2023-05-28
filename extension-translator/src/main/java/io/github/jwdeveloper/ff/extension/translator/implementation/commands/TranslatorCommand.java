@@ -14,16 +14,13 @@ public class TranslatorCommand {
 
     private final FluentApiCommandBuilder defaultCommand;
     private final FluentConfig configFile;
-    private final FluentTranslator translator;
     private final FluentTranslatorOptions options;
 
     public TranslatorCommand(FluentApiCommandBuilder defaultCommand,
                              FluentConfig configFile,
-                             FluentTranslator translator,
                              FluentTranslatorOptions options) {
         this.defaultCommand = defaultCommand;
         this.configFile = configFile;
-        this.translator = translator;
         this.options = options;
     }
 
@@ -39,6 +36,7 @@ public class TranslatorCommand {
                 {
                     argumentConfig.addArgument("language", argumentBuilder ->
                     {
+                        var translator = FluentApi.container().findInjection(FluentTranslator.class);
                         argumentBuilder.setTabComplete(translator.getLanguagesName());
                         argumentBuilder.setArgumentDisplay(ArgumentDisplay.TAB_COMPLETE);
                         argumentBuilder.setDescription("select language");
@@ -48,6 +46,7 @@ public class TranslatorCommand {
                 {
                     eventConfig.onExecute(commandEvent ->
                     {
+                        var translator = FluentApi.container().findInjection(FluentTranslator.class);
                         var languageName = commandEvent.getCommandArgs()[0];
                         if (!translator.isLanguageExists(languageName)) {
                             new MessageBuilder()
