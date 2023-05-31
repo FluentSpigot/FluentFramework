@@ -7,7 +7,6 @@ import io.github.jwdeveloper.ff.core.spigot.tasks.implementation.SimpleTaskTimer
 
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.config.ConfigProperty;
-import io.github.jwdeveloper.ff.plugin.api.config.ConfigSection;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
@@ -38,7 +37,7 @@ public class FluentFilesExtention implements FluentApiExtension {
 
             var customFiles = searchContainer.findAllByInterface(CustomFile.class);
             var jsonFiles =  searchContainer.findAllByAnnotation(JsonFile.class);
-            var configSections =  searchContainer.findAllByInterface(ConfigSection.class);
+            //var configSections =  searchContainer.findAllByInterface(ConfigSection.class);
             for (var file: customFiles)
             {
                 filesDataContext.addCustomFileObject(file);
@@ -47,10 +46,10 @@ public class FluentFilesExtention implements FluentApiExtension {
             {
                 filesDataContext.addJsonObject(file);
             }
-            for(var file : configSections)
+          /*  for(var file : configSections)
             {
                 filesDataContext.addConfigFileObject(file);
-            }
+            }*/
             var savingFrequency = getConfigSavingFrequency(config);
             savingTask = tasks.taskTimer(20*savingFrequency*60,(iteration, task) ->
             {

@@ -13,12 +13,12 @@ public interface FluentConfig {
     <T> T get(String name);
 
     <T> T toObject(Class<T> clazz);
+    void  set(String path, Object value);
 
     void save();
 
     void save(Object object);
 
     void save(Object object, String ymlPath);
-
     YamlConfiguration configFile();
 }

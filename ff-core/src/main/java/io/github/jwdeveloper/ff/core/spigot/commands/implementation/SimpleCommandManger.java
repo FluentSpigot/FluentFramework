@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-public class SimpleCommandManger extends EventBase implements FluentCommandManger {
+public class SimpleCommandManger extends EventBase implements FluentCommandManger{
     private final HashMap<String, SimpleCommand> commands;
 
     public SimpleCommandManger(Plugin plugin) {
@@ -33,7 +33,7 @@ public class SimpleCommandManger extends EventBase implements FluentCommandMange
         commands.clear();
     }
 
-    @Override
+
     public boolean register(SimpleCommand command) {
         if (commands.containsKey(command.getName())) {
             FluentLogger.LOGGER.warning("command already exists", command.getName());
@@ -47,7 +47,7 @@ public class SimpleCommandManger extends EventBase implements FluentCommandMange
         return true;
     }
 
-    @Override
+
     public boolean unregister(SimpleCommand command) {
         if (!unregisterBukkitCommand(command)) {
             return false;
@@ -94,7 +94,7 @@ public class SimpleCommandManger extends EventBase implements FluentCommandMange
         }
     }
 
-    @Override
+
     public List<String> getBukkitCommandsNames() {
         List<String> result = new ArrayList<>();
         try {
@@ -107,7 +107,7 @@ public class SimpleCommandManger extends EventBase implements FluentCommandMange
         return result;
     }
 
-    @Override
+
     public List<Command> getBukkitCommands() {
         try {
             var commandMap = ObjectUtility.getPrivateField(Bukkit.getServer(), "commandMap");
@@ -123,4 +123,6 @@ public class SimpleCommandManger extends EventBase implements FluentCommandMange
     public Collection<SimpleCommand> getSimpleCommands() {
         return commands.values();
     }
+
+
 }

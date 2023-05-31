@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.extension.translator.implementation;
 
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import io.github.jwdeveloper.ff.extension.translator.api.models.TranslationModel;
 import io.github.jwdeveloper.ff.extension.translator.implementation.base.SimpleTranslator;
@@ -30,6 +31,12 @@ public class FluentTranslatorImpl implements FluentTranslator {
     @Override
     public String get(String key) {
         return translator.get(key);
+    }
+
+    @Override
+    public String get(String key, String... params) {
+        FluentLogger.LOGGER.info("TO DO PARAMS IN TRANSLATOR");
+        return get(key);
     }
 
     @Override

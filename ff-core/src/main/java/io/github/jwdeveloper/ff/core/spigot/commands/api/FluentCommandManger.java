@@ -17,4 +17,5 @@ public interface FluentCommandManger {
     List<Command> getBukkitCommands();
 
     Collection<SimpleCommand> getSimpleCommands();
+
 }

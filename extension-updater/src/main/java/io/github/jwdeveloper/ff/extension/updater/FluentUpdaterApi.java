@@ -12,9 +12,4 @@ public class FluentUpdaterApi
     {
         return new FluentUpdaterExtension(options);
     }
-
-    public static FluentApiExtension use()
-    {
-        return new FluentUpdaterExtension(e ->{});
-    }
 }

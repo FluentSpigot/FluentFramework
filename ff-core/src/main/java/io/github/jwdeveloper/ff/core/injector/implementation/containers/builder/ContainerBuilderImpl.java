@@ -15,6 +15,7 @@ import io.github.jwdeveloper.ff.core.injector.implementation.factory.InjectionIn
 import io.github.jwdeveloper.ff.core.injector.implementation.provider.InstanceProviderImpl;
 import io.github.jwdeveloper.ff.core.injector.implementation.search.SearchAgentImpl;
 import lombok.SneakyThrows;
+import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
@@ -179,7 +180,7 @@ public class ContainerBuilderImpl<Builder extends ContainerBuilder<Builder>> imp
                 searchAgent,
                 instanceProvider,
                 eventHandler,
-                new SimpleLogger(Logger.getLogger("container")),
+                new SimpleLogger("container"),
                 injectionInfoFactory,
                 config.getRegistrations());
     }

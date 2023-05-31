@@ -1,11 +1,11 @@
 package io.github.jwdeveloper.ff.extension.updater.api;
 
-import io.github.jwdeveloper.ff.extension.updater.api.info.UpdateInfo;
+import io.github.jwdeveloper.ff.extension.updater.api.info.UpdateInfoResponse;
 
 
 import java.io.IOException;
 
 public interface UpdateInfoProvider
 {
-     UpdateInfo getUpdateInfo() throws IOException;
+     UpdateInfoResponse getUpdateInfo() throws IOException;
 }

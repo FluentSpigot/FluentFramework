@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.extension.gui.inventory.styles.renderer;
 
 import io.github.jwdeveloper.ff.extension.gui.inventory.styles.ButtonColorSet;
 import io.github.jwdeveloper.ff.extension.gui.inventory.styles.ButtonStyleInfo;
-import io.github.jwdeveloper.ff.core.spigot.messages.SimpleMessage;
+import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.plugin.api.features.FluentTranslator;
 
 import java.util.HashMap;
@@ -12,7 +12,7 @@ public class CatchButtonStyleRenderer extends ButtonStyleRenderer {
 
     private HashMap<String, List<String>> cache;
 
-    public CatchButtonStyleRenderer(FluentTranslator translator, ButtonColorSet buttonColorSet, SimpleMessage simpleMessage) {
+    public CatchButtonStyleRenderer(FluentTranslator translator, ButtonColorSet buttonColorSet, FluentMessages simpleMessage) {
         super(translator, buttonColorSet, simpleMessage);
         cache = new HashMap<>();
     }

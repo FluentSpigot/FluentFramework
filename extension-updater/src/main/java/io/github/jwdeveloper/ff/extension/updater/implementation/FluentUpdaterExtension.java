@@ -3,27 +3,30 @@ package io.github.jwdeveloper.ff.extension.updater.implementation;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config.SubCommandConfig;
 import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
 import io.github.jwdeveloper.ff.extension.updater.api.FluentUpdater;
 import io.github.jwdeveloper.ff.extension.updater.api.UpdateInfoProvider;
 import io.github.jwdeveloper.ff.extension.updater.api.UpdaterApiOptions;
+import io.github.jwdeveloper.ff.extension.updater.api.config.UpdaterConfig;
 import io.github.jwdeveloper.ff.extension.updater.api.options.GithubUpdaterOptions;
-import io.github.jwdeveloper.ff.extension.updater.api.options.UpdaterOptions;
+import io.github.jwdeveloper.ff.extension.updater.api.options.ProviderOptions;
 import io.github.jwdeveloper.ff.extension.updater.implementation.providers.GithubInfoProvider;
+import io.github.jwdeveloper.ff.extension.updater.implementation.services.FileDowloaderService;
+import io.github.jwdeveloper.ff.extension.updater.implementation.services.MessagesSenderService;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.ff.plugin.api.config.ConfigProperty;
-import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermissionBuilder;
 import org.bukkit.Bukkit;
 
 import java.util.function.Consumer;
 
 public class FluentUpdaterExtension implements FluentApiExtension {
     private final Consumer<UpdaterApiOptions> optionsConsumer;
-    private UpdaterOptions options;
+    private ProviderOptions providerOptions;
+
+    private UpdaterApiOptions updaterApiOptions;
 
     public FluentUpdaterExtension(Consumer<UpdaterApiOptions> options) {
         optionsConsumer = options;
@@ -31,81 +34,88 @@ public class FluentUpdaterExtension implements FluentApiExtension {
 
     @Override
     public void onConfiguration(FluentApiSpigotBuilder builder) {
-        var updaterApiOptions = new UpdaterApiOptions();
+        updaterApiOptions = new UpdaterApiOptions();
         optionsConsumer.accept(updaterApiOptions);
-        options = updaterApiOptions.getOptions();
+        providerOptions = updaterApiOptions.getProviderOptions();
 
-        var section = createForceUpdateSection(builder.config(), options.isForceUpdate());
-        var isForceUpdate = builder.config().getOrCreate(section);
-        options.setForceUpdate(isForceUpdate);
 
+        builder.bindToConfig(UpdaterConfig.class, updaterApiOptions.getConfigPath());
+
+        builder.container().registerTransient(FileDowloaderService.class);
+        builder.container().registerTransient(MessagesSenderService.class);
         builder.container().register(FluentUpdater.class, LifeTime.SINGLETON, (c) ->
         {
             UpdateInfoProvider updateProvider = null;
-            if(options instanceof GithubUpdaterOptions githubUpdaterOptions)
-            {
+            if (providerOptions instanceof GithubUpdaterOptions githubUpdaterOptions) {
                 updateProvider = new GithubInfoProvider(githubUpdaterOptions);
             }
+
+            var fileService = (FileDowloaderService) c.find(FileDowloaderService.class);
+            var messageService = (MessagesSenderService) c.find(MessagesSenderService.class);
+
             return new SimpleUpdater(
                     updateProvider,
                     builder.tasks(),
-                    builder.plugin(),
                     builder.logger(),
-                    "/" +  builder.defaultCommand().getName() + " " + options.getCommandName());
+                    messageService,
+                    fileService,
+                    builder.plugin().getDescription().getVersion());
         });
 
-        var permissionModel = createPermission(builder.permissions());
-        builder.permissions()
-                .registerPermission(permissionModel);
-        builder.defaultCommand()
-                .subCommandsConfig(subCommandConfig ->
-                {
-                    subCommandConfig.addSubCommand(updatesCommand(options, permissionModel, builder.defaultCommand().getName()));
-                });
+
+        builder.permissions().registerPermission(this::createPermission);
+        builder.defaultCommand().subCommandsConfig(x -> createCommand(x, builder.defaultCommand().getName()));
     }
 
     @Override
     public void onFluentApiEnable(FluentApiSpigot fluentAPI) {
-        var updater= fluentAPI.container().findInjection(FluentUpdater.class);
-        if(options.isForceUpdate())
+        var updater = fluentAPI.container().findInjection(FluentUpdater.class);
+        var config = fluentAPI.container().findInjection(UpdaterConfig.class);
+
+        if (config.isForceUpdate())
             updater.downloadUpdateAsync(Bukkit.getConsoleSender());
-        else
+
+        if (config.getCheckUpdateConfig().isCheckUpdate())
+        {
             updater.checkUpdateAsync(Bukkit.getConsoleSender());
+        }
+
     }
 
-    private CommandBuilder updatesCommand(UpdaterOptions options, PermissionModel permission, String defaultCommandName) {
-        return FluentCommand.create(options.getCommandName())
-                .propertiesConfig(propertiesConfig ->
-                {
-                    propertiesConfig.addPermissions(permission.getName());
-                    propertiesConfig.setDescription("Download plugin latest version, can be trigger both by player or console");
-                    propertiesConfig.setUsageMessage("/" + defaultCommandName + " " + options.getCommandName());
-                })
-                .eventsConfig(eventConfig ->
-                {
-                    var updater = FluentApi.container().findInjection(FluentUpdater.class);
-                    eventConfig.onConsoleExecute(consoleCommandEvent ->
+
+    private void createCommand(SubCommandConfig config, String defaultCommandName) {
+        config.addSubCommand(updaterApiOptions.getCommandName(), commandBuilder ->
+        {
+            commandBuilder.propertiesConfig(propertiesConfig ->
                     {
-                        updater.downloadUpdateAsync(consoleCommandEvent.getConsoleSender());
-                    });
-                    eventConfig.onPlayerExecute(event ->
+                        propertiesConfig.addPermissions(updaterApiOptions.getPermissionName());
+                        propertiesConfig.setDescription("Download plugin latest version, can be trigger both by player or console");
+                        propertiesConfig.setUsageMessage("/" + defaultCommandName + " " + updaterApiOptions.getCommandName());
+                    })
+                    .eventsConfig(eventConfig ->
                     {
-                        updater.downloadUpdateAsync(event.getSender());
+                        eventConfig.onExecute(consoleCommandEvent ->
+                        {
+                            var updater = FluentApi.container().findInjection(FluentUpdater.class);
+                            updater.downloadUpdateAsync(consoleCommandEvent.getSender());
+                        });
                     });
-                });
+        });
     }
 
-    private PermissionModel createPermission(FluentPermissionBuilder builder) {
-        var permission = new PermissionModel();
-        permission.setName("update");
-        permission.setDescription("Players with this permission can update plugin");
-        builder.defaultPermissions().getCommands().registerChild(permission);
-        return permission;
+    private void createPermission(PermissionModel model) {
+
+        model.setName(updaterApiOptions.getPermissionName());
+        model.setDescription("Players with this permission can update plugin");
     }
 
-    private ConfigProperty<Boolean> createForceUpdateSection(FluentConfig config, boolean defaultValue) {
-        return new ConfigProperty<>("update.force-update",defaultValue, """
-                Automatically download plugin update when it's available
-                """);
+    @Override
+    public String getVersion() {
+        return "1.0.0";
+    }
+
+    @Override
+    public String getName() {
+        return "updater";
     }
 }

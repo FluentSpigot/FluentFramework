@@ -4,7 +4,7 @@ import io.github.jwdeveloper.ff.extension.gui.inventory.styles.ButtonColorSet;
 import io.github.jwdeveloper.ff.extension.gui.inventory.styles.ButtonStyleInfo;
 import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.spigot.messages.SimpleMessage;
+import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import io.github.jwdeveloper.ff.plugin.api.features.FluentTranslator;
 import org.bukkit.ChatColor;
@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class ButtonStyleRenderer {
 
-    private final SimpleMessage simpleMessages;
+    private final FluentMessages simpleMessages;
     private final ButtonColorSet colorSet;
     private final FluentTranslator translator;
     private String barTop;
@@ -25,7 +25,7 @@ public class ButtonStyleRenderer {
     private final int barLength = 20;
     public ButtonStyleRenderer(FluentTranslator translator,
                                ButtonColorSet buttonColorSet,
-                               SimpleMessage simpleMessages)
+                               FluentMessages simpleMessages)
     {
         this.colorSet = buttonColorSet;
         this.translator = translator;

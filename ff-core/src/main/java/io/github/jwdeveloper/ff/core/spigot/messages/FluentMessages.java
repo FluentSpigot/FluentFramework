@@ -5,7 +5,7 @@ import io.github.jwdeveloper.ff.core.spigot.messages.boss_bar.BossBarBuilder;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import io.github.jwdeveloper.ff.core.spigot.messages.title.SimpleTitleBuilder;
 
-public class SimpleMessage
+public class FluentMessages
 {
 
     public SimpleTitleBuilder title() {

@@ -5,7 +5,7 @@ import io.github.jwdeveloper.ff.extension.updater.api.options.GithubUpdaterOptio
 
 public class GithubOptionsBuilder
 {
-    private GithubUpdaterOptions options;
+    private final GithubUpdaterOptions options;
 
     public GithubOptionsBuilder()
     {
@@ -21,24 +21,6 @@ public class GithubOptionsBuilder
     public GithubOptionsBuilder setRepositoryName(String repositoryName)
     {
         options.setRepositoryName(repositoryName);
-        return this;
-    }
-
-    public GithubOptionsBuilder setForceUpdate(boolean forceUpdate)
-    {
-        options.setForceUpdate(forceUpdate);
-        return this;
-    }
-
-    public GithubOptionsBuilder setCheckUpdateOnStart(boolean checkUpdateOnStart)
-    {
-        options.setCheckUpdateOnStart(checkUpdateOnStart);
-        return this;
-    }
-
-    public GithubOptionsBuilder setCommandName(String commandName)
-    {
-        options.setCommandName(commandName);
         return this;
     }
 

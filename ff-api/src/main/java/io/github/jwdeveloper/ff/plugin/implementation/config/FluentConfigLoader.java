@@ -12,14 +12,13 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 public class FluentConfigLoader {
-    private final YamlReader yamlMapper;
     private final Plugin plugin;
     public FluentConfigLoader(Plugin plugin) {
-        yamlMapper = new SimpleYamlReader();
         this.plugin = plugin;
     }
 
-    public FluentConfigImpl load() throws Exception {
+    public FluentConfigImpl load() throws Exception
+    {
         var path = FileUtility.pluginPath(plugin) + File.separator + "config.yml";
         var yamlConfiguration = getConfigFile(path);
         yamlConfiguration.options().header(StringUtils.EMPTY);
@@ -27,18 +26,14 @@ public class FluentConfigLoader {
         return new FluentConfigImpl(yamlConfiguration, path);
     }
 
-    private YamlConfiguration getConfigFile(String path) throws IllegalAccessException, IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException {
-
-
+    private YamlConfiguration getConfigFile(String path) throws IOException {
         if (!FileUtility.pathExists(path)) {
             var yamlConfig = new YamlConfiguration();
-           // yamlMapper.toConfiguration(new DefaultConfigSection(plugin), yamlConfig);
             yamlConfig.save(path);
             return yamlConfig;
         }
-
         var file = new File(path);
-        return  YamlConfiguration.loadConfiguration(file);
+        return YamlConfiguration.loadConfiguration(file);
     }
 
 }

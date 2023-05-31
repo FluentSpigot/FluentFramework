@@ -1,16 +1,18 @@
 package io.github.jwdeveloper.ff.core.common.logger;
 
 import io.github.jwdeveloper.ff.core.common.TextBuilder;
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.plugin.Plugin;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SimpleLogger implements PluginLogger {
-    private Logger logger;
     private final String errorBar;
 
     @Getter
@@ -21,13 +23,32 @@ public class SimpleLogger implements PluginLogger {
     @Setter
     private String prefix = "";
 
-    public SimpleLogger(Logger logger) {
+    @Getter
+    private EventGroup<String> logEvents;
+
+    public SimpleLogger(String prefix) {
         this();
-        this.logger = logger;
+        this.prefix = prefix;
+        logEvents = new EventGroup<>();
     }
 
     public SimpleLogger() {
-        errorBar = getBuilder().newLine().text(ChatColor.BOLD).text(ChatColor.DARK_RED).bar("-", 100).newLine().toString();
+        errorBar = getBuilder().newLine().text(ChatColor.BOLD).text(ChatColor.DARK_RED).bar("-", 100).text(ChatColor.RESET).newLine().toString();
+    }
+
+    private void send(String message) {
+        if (!isActive()) {
+            return;
+        }
+
+        if (Bukkit.getServer() != null) {
+            Bukkit.getConsoleSender().sendMessage(message);
+        }
+        else
+        {
+            System.out.println(message);
+        }
+        logEvents.invoke(message);
     }
 
     public void info(Object... messages) {
@@ -39,7 +60,6 @@ public class SimpleLogger implements PluginLogger {
                 .text(getPrefix("Info", ChatColor.AQUA))
                 .text(messages)
                 .toString();
-        //   logger.info(message);
         send(message);
     }
 
@@ -52,7 +72,6 @@ public class SimpleLogger implements PluginLogger {
                 .text(getPrefix("Success", ChatColor.GREEN))
                 .text(messages)
                 .toString();
-        // logger.log(Level.FINEST, message);
         send(message);
     }
 
@@ -77,7 +96,6 @@ public class SimpleLogger implements PluginLogger {
                 .text(getPrefix("Error", ChatColor.RED))
                 .text(message)
                 .toString();
-        // logger.log(Level.WARNING, message);
         send(msg);
     }
 
@@ -91,29 +109,17 @@ public class SimpleLogger implements PluginLogger {
         var errorMessage = getBuilder()
                 .text(description, errorBar, stackTrace, errorBar)
                 .toString();
-        //  logger.log(Level.WARNING, errorMessage);
         send(errorMessage);
     }
 
 
-    private void send(String message) {
-        if (!isActive()) {
-            return;
-        }
 
-
-        if (Bukkit.getServer() != null) {
-            Bukkit.getConsoleSender().sendMessage(message);
-            return;
-        }
-        System.out.println(message);
-    }
 
     private TextBuilder getErrorDescription(String message, Throwable exception) {
         var stackTrace = new TextBuilder();
 
         stackTrace.newLine()
-                .text(ChatColor.DARK_RED).text("[Critical Error]").space()
+                .text(getPrefix("Critical Error",ChatColor.DARK_RED)).space()
                 .text(ChatColor.RED).text(message)
                 .text(ChatColor.RESET);
         if (exception == null) {
@@ -121,13 +127,13 @@ public class SimpleLogger implements PluginLogger {
         }
         var cause = exception.getCause() != null ? exception.getCause().getMessage() : exception.getMessage();
         stackTrace.newLine().text(ChatColor.DARK_RED)
-                .text("[Reason]")
+                .text(getPrefix("Reason",ChatColor.DARK_RED))
                 .text(ChatColor.YELLOW)
                 .space()
                 .text(cause)
                 .text(ChatColor.RESET)
                 .newLine()
-                .text(ChatColor.DARK_RED).text("[Exception type]")
+                .text(getPrefix("Exception type",ChatColor.DARK_RED))
                 .text(ChatColor.YELLOW).space().text(exception.getClass().getSimpleName())
                 .text(ChatColor.RESET);
         return stackTrace;
@@ -141,19 +147,20 @@ public class SimpleLogger implements PluginLogger {
         var offset = 6;
         builder.text(ChatColor.RESET);
         for (var trace : exception.getStackTrace()) {
-            offset = 6;
+            offset = 4;
             offset = offset - (trace.getLineNumber() + "").length();
             builder
                     .newLine()
-                    .text(ChatColor.WHITE)
-                    .text("at line", ChatColor.WHITE)
-                    .space(2)
-                    .text(trace.getLineNumber(), ChatColor.AQUA)
+                    .text(ChatColor.GRAY,"At line")
+                    .space(1)
+                    .text(ChatColor.AQUA,trace.getLineNumber())
                     .space(offset)
-                    .text("in", ChatColor.WHITE)
+                    .text(ChatColor.GRAY,"in")
                     .space()
-                    .text(trace.getClassName(), ChatColor.GRAY)
-                    .text("." + trace.getMethodName() + "()", ChatColor.AQUA)
+                    .text(ChatColor.WHITE)
+                    .text(trace.getClassName())
+                    .text(ChatColor.AQUA)
+                    .text( "." + trace.getMethodName() + "()")
                     .space()
                     .text(ChatColor.RESET);
         }
@@ -161,7 +168,14 @@ public class SimpleLogger implements PluginLogger {
     }
 
     private String getPrefix(String name, ChatColor color) {
-        return getBuilder().text(color, "[", name, "] ", ChatColor.RESET, prefix).toString();
+
+        var builder =getBuilder();
+        if(StringUtils.isNotNullOrEmpty(prefix))
+        {
+            builder.text(ChatColor.GRAY).text("["+prefix+"]");
+        }
+
+        return builder.text(color, "["+ name+"]", ChatColor.RESET).toString();
     }
 
     private TextBuilder getBuilder() {

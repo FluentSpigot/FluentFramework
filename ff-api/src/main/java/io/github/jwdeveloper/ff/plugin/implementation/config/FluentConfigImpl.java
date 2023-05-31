@@ -71,6 +71,8 @@ public class FluentConfigImpl implements FluentConfig {
         }
     }
 
+
+
     public Object getRequired(String name) {
         var value = get(name);
         if (value == null) {
@@ -87,20 +89,27 @@ public class FluentConfigImpl implements FluentConfig {
             fileConfiguration.set(path,defaultValue);
         }
 
-        var builder = new TextBuilder();
-        builder.text(fileConfiguration.options().header());
-        builder.newLine();
-        builder.text(path);
-        builder.newLine();
-        for(var desc : description)
+        if(description.length != 0)
         {
-            builder.bar(" ",3).text(desc).newLine();
+            var builder = new TextBuilder();
+            builder.text(fileConfiguration.options().header());
+            builder.newLine();
+            builder.text(path);
+            builder.newLine();
+            for(var desc : description)
+            {
+                builder.bar(" ",3).text(desc).newLine();
+            }
+            builder.newLine();
+            fileConfiguration.options().header(builder.toString());
         }
-        builder.newLine();
-        fileConfiguration.options().header(builder.toString());
         save();
-
         return (T)fileConfiguration.get(path);
+    }
+
+    public void set(String path, Object value)
+    {
+        fileConfiguration.set(path,value);
     }
 
     @Override

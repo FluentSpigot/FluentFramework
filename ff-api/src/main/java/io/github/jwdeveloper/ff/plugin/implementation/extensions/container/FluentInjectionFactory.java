@@ -8,6 +8,7 @@ import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
 import io.github.jwdeveloper.ff.core.injector.api.annotations.IgnoreInjection;
 import io.github.jwdeveloper.ff.core.injector.api.annotations.Injection;
 import io.github.jwdeveloper.ff.core.injector.api.models.ContainerConfiguration;
+import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiContainerBuilderImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.JarScannerImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.implementation.FluentPlayerContext;
@@ -21,7 +22,7 @@ public class FluentInjectionFactory {
     public record Result(FluentInjectionImpl fluentInjection, List<Class<?>> toInitializeTypes){}
     private final Plugin plugin;
     private final FluentApiContainerBuilderImpl builder;
-    private final JarScannerImpl typeManager;
+    private final JarScanner typeManager;
     private final PluginLogger logger;
     private final List<Class<?>> toInitializeTypes;
 
@@ -31,7 +32,7 @@ public class FluentInjectionFactory {
     public FluentInjectionFactory(FluentApiContainerBuilderImpl builder,
                                   PluginLogger logger,
                                   Plugin plugin,
-                                  JarScannerImpl classTypesManager)
+                                  JarScanner classTypesManager)
     {
         this.builder = builder;
         this.typeManager = classTypesManager;

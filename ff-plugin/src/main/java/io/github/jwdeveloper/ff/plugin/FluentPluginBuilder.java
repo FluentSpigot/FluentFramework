@@ -61,11 +61,6 @@ public class FluentPluginBuilder {
         return this;
     }
 
-    public FluentPluginBuilder withUpdater()
-    {
-        apiExtensions.add(FluentUpdaterApi.use());
-        return this;
-    }
 
     public FluentPluginBuilder withBstatsMetrics(int bstatsMetricsId)
     {
@@ -97,22 +92,26 @@ public class FluentPluginBuilder {
         {
             api.disable();
         });
-        FluentCommand.create("disable")
-                .propertiesConfig(propertiesConfig ->
-                {
-                    propertiesConfig.setDescription("Command only for plugin development purpose. Can be only trigger by Console. disables all plugins");
-                    propertiesConfig.setUsageMessage("/disable");
-                    propertiesConfig.setHideFromTabDisplay(true);
-                })
-                .eventsConfig(eventConfig ->
-                {
-                    eventConfig.onConsoleExecute(consoleCommandEvent ->
+
+        if(api.meta().isDebbug())
+        {
+            FluentCommand.create("disable")
+                    .propertiesConfig(propertiesConfig ->
                     {
-                        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Plugins disabled");
-                        Bukkit.getPluginManager().disablePlugins();
-                    });
-                })
-                .buildAndRegister();
+                        propertiesConfig.setDescription("Command only for plugin development purpose. Can be only trigger by Console. disables all plugins");
+                        propertiesConfig.setUsageMessage("/disable");
+                        propertiesConfig.setHideFromTabDisplay(true);
+                    })
+                    .eventsConfig(eventConfig ->
+                    {
+                        eventConfig.onConsoleExecute(consoleCommandEvent ->
+                        {
+                            Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Plugins disabled");
+                            Bukkit.getPluginManager().disablePlugins();
+                        });
+                    })
+                    .buildAndRegister();
+        }
         return api;
     }
 }

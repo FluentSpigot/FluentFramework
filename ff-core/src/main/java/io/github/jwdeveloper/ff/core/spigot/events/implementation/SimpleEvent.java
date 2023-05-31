@@ -37,6 +37,13 @@ public class SimpleEvent<T extends Event> {
         this.isActive = isActive;
         return this;
     }
+    public SimpleEvent<T> enable() {
+       return setActive(true);
+    }
+
+    public SimpleEvent<T> disable() {
+        return setActive(false);
+    }
 
     public SimpleEvent<T> unregister() {
         isRegister = false;

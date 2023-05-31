@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.plugin.implementation.config;
 
 import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlReader;
 import io.github.jwdeveloper.ff.core.injector.api.events.events.OnInjectionEvent;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
@@ -21,33 +20,23 @@ import java.util.Map;
 public class FluentConfigManager {
     private final JarScanner jarScanner;
     private final PluginLogger logger;
-    private final Plugin plugin;
+    private final FluentConfig fluentConfig;
     private final Map<Class<?>, String> bindings;
-    private FluentConfig config;
 
     public FluentConfigManager(JarScanner jarScanner,
                                PluginLogger logger,
-                               Plugin plugin) {
+                               FluentConfig fluentConfig)
+                            {
         bindings = new HashMap<>();
+        this.fluentConfig = fluentConfig;
         this.jarScanner = jarScanner;
         this.logger = logger;
-        this.plugin = plugin;
     }
 
 
-    public FluentConfig getConfig() {
-
-        if (config != null) {
-            return config;
-        }
-
-        try {
-            config = new FluentConfigLoader(plugin).load();
-            return config;
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to load config file", e);
-        }
-
+    public FluentConfig getConfig()
+    {
+        return fluentConfig;
     }
 
     public void bindToConfig(Class<?> clazz, String ymlPath) {
@@ -60,8 +49,8 @@ public class FluentConfigManager {
         }
     }
 
-    public void handleMigration(FluentApiExtension extension) {
-        new DefaultConfigMigrator(extension, jarScanner, logger).makeMigration(getConfig().configFile());
+    public void onMigration(FluentApiExtension extension) {
+        new DefaultConfigMigrator(extension, jarScanner, logger).makeMigration(fluentConfig.configFile());
     }
 
     public void handleClassMappingFromFile(FluentApiSpigot extension) {
@@ -69,7 +58,7 @@ public class FluentConfigManager {
         try {
             for (var entry : bindings.entrySet()) {
                 var instance = extension.container().findInjection(entry.getKey());
-                ymlReader.fromConfiguration(getConfig().configFile(), instance,entry.getValue());
+                ymlReader.fromConfiguration(fluentConfig.configFile(), instance,entry.getValue());
             }
         } catch (Exception e) {
             throw new RuntimeException("Unable to map config", e);
@@ -78,18 +67,18 @@ public class FluentConfigManager {
     }
 
 
-    public void handleSaveConfig(FluentApiSpigot extension) {
+    public void onSaveConfig(FluentApiSpigot extension) {
         for (var entry : bindings.entrySet()) {
             try {
                 var instance = extension.container().findInjection(entry.getKey());
-                config.save(instance, entry.getValue());
+                fluentConfig.save(instance, entry.getValue());
             } catch (Exception e) {
                 throw new RuntimeException("Unable to map config", e);
             }
         }
     }
 
-    public Object handleConfigInjection(OnInjectionEvent event)
+    public Object onConfigOptionsInjectionCall(OnInjectionEvent event)
     {
         if(!event.input().isAssignableFrom(ConfigOptions.class))
         {
@@ -103,7 +92,6 @@ public class FluentConfigManager {
 
         try
         {
-
             var parameterType = event.inputGenericParameters()[0];
             Class<?> parameterClass = null;
             if(parameterType instanceof ParameterizedType pt)
@@ -122,7 +110,7 @@ public class FluentConfigManager {
             }
             var instance = event.container().find(parameterClass);
             var ymlPath = bindings.get(parameterClass);
-            return new ConfigOptionsImpl<>(config, instance, ymlPath);
+            return new ConfigOptionsImpl<>(fluentConfig, instance, ymlPath);
         }
         catch (Exception e)
         {

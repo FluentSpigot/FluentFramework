@@ -20,14 +20,9 @@ public abstract class FluentPlugin extends JavaPlugin implements FluentApiExtens
 
     @Override
     public final void onEnable() {
-        var api = FluentPlugin
-                .initialize(this)
+        FluentPlugin.initialize(this)
                 .withExtension(this)
                 .create();
-        if(api == null)
-        {
-            Bukkit.getPluginManager().disablePlugin(this);
-        }
     }
 
     public static FluentPluginBuilder initialize(Plugin plugin)

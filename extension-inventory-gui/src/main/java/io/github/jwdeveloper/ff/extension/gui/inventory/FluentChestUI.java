@@ -4,7 +4,7 @@ import io.github.jwdeveloper.ff.extension.gui.inventory.styles.renderer.CatchBut
 import io.github.jwdeveloper.ff.extension.gui.inventory.styles.FluentButtonStyle;
 import io.github.jwdeveloper.ff.core.injector.api.annotations.Inject;
 import io.github.jwdeveloper.ff.core.injector.api.annotations.Injection;
-import io.github.jwdeveloper.ff.core.spigot.messages.SimpleMessage;
+import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.plugin.api.features.FluentTranslator;
 
 @Injection
@@ -19,7 +19,7 @@ public class FluentChestUI
     {
         this.translator = translator;
         style = new FluentButtonStyle(translator);
-        renderer = new CatchButtonStyleRenderer(translator, style.getColorSet(), new SimpleMessage());
+        renderer = new CatchButtonStyleRenderer(translator, style.getColorSet(), new FluentMessages());
     }
 
     public FluentTranslator lang()

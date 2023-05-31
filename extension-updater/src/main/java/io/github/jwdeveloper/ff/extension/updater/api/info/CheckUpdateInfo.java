@@ -8,5 +8,5 @@ import lombok.Getter;
 public class CheckUpdateInfo {
 
     private boolean isUpdate;
-    private UpdateInfo updateInfo;
+    private UpdateInfoResponse updateInfo;
 }

@@ -1,13 +1,12 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
 import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.CommandBuilderImpl;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
-import io.github.jwdeveloper.ff.core.spigot.messages.SimpleMessage;
+import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtensionsManager;
@@ -23,7 +22,8 @@ public final class FluentApiSpigot {
     private final FluentConfig fluentConfig;
     private final FluentPermission fluentPermission;
     private final Plugin plugin;
-    private final SimpleMessage simpleMessages;
+    private final FluentMessages simpleMessages;
+    private final FluentApiMeta fluentApiMeta;
     private final FluentEventManager fluentEvents;
     private final FluentTaskManager simpleTasks;
     private final FluentCommandManger commandManger;
@@ -40,7 +40,9 @@ public final class FluentApiSpigot {
             PluginLogger logger,
             FluentCommandManger commandManger,
             FluentEventManager eventManager,
-            FluentTaskManager taskManager) {
+            FluentTaskManager taskManager,
+            FluentApiMeta fluentApiMeta,
+            FluentMessages fluentMessages) {
         this.plugin = plugin;
         this.fluentConfig = fluentConfig;
         this.extensionsManager = extensionsManager;
@@ -51,7 +53,8 @@ public final class FluentApiSpigot {
         fluentPermission = permission;
         fluentEvents = eventManager;
         simpleTasks = taskManager;
-        simpleMessages = new SimpleMessage();
+        simpleMessages = fluentMessages;
+        this.fluentApiMeta = fluentApiMeta;
     }
 
     public void enable() {
@@ -94,13 +97,9 @@ public final class FluentApiSpigot {
         return new CommandBuilderImpl(commandName, commandManger);
     }
 
-    public SimpleMessage messages() {
+    public FluentMessages messages() {
         return simpleMessages;
     }
-
-   /* public static FluentParticlebuilder particles() {
-        return new FluentParticlebuilder(new ParticleSettings());
-    }*/
 
     public Plugin plugin() {
         return plugin;
@@ -117,6 +116,6 @@ public final class FluentApiSpigot {
     public String dataPath() {
         return path() + FileUtility.separator() + "data";
     }
-
+    public FluentApiMeta meta() { return fluentApiMeta;}
 }
 

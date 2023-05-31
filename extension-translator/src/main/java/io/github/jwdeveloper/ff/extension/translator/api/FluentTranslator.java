@@ -10,6 +10,7 @@ public interface FluentTranslator
 {
     String getTranslationsPath();
     String get(String key);
+    String get(String key, String ... params);
     boolean setLanguage(String name);
     boolean setDefaultLanguage(String name);
     boolean isCurrentLanguage(String name);

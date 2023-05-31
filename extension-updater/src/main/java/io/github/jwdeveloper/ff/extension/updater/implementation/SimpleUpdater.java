@@ -1,17 +1,20 @@
 package io.github.jwdeveloper.ff.extension.updater.implementation;
 
 import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.common.versions.VersionCompare;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
+import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
 import io.github.jwdeveloper.ff.extension.updater.api.FluentUpdater;
 import io.github.jwdeveloper.ff.extension.updater.api.UpdateInfoProvider;
 import io.github.jwdeveloper.ff.extension.updater.api.info.CheckUpdateInfo;
-import io.github.jwdeveloper.ff.extension.updater.api.info.UpdateInfo;
+import io.github.jwdeveloper.ff.extension.updater.api.info.UpdateInfoResponse;
+import io.github.jwdeveloper.ff.extension.updater.implementation.services.FileDowloaderService;
+import io.github.jwdeveloper.ff.extension.updater.implementation.services.MessagesSenderService;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 
 import java.io.BufferedInputStream;
@@ -22,24 +25,30 @@ import java.net.URL;
 import java.util.function.Consumer;
 
 public class SimpleUpdater implements FluentUpdater {
+
+    private final PluginLogger logger;
     private final UpdateInfoProvider provider;
     private final FluentTaskManager taskManager;
-    private final Plugin plugin;
-    private final PluginLogger logger;
-
-    private final String commandName;
+    private final MessagesSenderService messagesSenderService;
+    private final FileDowloaderService fileDowloaderService;
+    private final String currentVersion;
 
     public SimpleUpdater(UpdateInfoProvider provider,
                          FluentTaskManager taskManager,
-                         Plugin plugin,
                          PluginLogger logger,
-                         String commandName) {
+                         MessagesSenderService messagesSenderService,
+                         FileDowloaderService fileDowloaderService,
+                         String currentVersion)
+   {
+        this.logger = logger;
+       this.currentVersion = currentVersion;
         this.provider = provider;
         this.taskManager = taskManager;
-        this.plugin = plugin;
-        this.logger = logger;
-        this.commandName = commandName;
+        this.messagesSenderService = messagesSenderService;
+        this.fileDowloaderService = fileDowloaderService;
     }
+
+
 
     @Override
     public void checkUpdateAsync(Consumer<CheckUpdateInfo> consumer) {
@@ -60,12 +69,10 @@ public class SimpleUpdater implements FluentUpdater {
         checkUpdateAsync(info ->
         {
             if (info.isUpdate()) {
-                getMessagePrefix().text("Latest version is already downloaded").send(commandSender);
+                messagesSenderService.getMessagePrefix().text("Latest version is already downloaded").send(commandSender);
                 return;
             }
-            getMessagePrefix().text("New version available, use " + ChatColor.AQUA + "/" + commandName + ChatColor.RESET + " to download").send(commandSender);
-            getMessagePrefix().text("Changes:").send(commandSender);
-            commandSender.sendMessage(info.getUpdateInfo().getDescription());
+            messagesSenderService.sendUpdateInfoMessage(commandSender, info.getUpdateInfo());
         });
     }
 
@@ -73,7 +80,7 @@ public class SimpleUpdater implements FluentUpdater {
     @Override
     public CheckUpdateInfo checkUpdate() throws IOException {
         var infoResponse = provider.getUpdateInfo();
-        if (VersionCompare.isHigher(infoResponse.getVersion(), plugin.getDescription().getVersion())) {
+        if (VersionCompare.isHigher(infoResponse.getVersion(), currentVersion)) {
             return new CheckUpdateInfo(true, infoResponse);
         }
         return new CheckUpdateInfo(false, infoResponse);
@@ -86,49 +93,25 @@ public class SimpleUpdater implements FluentUpdater {
         checkUpdateAsync(checkUpdateInfo ->
         {
             if (!checkUpdateInfo.isUpdate()) {
-                getMessagePrefix().text("Latest version is already downloaded").send(commandSender);
+                messagesSenderService.getMessagePrefix().text("Latest version is already downloaded").send(commandSender);
                 return;
             }
-            getMessagePrefix().text("Downloading latest version...")
+            messagesSenderService.getMessagePrefix().text("Downloading latest version...")
                     .send(commandSender);
-            if (downloadFile(checkUpdateInfo.getUpdateInfo())) {
+            if (fileDowloaderService.download(checkUpdateInfo.getUpdateInfo())) {
                 return;
             }
-            getMessagePrefix().text("New version downloaded! use ")
-                    .text("/reload", ChatColor.AQUA).color(ChatColor.GRAY)
+            messagesSenderService.getMessagePrefix()
+                    .text("New version downloaded!")
+                    .text("use /reload", ChatColor.AQUA).color(ChatColor.GRAY)
                     .text(" to apply changes")
                     .send(commandSender);
         });
     }
 
-    private MessageBuilder getMessagePrefix() {
-        var msg = new MessageBuilder().inBrackets(plugin.getName());
-        return msg.space().color(ChatColor.AQUA).inBrackets("Update info").color(ChatColor.GRAY).space();
-    }
 
-    private String getUpdatesFolder() {
-        return FileUtility.pluginPath(plugin) + File.separator + "update" + File.separator;
-    }
 
-    private boolean downloadFile(UpdateInfo info) {
-        var output = getUpdatesFolder() + info.getFileName();
-        FileUtility.ensurePath(output);
-        var downloadUrl = info.getDownloadUrl();
-        try {
-            var in = new BufferedInputStream(new URL(downloadUrl).openStream());
-            var file = new File(output);
-            file.createNewFile();
-            var fileOutputStream = new FileOutputStream(output, false);
-            var dataBuffer = new byte[1024];
-            var bytesRead = 0;
-            while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
-                fileOutputStream.write(dataBuffer, 0, bytesRead);
-            }
-            fileOutputStream.close();
-            return true;
-        } catch (Exception e) {
-            logger.error("Update download error", e);
-            return false;
-        }
-    }
+
+
+
 }

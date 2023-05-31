@@ -93,6 +93,13 @@ public class FluentApiBuilder implements FluentApiSpigotBuilder {
         return builder.tasks();
     }
 
+    @Override
+    public FluentApiMeta meta() {
+        return builder.meta();
+    }
+
+
+
     public FluentApiSpigot build() throws Exception {
         var api = builder.build();
         FluentApi.setFluentApiSpigot(api);

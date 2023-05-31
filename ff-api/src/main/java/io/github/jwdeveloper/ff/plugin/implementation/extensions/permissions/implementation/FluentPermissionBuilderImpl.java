@@ -7,6 +7,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class FluentPermissionBuilderImpl implements FluentPermissionBuilder {
 
@@ -26,6 +27,13 @@ public class FluentPermissionBuilderImpl implements FluentPermissionBuilder {
     public FluentPermissionBuilder registerPermission(PermissionModel model) {
         models.add(model);
         return this;
+    }
+
+    @Override
+    public void registerPermission(Consumer<PermissionModel> consumer) {
+        var model = new PermissionModel();
+        consumer.accept(model);
+        registerPermission(model);
     }
 
     @Override

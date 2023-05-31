@@ -7,6 +7,7 @@ import desing_patterns.decorator.example_classes.ExampleInterface;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.core.injector.implementation.containers.builder.ContainerBuilderImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator.FluentDecorator;
+import org.bukkit.plugin.Plugin;
 import org.junit.Assert;
 import org.junit.Test;
 

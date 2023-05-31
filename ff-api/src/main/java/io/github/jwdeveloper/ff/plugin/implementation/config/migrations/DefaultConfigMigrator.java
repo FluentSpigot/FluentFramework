@@ -101,12 +101,12 @@ public class DefaultConfigMigrator implements ConfigMigrator {
     }
 
     private String getConfigVersion(YamlConfiguration configuration) {
-        var versionPath = "versions." + extension.getName();
+        var versionPath = "plugin-meta.versions." + extension.getName();
         return configuration.getString(versionPath);
     }
 
     private void setConfigVersion(YamlConfiguration configuration, String version) {
-        var versionPath = "versions." + extension.getName();
+        var versionPath = "plugin-meta.versions." + extension.getName();
         configuration.set(versionPath, version);
     }
 

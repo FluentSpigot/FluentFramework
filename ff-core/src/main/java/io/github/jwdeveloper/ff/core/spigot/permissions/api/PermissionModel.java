@@ -13,7 +13,6 @@ public class PermissionModel {
     private PermissionModel parent;
     private String name = StringUtils.EMPTY;
     private String description = StringUtils.EMPTY;
-
     private String title = StringUtils.EMPTY;
     private List<PermissionModel> children = new ArrayList<>();
 

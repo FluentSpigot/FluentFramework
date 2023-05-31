@@ -43,6 +43,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+import java.util.UUID;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
 
@@ -85,22 +86,23 @@ public abstract class WebSocketPacket implements FluentWebsocketPacket {
             var observer = new Observer(this, field);
             TypeResolver typeResolver = null;
             var type = observer.getValueType();
-            if (type.getTypeName().equals("int")) {
+            if (type.equals(int.class) || type.equals(Integer.class))
+            {
                 typeResolver = new IntResolver();
             }
-            if (type.getTypeName().equals("byte")) {
+            if (type.equals(byte.class) || type.equals(Byte.class)) {
                 typeResolver = new ByteResolver();
             }
-            if (type.getTypeName().equals("long")) {
+            if (type.equals(long.class) || type.equals(Long.class)) {
                 typeResolver = new LongResolver();
             }
-            if (type.getTypeName().equals("bool")) {
+            if (type.equals(boolean.class) || type.equals(Boolean.class)) {
                 typeResolver = new BoolResolver();
             }
-            if (type.getTypeName().equals("java.util.UUID")) {
+            if (type.equals(UUID.class)) {
                 typeResolver = new UuidResolver();
             }
-            if (type.getTypeName().equals("string")) {
+            if (type.equals(String.class)) {
                 typeResolver = new StringResolver();
             }
             packetFields.add(new PacketFieldWrapper(observer, typeResolver));

@@ -3,34 +3,56 @@ package io.github.jwdeveloper.ff.extension.updater.implementation.providers;
 import com.google.gson.JsonParser;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.extension.updater.api.UpdateInfoProvider;
-import io.github.jwdeveloper.ff.extension.updater.api.info.UpdateInfo;
+import io.github.jwdeveloper.ff.extension.updater.api.info.UpdateInfoResponse;
 import io.github.jwdeveloper.ff.extension.updater.api.options.GithubUpdaterOptions;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class GithubInfoProvider implements UpdateInfoProvider {
     private final GithubUpdaterOptions options;
-    private final String releaseURL;
-
     public GithubInfoProvider(GithubUpdaterOptions options) {
         this.options = options;
-        releaseURL = String.format("https://api.github.com/repos/%s/%s/releases/latest", this.options.getGithubUserName(), this.options.getRepositoryName());
     }
 
 
+    private URL getRequestUrl() throws MalformedURLException
+    {
+        if(StringUtils.isNullOrEmpty(options.getGithubUserName()))
+        {
+            throw new RuntimeException("Github user name should not be null");
+        }
+        if(StringUtils.isNullOrEmpty(options.getRepositoryName()))
+        {
+               throw new RuntimeException("Repository name should not be null");
+        }
+
+
+        var link = String.format("https://api.github.com/repos/%s/%s/releases/latest", options.getGithubUserName(), options.getRepositoryName());
+        return new URL(link);
+    }
+
     @Override
-    public UpdateInfo getUpdateInfo() throws IOException {
-        var response = doRequest();
-        return mapToInfoResponse(response);
+    public UpdateInfoResponse getUpdateInfo()
+    {
+        try
+        {
+            var response = doRequest();
+            return mapToInfoResponse(response);
+        }
+        catch (Exception e)
+        {
+          throw new RuntimeException("Unable to do update request");
+        }
     }
 
     private String doRequest() throws IOException {
         var builder = new StringBuilder();
-        var url = new URL(releaseURL);
+        var url = getRequestUrl();
         var conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         try (var reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
@@ -53,9 +75,9 @@ public class GithubInfoProvider implements UpdateInfoProvider {
         return builder.toString();
     }
 
-    private UpdateInfo mapToInfoResponse(String content) {
+    private UpdateInfoResponse mapToInfoResponse(String content) {
         var json = new JsonParser().parse(content).getAsJsonObject();
-        var result = new UpdateInfo();
+        var result = new UpdateInfoResponse();
 
         var assetsElement = json.getAsJsonArray("assets");
         for (var element : assetsElement) {
