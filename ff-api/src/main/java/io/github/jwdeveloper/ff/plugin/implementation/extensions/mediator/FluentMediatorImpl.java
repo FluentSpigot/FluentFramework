@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator;
 
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.mediator.api.MediatorHandler;
 import io.github.jwdeveloper.ff.core.mediator.implementation.SimpleMediator;
 
@@ -12,7 +13,7 @@ public class FluentMediatorImpl implements FluentMediator
     private final SimpleMediator simpleMediator;
     public FluentMediatorImpl(Collection<Class<?>> mediators,
                               Function<Class<?>,Object> serviceResolver,
-                              BukkitLogger logger)
+                              PluginLogger logger)
     {
         simpleMediator = new SimpleMediator(serviceResolver, logger);
         for(var mediator : mediators)

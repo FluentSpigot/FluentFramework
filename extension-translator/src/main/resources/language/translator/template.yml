@@ -1,5 +1,0 @@
-
-command:
-  language:
-    desc: "Changes plugin languages, changes will be applied after server reload. Change be use both be player or console"
-

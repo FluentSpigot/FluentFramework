@@ -1,7 +1,8 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
@@ -42,7 +43,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     private final FluentConfig configFile;
     private final Plugin plugin;
     private final JarScannerImpl assemblyScanner;
-    private final BukkitLogger logger;
+    private final PluginLogger logger;
     private final FluentTaskManager taskManager;
     private final FluentCommandManger commandManger;
     private final FluentEventManager eventManager;
@@ -101,7 +102,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     }
 
     @Override
-    public BukkitLogger logger() {
+    public PluginLogger logger() {
         return logger;
     }
 
@@ -149,6 +150,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         containerBuilder.registerSigleton(FluentTaskManager.class, taskManager);
         containerBuilder.registerSigleton(FluentEventManager.class, eventManager);
         containerBuilder.registerSigleton(FluentCommandManger.class, commandManger);
+        containerBuilder.registerSigleton(PluginLogger.class, logger);
         containerBuilder.registerSigleton(JarScanner.class, assemblyScanner);
         final var injectionFactory = new FluentInjectionFactory(containerBuilder, logger, plugin, assemblyScanner);
         final var factoryResult = injectionFactory.create();

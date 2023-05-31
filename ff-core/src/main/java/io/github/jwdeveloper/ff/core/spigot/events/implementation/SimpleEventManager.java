@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.events.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
@@ -21,9 +22,9 @@ public class SimpleEventManager implements Listener, FluentEventManager
     private final List<SimpleEvent<PluginEnableEvent>> onPluginEnableEvents;
     private final List<SimpleEvent<?>> events;
     private final Plugin plugin;
-    private final BukkitLogger logger;
+    private final PluginLogger logger;
 
-    public SimpleEventManager(Plugin plugin, BukkitLogger logger)
+    public SimpleEventManager(Plugin plugin, PluginLogger logger)
     {
         this.plugin = plugin;
         this.logger = logger;

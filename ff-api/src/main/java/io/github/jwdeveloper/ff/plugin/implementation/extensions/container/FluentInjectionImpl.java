@@ -6,6 +6,7 @@ import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.playe
 import org.bukkit.entity.Player;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -30,6 +31,10 @@ public class FluentInjectionImpl implements FluentInjection {
 
     public <T> T findInjection(Class<T> injectionType) {
         return (T) pluginContainer.find(injectionType);
+    }
+
+    public <T> T findInjection(Class<T> injectionType, Type ... genericTypes) {
+        return (T) pluginContainer.find(injectionType, genericTypes);
     }
 
     @Override

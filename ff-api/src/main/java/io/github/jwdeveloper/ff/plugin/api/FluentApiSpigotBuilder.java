@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.api;
 
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
@@ -29,7 +30,7 @@ public interface FluentApiSpigotBuilder {
 
     JarScanner jarScanner();
 
-    BukkitLogger logger();
+    PluginLogger logger();
 
     FluentTaskManager tasks();
 }

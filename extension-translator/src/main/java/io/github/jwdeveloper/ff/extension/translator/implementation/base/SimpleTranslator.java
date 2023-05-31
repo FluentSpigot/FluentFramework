@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.extension.translator.implementation.base;
 
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.extension.translator.api.models.TranslationModel;
 import lombok.Getter;
 import org.bukkit.ChatColor;
@@ -14,7 +15,7 @@ public class SimpleTranslator {
     private final String LANGUAGE_NOT_SELECTED = ChatColor.RED + "LANGUAGE NOT SELECTED";
     private final String NOT_FOUND = ChatColor.RED + "TRANSLATION NOT FOUND";
 
-    private final BukkitLogger logger;
+    private final PluginLogger logger;
 
     @Getter
     private final List<TranslationModel> languages;
@@ -24,7 +25,7 @@ public class SimpleTranslator {
     private TranslationModel defaultLang;
 
 
-    public SimpleTranslator(BukkitLogger logger) {
+    public SimpleTranslator(PluginLogger logger) {
         this.logger = logger;
         languages = new ArrayList<>();
     }

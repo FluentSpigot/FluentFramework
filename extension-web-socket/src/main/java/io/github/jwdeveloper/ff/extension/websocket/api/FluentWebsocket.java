@@ -1,7 +1,5 @@
 package io.github.jwdeveloper.ff.extension.websocket.api;
 
-import io.github.jwdeveloper.ff.extension.websocket.core.api.FluentWebsocketPacket;
-
 import java.util.Collection;
 
 public interface FluentWebsocket

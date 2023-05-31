@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.container;
 
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
@@ -21,14 +22,14 @@ public class FluentInjectionFactory {
     private final Plugin plugin;
     private final FluentApiContainerBuilderImpl builder;
     private final JarScannerImpl typeManager;
-    private final BukkitLogger logger;
+    private final PluginLogger logger;
     private final List<Class<?>> toInitializeTypes;
 
     public List<RegistrationInfo> playerScopedRegistrations;
 
 
     public FluentInjectionFactory(FluentApiContainerBuilderImpl builder,
-                                  BukkitLogger logger,
+                                  PluginLogger logger,
                                   Plugin plugin,
                                   JarScannerImpl classTypesManager)
     {

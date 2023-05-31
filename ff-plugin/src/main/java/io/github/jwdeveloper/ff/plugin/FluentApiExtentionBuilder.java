@@ -12,6 +12,8 @@ import java.util.function.Consumer;
 public class FluentApiExtentionBuilder
 {
     private String version;
+
+    private String name;
     private ExtentionPriority priority;
 
     private Consumer<FluentApiSpigotBuilder> onConfiguration;
@@ -25,6 +27,7 @@ public class FluentApiExtentionBuilder
 
     public FluentApiExtentionBuilder(Plugin plugin)
     {
+        name = StringUtils.EMPTY;
         version = StringUtils.EMPTY;
         priority = ExtentionPriority.MEDIUM;
         this.plugin = plugin;
@@ -59,6 +62,10 @@ public class FluentApiExtentionBuilder
         return this;
     }
 
+    public FluentApiExtentionBuilder withName(String name) {
+        this.name = name;
+        return this;
+    }
 
     public FluentApiExtension build()
     {
@@ -71,6 +78,11 @@ public class FluentApiExtentionBuilder
          @Override
          public String getVersion() {
              return version.equals(StringUtils.EMPTY) ? plugin.getDescription().getVersion() : version;
+         }
+
+         @Override
+         public String getName() {
+             return name.equals(StringUtils.EMPTY) ? plugin.getDescription().getName() : name;
          }
 
          @Override

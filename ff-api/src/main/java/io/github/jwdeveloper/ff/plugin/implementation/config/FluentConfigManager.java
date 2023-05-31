@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation.config;
 
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlReader;
 import io.github.jwdeveloper.ff.core.injector.api.events.events.OnInjectionEvent;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
@@ -15,18 +16,17 @@ import org.bukkit.plugin.Plugin;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class FluentConfigManager {
     private final JarScanner jarScanner;
-    private final BukkitLogger logger;
+    private final PluginLogger logger;
     private final Plugin plugin;
     private final Map<Class<?>, String> bindings;
     private FluentConfig config;
 
     public FluentConfigManager(JarScanner jarScanner,
-                               BukkitLogger logger,
+                               PluginLogger logger,
                                Plugin plugin) {
         bindings = new HashMap<>();
         this.jarScanner = jarScanner;

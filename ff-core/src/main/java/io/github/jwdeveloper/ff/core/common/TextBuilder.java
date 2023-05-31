@@ -1,5 +1,8 @@
 package io.github.jwdeveloper.ff.core.common;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class TextBuilder<SELF extends TextBuilder<SELF>> {
     protected final StringBuilder builder;
 
@@ -59,6 +62,17 @@ public class TextBuilder<SELF extends TextBuilder<SELF>> {
     @Override
     public String toString() {
         return builder.toString();
+    }
+
+
+    public List<String> toList()
+    {
+        return Arrays.stream(toString().split(System.lineSeparator())).toList();
+    }
+
+    public String[] toArray()
+    {
+        return toString().split(System.lineSeparator());
     }
 
     protected SELF self() {

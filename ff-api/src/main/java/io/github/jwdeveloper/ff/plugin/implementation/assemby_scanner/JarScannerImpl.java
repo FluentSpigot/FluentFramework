@@ -1,7 +1,8 @@
 package io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner;
 
 import io.github.jwdeveloper.ff.core.common.java.ClassTypeUtility;
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
 import lombok.Getter;
 import org.bukkit.plugin.Plugin;
@@ -26,14 +27,14 @@ public class JarScannerImpl extends ClassLoader implements JarScanner {
 
     private final Map<Class<? extends Annotation>, List<Class<?>>> byAnnotationCatch;
 
-    private final BukkitLogger logger;
+    private final PluginLogger logger;
 
-    public JarScannerImpl(Plugin plugin, BukkitLogger logger) {
+    public JarScannerImpl(Plugin plugin, PluginLogger logger) {
         //TODO check if PLUGIN will works instead of JAVAPLUGIN
         this(plugin.getClass(), logger);
     }
 
-    public JarScannerImpl(Class<?> clazz, BukkitLogger logger) {
+    public JarScannerImpl(Class<?> clazz, PluginLogger logger) {
         this.logger = logger;
         classes = loadClassess(clazz);
         byInterfaceCatch = new IdentityHashMap<>();

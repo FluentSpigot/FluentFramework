@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.tasks.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.TaskAction;
 import org.bukkit.Bukkit;
@@ -10,9 +11,9 @@ import org.bukkit.scheduler.BukkitTask;
 public class SimpleTaskManager implements FluentTaskManager
 {
     private final Plugin plugin;
-    private final BukkitLogger logger;
+    private final PluginLogger logger;
 
-    public SimpleTaskManager(Plugin plugin, BukkitLogger logger) {
+    public SimpleTaskManager(Plugin plugin, PluginLogger logger) {
         this.plugin = plugin;
         this.logger = logger;
     }

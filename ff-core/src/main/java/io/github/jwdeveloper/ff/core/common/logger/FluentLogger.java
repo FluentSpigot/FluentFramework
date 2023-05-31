@@ -4,13 +4,13 @@ import java.util.logging.Logger;
 
 public class FluentLogger
 {
-    public static BukkitLogger LOGGER;
+    public static PluginLogger LOGGER;
 
-    public static BukkitLogger setLogger(Logger logger)
+    public static PluginLogger setLogger(Logger logger)
     {
         if(LOGGER == null)
         {
-            LOGGER = new BukkitLogger(logger);
+            LOGGER = new SimpleLogger(logger);
         }
         return LOGGER;
     }

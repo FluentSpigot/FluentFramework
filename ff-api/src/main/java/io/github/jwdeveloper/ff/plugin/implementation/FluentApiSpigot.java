@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
@@ -27,7 +28,7 @@ public final class FluentApiSpigot {
     private final FluentTaskManager simpleTasks;
     private final FluentCommandManger commandManger;
     private final FluentApiExtensionsManager extensionsManager;
-    private final BukkitLogger logger;
+    private final PluginLogger logger;
 
     public FluentApiSpigot(
             Plugin plugin,
@@ -36,7 +37,7 @@ public final class FluentApiSpigot {
             FluentConfig fluentConfig,
             FluentPermission permission,
             FluentApiExtensionsManager extensionsManager,
-            BukkitLogger logger,
+            PluginLogger logger,
             FluentCommandManger commandManger,
             FluentEventManager eventManager,
             FluentTaskManager taskManager) {
@@ -105,7 +106,7 @@ public final class FluentApiSpigot {
         return plugin;
     }
 
-    public BukkitLogger logger() {
+    public PluginLogger logger() {
         return logger;
     }
 

@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions;
 
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtensionModel;
@@ -7,7 +8,7 @@ import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtensionsManager;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import lombok.Getter;
 
 import java.util.Collection;
@@ -17,7 +18,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManager {
     private final Collection<ExtensionModel> extensionsModels;
-    private final BukkitLogger logger;
+    private final PluginLogger logger;
 
     @Getter
     private final EventGroup<FluentApiExtension> beforeEachOnConfigure;
@@ -36,7 +37,7 @@ public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManage
     private final EventGroup<FluentApiSpigot> afterOnDisable;
 
 
-    public FluentApiExtentionsManagerImpl(BukkitLogger logger)
+    public FluentApiExtentionsManagerImpl(PluginLogger logger)
     {
         this.logger = logger;
         extensionsModels = new ConcurrentLinkedDeque<>();

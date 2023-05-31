@@ -5,7 +5,7 @@ import desing_patterns.dependecy_injection.example_classes.ExampleClass;
 import desing_patterns.dependecy_injection.example_classes.ExampleClassV2;
 import desing_patterns.dependecy_injection.example_classes.ExampleInterface;
 import desing_patterns.dependecy_injection.example_classes.ExampleInterfaceV2;
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.core.injector.api.enums.RegistrationType;
 import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
@@ -26,13 +26,13 @@ import java.util.UUID;
 
 public class PlayerScopeContainerTests {
     private static JavaPlugin plugin;
-    private static BukkitLogger loggerMock;
+    private static SimpleLogger loggerMock;
 
     @BeforeClass
     public static void before() {
         MockBukkit.mock();
         plugin = MockBukkit.createMockPlugin();
-        loggerMock = Mockito.mock(BukkitLogger.class);
+        loggerMock = Mockito.mock(SimpleLogger.class);
     }
 
     @Test

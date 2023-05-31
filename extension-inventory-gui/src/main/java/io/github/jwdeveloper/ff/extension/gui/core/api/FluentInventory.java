@@ -1,5 +1,5 @@
 package io.github.jwdeveloper.ff.extension.gui.core.api;
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.extension.gui.core.api.managers.buttons.ButtonManager;
 import io.github.jwdeveloper.ff.extension.gui.core.api.managers.events.EventsManager;
 import org.bukkit.entity.Player;
@@ -30,5 +30,5 @@ public interface FluentInventory
     EventsManager events();
 
     PermissionManager permissions();
-    BukkitLogger logger();
+    SimpleLogger logger();
 }

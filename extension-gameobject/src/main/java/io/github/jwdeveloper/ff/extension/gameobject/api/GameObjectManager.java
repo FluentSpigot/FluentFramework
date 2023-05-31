@@ -5,7 +5,7 @@ import org.bukkit.Location;
 
 public interface GameObjectManager
 {
-    boolean register(GameObject gameObject, Location location);
+    boolean register(GameComponent gameObject, Location location);
 
-    void unregister(GameObject gameObject);
+    void unregister(GameComponent gameObject);
 }

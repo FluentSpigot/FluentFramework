@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.extension.websocket;
 
-import io.github.jwdeveloper.ff.extension.websocket.api.WebsocketOptions;
+import io.github.jwdeveloper.ff.extension.websocket.api.data.WebsocketOptions;
+import io.github.jwdeveloper.ff.extension.websocket.implementation.WebsocketExtension;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 
 import java.util.function.Consumer;

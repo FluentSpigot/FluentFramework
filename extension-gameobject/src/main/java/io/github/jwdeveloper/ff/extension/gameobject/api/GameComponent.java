@@ -27,5 +27,6 @@ public interface GameComponent {
     <T extends GameComponent> T getGameComponent(Class<T> _class);
 
     <T extends GameComponent> List<T> getGameComponents(Class<T> _class);
+    void create(Location location);
     void destroy();
 }

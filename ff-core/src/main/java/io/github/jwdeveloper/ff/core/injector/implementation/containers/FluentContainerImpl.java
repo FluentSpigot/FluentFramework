@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.core.injector.implementation.containers;
 
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
 import io.github.jwdeveloper.ff.core.injector.api.events.EventHandler;
 import io.github.jwdeveloper.ff.core.injector.api.factory.InjectionInfoFactory;
@@ -21,7 +22,7 @@ public class FluentContainerImpl extends DefaultContainer implements FluentConta
             SearchAgent searchAgent,
             InstanceProvider instaneProvider,
             EventHandler eventHandler,
-            BukkitLogger logger,
+            PluginLogger logger,
             InjectionInfoFactory injectionInfoFactory,
             List<RegistrationInfo> registrationInfos) {
         super(searchAgent, instaneProvider, eventHandler, logger, injectionInfoFactory, registrationInfos);

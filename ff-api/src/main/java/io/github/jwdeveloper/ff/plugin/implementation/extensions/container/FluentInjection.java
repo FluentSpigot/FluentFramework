@@ -3,6 +3,7 @@ package io.github.jwdeveloper.ff.plugin.implementation.extensions.container;
 import org.bukkit.entity.Player;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -10,6 +11,7 @@ public interface FluentInjection {
     <T> T tryFindInjection(Class<T> injectionType);
 
     <T> T findInjection(Class<T> injectionType);
+    <T> T findInjection(Class<T> injectionType, Type... genericTypes);
 
     <T> Collection<T> findAllByInterface(Class<T> _interface);
 

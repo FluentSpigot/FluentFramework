@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.extension.gui.implementation;
 
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.InventoryDecoratorImpl;
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.managers.ButtonManagerImpl;
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.extension.gui.core.api.FluentInventory;
 import io.github.jwdeveloper.ff.extension.gui.core.api.InventorySettings;
 import io.github.jwdeveloper.ff.extension.gui.core.api.enums.InventoryState;
@@ -30,14 +30,14 @@ public class FluentInventoryImpl implements FluentInventory {
     private final ButtonManagerImpl buttonManager;
     private final EventsManager events;
     private final PermissionManager permission;
-    private final BukkitLogger logger;
+    private final SimpleLogger logger;
 
     public FluentInventoryImpl(ChildrenManager children,
                                ButtonManager buttons,
                                EventsManager events,
                                PermissionManager permission,
                                InventorySettings inventorySettings,
-                               BukkitLogger logger) {
+                               SimpleLogger logger) {
         this.children = children;
         this.buttonManager = (ButtonManagerImpl) buttons;
         this.events = events;
@@ -247,7 +247,7 @@ public class FluentInventoryImpl implements FluentInventory {
     public InventorySettings settings() {return inventorySettings;}
 
     @Override
-    public BukkitLogger logger() {
+    public SimpleLogger logger() {
         return logger;
     }
 

@@ -2,7 +2,8 @@ package io.github.jwdeveloper.ff.plugin.implementation.config.migrations;
 
 import io.github.jwdeveloper.ff.core.common.java.ObjectUtility;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.common.versions.VersionCompare;
 import io.github.jwdeveloper.ff.core.common.versions.VersionNumberComparator;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
@@ -18,11 +19,11 @@ import java.util.Objects;
 public class DefaultConfigMigrator implements ConfigMigrator {
     private final FluentApiExtension extension;
     private final JarScanner jarScanner;
-    private final BukkitLogger logger;
+    private final PluginLogger logger;
 
     public DefaultConfigMigrator(FluentApiExtension fluentApiExtension,
                                  JarScanner jarScanner,
-                                 BukkitLogger logger) {
+                                 PluginLogger logger) {
         this.extension = fluentApiExtension;
         this.jarScanner = jarScanner;
         this.logger = logger;
@@ -33,7 +34,6 @@ public class DefaultConfigMigrator implements ConfigMigrator {
         if (Objects.equals(extension.getVersion(), StringUtils.EMPTY)) {
             return false;
         }
-
 
         var configVersion = getConfigVersion(configuration);
         if (configVersion == null) {
@@ -46,6 +46,12 @@ public class DefaultConfigMigrator implements ConfigMigrator {
 
     @Override
     public void makeMigration(YamlConfiguration configuration) {
+
+        if(StringUtils.isNullOrEmpty(extension.getVersion()))
+        {
+            return;
+        }
+
         var packageName = extension.getClass().getPackageName();
         final List<ExtensionMigration> migrations = new ArrayList(extension.getMigrations());
         jarScanner.findByInterface(ExtensionMigration.class)
@@ -60,10 +66,11 @@ public class DefaultConfigMigrator implements ConfigMigrator {
                         throw new RuntimeException("Unable to load migrations", e);
                     }
                 });
+
         var currentVersion = extension.getVersion();
         var configVersion = getConfigVersion(configuration);
 
-        if(Objects.equals(currentVersion, StringUtils.EMPTY))
+        if(currentVersion.equals(configVersion))
         {
             return;
         }

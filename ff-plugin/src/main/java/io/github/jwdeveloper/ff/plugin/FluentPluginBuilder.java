@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.plugin;
 
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
 import io.github.jwdeveloper.ff.extension.translator.FluentTranslatorAPI;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslatorOptions;
@@ -79,8 +80,9 @@ public class FluentPluginBuilder {
             return tryCreate();
         } catch (Exception e) {
             Bukkit.getPluginManager().disablePlugin(plugin);
-            throw new RuntimeException("Unable to Enable fluent API",e);
+            FluentLogger.LOGGER.error("Unable to run FluentApi",e);
         }
+        return null;
     }
 
     public FluentApiSpigot tryCreate() throws Exception {

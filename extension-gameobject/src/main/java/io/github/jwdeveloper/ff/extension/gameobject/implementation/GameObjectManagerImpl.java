@@ -1,8 +1,9 @@
 package io.github.jwdeveloper.ff.extension.gameobject.implementation;
 
 import io.github.jwdeveloper.ff.extension.gameobject.api.GameComponent;
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventBase;
+import io.github.jwdeveloper.ff.extension.gameobject.api.GameObjectManager;
 import org.bukkit.Location;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
@@ -10,16 +11,16 @@ import org.bukkit.plugin.Plugin;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameObjectManagerImpl extends EventBase implements io.github.jwdeveloper.ff.extension.gameobject.api.GameObjectManager {
+public class GameObjectManagerImpl extends EventBase implements GameObjectManager {
     private final List<GameComponent> gameObjects = new ArrayList();
-    private final BukkitLogger logger;
+    private final SimpleLogger logger;
 
-    public GameObjectManagerImpl(Plugin plugin, BukkitLogger logger) {
+    public GameObjectManagerImpl(Plugin plugin, SimpleLogger logger) {
         super(plugin);
         this.logger = logger;
     }
 
-    public boolean register(GameObject gameObject, Location location) {
+    public boolean register(GameComponent gameObject, Location location) {
         if (gameObjects.contains(gameObject)) {
             return false;
         }
@@ -33,7 +34,7 @@ public class GameObjectManagerImpl extends EventBase implements io.github.jwdeve
         return false;
     }
 
-    public void unregister(GameObject gameObject) {
+    public void unregister(GameComponent gameObject) {
         if (!gameObjects.contains(gameObject)) {
             return;
         }

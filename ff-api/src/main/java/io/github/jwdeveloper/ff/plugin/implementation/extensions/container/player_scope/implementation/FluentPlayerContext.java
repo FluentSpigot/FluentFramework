@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
 import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
@@ -17,12 +18,12 @@ public class FluentPlayerContext {
     private final FluentContainer mainContainer;
     private final List<RegistrationInfo> registrationInfos;
     private final FluentPlayerContextListener listener;
-    private final BukkitLogger logger;
+    private final PluginLogger logger;
 
     public FluentPlayerContext(FluentContainer mainContainer,
                                List<RegistrationInfo> registrationInfos,
                                FluentPlayerContextListener listener,
-                               BukkitLogger logger)
+                               PluginLogger logger)
     {
         playerContainers = new ConcurrentHashMap<>();
         this.mainContainer = mainContainer;

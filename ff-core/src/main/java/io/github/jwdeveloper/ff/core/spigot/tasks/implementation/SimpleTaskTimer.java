@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.tasks.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.TaskAction;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -11,7 +12,7 @@ import java.util.function.Consumer;
 public class SimpleTaskTimer {
     private final TaskAction task;
     private final Plugin plugin;
-    private final BukkitLogger logger;
+    private final PluginLogger logger;
     private Consumer<SimpleTaskTimer> onStop;
     private Consumer<SimpleTaskTimer> onStart;
     private int speed = 20;
@@ -24,7 +25,7 @@ public class SimpleTaskTimer {
     public SimpleTaskTimer(int speed,
                            TaskAction action,
                            Plugin plugin,
-                           BukkitLogger logger)
+                           PluginLogger logger)
     {
         this.speed = speed;
         this.task = action;

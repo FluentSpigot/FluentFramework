@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.extension.updater.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.common.versions.VersionCompare;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
@@ -24,14 +25,14 @@ public class SimpleUpdater implements FluentUpdater {
     private final UpdateInfoProvider provider;
     private final FluentTaskManager taskManager;
     private final Plugin plugin;
-    private final BukkitLogger logger;
+    private final PluginLogger logger;
 
     private final String commandName;
 
     public SimpleUpdater(UpdateInfoProvider provider,
                          FluentTaskManager taskManager,
                          Plugin plugin,
-                         BukkitLogger logger,
+                         PluginLogger logger,
                          String commandName) {
         this.provider = provider;
         this.taskManager = taskManager;

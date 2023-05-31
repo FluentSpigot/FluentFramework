@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiContainerBuilder;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
@@ -7,7 +8,7 @@ import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermissionBuilder;
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
 import org.bukkit.plugin.Plugin;
 
@@ -83,7 +84,7 @@ public class FluentApiBuilder implements FluentApiSpigotBuilder {
     }
 
     @Override
-    public BukkitLogger logger() {
+    public PluginLogger logger() {
         return builder.logger();
     }
 

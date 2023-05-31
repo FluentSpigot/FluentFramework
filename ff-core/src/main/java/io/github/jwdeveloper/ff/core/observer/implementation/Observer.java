@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.observer.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.BukkitLogger;
+import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.observer.api.Observable;
 
 import java.lang.reflect.Field;
@@ -14,10 +14,10 @@ public class Observer<T> implements Observable<T> {
     private Class<?> fieldType;
     private boolean binded;
     protected Set<Consumer<T>> onChange = new LinkedHashSet<>();
-    private final BukkitLogger logger;
+    private final SimpleLogger logger;
 
     public Observer() {
-        logger = new BukkitLogger();
+        logger = new SimpleLogger();
     }
 
     public Observer(Object classObject, String field) {
