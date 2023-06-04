@@ -7,7 +7,7 @@ import io.github.jwdeveloper.ff.core.validator.implementation.item.ItemStackVali
 import io.github.jwdeveloper.ff.core.validator.implementation.location.LocationValidator;
 import io.github.jwdeveloper.ff.core.validator.implementation.player.PlayerValidator;
 
-public interface ValidatorFactory {
+public interface FluentValidator {
     PlayerValidator player();
 
     EntityValidator entity();

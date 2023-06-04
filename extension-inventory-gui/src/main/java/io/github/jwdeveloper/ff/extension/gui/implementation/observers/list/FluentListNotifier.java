@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.observers.list;
 
-import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUIOld;
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers.ButtonObserverEvent;
 import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
@@ -105,7 +105,7 @@ public class FluentListNotifier<T> extends ButtonNotifierBase<T> {
         return -1;
     }
 
-    public void createDescription(ButtonUI button) {
+    public void createDescription(ButtonUIOld button) {
         var result = new ArrayList<String>();
         for (var i = 0; i < initialDescription.size(); i++) {
             if (i == getDescriptionIndex()) {
@@ -125,7 +125,7 @@ public class FluentListNotifier<T> extends ButtonNotifierBase<T> {
         button.setDescription(result);
     }
 
-    public void updateDescription(Player player, ButtonUI button) {
+    public void updateDescription(Player player, ButtonUIOld button) {
         T value = null;
         var index = getDescriptionIndex();
         for (var i = 0; i < values.size(); i++) {

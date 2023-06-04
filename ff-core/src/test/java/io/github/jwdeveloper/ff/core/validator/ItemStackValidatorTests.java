@@ -30,7 +30,7 @@ public class ItemStackValidatorTests
     public void ShouldValidatePlayer() {
         //Arrange
         //Act
-        var result = FluentValidator
+        var result = FluentValidatorApi
                 .validators()
                 .itemStack()
                 .mustBe(itemStack)
@@ -47,7 +47,7 @@ public class ItemStackValidatorTests
     public void ShouldHasAmount() {
         //Arrange
         //Act
-        var result = FluentValidator
+        var result = FluentValidatorApi
                 .validators()
                 .itemStack()
                 .mustHasAmount(69)
@@ -64,7 +64,7 @@ public class ItemStackValidatorTests
     public void ShouldHasMaterialType() {
         //Arrange
         //Act
-        var result = FluentValidator
+        var result = FluentValidatorApi
                 .validators()
                 .itemStack()
                 .mustHasMaterialType(MaterialType.ITEM)

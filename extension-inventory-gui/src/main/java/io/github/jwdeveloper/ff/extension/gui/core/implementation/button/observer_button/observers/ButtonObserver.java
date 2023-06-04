@@ -1,13 +1,13 @@
 package io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers;
 
-import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUIOld;
 import io.github.jwdeveloper.ff.core.observer.implementation.Observer;
 import org.bukkit.entity.Player;
 
 public class ButtonObserver<T> implements ButtonObservable<T> {
     private final Observer<T> observable;
     private final ButtonNotifier buttonNotifier;
-    public ButtonUI buttonUI;
+    public ButtonUIOld buttonUI;
 
     public ButtonObserver(Observer<T> observable, ButtonNotifier buttonNotifier)
     {
@@ -26,11 +26,11 @@ public class ButtonObserver<T> implements ButtonObservable<T> {
     }
 
     @Override
-    public ButtonUI getButtonUI() {
+    public ButtonUIOld getButtonUI() {
         return buttonUI;
     }
 
-    public void setButtonUI(ButtonUI buttonUI)
+    public void setButtonUI(ButtonUIOld buttonUI)
     {
         this.buttonUI = buttonUI;
     }

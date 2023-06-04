@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.extensions.commands.api.annotations;
+package io.github.jwdeveloper.ff.extension.commands.api.annotations;
 
 
 import java.lang.annotation.Retention;

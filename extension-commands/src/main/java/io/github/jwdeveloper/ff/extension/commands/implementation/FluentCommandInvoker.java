@@ -1,16 +1,19 @@
-package io.github.jwdeveloper.extensions.commands.implementation;
+package io.github.jwdeveloper.ff.extension.commands.implementation;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.events.CommandEvent;
+import lombok.Getter;
 import lombok.Setter;
 import java.lang.reflect.Method;
 
 public class FluentCommandInvoker
 {
-    private final Class<?> clazz;
+    @Getter
+    private final Class<?> commandClass;
     @Setter
-    private Object target;
+    private Object commandObject;
 
     public FluentCommandInvoker(Class<?> clazz) {
-        this.clazz = clazz;
+        this.commandClass = clazz;
     }
 
     public void invoke(CommandEvent commandEvent, Method method)
@@ -40,13 +43,14 @@ public class FluentCommandInvoker
                 input[i] = commandEvent.getArgumentValue(argCounter);
                 argCounter ++;
             }
-
-
-            method.invoke(target, input);
+            method.invoke(commandObject, input);
         }
         catch (Exception e)
         {
-            throw new RuntimeException("Command Invoke error",e);
+            e.printStackTrace();
+
+            FluentLogger.LOGGER.info(  e.getMessage(), e.getCause(), e.getClass().getSimpleName());
+           // throw new RuntimeException("Command Invoke error",e);
         }
     }
 }

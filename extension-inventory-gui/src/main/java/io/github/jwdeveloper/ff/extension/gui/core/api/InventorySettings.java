@@ -28,4 +28,9 @@ public class InventorySettings {
     public int getSlots() {
         return height * INVENTORY_WIDTH;
     }
+
+    public int getWidth()
+    {
+        return INVENTORY_WIDTH;
+    }
 }

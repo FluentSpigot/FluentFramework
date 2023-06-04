@@ -30,7 +30,7 @@ public class PlayerValidatorTests {
     public void ShouldValidatePlayer() {
         //Arrange
         //Act
-        var result = FluentValidator
+        var result = FluentValidatorApi
                 .validators()
                 .player()
                 .mustHasName("Mike")
@@ -53,7 +53,7 @@ public class PlayerValidatorTests {
         attachment.setPermission("hello.world", true);
 
         //Act
-        var result = FluentValidator
+        var result = FluentValidatorApi
                 .validators()
                 .player()
                 .mustHasPermission("hello.world")
@@ -72,7 +72,7 @@ public class PlayerValidatorTests {
         player.getInventory().setItem(5, item);
 
         //Act
-        var result = FluentValidator
+        var result = FluentValidatorApi
                 .validators()
                 .player()
                 .mustHasItem(item)
@@ -90,7 +90,7 @@ public class PlayerValidatorTests {
         player.getInventory().setItemInOffHand(item);
 
         //Act
-        var result = FluentValidator
+        var result = FluentValidatorApi
                 .validators()
                 .player()
                 .mustHasItemInLeftHand(item)
@@ -108,7 +108,7 @@ public class PlayerValidatorTests {
         player.getInventory().setItemInMainHand(item);
 
         //Act
-        var result = FluentValidator
+        var result = FluentValidatorApi
                 .validators()
                 .player()
                 .mustHasItemInRightHand(item)

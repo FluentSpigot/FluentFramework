@@ -1,13 +1,13 @@
 package io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers;
 
-import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUIOld;
 import io.github.jwdeveloper.ff.core.observer.implementation.Observer;
 
 import java.util.function.Consumer;
 
 public class ButtonObserverBuilder<T> {
     private Observer<T> observable;
-    private ButtonUI buttonUI;
+    private ButtonUIOld buttonUI;
     private Consumer<ButtonObserverEvent<T>> onClickEvent = (a) -> {
     };
     private Consumer<ButtonObserverEvent<T>> onRightClick = (a) -> {
@@ -21,7 +21,7 @@ public class ButtonObserverBuilder<T> {
         return this;
     }
 
-    public ButtonObserverBuilder<T> withButton(ButtonUI buttonUI) {
+    public ButtonObserverBuilder<T> withButton(ButtonUIOld buttonUI) {
         this.buttonUI = buttonUI;
         return this;
     }

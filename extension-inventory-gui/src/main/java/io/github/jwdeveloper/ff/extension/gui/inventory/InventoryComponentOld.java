@@ -2,11 +2,11 @@ package io.github.jwdeveloper.ff.extension.gui.inventory;
 
 import io.github.jwdeveloper.ff.extension.gui.core.api.FluentInventory;
 import io.github.jwdeveloper.ff.extension.gui.core.api.InventoryDecorator;
-import io.github.jwdeveloper.ff.plugin.api.features.FluentTranslator;
+import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-public abstract class InventoryComponent {
+public abstract class InventoryComponentOld {
 
     private Plugin plugin;
     private FluentInventory inventory;

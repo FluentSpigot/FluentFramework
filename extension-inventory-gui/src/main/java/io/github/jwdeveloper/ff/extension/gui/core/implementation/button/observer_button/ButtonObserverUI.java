@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button;
 
 
-import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUIOld;
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers.ButtonObservable;
 import io.github.jwdeveloper.ff.extension.gui.inventory.observers.FluentButtonObserver;
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers.ButtonNotifier;
@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 
 @Getter
 @Setter
-public class ButtonObserverUI extends ButtonUI {
+public class ButtonObserverUI extends ButtonUIOld {
     @Singular
     protected Set<ButtonObservable<?>> observers = new LinkedHashSet<>();
 

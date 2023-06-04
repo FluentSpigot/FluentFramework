@@ -47,7 +47,8 @@ public class InventorySpigotListener extends EventBase {
     }
 
     @EventHandler
-    private void onInventoryClose(InventoryCloseEvent event) {
+    private void onInventoryClose(InventoryCloseEvent event)
+    {
         Inventory spigotInventory;
         for (var inventoryUI : inventoriesGui) {
             spigotInventory = inventoryUI.handle();
@@ -87,8 +88,7 @@ public class InventorySpigotListener extends EventBase {
                 selectedItem = event.getCurrentItem();
                 if (selectedItem == null || selectedItem.getType() == Material.AIR) return;
 
-                var result = inventoryUI.click(event);
-                event.setCancelled(!result);
+                inventoryUI.click(event);
                 break;
             }
         }

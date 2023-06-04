@@ -24,7 +24,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ButtonUI {
+public class ButtonUIOld {
     @Setter(value = AccessLevel.NONE)
     private ItemStack itemStack;
 
@@ -51,7 +51,7 @@ public class ButtonUI {
     protected List<String> permissions;
 
 
-    public ButtonUI() {
+    public ButtonUIOld() {
 
         itemStack = new ItemStack(Material.DIRT);
         location = new Vector(0, 0, 0);
@@ -61,7 +61,7 @@ public class ButtonUI {
         hideAttributes();
     }
 
-    public ButtonUI(Material material) {
+    public ButtonUIOld(Material material) {
         super();
         setMaterial(material);
     }

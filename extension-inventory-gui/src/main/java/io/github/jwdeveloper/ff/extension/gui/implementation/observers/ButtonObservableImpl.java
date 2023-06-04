@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.observers;
 
-import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUIOld;
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers.ButtonNotifier;
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers.ButtonObservable;
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers.ButtonObserverEvent;
@@ -13,20 +13,20 @@ import java.util.function.Supplier;
 public class ButtonObservableImpl<T> implements ButtonObservable<T> {
     private final Supplier<Observer<T>> provider;
     private final ButtonNotifier<T> buttonNotifier;
-    private final ButtonUI buttonUI;
+    private final ButtonUIOld buttonUI;
     private Observer<T> currentObserver;
 
 
     public ButtonObservableImpl(Supplier<Observer<T>> observable,
                                 ButtonNotifier<T> buttonNotifier,
-                                ButtonUI buttonUI) {
+                                ButtonUIOld buttonUI) {
         this.provider = observable;
         this.buttonNotifier = buttonNotifier;
         this.buttonUI = buttonUI;
     }
 
     @Override
-    public ButtonUI getButtonUI() {
+    public ButtonUIOld getButtonUI() {
         return buttonUI;
     }
 

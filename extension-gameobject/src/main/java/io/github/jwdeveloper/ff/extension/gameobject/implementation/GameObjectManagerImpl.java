@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gameobject.implementation;
 
+import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
 import io.github.jwdeveloper.ff.extension.gameobject.api.GameComponent;
 import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventBase;
@@ -13,9 +14,9 @@ import java.util.List;
 
 public class GameObjectManagerImpl extends EventBase implements GameObjectManager {
     private final List<GameComponent> gameObjects = new ArrayList();
-    private final SimpleLogger logger;
+    private final PluginLogger logger;
 
-    public GameObjectManagerImpl(Plugin plugin, SimpleLogger logger) {
+    public GameObjectManagerImpl(Plugin plugin, PluginLogger logger) {
         super(plugin);
         this.logger = logger;
     }

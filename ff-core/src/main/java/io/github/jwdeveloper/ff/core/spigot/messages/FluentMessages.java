@@ -7,7 +7,6 @@ import io.github.jwdeveloper.ff.core.spigot.messages.title.SimpleTitleBuilder;
 
 public class FluentMessages
 {
-
     public SimpleTitleBuilder title() {
         return new SimpleTitleBuilder();
     }

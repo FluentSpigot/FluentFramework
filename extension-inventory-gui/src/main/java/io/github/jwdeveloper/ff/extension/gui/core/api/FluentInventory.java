@@ -8,6 +8,8 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import io.github.jwdeveloper.ff.extension.gui.core.api.managers.ChildrenManager;
 import io.github.jwdeveloper.ff.extension.gui.core.api.managers.permissions.PermissionManager;
 
+import java.util.List;
+
 public interface FluentInventory
 {
     Player getPlayer();
@@ -30,5 +32,8 @@ public interface FluentInventory
     EventsManager events();
 
     PermissionManager permissions();
+    List<InventoryComponent> components();
+
+    InventorySettings settings();
     SimpleLogger logger();
 }

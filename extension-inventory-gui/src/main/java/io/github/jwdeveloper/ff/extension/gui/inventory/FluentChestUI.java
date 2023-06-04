@@ -5,7 +5,7 @@ import io.github.jwdeveloper.ff.extension.gui.inventory.styles.FluentButtonStyle
 import io.github.jwdeveloper.ff.core.injector.api.annotations.Inject;
 import io.github.jwdeveloper.ff.core.injector.api.annotations.Injection;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
-import io.github.jwdeveloper.ff.plugin.api.features.FluentTranslator;
+import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 
 @Injection
 public class FluentChestUI

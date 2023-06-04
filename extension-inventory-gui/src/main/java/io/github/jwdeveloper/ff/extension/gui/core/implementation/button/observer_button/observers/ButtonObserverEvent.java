@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers;
 
-import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUIOld;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 public class ButtonObserverEvent<T>
 {
     private Player player;
-    private ButtonUI button;
+    private ButtonUIOld button;
     private ButtonObservable<T> observer;
     private T value;
 

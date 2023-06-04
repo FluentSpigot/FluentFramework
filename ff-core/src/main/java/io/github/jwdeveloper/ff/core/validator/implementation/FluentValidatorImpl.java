@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.validator.implementation;
 
-import io.github.jwdeveloper.ff.core.validator.api.ValidatorFactory;
+import io.github.jwdeveloper.ff.core.validator.api.FluentValidator;
 import io.github.jwdeveloper.ff.core.validator.implementation.block.BlockValidator;
 import io.github.jwdeveloper.ff.core.validator.implementation.entity.EntityValidator;
 import io.github.jwdeveloper.ff.core.validator.implementation.item.ItemMetaValidator;
@@ -8,7 +8,7 @@ import io.github.jwdeveloper.ff.core.validator.implementation.item.ItemStackVali
 import io.github.jwdeveloper.ff.core.validator.implementation.location.LocationValidator;
 import io.github.jwdeveloper.ff.core.validator.implementation.player.PlayerValidator;
 
-public class ValidatorFactoryImpl implements ValidatorFactory {
+public class FluentValidatorImpl implements FluentValidator {
     @Override
     public PlayerValidator player() {
         return new PlayerValidator(this);

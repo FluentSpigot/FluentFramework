@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.extensions.commands.api;
+package io.github.jwdeveloper.ff.extension.commands.api;
 
 import lombok.Data;
 

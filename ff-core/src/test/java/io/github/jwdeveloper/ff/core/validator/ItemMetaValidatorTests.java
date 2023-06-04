@@ -31,7 +31,7 @@ public class ItemMetaValidatorTests
     public void ShouldValidate() {
         //Arrange
         //Act
-        var result = FluentValidator
+        var result = FluentValidatorApi
                 .validators()
                 .itemMeta()
                 .mustBe(itemMeta)
@@ -51,7 +51,7 @@ public class ItemMetaValidatorTests
         itemMeta.setCustomModelData(2);
 
         //Act
-        var result = FluentValidator
+        var result = FluentValidatorApi
                 .validators()
                 .itemMeta()
                 .mustHasCustomModelData(2)
@@ -70,7 +70,7 @@ public class ItemMetaValidatorTests
         itemMeta.setDisplayName("Custom Item");
 
         //Act
-        var result = FluentValidator
+        var result = FluentValidatorApi
                 .validators()
                 .itemMeta()
                 .mustHasDisplayedName("Custom Item")
@@ -89,7 +89,7 @@ public class ItemMetaValidatorTests
         itemMeta.setLore(List.of("Stats","Attack: 1"));
 
         //Act
-        var result = FluentValidator
+        var result = FluentValidatorApi
                 .validators()
                 .itemMeta()
                 .mustHasLore("Stats","Attack: 1")

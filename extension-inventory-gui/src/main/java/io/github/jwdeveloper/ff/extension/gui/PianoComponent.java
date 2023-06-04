@@ -1,19 +1,27 @@
 package io.github.jwdeveloper.ff.extension.gui;
 
-import io.github.jwdeveloper.ff.core.injector.api.annotations.Injection;
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.ff.extension.gui.core.api.InventoryComponent;
+
+
 import io.github.jwdeveloper.ff.extension.gui.core.api.InventoryDecorator;
-import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
+import io.github.jwdeveloper.ff.extension.gui.core.implementation.InventoryComponentBase;
+import io.github.jwdeveloper.ff.extension.gui.inventory.ButtonRef;
+import io.github.jwdeveloper.ff.extension.gui.inventory.InventoryRef;
 
-@Injection(lifeTime = LifeTime.PLAYER_SCOPE)
-public class PianoComponent implements InventoryComponent
-{
+public class PianoComponent extends InventoryComponentBase {
 
+    private ButtonRef joinButton = new ButtonRef();
+
+    private InventoryRef inventoryRef;
     @Override
     public void onCreate(InventoryDecorator decorator) {
-
+        decorator.withInventoryReference(inventoryRef);
+        decorator.withButton(fluentButtonUIBuilder ->
+        {
+           fluentButtonUIBuilder.setReference(joinButton);
+        });
 
     }
+
+
 
 }

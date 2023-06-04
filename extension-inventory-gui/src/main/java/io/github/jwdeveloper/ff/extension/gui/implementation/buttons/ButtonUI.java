@@ -1,8 +1,13 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.buttons;
 
+import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
+import io.github.jwdeveloper.ff.extension.gui.core.api.FluentInventory;
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers.ButtonObservable;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import io.github.jwdeveloper.ff.extension.gui.implementation.events.ButtonClickEvent;
+import lombok.Generated;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -18,20 +23,29 @@ import java.util.*;
 public class ButtonUI {
     private ButtonData buttonData;
     private ItemStack itemStack;
-    private Consumer<ButtonClickEvent> onLeftClick;
-    private Consumer<ButtonClickEvent> onShiftClick;
-    private Consumer<ButtonClickEvent> onRightClick;
+    @Getter
+    private EventGroup<ButtonClickEvent> onLeftClick;
+
+    @Getter
+    private EventGroup<ButtonClickEvent> onShiftClick;
+
+    @Getter
+    private EventGroup<ButtonClickEvent> onRightClick;
 
     protected Set<ButtonObservable<?>> observers;
 
     public ButtonUI(Material material) {
         super();
+        setMaterial(material);
     }
 
     public ButtonUI() {
         buttonData = new ButtonData();
         itemStack = new ItemStack(buttonData.getMaterial());
         observers = new LinkedHashSet<>();
+        onLeftClick = new EventGroup<>();
+        onRightClick = new EventGroup<>();
+        onShiftClick = new EventGroup<>();
         hideAttributes();
     }
 
@@ -49,16 +63,16 @@ public class ButtonUI {
         observers.add(observer);
     }
 
-    public void doLeftClick(Player player) {
-        performClick(onLeftClick,player);
+    public void doLeftClick(Player player, FluentInventory inventory) {
+        performClick(onLeftClick,player, inventory);
     }
 
-    public void doRightClick(Player player) {
-        performClick(onRightClick,player);
+    public void doRightClick(Player player, FluentInventory inventory) {
+        performClick(onRightClick,player, inventory);
     }
 
-    public void doShiftClick(Player player) {
-        performClick(onShiftClick,player);
+    public void doShiftClick(Player player, FluentInventory inventory) {
+        performClick(onShiftClick,player,inventory);
     }
 
     public <T> T getDataContext() {
@@ -70,11 +84,11 @@ public class ButtonUI {
             throw new RuntimeException("ButtonUI: " + "Can not cast DataContext value in button " + buttonData.getTitle(), e);
         }
     }
-    private void performClick(Consumer<ButtonClickEvent> event, Player player)
+    private void performClick(EventGroup<ButtonClickEvent> event, Player player, FluentInventory inventory)
     {
         if (event == null)
             return;
-        event.accept(new ButtonClickEvent(player,this));
+        event.invoke(new ButtonClickEvent(player,this, inventory));
         for (var observable : observers) {
             observable.leftClick(player);
         }

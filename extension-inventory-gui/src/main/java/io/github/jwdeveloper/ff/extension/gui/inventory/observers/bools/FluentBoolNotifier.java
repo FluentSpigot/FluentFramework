@@ -4,7 +4,7 @@ import io.github.jwdeveloper.ff.extension.gui.inventory.observers.FluentButtonNo
 import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers.ButtonObserverEvent;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.ff.plugin.api.features.FluentTranslator;
+import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 public class FluentBoolNotifier extends FluentButtonNotifier<Boolean> {
 
 

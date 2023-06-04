@@ -14,7 +14,7 @@ import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observe
 import io.github.jwdeveloper.ff.core.observer.implementation.Observer;
 import org.bukkit.Color;
 import org.bukkit.Material;
-import io.github.jwdeveloper.ff.extension.gui.core.api.managers.events.ClickEvent;
+import io.github.jwdeveloper.ff.extension.gui.core.api.managers.events.ClickGuiEvent;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -28,6 +28,7 @@ public class FluentButtonUIBuilder {
     public FluentButtonUIBuilder() {
         descriptionBuilder = new ButtonDescriptionInfoBuilder();
         buttonBuilder = new ButtonObserverUIBuilder();
+        buttonUIRef = new ButtonRef();
     }
 
     public <T> FluentButtonUIBuilder setObserver(Observer<T> observer, ButtonNotifier<T> buttonNotifier) {
@@ -88,11 +89,11 @@ public class FluentButtonUIBuilder {
         buttonBuilder.setPermissions(permissions);
         return this;
     }
-    public FluentButtonUIBuilder setOnRefresh(Consumer<ClickEvent> event) {
+    public FluentButtonUIBuilder setOnRefresh(Consumer<ClickGuiEvent> event) {
 
         return this;
     }
-    public FluentButtonUIBuilder setOnLeftClick(Consumer<ClickEvent> event) {
+    public FluentButtonUIBuilder setOnLeftClick(Consumer<ClickGuiEvent> event) {
 
         return this;
     }

@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ButtonUIBuilder<SELF extends ButtonUIBuilder<SELF, B>, B extends ButtonUI>
+public class ButtonUIBuilder<SELF extends ButtonUIBuilder<SELF, B>, B extends ButtonUIOld>
 {
     protected B button;
 
@@ -22,7 +22,7 @@ public class ButtonUIBuilder<SELF extends ButtonUIBuilder<SELF, B>, B extends Bu
 
     protected B createButton()
     {
-       return (B)new ButtonUI();
+       return (B)new ButtonUIOld();
     }
 
     protected SELF self()

@@ -10,6 +10,8 @@ import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.core.spigot.tasks.FluentTask;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.validator.api.FluentValidator;
+import io.github.jwdeveloper.ff.core.validator.implementation.FluentValidatorImpl;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiContainerBuilder;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
@@ -154,6 +156,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
 
         containerBuilder.getConfiguration().onInjection(configManager::onConfigOptionsInjectionCall);
 
+
         containerBuilder.registerSigleton(Plugin.class, plugin);
         containerBuilder.registerSigleton(FluentConfig.class, configManager.getConfig());
         containerBuilder.registerSigleton(FluentTaskManager.class, taskManager);
@@ -164,6 +167,9 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
 
         var messages = new FluentMessages();
         containerBuilder.registerSigleton(FluentMessages.class,messages);
+
+        var validator = new FluentValidatorImpl();
+        containerBuilder.registerSigleton(FluentValidator.class,validator);
 
         final var injectionFactory = new FluentInjectionFactory(containerBuilder, logger, plugin, jarScanner);
         final var factoryResult = injectionFactory.create();
@@ -190,6 +196,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
                 eventManager,
                 taskManager,
                 fluentApiMeta,
-                messages);
+                messages,
+                validator);
     }
 }

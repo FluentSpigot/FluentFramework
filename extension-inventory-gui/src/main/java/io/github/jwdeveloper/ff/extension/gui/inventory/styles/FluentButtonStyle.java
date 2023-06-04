@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.inventory.styles;
 
-import io.github.jwdeveloper.ff.plugin.api.features.FluentTranslator;
+import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import org.bukkit.ChatColor;
 
 public class FluentButtonStyle

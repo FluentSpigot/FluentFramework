@@ -1,25 +1,27 @@
 package io.github.jwdeveloper.ff.extension.gui.core.api.managers.events;
 
+import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
+
 import java.util.function.Consumer;
 
 public interface EventsManager
 {
-     EventsGroup<CreateGuiEvent> onCreate();
+     EventGroup<CreateGuiEvent> onCreate();
      void onCreate(Consumer<CreateGuiEvent> event);
 
-     EventsGroup<ClickEvent> onClick();
-     void onClick(Consumer<ClickEvent> event);
+     EventGroup<ClickGuiEvent> onClick();
+     void onClick(Consumer<ClickGuiEvent> event);
 
-     EventsGroup<ClickPlayerInventoryEvent> onClickPlayerInventory();
+     EventGroup<ClickPlayerInventoryEvent> onClickPlayerInventory();
 
      void onClickPlayerInventory(Consumer<ClickPlayerInventoryEvent> event);
 
-     EventsGroup<OpenGuiEvent> onOpen();
+     EventGroup<OpenGuiEvent> onOpen();
      void onOpen(Consumer<OpenGuiEvent> event);
 
-     EventsGroup<OpenGuiEvent> onClose();
+     EventGroup<CloseGuiEvent> onClose();
 
-     void onClose(Consumer<OpenGuiEvent> event);
+     void onClose(Consumer<CloseGuiEvent> event);
 
-     EventsGroup onDrag();
+     EventGroup onDrag();
 }

@@ -29,11 +29,11 @@ public class SimpleLogger implements PluginLogger {
     public SimpleLogger(String prefix) {
         this();
         this.prefix = prefix;
-        logEvents = new EventGroup<>();
     }
 
     public SimpleLogger() {
         errorBar = getBuilder().newLine().text(ChatColor.BOLD).text(ChatColor.DARK_RED).bar("-", 100).text(ChatColor.RESET).newLine().toString();
+        logEvents = new EventGroup<>();
     }
 
     private void send(String message) {

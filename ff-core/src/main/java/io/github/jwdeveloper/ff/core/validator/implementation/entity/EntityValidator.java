@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.core.validator.implementation.entity;
 
-import io.github.jwdeveloper.ff.core.common.ActionResult;
-import io.github.jwdeveloper.ff.core.validator.api.ValidatorFactory;
+import io.github.jwdeveloper.ff.core.validator.api.FluentValidator;
 import io.github.jwdeveloper.ff.core.validator.implementation.ValidatorBase;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -9,9 +8,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
 
 public class EntityValidator<ENTITY extends Entity, SubClass extends EntityValidator> extends ValidatorBase<ENTITY, SubClass> {
-    private final ValidatorFactory validatorFactory;
+    private final FluentValidator validatorFactory;
 
-    public EntityValidator(ValidatorFactory validatorFactory) {
+    public EntityValidator(FluentValidator validatorFactory) {
         this.validatorFactory = validatorFactory;
     }
 

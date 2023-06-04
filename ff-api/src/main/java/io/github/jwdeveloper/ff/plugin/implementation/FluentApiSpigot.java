@@ -8,6 +8,7 @@ import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.Comm
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.validator.api.FluentValidator;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtensionsManager;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.FluentInjection;
@@ -30,6 +31,8 @@ public final class FluentApiSpigot {
     private final FluentApiExtensionsManager extensionsManager;
     private final PluginLogger logger;
 
+    private final FluentValidator validator;
+
     public FluentApiSpigot(
             Plugin plugin,
             FluentInjection injection,
@@ -42,7 +45,8 @@ public final class FluentApiSpigot {
             FluentEventManager eventManager,
             FluentTaskManager taskManager,
             FluentApiMeta fluentApiMeta,
-            FluentMessages fluentMessages) {
+            FluentMessages fluentMessages,
+            FluentValidator validator) {
         this.plugin = plugin;
         this.fluentConfig = fluentConfig;
         this.extensionsManager = extensionsManager;
@@ -55,6 +59,7 @@ public final class FluentApiSpigot {
         simpleTasks = taskManager;
         simpleMessages = fluentMessages;
         this.fluentApiMeta = fluentApiMeta;
+        this.validator = validator;
     }
 
     public void enable() {
@@ -117,5 +122,10 @@ public final class FluentApiSpigot {
         return path() + FileUtility.separator() + "data";
     }
     public FluentApiMeta meta() { return fluentApiMeta;}
+
+    public FluentValidator validator()
+    {
+        return validator;
+    }
 }
 

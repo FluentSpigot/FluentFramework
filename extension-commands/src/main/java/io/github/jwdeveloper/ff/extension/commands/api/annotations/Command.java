@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.extensions.commands.api.annotations;
+package io.github.jwdeveloper.ff.extension.commands.api.annotations;
 
 import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.AccessType;
 
@@ -9,14 +9,11 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Command
 {
      String name() default  "";
-
      String description() default "";
-
      String shortDescription() default "";
-
      String label() default "";
-
-     Class<?> parent() default Command.class;
-
+     String[] permissions() default "";
+     String usage() default "";
      AccessType access() default AccessType.COMMAND_SENDER;
+     boolean hideFromDisplay() default false;
 }

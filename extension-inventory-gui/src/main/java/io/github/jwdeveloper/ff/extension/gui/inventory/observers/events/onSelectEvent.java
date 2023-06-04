@@ -1,9 +1,9 @@
 package io.github.jwdeveloper.ff.extension.gui.inventory.observers.events;
 
-import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUIOld;
 import org.bukkit.entity.Player;
 
-public record onSelectEvent<T>(ButtonUI buttonUI, T data, int index, Player player)
+public record onSelectEvent<T>(ButtonUIOld buttonUI, T data, int index, Player player)
 {
 
 }

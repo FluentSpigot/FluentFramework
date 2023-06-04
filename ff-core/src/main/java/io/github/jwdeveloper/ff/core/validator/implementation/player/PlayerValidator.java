@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.validator.implementation.player;
 
 import io.github.jwdeveloper.ff.core.common.ActionResult;
-import io.github.jwdeveloper.ff.core.validator.api.ValidatorFactory;
+import io.github.jwdeveloper.ff.core.validator.api.FluentValidator;
 import io.github.jwdeveloper.ff.core.validator.implementation.entity.EntityValidator;
 import io.github.jwdeveloper.ff.core.validator.implementation.item.ItemStackValidator;
 import org.bukkit.entity.Player;
@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class PlayerValidator extends EntityValidator<Player, PlayerValidator> {
-    private final ValidatorFactory factory;
+    private final FluentValidator factory;
 
-    public PlayerValidator(ValidatorFactory factory) {
+    public PlayerValidator(FluentValidator factory) {
         super(factory);
         this.factory = factory;
     }
@@ -22,11 +22,9 @@ public class PlayerValidator extends EntityValidator<Player, PlayerValidator> {
     public PlayerValidator mustHasPlayedFirstTime() {
         return mustComplyRule(e -> !e.hasPlayedBefore(), "Player is not Flying");
     }
-
     public PlayerValidator mustHasPlayedBefore() {
         return mustComplyRule(Player::hasPlayedBefore, "Player is not Flying");
     }
-
     public PlayerValidator mustBeFlying() {
         return mustComplyRule(Player::isFlying, "Player is not Flying");
     }

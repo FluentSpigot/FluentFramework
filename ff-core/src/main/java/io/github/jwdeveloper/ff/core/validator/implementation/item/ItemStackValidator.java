@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.validator.implementation.item;
 
 import io.github.jwdeveloper.ff.core.common.ActionResult;
-import io.github.jwdeveloper.ff.core.validator.api.ValidatorFactory;
+import io.github.jwdeveloper.ff.core.validator.api.FluentValidator;
 import io.github.jwdeveloper.ff.core.validator.implementation.ValidatorBase;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -10,9 +10,9 @@ import java.util.function.Consumer;
 
 public class ItemStackValidator extends ValidatorBase<ItemStack, ItemStackValidator>
 {
-    private final ValidatorFactory factory;
+    private final FluentValidator factory;
 
-    public ItemStackValidator(ValidatorFactory factory)
+    public ItemStackValidator(FluentValidator factory)
     {
         this.factory = factory;
     }

@@ -1,35 +1,35 @@
 package io.github.jwdeveloper.ff.extension.gui.core.implementation.managers;
 
 
+import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
 import io.github.jwdeveloper.ff.extension.gui.core.api.managers.events.*;
 
 import java.util.function.Consumer;
 
 public class EventManagerImpl implements EventsManager {
 
+    private final EventGroup<CreateGuiEvent> onCreateEvents;
+    private final EventGroup<ClickGuiEvent> onClick;
+    private final EventGroup<ClickPlayerInventoryEvent> onClickPlayerInventory;
+    private final EventGroup<OpenGuiEvent> onOpen;
 
-    private final EventsGroup<CreateGuiEvent> onCreateEvents;
-    private final EventsGroup<ClickEvent> onClick;
-    private final EventsGroup<ClickPlayerInventoryEvent> onClickPlayerInventory;
-    private final EventsGroup<OpenGuiEvent> onOpen;
+    private final EventGroup<CloseGuiEvent> onClose;
 
-    private final EventsGroup<?> onClose;
-
-    private final EventsGroup<?> onDrag;
+    private final EventGroup<?> onDrag;
 
     public EventManagerImpl()
     {
-        this.onCreateEvents = new EventsGroup<>();
-        this.onClick = new EventsGroup<>();
-        this.onClickPlayerInventory = new EventsGroup<>();
-        this.onOpen = new EventsGroup<>();
-        this.onClose = new EventsGroup<>();
-        this.onDrag = new EventsGroup<>();
+        this.onCreateEvents = new EventGroup<>();
+        this.onClick = new EventGroup<>();
+        this.onClickPlayerInventory = new EventGroup<>();
+        this.onOpen = new EventGroup<>();
+        this.onClose = new EventGroup<>();
+        this.onDrag = new EventGroup<>();
     }
 
 
     @Override
-    public EventsGroup<CreateGuiEvent> onCreate() {
+    public EventGroup<CreateGuiEvent> onCreate() {
         return onCreateEvents;
     }
 
@@ -39,17 +39,17 @@ public class EventManagerImpl implements EventsManager {
     }
 
     @Override
-    public EventsGroup<ClickEvent> onClick() {
+    public EventGroup<ClickGuiEvent> onClick() {
         return onClick;
     }
 
     @Override
-    public void onClick(Consumer<ClickEvent> event) {
+    public void onClick(Consumer<ClickGuiEvent> event) {
        onClick.subscribe(event);
     }
 
     @Override
-    public EventsGroup<ClickPlayerInventoryEvent> onClickPlayerInventory() {
+    public EventGroup<ClickPlayerInventoryEvent> onClickPlayerInventory() {
         return onClickPlayerInventory;
     }
 
@@ -59,7 +59,7 @@ public class EventManagerImpl implements EventsManager {
     }
 
     @Override
-    public EventsGroup<OpenGuiEvent> onOpen() {
+    public EventGroup<OpenGuiEvent> onOpen() {
         return onOpen;
     }
 
@@ -69,17 +69,17 @@ public class EventManagerImpl implements EventsManager {
     }
 
     @Override
-    public EventsGroup onClose() {
+    public EventGroup<CloseGuiEvent> onClose() {
         return onClose;
     }
 
     @Override
-    public void onClose(Consumer<OpenGuiEvent> event) {
-        //onClose.subscribe(event);
+    public void onClose(Consumer<CloseGuiEvent> event) {
+        onClose.subscribe(event);
     }
 
     @Override
-    public EventsGroup onDrag() {
+    public EventGroup onDrag() {
         return onDrag;
     }
 }

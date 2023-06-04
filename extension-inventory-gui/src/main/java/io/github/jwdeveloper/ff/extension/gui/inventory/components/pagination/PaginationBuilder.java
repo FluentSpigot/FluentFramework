@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.inventory.components.pagination;
 
+import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
 import io.github.jwdeveloper.ff.extension.gui.core.api.managers.events.CreateGuiEvent;
 import io.github.jwdeveloper.ff.extension.gui.inventory.FluentButtonUIBuilder;
 
@@ -13,9 +14,9 @@ public class PaginationBuilder<T>
 
    private PaginationComponent.ButtonMapping<T> mapping;
 
-   private EventsGroup<CreateGuiEvent> onNextPage;
+   private EventGroup<CreateGuiEvent> onNextPage;
 
-   private EventsGroup<CreateGuiEvent> onBackPage;
+   private EventGroup<CreateGuiEvent> onBackPage;
 
     public PaginationBuilder<T> withScrollPosition(boolean isHorizontal)
     {

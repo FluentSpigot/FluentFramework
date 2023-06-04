@@ -3,7 +3,7 @@ package io.github.jwdeveloper.ff.extension.gui.inventory.styles.renderer;
 import io.github.jwdeveloper.ff.extension.gui.inventory.styles.ButtonColorSet;
 import io.github.jwdeveloper.ff.extension.gui.inventory.styles.ButtonStyleInfo;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
-import io.github.jwdeveloper.ff.plugin.api.features.FluentTranslator;
+import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 
 import java.util.HashMap;
 import java.util.List;

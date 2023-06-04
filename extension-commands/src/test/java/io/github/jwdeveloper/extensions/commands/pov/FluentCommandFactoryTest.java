@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.extensions.commands.pov;
 
-import io.github.jwdeveloper.extensions.commands.implementation.FluentCommandFactory;
+import io.github.jwdeveloper.ff.extension.commands.implementation.FluentCommandFactory;
 import io.github.jwdeveloper.ff.api.tests.FluentApiTest;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import org.junit.jupiter.api.Assertions;
@@ -18,8 +18,9 @@ public class FluentCommandFactoryTest extends FluentApiTest {
         var builder = getFluentApiMock().createCommand("example");
         var factory = new FluentCommandFactory();
         var clazz = ExampleCommand.class;
-        var invoker = factory.create(clazz, builder);
-        invoker.setTarget(new ExampleCommand());
+        var invokers = factory.create(clazz, builder);
+        invokers.get(0).setCommandObject(new ExampleCommand());
+
         var command = builder.build();
 
         command.setLogs(true);

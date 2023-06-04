@@ -1,11 +1,11 @@
 package io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers;
 
-import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.ButtonUIOld;
 import org.bukkit.entity.Player;
 
 public interface ButtonObservable<T>
 {
-    public ButtonUI getButtonUI();
+    public ButtonUIOld getButtonUI();
 
     public void leftClick(Player player);
 
