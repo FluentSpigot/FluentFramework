@@ -1,5 +1,7 @@
 package io.github.jwdeveloper.ff.plugin;
 
+import io.github.jwdeveloper.extensions.commands.FluentCommandAPI;
+import io.github.jwdeveloper.extensions.commands.api.FluentCommandOptions;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
 import io.github.jwdeveloper.ff.extension.translator.FluentTranslatorAPI;
@@ -58,6 +60,12 @@ public class FluentPluginBuilder {
     public FluentPluginBuilder withUpdater(Consumer<UpdaterApiOptions> options)
     {
         apiExtensions.add(FluentUpdaterApi.use(options));
+        return this;
+    }
+
+    public FluentPluginBuilder withCommand(Consumer<FluentCommandOptions> options)
+    {
+        apiExtensions.add(FluentCommandAPI.use(options));
         return this;
     }
 

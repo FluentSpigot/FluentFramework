@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import java.util.function.Consumer;
 
 public interface EventsService {
-    boolean invokeEvent(CommandSender commandSender, String[] allArgs, String[] commandArgs);
+    boolean invokeEvent(CommandSender commandSender, String[] allArgs, String[] commandArgs, Object[] values);
 
     void onInvoke(Consumer<CommandEvent> event);
 

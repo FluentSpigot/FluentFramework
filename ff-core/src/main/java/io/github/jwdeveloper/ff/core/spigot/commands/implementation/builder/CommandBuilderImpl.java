@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder;
 
 import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.BuilderConfig;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config.ArgumentConfig;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config.EventConfig;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config.PropertiesConfig;
@@ -20,13 +20,10 @@ import io.github.jwdeveloper.ff.core.spigot.commands.implementation.services.Com
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.services.EventsServiceImpl;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.services.MessageServiceImpl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
-public class CommandBuilderImpl implements CommandBuilder {
+public class CommandBuilderImpl implements SimpleCommandBuilder {
     protected final EventsService eventsService;
     protected final CommandService commandService;
     protected final MessagesService messagesService;
@@ -38,7 +35,7 @@ public class CommandBuilderImpl implements CommandBuilder {
 
     public CommandBuilderImpl(String commandName,
                               FluentCommandManger manger) {
-        configs = new HashMap<>();
+        configs = new LinkedHashMap<>();
         eventsService = new EventsServiceImpl();
         commandService = new CommandServiceImpl();
         messagesService = new MessageServiceImpl();
@@ -50,25 +47,25 @@ public class CommandBuilderImpl implements CommandBuilder {
 
 
     @Override
-    public CommandBuilder propertiesConfig(Consumer<PropertiesConfig> config) {
+    public SimpleCommandBuilder propertiesConfig(Consumer<PropertiesConfig> config) {
         configs.put(config, new PropertiesConfigImpl(model));
         return this;
     }
 
     @Override
-    public CommandBuilder eventsConfig(Consumer<EventConfig> consumer) {
+    public SimpleCommandBuilder eventsConfig(Consumer<EventConfig> consumer) {
         configs.put(consumer, new EventConfigImpl(eventsService));
         return this;
     }
 
     @Override
-    public CommandBuilder argumentsConfig(Consumer<ArgumentConfig> config) {
+    public SimpleCommandBuilder argumentsConfig(Consumer<ArgumentConfig> config) {
         configs.put(config, new ArgumentConfigImpl(model));
         return this;
     }
 
     @Override
-    public CommandBuilder subCommandsConfig(Consumer<SubCommandConfig> config) {
+    public SimpleCommandBuilder subCommandsConfig(Consumer<SubCommandConfig> config) {
         configs.put(config, new SubCommandConfigImpl(subCommands, manger));
         return this;
     }

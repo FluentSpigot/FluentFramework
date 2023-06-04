@@ -1,15 +1,15 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.command;
 
-import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 
 public class FluentDefaultCommandExtension implements FluentApiExtension {
 
-    private final CommandBuilder commandBuilder;
+    private final SimpleCommandBuilder commandBuilder;
 
-    public FluentDefaultCommandExtension(CommandBuilder commandBuilder) {
+    public FluentDefaultCommandExtension(SimpleCommandBuilder commandBuilder) {
         this.commandBuilder = commandBuilder;
     }
 

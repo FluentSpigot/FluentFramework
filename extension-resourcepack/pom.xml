@@ -11,6 +11,10 @@
 
     <groupId>io.github.jwdeveloper.ff.extension.resourcepack</groupId>
     <artifactId>extension-resourcepack</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>extension-resourcepack-tools</module>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>io.github.jwdeveloper</groupId>
@@ -21,6 +25,18 @@
         <dependency>
             <groupId>io.github.jwdeveloper</groupId>
             <artifactId>ff-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.jwdeveloper</groupId>
+            <artifactId>extension-translator</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.jwdeveloper</groupId>
+            <artifactId>extension-translator</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

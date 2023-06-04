@@ -25,6 +25,7 @@
         <module>extension-files</module>
         <module>extension-resourcepack</module>
         <module>extension-updater</module>
+        <module>extension-commands</module>
     </modules>
     <packaging>pom</packaging>
 

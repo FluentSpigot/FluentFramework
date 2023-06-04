@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.plugin.implementation;
 
 
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
@@ -54,7 +54,7 @@ public class FluentApi {
         return getFluentApiSpigot().tasks();
     }
 
-    public static CommandBuilder createCommand(String commandName) {
+    public static SimpleCommandBuilder createCommand(String commandName) {
         return getFluentApiSpigot().createCommand(commandName);
     }
 

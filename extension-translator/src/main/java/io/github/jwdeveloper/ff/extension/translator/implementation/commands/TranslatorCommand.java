@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.translator.implementation.commands;
 
-import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.ArgumentDisplay;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
@@ -24,7 +24,7 @@ public class TranslatorCommand {
         this.options = options;
     }
 
-    public CommandBuilder create() {
+    public SimpleCommandBuilder create() {
         return FluentApi.createCommand(options.getCommandName())
                 .propertiesConfig(propertiesConfig ->
                 {

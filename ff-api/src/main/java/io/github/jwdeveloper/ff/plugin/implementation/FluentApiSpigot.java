@@ -3,7 +3,7 @@ package io.github.jwdeveloper.ff.plugin.implementation;
 import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.CommandBuilderImpl;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
@@ -93,7 +93,7 @@ public final class FluentApiSpigot {
         return commandManger;
     }
 
-    public CommandBuilder createCommand(String commandName) {
+    public SimpleCommandBuilder createCommand(String commandName) {
         return new CommandBuilderImpl(commandName, commandManger);
     }
 

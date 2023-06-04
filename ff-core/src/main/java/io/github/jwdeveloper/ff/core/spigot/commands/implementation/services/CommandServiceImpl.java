@@ -9,6 +9,7 @@ import io.github.jwdeveloper.ff.core.spigot.commands.api.services.CommandService
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleCommand;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import io.github.jwdeveloper.ff.core.spigot.permissions.implementation.PermissionsUtility;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -106,6 +107,11 @@ public class CommandServiceImpl implements CommandService {
     }
 
     public Object[] getArgumentValues(String[] args, List<CommandArgument> commandArguments) {
+
+        if(commandArguments.isEmpty())
+        {
+            return args;
+        }
         Object[] result = new Object[args.length];
         for (int i = 0; i < args.length; i++) {
             try {
@@ -116,6 +122,7 @@ public class CommandServiceImpl implements CommandService {
                     case BOOL -> result[i] = Boolean.parseBoolean(value);
                     case NUMBER -> result[i] = Float.parseFloat(value);
                     case COLOR -> result[i] = ChatColor.valueOf(value.toUpperCase());
+                    case PLAYERS -> result[i] = Bukkit.getPlayer(value);
                     default -> result[i] = value;
                 }
             } catch (Exception e) {
@@ -141,7 +148,8 @@ public class CommandServiceImpl implements CommandService {
             ValidationResult validationResult;
             for (var validator : argument.getValidators()) {
                 validationResult = validator.validate(args[i]);
-                if (!validationResult.isSuccess()) {
+                if (validationResult.isFail())
+                {
                     var message = new MessageBuilder()
                             .text("Argument")
                             .space()

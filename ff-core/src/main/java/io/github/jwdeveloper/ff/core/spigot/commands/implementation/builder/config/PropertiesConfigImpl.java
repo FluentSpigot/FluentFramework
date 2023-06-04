@@ -56,6 +56,12 @@ public class PropertiesConfigImpl implements PropertiesConfig {
         return this;
     }
 
+    @Override
+    public PropertiesConfig setName(String name) {
+        model.setName(name);
+        return this;
+    }
+
 
     @Override
     public PropertiesConfig addPermissions(String... permissions) {

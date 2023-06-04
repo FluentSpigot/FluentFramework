@@ -26,4 +26,9 @@ public class CommandEvent
    {
       return (T)(values[index]);
    }
+
+   public int getArgumentCount()
+   {
+      return values.length;
+   }
 }

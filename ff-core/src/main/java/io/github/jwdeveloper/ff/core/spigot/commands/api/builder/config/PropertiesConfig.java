@@ -14,6 +14,8 @@ public interface PropertiesConfig extends BuilderConfig {
 
     PropertiesConfig setDescription(String description);
 
+    PropertiesConfig setName(String name);
+
     PropertiesConfig addPermissions(String... permissions);
 
     PropertiesConfig setAccess(AccessType accessType);

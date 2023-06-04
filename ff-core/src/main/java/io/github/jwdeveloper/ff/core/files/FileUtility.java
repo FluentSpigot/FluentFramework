@@ -44,19 +44,15 @@ public interface FileUtility {
         return Paths.get(path).getFileName().toString();
     }
 
-     static void saveClassFile(String result, boolean useTestPath, String _package, String fileName, String path) throws IOException {
-
-        path = useTestPath ? path + "src\\test\\java\\" : path + "src\\main\\java\\";
-        path = path + _package.replace(".", "\\");
-        path = path + "\\" + fileName + ".java";
-        var writer = new FileWriter(path);
+     static void saveClassFile(String result, String outputPath, String fileName) throws IOException {
+        FileUtility.ensurePath(outputPath);
+        outputPath = outputPath + FileUtility.separator() + fileName + ".java";
+        var writer = new FileWriter(outputPath);
         writer.write(result);
         writer.close();
     }
 
-    public static void saveClassFile(String result, boolean useTestPath, String _package, String fileName) throws IOException {
-        saveClassFile(result, useTestPath,_package, fileName, getProjectPath());
-    }
+
 
     static void removeDirectory(File file) {
         if (file == null)
@@ -169,7 +165,7 @@ public interface FileUtility {
         if (directory.exists()) {
             return directory;
         }
-        directory.mkdir();
+        directory.mkdirs();
         return directory;
     }
 

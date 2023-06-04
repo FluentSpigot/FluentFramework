@@ -16,18 +16,18 @@ public class EventsServiceImpl implements EventsService
     private Consumer<ConsoleCommandEvent>consoleCommandEvent= (a)->{};
 
     @Override
-    public boolean invokeEvent(CommandSender sender, String[] allArgs, String[] commandArgs)
+    public boolean invokeEvent(CommandSender sender, String[] allArgs, String[] commandArgs, Object[] values)
     {
         if(sender instanceof Player)
         {
-            var eventDto = new PlayerCommandEvent(sender, commandArgs, allArgs, null, true);
+            var eventDto = new PlayerCommandEvent(sender, commandArgs, allArgs, values, true);
             commandEvent.accept(eventDto);
             playerCommandEvent.accept(eventDto);
             return eventDto.getResult();
         }
         if(sender instanceof CommandSender)
         {
-            var eventDto = new ConsoleCommandEvent(sender, commandArgs, allArgs, null, true);
+            var eventDto = new ConsoleCommandEvent(sender, commandArgs, allArgs, values, true);
             commandEvent.accept(eventDto);
             consoleCommandEvent.accept(eventDto);
             return eventDto.getResult();

@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public class ValidationResult
 {
-    private  boolean success;
+    private boolean success;
     private String message;
 
     public ValidationResult(boolean success, String errorMessage)
@@ -20,6 +20,11 @@ public class ValidationResult
     public ValidationResult(boolean success)
     {
         this.success = success;
+    }
+
+    public boolean isFail()
+    {
+        return !success;
     }
 
     public static ValidationResult success()

@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.config;
 
 import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config.SubCommandConfig;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleCommand;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.CommandBuilderImpl;
@@ -20,7 +20,7 @@ public class SubCommandConfigImpl implements SubCommandConfig {
     }
 
     @Override
-    public SubCommandConfig addSubCommand(CommandBuilder builder) {
+    public SubCommandConfig addSubCommand(SimpleCommandBuilder builder) {
         return addSubCommand(builder.build());
     }
 
@@ -37,7 +37,7 @@ public class SubCommandConfigImpl implements SubCommandConfig {
     }
 
     @Override
-    public SubCommandConfig addSubCommand(String name, Consumer<CommandBuilder> config) {
+    public SubCommandConfig addSubCommand(String name, Consumer<SimpleCommandBuilder> config) {
         var builder = new CommandBuilderImpl(name,  manger);
         config.accept(builder);
         return addSubCommand(builder.build());

@@ -8,12 +8,12 @@ import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleComman
 
 import java.util.function.Consumer;
 
-public interface CommandBuilder
+public interface SimpleCommandBuilder
 {
-    CommandBuilder propertiesConfig(Consumer<PropertiesConfig> config);
-    CommandBuilder eventsConfig(Consumer<EventConfig> config);
-    CommandBuilder argumentsConfig(Consumer<ArgumentConfig> config);
-    CommandBuilder subCommandsConfig(Consumer<SubCommandConfig> config);
+    SimpleCommandBuilder propertiesConfig(Consumer<PropertiesConfig> config);
+    SimpleCommandBuilder eventsConfig(Consumer<EventConfig> config);
+    SimpleCommandBuilder argumentsConfig(Consumer<ArgumentConfig> config);
+    SimpleCommandBuilder subCommandsConfig(Consumer<SubCommandConfig> config);
     SimpleCommand buildAndRegister();
     SimpleCommand build();
 }

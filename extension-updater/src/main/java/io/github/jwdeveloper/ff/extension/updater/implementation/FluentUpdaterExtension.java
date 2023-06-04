@@ -1,8 +1,6 @@
 package io.github.jwdeveloper.ff.extension.updater.implementation;
 
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.CommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config.SubCommandConfig;
 import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
 import io.github.jwdeveloper.ff.extension.updater.api.FluentUpdater;

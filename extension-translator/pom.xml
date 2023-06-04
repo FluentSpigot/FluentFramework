@@ -11,6 +11,7 @@
 
     <groupId>io.github.jwdeveloper</groupId>
     <artifactId>extension-translator</artifactId>
+    <packaging>pom</packaging>
     <dependencies>
         <dependency>
             <groupId>io.github.jwdeveloper</groupId>

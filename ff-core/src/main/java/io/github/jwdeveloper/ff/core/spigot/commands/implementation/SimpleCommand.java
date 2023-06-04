@@ -67,7 +67,7 @@ public class SimpleCommand extends Command {
         return commandTarget.getSimpleCommand().invokeCommand(sender, args, commandTarget.getArgs());
     }
 
-    public boolean invokeCommand(CommandSender sender, String[] args, String[] commandArgs) {
+    private boolean invokeCommand(CommandSender sender, String[] args, String[] commandArgs) {
         if (!isActive()) {
             displayLog("inactive");
             sender.sendMessage(messagesService.inactiveCommand(this.getName()));
@@ -88,13 +88,14 @@ public class SimpleCommand extends Command {
 
         var validationResult = commandService.validateArguments(commandArgs, commandModel.getArguments());
         if (!validationResult.isSuccess()) {
-            displayLog("invalid arguments");
+            displayLog("invalid arguments: " + validationResult.getMessage());
             sender.sendMessage(messagesService.invalidArgument(validationResult.getMessage()));
             return false;
         }
 
         try {
-            var invokeStatus = eventsService.invokeEvent(sender, args, commandArgs);
+            var values = commandService.getArgumentValues(commandArgs, commandModel.getArguments());
+            var invokeStatus = eventsService.invokeEvent(sender, args, commandArgs, values);
             displayLog("command invoked with status " + invokeStatus);
             return invokeStatus;
         } catch (Exception exception) {
