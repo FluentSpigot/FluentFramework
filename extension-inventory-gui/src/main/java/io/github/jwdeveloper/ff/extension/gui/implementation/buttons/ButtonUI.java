@@ -1,11 +1,11 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.buttons;
 
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
-import io.github.jwdeveloper.ff.extension.gui.core.api.FluentInventory;
-import io.github.jwdeveloper.ff.extension.gui.core.implementation.button.observer_button.observers.ButtonObservable;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.ff.extension.gui.implementation.events.ButtonClickEvent;
-import lombok.Generated;
+import io.github.jwdeveloper.ff.extension.gui.api.FluentInventory;
+import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRendererOptions;
+import io.github.jwdeveloper.ff.extension.gui.implementation.button_old.events.ButtonClickEvent;
+import io.github.jwdeveloper.ff.extension.gui.implementation.button_old.observer_button.observers.ButtonObservable;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.*;
@@ -16,12 +16,17 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.util.Consumer;
+
 import java.util.*;
+import java.util.function.Consumer;
 
 
 public class ButtonUI {
     private ButtonData buttonData;
+
+    @Getter
+    @Setter
+    private StyleRendererOptions styleRendererOptions = new StyleRendererOptions();
     private ItemStack itemStack;
     @Getter
     private EventGroup<ButtonClickEvent> onLeftClick;
@@ -47,32 +52,30 @@ public class ButtonUI {
         onRightClick = new EventGroup<>();
         onShiftClick = new EventGroup<>();
         hideAttributes();
+        setTitle(buttonData.getTitle());
     }
 
-    public ItemStack getItemStack()
-    {
-        for(var observer : observers)
-        {
+    public ItemStack getItemStack() {
+        for (var observer : observers) {
             observer.refresh();
         }
         return itemStack;
     }
 
-    public void addButtonObserver(ButtonObservable<?> observer)
-    {
+    public void addButtonObserver(ButtonObservable<?> observer) {
         observers.add(observer);
     }
 
     public void doLeftClick(Player player, FluentInventory inventory) {
-        performClick(onLeftClick,player, inventory);
+        performClick(onLeftClick, player, inventory);
     }
 
     public void doRightClick(Player player, FluentInventory inventory) {
-        performClick(onRightClick,player, inventory);
+        performClick(onRightClick, player, inventory);
     }
 
     public void doShiftClick(Player player, FluentInventory inventory) {
-        performClick(onShiftClick,player,inventory);
+        performClick(onShiftClick, player, inventory);
     }
 
     public <T> T getDataContext() {
@@ -84,23 +87,25 @@ public class ButtonUI {
             throw new RuntimeException("ButtonUI: " + "Can not cast DataContext value in button " + buttonData.getTitle(), e);
         }
     }
-    private void performClick(EventGroup<ButtonClickEvent> event, Player player, FluentInventory inventory)
-    {
+
+    public void setDataContext(Object object) {
+        buttonData.setDataContext(object);
+    }
+
+    private void performClick(EventGroup<ButtonClickEvent> event, Player player, FluentInventory inventory) {
         if (event == null)
             return;
-        event.invoke(new ButtonClickEvent(player,this, inventory));
+        event.invoke(new ButtonClickEvent(player, this, inventory));
         for (var observable : observers) {
             observable.leftClick(player);
         }
     }
 
-    public boolean isActive()
-    {
-       return buttonData.isActive();
+    public boolean isActive() {
+        return buttonData.isActive();
     }
 
-    public void setActive(boolean active)
-    {
+    public void setActive(boolean active) {
         buttonData.setActive(active);
     }
 
@@ -112,8 +117,7 @@ public class ButtonUI {
         setPermissions(Arrays.asList(permissions));
     }
 
-    public List<String> getPermissions()
-    {
+    public List<String> getPermissions() {
         return buttonData.getPermissions();
     }
 
@@ -154,11 +158,9 @@ public class ButtonUI {
         }
     }
 
-    public void setMeta(ItemMeta meta) {
+    public void setItemMeta(ItemMeta meta) {
         itemStack.setItemMeta(meta);
     }
-
-    /*Description*/
 
     public void setDescription(MessageBuilder messageBuilder) {
         setDescription(messageBuilder.toString());
@@ -176,7 +178,7 @@ public class ButtonUI {
 
     public void addDescription(String... description) {
         buttonData.getDescription().addAll(Arrays.asList(description));
-        setDescription(description);
+        setDescription(buttonData.getDescription());
     }
 
 
@@ -193,15 +195,29 @@ public class ButtonUI {
     public void setDescription(List<String> description) {
         buttonData.setDescription(description);
         var meta = ensureMeta(itemStack);
-        meta.setLore(description);
+        if (meta == null) {
+            return;
+        }
+
+        var finalArray = new ArrayList<String>(description);
+        for (var i = 0; i < finalArray.size(); i++) {
+            var line = finalArray.get(i);
+            finalArray.set(i, ChatColor.WHITE + line);
+        }
+
+        meta.setLore(finalArray);
         itemStack.setItemMeta(meta);
     }
 
 
+    public String getTitle() {
+        return buttonData.getTitle();
+    }
+
     /*Position*/
 
     public int getHeight() {
-        return buttonData.getPosition().getBlockY();
+        return (int) buttonData.getPosition().getY();
     }
 
     public int getWidth() {
@@ -209,27 +225,23 @@ public class ButtonUI {
     }
 
     public void setPosition(int height, int width) {
-        buttonData.getPosition().setX(width);
         buttonData.getPosition().setY(height);
+        buttonData.getPosition().setX(width);
     }
 
 
     /*Sound*/
     public boolean hasSound() {
-        return buttonData.getSound() !=null;
+        return buttonData.getSound() != null;
     }
 
-    public void setSound(Sound sound)
-    {
+    public void setSound(Sound sound) {
         buttonData.setSound(sound);
     }
 
-    public Sound getSound()
-    {
+    public Sound getSound() {
         return buttonData.getSound();
     }
-
-
 
 
     private void setDisplayedName(String name) {
@@ -252,18 +264,24 @@ public class ButtonUI {
         itemStack.setItemMeta(meta);
     }
 
-    public String getTag()
-    {
+    public String getTag() {
         return buttonData.getTag();
     }
 
-    public void setTag(String tag)
-    {
+    public void setTag(String tag) {
         buttonData.setTag(tag);
     }
 
     public boolean hasTag() {
         return buttonData.getTag() != null;
+    }
+
+    public boolean hasTag(String tag) {
+        return hasTag() && buttonData.getTag().equalsIgnoreCase(tag);
+    }
+
+    public boolean hasStyleRendererOptions() {
+        return styleRendererOptions != null;
     }
 
     private void hideAttributes() {

@@ -1,18 +1,17 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation;
 
 import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.ff.extension.gui.core.api.FluentInventory;
-import io.github.jwdeveloper.ff.extension.gui.core.api.InventoryComponent;
-import io.github.jwdeveloper.ff.extension.gui.core.api.InventorySettings;
-import io.github.jwdeveloper.ff.extension.gui.core.api.enums.InventoryState;
-import io.github.jwdeveloper.ff.extension.gui.core.api.managers.ChildrenManager;
-import io.github.jwdeveloper.ff.extension.gui.core.api.managers.buttons.ButtonManager;
-import io.github.jwdeveloper.ff.extension.gui.core.api.managers.events.*;
-import io.github.jwdeveloper.ff.extension.gui.core.api.managers.permissions.PermissionManager;
-import io.github.jwdeveloper.ff.extension.gui.core.implementation.InventoryDecoratorImpl;
-import io.github.jwdeveloper.ff.extension.gui.core.implementation.managers.ButtonManagerImpl;
+import io.github.jwdeveloper.ff.extension.gui.api.FluentInventory;
+import io.github.jwdeveloper.ff.extension.gui.api.InventorySettings;
+import io.github.jwdeveloper.ff.extension.gui.api.enums.InventoryState;
+import io.github.jwdeveloper.ff.extension.gui.api.events.*;
+import io.github.jwdeveloper.ff.extension.gui.api.managers.ComponentsManager;
+import io.github.jwdeveloper.ff.extension.gui.api.managers.EventsManager;
+import io.github.jwdeveloper.ff.extension.gui.api.managers.buttons.ButtonManager;
+import io.github.jwdeveloper.ff.extension.gui.api.managers.permissions.PermissionManager;
+import io.github.jwdeveloper.ff.extension.gui.implementation.managers.ButtonManagerImpl;
 import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
-import io.github.jwdeveloper.ff.extension.gui.implementation.events.SpigotListenerActionEvent;
+import io.github.jwdeveloper.ff.extension.gui.implementation.button_old.events.SpigotListenerActionEvent;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,31 +21,28 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.List;
-
 public class FluentInventoryImpl implements FluentInventory {
     @Getter
     private Player player;
-
-
     private final InventorySettings inventorySettings;
-    private final ChildrenManager children;
     private final ButtonManagerImpl buttonManager;
     private final EventsManager events;
     private final PermissionManager permission;
+    private final ComponentsManager componentsManager;
     private final SimpleLogger logger;
 
+    private FluentInventory parent;
     private Object[] lastArgument;
 
-    public FluentInventoryImpl(ChildrenManager children,
+    public FluentInventoryImpl(ComponentsManager componentsManager,
                                ButtonManager buttons,
                                EventsManager events,
                                PermissionManager permission,
                                InventorySettings inventorySettings,
                                SimpleLogger logger) {
-        this.children = children;
         this.buttonManager = (ButtonManagerImpl) buttons;
         this.events = events;
+        this.componentsManager =componentsManager;
         this.permission = permission;
         this.inventorySettings = inventorySettings;
         this.logger = logger;
@@ -58,23 +54,22 @@ public class FluentInventoryImpl implements FluentInventory {
     public void open(Player player, Object... args) {
         if (!validatePlayer(player))
             return;
-
+        this.player = player;
         if (!doOnCreateEvent(player))
             return;
 
         inventorySettings.setState(InventoryState.CREATED);
-        if (children.hasParent()) {
-            children.getParent().close();
+        if (hasParent()) {
+            parent().close();
         }
 
         inventorySettings.setHandle(createInventory());
-        if (!doOnOpenEvent(player)) {
+        if (!doOnOpenEvent(player, args)) {
             return;
         }
-        this.player = player;
         refresh();
         registerEventsListening();
-        logger.info("Open Inventory for handle", inventorySettings.getHandle(),player.getName());
+        logger.info("Open Inventory for handle", inventorySettings.getHandle(), player.getName());
         player.openInventory(inventorySettings.getHandle());
         inventorySettings.setState(InventoryState.OPEN);
         lastArgument = args;
@@ -82,22 +77,32 @@ public class FluentInventoryImpl implements FluentInventory {
 
     @Override
     public void close() {
-        if(!doOnCloseEvent())
-        {
+
+        if (!validatePlayer(player)) {
+            return;
+        }
+
+        if (!doOnCloseEvent()) {
             open(player, lastArgument);
             return;
         }
 
-
         inventorySettings.setState(InventoryState.CLOSED);
         player.closeInventory();
-        logger.info("Close Inventory for handle", inventorySettings.getHandle(),player.getName());
+        logger.info("Close Inventory for handle", inventorySettings.getHandle(), player.getName());
     }
 
     @Override
     public void refresh() {
+        if(!doOnRefreshEvent())
+        {
+            return;
+        }
         buttonManager.refresh();
-        logger.info("Refresh Inventory for handle", inventorySettings.getHandle(),player.getName());
+        if (getPlayer() != null) {
+            getPlayer().updateInventory();
+        }
+        logger.info("Refresh Inventory for handle", inventorySettings.getHandle(), player.getName());
     }
 
     @Override
@@ -114,15 +119,13 @@ public class FluentInventoryImpl implements FluentInventory {
             }
 
             var button = buttonManager.getButton(event.getSlot());
-            if (button == null || !button.isActive())
-            {
+            if (button == null || !button.isActive()) {
                 logger.warning("Click event canceled, button inactive");
                 return false;
             }
 
 
-            if (!permissions().validatePlayer(player, button.getPermissions()))
-            {
+            if (!permissions().validatePlayer(player, button.getPermissions())) {
                 logger.warning("Click event canceled, player is not valid");
                 return false;
             }
@@ -131,8 +134,7 @@ public class FluentInventoryImpl implements FluentInventory {
             if (button.hasSound())
                 player.playSound(player.getLocation(), button.getSound(), 1, 1);
 
-            if (!doOnClickEvent(player, button))
-            {
+            if (!doOnClickEvent(player, button)) {
                 logger.warning("Click event canceled, doOnClickEvent canceled");
                 return false;
             }
@@ -153,6 +155,7 @@ public class FluentInventoryImpl implements FluentInventory {
             buttonManager.refresh(button);
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error("Error onClick, inventory " + inventorySettings.getTitle() + " by player " + player.getName(), e);
             return false;
         }
@@ -202,7 +205,7 @@ public class FluentInventoryImpl implements FluentInventory {
             return true;
         }
         var decorator = new InventoryDecoratorImpl(this);
-        var event = new CreateGuiEvent(player, decorator);
+        var event = new CreateGuiEvent(false, player, this, decorator);
         events.onCreate().invoke(event);
         if (event.isCancelled()) {
             return false;
@@ -211,11 +214,18 @@ public class FluentInventoryImpl implements FluentInventory {
         return true;
     }
 
-    private boolean doOnOpenEvent(Player player) {
-        var event = new OpenGuiEvent();
+    private boolean doOnOpenEvent(Player player, Object[] arguments) {
+        var event = new OpenGuiEvent(false, this, player, arguments);
         events.onOpen().invoke(event);
         return !event.isCancelled();
     }
+
+    private boolean doOnRefreshEvent() {
+        var event = new OpenGuiEvent(false, this, player, lastArgument);
+        events.onRefresh().invoke(event);
+        return !event.isCancelled();
+    }
+
 
     private boolean doOnCloseEvent() {
         var event = new CloseGuiEvent(false, this, player);
@@ -256,10 +266,6 @@ public class FluentInventoryImpl implements FluentInventory {
         return inventorySettings.getHandle();
     }
 
-    @Override
-    public ChildrenManager children() {
-        return children;
-    }
 
     @Override
     public ButtonManager buttons() {
@@ -277,8 +283,23 @@ public class FluentInventoryImpl implements FluentInventory {
     }
 
     @Override
-    public List<InventoryComponent> components() {
-        return null;
+    public ComponentsManager components() {
+        return componentsManager;
+    }
+
+    @Override
+    public FluentInventory parent() {
+        return parent;
+    }
+
+    @Override
+    public boolean hasParent() {
+        return parent != null;
+    }
+
+    @Override
+    public void setParent(FluentInventory parent) {
+        this.parent = parent;
     }
 
     @Override

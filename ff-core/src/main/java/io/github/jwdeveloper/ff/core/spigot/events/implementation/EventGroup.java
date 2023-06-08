@@ -21,6 +21,17 @@ public class EventGroup<T>
         return true;
     }
 
+    public int size()
+    {
+        return events.size();
+    }
+
+    public boolean isEmpty()
+    {
+        return events.isEmpty();
+    }
+
+
     public void subscribe(Consumer<T> event)
     {
         events.add(event);

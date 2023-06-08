@@ -36,7 +36,7 @@ public class TextBuilder<SELF extends TextBuilder<SELF>> {
     }
 
 
-    public SELF textNewLine(String text) {
+    public SELF textNewLine(Object text) {
         return text(text).newLine();
     }
 

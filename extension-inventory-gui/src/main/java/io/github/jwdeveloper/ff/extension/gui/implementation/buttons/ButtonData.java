@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 public class ButtonData
 {
-    private String title = StringUtils.EMPTY;
+    private String title = " ";
     private String tag = StringUtils.EMPTY;
     private List<String> description = new ArrayList<>();
     private Material material = Material.DIRT;

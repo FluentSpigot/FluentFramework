@@ -75,6 +75,10 @@ public class MessageBuilder extends TextBuilder<MessageBuilder>
         return this;
     }
 
+    public MessageBuilder bar(String bar, int length, String color) {
+        return this.color(color).bar(bar, length).reset();
+    }
+
     public MessageBuilder bar(String bar, int length, ChatColor color) {
         return this.color(color).bar(bar, length).reset();
     }
