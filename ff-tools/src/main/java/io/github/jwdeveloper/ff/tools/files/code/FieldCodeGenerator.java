@@ -2,6 +2,7 @@ package io.github.jwdeveloper.ff.tools.files.code;
 
 import io.github.jwdeveloper.ff.core.common.TextBuilder;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,12 @@ public class FieldCodeGenerator
     public FieldCodeGenerator setType(String type)
     {
         this.type = type;
+        return this;
+    }
+
+    public FieldCodeGenerator setType(Class<?> type)
+    {
+        this.type = type.getSimpleName();
         return this;
     }
 

@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.api.styles;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,13 +20,13 @@ public class StyleRendererOptions {
     @Setter
     private boolean useCache;
 
-    private final Map<String, Function<StyleEvent, String>> parameters;
+    private final Map<String, Function<StyleRenderEvent, String>> parameters;
 
     public StyleRendererOptions() {
         parameters = new LinkedHashMap<>();
     }
 
-    public void addParameter(String parameter, Function<StyleEvent, String> value) {
+    public void addParameter(String parameter, Function<StyleRenderEvent, String> value) {
         parameters.put(parameter, value);
     }
 
@@ -47,16 +46,16 @@ public class StyleRendererOptions {
         return parameters.containsKey(parameterName);
     }
 
-    public Optional<Function<StyleEvent, String>> getParameter(String parameterName) {
+    public Optional<Function<StyleRenderEvent, String>> getParameter(String parameterName) {
         if (!hasParameter(parameterName)) {
             return Optional.empty();
         }
         return Optional.of(parameters.get(parameterName));
     }
 
-    public Map<String, Function<StyleEvent, String>> getParametersByContains(String query) {
+    public Map<String, Function<StyleRenderEvent, String>> getParametersByContains(String query) {
 
-        var result = new LinkedHashMap<String, Function<StyleEvent, String>>();
+        var result = new LinkedHashMap<String, Function<StyleRenderEvent, String>>();
         for(var entry : parameters.entrySet())
         {
             if(!entry.getKey().contains(query))

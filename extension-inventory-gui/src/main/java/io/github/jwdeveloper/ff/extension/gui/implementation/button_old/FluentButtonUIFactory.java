@@ -10,19 +10,16 @@ import io.github.jwdeveloper.ff.extension.gui.prefab.observers.ints.FluentBarInt
 import io.github.jwdeveloper.ff.extension.gui.prefab.observers.ints.FluentIntNotifier;
 import io.github.jwdeveloper.ff.extension.gui.prefab.observers.ints.IntNotifierOptions;
 import io.github.jwdeveloper.ff.extension.gui.prefab.observers.list.checkbox.CheckBox;
-import io.github.jwdeveloper.ff.extension.gui.prefab.observers.string.StringNotifierOptions;
 import io.github.jwdeveloper.ff.extension.gui.prefab.observers.bools.BoolNotifierOptions;
 import io.github.jwdeveloper.ff.extension.gui.prefab.observers.enums.EnumNotifierOptions;
 import io.github.jwdeveloper.ff.extension.gui.prefab.observers.enums.FluentEnumNotifier;
 import io.github.jwdeveloper.ff.extension.gui.prefab.observers.list.FluentListNotifier;
 import io.github.jwdeveloper.ff.extension.gui.prefab.observers.list.ListNotifierOptions;
 import io.github.jwdeveloper.ff.extension.gui.prefab.observers.list.checkbox.FluentCheckboxListNotifier;
-import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.observer.implementation.Observer;
 import io.github.jwdeveloper.ff.core.observer.implementation.ObserverBag;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
-import org.bukkit.Material;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -70,7 +67,7 @@ public class FluentButtonUIFactory {
     }
 
     public <T extends Enum<T>> FluentButtonUIBuilderOld observeEnum(Supplier<Observer<T>> observer, Consumer<EnumNotifierOptions> consumer) {
-        var _class = (Class<T>) observer.get().getValueType();
+        var _class = (Class<T>) observer.get().getType();
         var options = new EnumNotifierOptions();
         consumer.accept(options);
        /*    builder.setDescription(buttonDescriptionInfoBuilder ->

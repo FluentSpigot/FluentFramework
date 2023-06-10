@@ -3,6 +3,7 @@ package io.github.jwdeveloper.ff.core.spigot.tasks.implementation;
 import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
 import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.TaskAction;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
@@ -15,6 +16,8 @@ public class SimpleTaskTimer {
     private final PluginLogger logger;
     private Consumer<SimpleTaskTimer> onStop;
     private Consumer<SimpleTaskTimer> onStart;
+
+    @Setter
     private int speed = 20;
     private int time = 0;
     private int runAfter = 0;

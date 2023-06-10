@@ -14,6 +14,11 @@ public class EventGroup<T>
 
     public boolean invoke(T payload)
     {
+        if(events.size() == 0)
+        {
+            return true;
+        }
+
         for(var event : events)
         {
             event.accept(payload);

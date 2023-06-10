@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.styles;
 
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleEvent;
+import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRendererOptions;
 
 import java.util.UUID;
@@ -29,11 +29,11 @@ public class StyleRendererOptionsDecorator {
         options.addParameter(parameter, value);
     }
 
-    public void withParameter(String parameter, Function<StyleEvent, String> value) {
+    public void withParameter(String parameter, Function<StyleRenderEvent, String> value) {
         options.addParameter(parameter, value);
     }
 
-    public void withLeftClickInfo(Function<StyleEvent, String> value) {
+    public void withLeftClickInfo(Function<StyleRenderEvent, String> value) {
         options.addParameter("click-left", value);
     }
 
@@ -41,7 +41,7 @@ public class StyleRendererOptionsDecorator {
         withLeftClickInfo(x -> value);
     }
 
-    public void withRightClickInfo(Function<StyleEvent, String> value) {
+    public void withRightClickInfo(Function<StyleRenderEvent, String> value) {
         options.addParameter("click-right", value);
     }
 
@@ -49,7 +49,7 @@ public class StyleRendererOptionsDecorator {
         withRightClickInfo(x -> value);
     }
 
-    public void withShiftClickInfo(Function<StyleEvent, String> value) {
+    public void withShiftClickInfo(Function<StyleRenderEvent, String> value) {
         options.addParameter("click-shift", value);
     }
 
@@ -57,7 +57,7 @@ public class StyleRendererOptionsDecorator {
         withShiftClickInfo(x -> value);
     }
 
-    public void withTitle(Function<StyleEvent, String> value) {
+    public void withTitle(Function<StyleRenderEvent, String> value) {
         options.addParameter("title", value);
     }
 
@@ -65,8 +65,16 @@ public class StyleRendererOptionsDecorator {
         withTitle(x -> value);
     }
 
-    public void withDescription(Function<StyleEvent, String> value) {
+    public void withDescription(Function<StyleRenderEvent, String> value) {
         options.addParameter("description", value);
+    }
+
+    public void withDescriptionLine(String id, Function<StyleRenderEvent, String> value) {
+        options.addParameter("description-"+id, value);
+    }
+
+    public void withDescriptionLine(UUID id, Function<StyleRenderEvent, String> value) {
+        options.addParameter("description-"+id, value);
     }
 
     public void withDescription(String value) {

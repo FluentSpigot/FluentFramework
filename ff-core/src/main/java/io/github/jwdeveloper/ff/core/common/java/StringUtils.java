@@ -44,6 +44,10 @@ public class StringUtils
         return str.substring(0, 1).toLowerCase() + str.substring(1);
     }
 
+    public static String removeWhitespaces(String string)
+    {
+       return string.replaceAll("\\s", "");
+    }
 
     public static String separator()
     {

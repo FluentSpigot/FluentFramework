@@ -74,7 +74,7 @@ public class Observer<T> implements Observable<T> {
         }
     }
 
-    public Class<?> getValueType() {
+    public Class<?> getType() {
         return fieldType;
     }
 

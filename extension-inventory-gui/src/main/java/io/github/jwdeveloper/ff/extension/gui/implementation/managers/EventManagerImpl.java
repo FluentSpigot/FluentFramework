@@ -14,10 +14,9 @@ public class EventManagerImpl implements EventsManager {
     private final EventGroup<ClickPlayerInventoryEvent> onClickPlayerInventory;
     private final EventGroup<OpenGuiEvent> onOpen;
     private final EventGroup<OpenGuiEvent> onRefresh;
-
     private final EventGroup<CloseGuiEvent> onClose;
 
-    private final EventGroup<?> onDrag;
+    private final EventGroup<TickGuiEvent> onTick;
 
     public EventManagerImpl()
     {
@@ -27,7 +26,7 @@ public class EventManagerImpl implements EventsManager {
         this.onOpen = new EventGroup<>();
         this.onRefresh = new EventGroup<>();
         this.onClose = new EventGroup<>();
-        this.onDrag = new EventGroup<>();
+        this.onTick = new EventGroup<>();
     }
 
 
@@ -92,7 +91,14 @@ public class EventManagerImpl implements EventsManager {
     }
 
     @Override
-    public EventGroup onDrag() {
-        return onDrag;
+    public EventGroup<TickGuiEvent> onTick() {
+        return onTick;
     }
+
+    @Override
+    public void onTick(Consumer<TickGuiEvent> event) {
+        onTick.subscribe(event);
+    }
+
+
 }

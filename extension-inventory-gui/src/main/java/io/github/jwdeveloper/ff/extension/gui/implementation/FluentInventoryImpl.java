@@ -2,16 +2,18 @@ package io.github.jwdeveloper.ff.extension.gui.implementation;
 
 import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.extension.gui.api.FluentInventory;
+import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.InventorySettings;
 import io.github.jwdeveloper.ff.extension.gui.api.enums.InventoryState;
 import io.github.jwdeveloper.ff.extension.gui.api.events.*;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.ComponentsManager;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.EventsManager;
+import io.github.jwdeveloper.ff.extension.gui.api.managers.TickManager;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.buttons.ButtonManager;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.permissions.PermissionManager;
-import io.github.jwdeveloper.ff.extension.gui.implementation.managers.ButtonManagerImpl;
-import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
 import io.github.jwdeveloper.ff.extension.gui.implementation.button_old.events.SpigotListenerActionEvent;
+import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.implementation.managers.ButtonManagerImpl;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -29,8 +31,9 @@ public class FluentInventoryImpl implements FluentInventory {
     private final EventsManager events;
     private final PermissionManager permission;
     private final ComponentsManager componentsManager;
+    private final TickManager ticks;
     private final SimpleLogger logger;
-
+    private final InventoryApi inventoryApi;
     private FluentInventory parent;
     private Object[] lastArgument;
 
@@ -39,14 +42,18 @@ public class FluentInventoryImpl implements FluentInventory {
                                EventsManager events,
                                PermissionManager permission,
                                InventorySettings inventorySettings,
-                               SimpleLogger logger) {
+                               SimpleLogger logger,
+                               InventoryApi inventoryApi,
+                               TickManager tickManager) {
         this.buttonManager = (ButtonManagerImpl) buttons;
         this.events = events;
-        this.componentsManager =componentsManager;
+        this.componentsManager = componentsManager;
         this.permission = permission;
         this.inventorySettings = inventorySettings;
         this.logger = logger;
-        logger.setPrefix("Inventory");
+        this.inventoryApi = inventoryApi;
+        this.ticks = tickManager;
+        logger.setPrefix(this.toString());
     }
 
 
@@ -73,11 +80,11 @@ public class FluentInventoryImpl implements FluentInventory {
         player.openInventory(inventorySettings.getHandle());
         inventorySettings.setState(InventoryState.OPEN);
         lastArgument = args;
+        ticks.start(player, this, events.onTick());
     }
 
     @Override
     public void close() {
-
         if (!validatePlayer(player)) {
             return;
         }
@@ -86,16 +93,15 @@ public class FluentInventoryImpl implements FluentInventory {
             open(player, lastArgument);
             return;
         }
-
         inventorySettings.setState(InventoryState.CLOSED);
+        ticks.stop();
         player.closeInventory();
         logger.info("Close Inventory for handle", inventorySettings.getHandle(), player.getName());
     }
 
     @Override
     public void refresh() {
-        if(!doOnRefreshEvent())
-        {
+        if (!doOnRefreshEvent()) {
             return;
         }
         buttonManager.refresh();
@@ -204,7 +210,7 @@ public class FluentInventoryImpl implements FluentInventory {
         if (inventorySettings.getState() != InventoryState.NOT_CREATED) {
             return true;
         }
-        var decorator = new InventoryDecoratorImpl(this);
+        var decorator = new InventoryDecoratorImpl(this, inventoryApi);
         var event = new CreateGuiEvent(false, player, this, decorator);
         events.onCreate().invoke(event);
         if (event.isCancelled()) {

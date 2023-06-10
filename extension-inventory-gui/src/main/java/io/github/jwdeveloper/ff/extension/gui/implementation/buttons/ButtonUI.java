@@ -37,7 +37,8 @@ public class ButtonUI {
     @Getter
     private EventGroup<ButtonClickEvent> onRightClick;
 
-    protected Set<ButtonObservable<?>> observers;
+    @Getter
+    private EventGroup<ButtonClickEvent> onInventoryTick;
 
     public ButtonUI(Material material) {
         super();
@@ -47,23 +48,16 @@ public class ButtonUI {
     public ButtonUI() {
         buttonData = new ButtonData();
         itemStack = new ItemStack(buttonData.getMaterial());
-        observers = new LinkedHashSet<>();
         onLeftClick = new EventGroup<>();
         onRightClick = new EventGroup<>();
         onShiftClick = new EventGroup<>();
+        onInventoryTick = new EventGroup<>();
         hideAttributes();
         setTitle(buttonData.getTitle());
     }
 
     public ItemStack getItemStack() {
-        for (var observer : observers) {
-            observer.refresh();
-        }
         return itemStack;
-    }
-
-    public void addButtonObserver(ButtonObservable<?> observer) {
-        observers.add(observer);
     }
 
     public void doLeftClick(Player player, FluentInventory inventory) {
@@ -93,12 +87,7 @@ public class ButtonUI {
     }
 
     private void performClick(EventGroup<ButtonClickEvent> event, Player player, FluentInventory inventory) {
-        if (event == null)
-            return;
         event.invoke(new ButtonClickEvent(player, this, inventory));
-        for (var observable : observers) {
-            observable.leftClick(player);
-        }
     }
 
     public boolean isActive() {

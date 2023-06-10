@@ -2,6 +2,7 @@ package io.github.jwdeveloper.ff.extension.gui.implementation;
 
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
 import io.github.jwdeveloper.ff.extension.gui.api.FluentInventory;
+import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryDecorator;
 import io.github.jwdeveloper.ff.extension.gui.api.buttons.ButtonBuilder;
@@ -11,6 +12,7 @@ import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderer;
 import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonBuilderImpl;
 import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
 import io.github.jwdeveloper.ff.extension.gui.implementation.managers.ButtonManagerImpl;
+import io.github.jwdeveloper.ff.extension.gui.implementation.styles.ColorPalletFactory;
 import io.github.jwdeveloper.ff.extension.gui.implementation.styles.DefaultStyleRenderer;
 import io.github.jwdeveloper.ff.extension.gui.prefab.renderers.FluentButtonStyle;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
@@ -28,14 +30,16 @@ public class InventoryDecoratorImpl implements InventoryDecorator {
     private final List<Consumer<ButtonBuilder>> buttons;
     private final List<InventoryComponent> components;
     private final ButtonManagerImpl temporaryButtonManager;
+    private final InventoryApi inventoryApi;
     private StyleRenderer styleRenderer;
 
-    public InventoryDecoratorImpl(FluentInventory inventory) {
+    public InventoryDecoratorImpl(FluentInventory inventory, InventoryApi inventoryApi) {
         this.inventory = (FluentInventoryImpl) inventory;
+        this.inventoryApi = inventoryApi;
         buttons = new ArrayList<>();
         components = new LinkedList<>();
         temporaryButtonManager = new ButtonManagerImpl(6);
-        styleRenderer = new DefaultStyleRenderer(FluentApi.messages(), FluentButtonStyle.getColorSet(), FluentApi.container().findInjection(FluentTranslator.class));
+        styleRenderer = new DefaultStyleRenderer(FluentApi.messages(), ColorPalletFactory.getDark(), FluentApi.container().findInjection(FluentTranslator.class));
     }
 
     @Override
@@ -50,7 +54,7 @@ public class InventoryDecoratorImpl implements InventoryDecorator {
             return (T) optional.get();
         }
 
-        component.onInitialization(this);
+        component.onInitialization(this, inventoryApi);
         components.add(component);
         return (T) component;
     }

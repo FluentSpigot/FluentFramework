@@ -38,6 +38,11 @@ public class MethodCodeGenerator {
         return this;
     }
 
+    public MethodCodeGenerator setType(Class methodType) {
+        this.methodType = methodType.getSimpleName();
+        return this;
+    }
+
     public MethodCodeGenerator setName(String name) {
         this.name = name;
         return this;
@@ -54,9 +59,23 @@ public class MethodCodeGenerator {
     }
 
     public MethodCodeGenerator addBodyLine(String line) {
+
+        if(StringUtils.isNullOrEmpty(body))
+        {
+            this.body = line;
+            return this;
+        }
+
         this.body = body + StringUtils.separator() + line;
         return this;
     }
+
+    public MethodCodeGenerator addBodyLine(Consumer<TextBuilder> consumer) {
+        var builder = new TextBuilder();
+        consumer.accept(builder);
+        return addBodyLine(builder.toString());
+    }
+
 
     public MethodCodeGenerator setBody(Consumer<TextBuilder> consumer) {
         var builder = new TextBuilder();
@@ -71,8 +90,12 @@ public class MethodCodeGenerator {
     }
 
     public MethodCodeGenerator addParameter(Class clazz, String parameter) {
-        this.parameters.add(clazz.getSimpleName()+" "+parameter);
+        this.parameters.add(clazz.getSimpleName() + " " + parameter);
         return this;
+    }
+
+    public MethodCodeGenerator addParameter(String modifier, Class clazz, String parameter) {
+        return addParameter(modifier+" "+clazz.getSimpleName()+" "+parameter);
     }
 
     public String build() {
@@ -84,8 +107,17 @@ public class MethodCodeGenerator {
         for (var annotation : annotations) {
             builder.text("@").textNewLine(annotation);
         }
-        builder.text(modifiers).space().text(methodType).space().text(name).text("(");
 
+        if(StringUtils.isNotNullOrEmpty(modifiers))
+        {
+           builder.text(modifiers).space();
+        }
+        if(StringUtils.isNotNullOrEmpty(methodType))
+        {
+            builder.text(methodType).space();
+        }
+
+        builder.text(name).text("(");
         for (var i = 0; i < parameters.size(); i++) {
             var param = parameters.get(i);
             builder.text(param);
@@ -95,9 +127,8 @@ public class MethodCodeGenerator {
         }
         builder.textNewLine(")");
         builder.textNewLine("{");
-
-        var bodyLines = body.lines();
-        for (var line : bodyLines.toList()) {
+        for (var line : body.lines().toList())
+        {
             builder.space(4).textNewLine(line);
         }
 

@@ -41,4 +41,15 @@ public class ObserverBag<T> implements Observable<T> {
     public void set(T value) {
         observer.set(value);
     }
+
+
+    public static <T> ObserverBag<T> create(T value)
+    {
+        return new ObserverBag<T>(value);
+    }
+
+    public static <T> Observer<T> createObserver(T value)
+    {
+        return new ObserverBag<T>(value).getObserver();
+    }
 }

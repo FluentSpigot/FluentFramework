@@ -1,5 +1,4 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.button_old;
-import io.github.jwdeveloper.ff.extension.gui.implementation.button_old.observer_button.InventoryUI;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -173,10 +172,5 @@ public class ButtonUIBuilder<SELF extends ButtonUIBuilder<SELF, B>, B extends Bu
         return button;
     }
 
-    public B buildAndAdd(InventoryUI inventoryUI)
-    {
-        var btn = build();
-      //  inventoryUI.addButton(btn);
-        return btn;
-    }
+
 }

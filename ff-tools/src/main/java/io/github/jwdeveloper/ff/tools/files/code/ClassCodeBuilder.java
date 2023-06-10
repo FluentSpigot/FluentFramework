@@ -20,7 +20,6 @@ public class ClassCodeBuilder  {
     private final List<String> fields;
     private final List<String> comments;
     private final List<String> constructors;
-
     private final List<String> classes;
 
     public ClassCodeBuilder() {
@@ -57,6 +56,11 @@ public class ClassCodeBuilder  {
     }
 
     public ClassCodeBuilder setPackage(String _package) {
+        if(_package == null)
+        {
+            return this;
+        }
+
         this._package = _package;
         return this;
     }
@@ -72,7 +76,11 @@ public class ClassCodeBuilder  {
     }
 
     public ClassCodeBuilder addClass(String clazz) {
-        methods.add(clazz);
+        classes.add(clazz);
+        return this;
+    }
+    public ClassCodeBuilder addClass(ClassCodeBuilder clazz) {
+        classes.add(clazz.build());
         return this;
     }
 
@@ -80,7 +88,7 @@ public class ClassCodeBuilder  {
         var builder = new ClassCodeBuilder();
         consumer.accept(builder);
         var result = builder.build();
-        methods.add(result);
+        classes.add(result);
         return this;
     }
 
@@ -89,6 +97,13 @@ public class ClassCodeBuilder  {
         var builder = new MethodCodeGenerator();
         consumer.accept(builder);
         var result = builder.build();
+        methods.add(result);
+        return this;
+    }
+
+    public ClassCodeBuilder addMethod(MethodCodeGenerator methodCodeGenerator)
+    {
+        var result = methodCodeGenerator.build();
         methods.add(result);
         return this;
     }
@@ -122,7 +137,15 @@ public class ClassCodeBuilder  {
         consumer.accept(builder);
         builder.setName(this.name);
         var result = builder.build();
-        methods.add(result);
+        constructors.add(result);
+        return this;
+    }
+
+    public ClassCodeBuilder addConstructor(ConstructorCodeGenerator consumer)
+    {
+        consumer.setName(this.name);
+        var result = consumer.build();
+        constructors.add(result);
         return this;
     }
 
@@ -170,6 +193,7 @@ public class ClassCodeBuilder  {
             builder.newLine();
         }
 
+        builder.newLine();
         builder.textNewLine("{");
 
         for(var field : fields)

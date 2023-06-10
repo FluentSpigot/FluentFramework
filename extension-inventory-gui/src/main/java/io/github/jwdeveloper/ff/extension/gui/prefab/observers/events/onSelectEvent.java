@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.prefab.observers.events;
 
+import io.github.jwdeveloper.ff.extension.gui.api.FluentInventory;
 import io.github.jwdeveloper.ff.extension.gui.implementation.button_old.ButtonUIOld;
 import org.bukkit.entity.Player;
 

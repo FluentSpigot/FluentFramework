@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.managers;
 
 
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.extension.gui.api.InventorySettings;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.buttons.ButtonManager;
 import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;

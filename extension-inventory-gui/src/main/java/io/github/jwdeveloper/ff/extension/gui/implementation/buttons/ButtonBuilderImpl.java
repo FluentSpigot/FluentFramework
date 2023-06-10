@@ -28,10 +28,10 @@ public class ButtonBuilderImpl implements ButtonBuilder {
         return this;
     }
 
+
     @Override
-    public ButtonBuilderImpl withButtonObserver(ButtonObservable<?> observer) {
-        buttonUI.addButtonObserver(observer);
-        return self();
+    public ButtonBuilder withButtonObserver(ButtonObservable<?> observer) {
+        return this;
     }
 
     @Override

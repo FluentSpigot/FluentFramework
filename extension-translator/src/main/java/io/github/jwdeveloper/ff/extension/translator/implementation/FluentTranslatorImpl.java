@@ -34,7 +34,7 @@ public class FluentTranslatorImpl implements FluentTranslator {
     }
 
     @Override
-    public String get(String key, String... params) {
+    public String get(String key, Object... params) {
         FluentLogger.LOGGER.info("TO DO PARAMS IN TRANSLATOR");
         return get(key);
     }

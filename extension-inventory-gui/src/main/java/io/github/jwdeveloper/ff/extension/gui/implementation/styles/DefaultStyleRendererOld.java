@@ -76,8 +76,8 @@ public class DefaultStyleRendererOld {
                 .text("]")
                 .toString();
     }
-
-  /*  public List<String> render(StyleRendererOptions info) {
+/*
+  public List<String> render(StyleRendererOptions info) {
 
         var builder = simpleMessages.chat();
         createTitle(builder, info);

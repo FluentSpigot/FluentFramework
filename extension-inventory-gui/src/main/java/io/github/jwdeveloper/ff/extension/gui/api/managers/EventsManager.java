@@ -27,5 +27,7 @@ public interface EventsManager
 
      void onClose(Consumer<CloseGuiEvent> event);
 
-     EventGroup onDrag();
+     EventGroup<TickGuiEvent> onTick();
+
+     void onTick(Consumer<TickGuiEvent> event);
 }

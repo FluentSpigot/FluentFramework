@@ -30,6 +30,9 @@ public interface FileUtility {
     }
 
     static boolean isPathValid(String path) {
+        if(path == null)
+            return false;
+
         return new File(path).exists();
     }
 

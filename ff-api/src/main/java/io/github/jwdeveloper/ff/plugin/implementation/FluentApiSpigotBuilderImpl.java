@@ -21,6 +21,7 @@ import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.JarScannerImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.config.FluentConfigLoader;
 import io.github.jwdeveloper.ff.plugin.implementation.config.FluentConfigManager;
+import io.github.jwdeveloper.ff.plugin.implementation.listeners.ChatInputListener;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.FluentApiExtentionsManagerImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiDefaultCommandBuilder;
@@ -164,6 +165,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         containerBuilder.registerSigleton(FluentCommandManger.class, commandManger);
         containerBuilder.registerSigleton(PluginLogger.class, logger);
         containerBuilder.registerSigleton(JarScanner.class, jarScanner);
+        containerBuilder.registerSigleton(ChatInputListener.class);
 
         var messages = new FluentMessages();
         containerBuilder.registerSigleton(FluentMessages.class,messages);
