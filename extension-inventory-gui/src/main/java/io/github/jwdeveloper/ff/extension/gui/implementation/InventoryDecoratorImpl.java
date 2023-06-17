@@ -14,7 +14,6 @@ import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
 import io.github.jwdeveloper.ff.extension.gui.implementation.managers.ButtonManagerImpl;
 import io.github.jwdeveloper.ff.extension.gui.implementation.styles.ColorPalletFactory;
 import io.github.jwdeveloper.ff.extension.gui.implementation.styles.DefaultStyleRenderer;
-import io.github.jwdeveloper.ff.extension.gui.prefab.renderers.FluentButtonStyle;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import org.bukkit.event.inventory.InventoryType;

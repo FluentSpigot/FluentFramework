@@ -29,13 +29,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>io.github.jwdeveloper</groupId>
-            <artifactId>extension-translator</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.github.jwdeveloper</groupId>
+            <groupId>io.github.jwdeveloper.ff.extension</groupId>
             <artifactId>extension-translator</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>

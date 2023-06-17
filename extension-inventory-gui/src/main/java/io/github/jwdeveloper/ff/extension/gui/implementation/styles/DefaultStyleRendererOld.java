@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.styles;
 
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleColorPallet;
 import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
+import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleColorPallet;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import org.bukkit.ChatColor;
 
@@ -15,10 +15,10 @@ public class DefaultStyleRendererOld {
     private String barMid;
     private String barBottom;
     private final int barLength = 20;
+
     public DefaultStyleRendererOld(FluentTranslator translator,
                                    StyleColorPallet buttonColorSet,
-                                   FluentMessages simpleMessages)
-    {
+                                   FluentMessages simpleMessages) {
         this.colorSet = buttonColorSet;
         this.translator = translator;
         this.simpleMessages = simpleMessages;

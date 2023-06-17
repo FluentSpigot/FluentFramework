@@ -101,7 +101,7 @@ public class FluentPluginBuilder {
             api.disable();
         });
 
-        if(api.meta().isDebbug())
+        if(api.meta().isDebug())
         {
             FluentCommand.create("disable")
                     .propertiesConfig(propertiesConfig ->

@@ -6,19 +6,18 @@ import lombok.Setter;
 import org.bukkit.Material;
 
 @Setter
-public class CheckBoxOptions extends WidgetOptions
-{
-     Material enableMaterial;
+public class CheckBoxOptions extends WidgetOptions {
+    Material enableMaterial;
 
-     Material disableMaterial;
+    Material disableMaterial;
 
-     String enabled;
+    String enabled;
 
-     String disabled;
+    String disabled;
 
-     String prefix;
+    String prefix;
 
-     String infoMessage;
+    String infoMessage;
 
-     Observer<Boolean> itemObserver;
+    Observer<Boolean> itemObserver;
 }

@@ -9,6 +9,7 @@ import org.bukkit.ChatColor;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class ArgumentBuilderImpl implements ArgumentBuilder {
 
@@ -26,11 +27,11 @@ public class ArgumentBuilderImpl implements ArgumentBuilder {
             case NUMBER, FLOAT -> argument.addValidator(new FloatValidator());
             case BOOL -> {
                 argument.addValidator(new BoolValidator());
-                argument.setTabCompleter(List.of("true", "false"));
+                argument.setTabCompleter(()->List.of("true", "false"));
             }
             case COLOR -> {
                 argument.addValidator(new ColorValidator());
-                argument.setTabCompleter(Arrays.stream(ChatColor.values()).toList().stream().map(c -> c.name()).toList());
+                argument.setTabCompleter(() ->Arrays.stream(ChatColor.values()).toList().stream().map(c -> c.name()).toList());
             }
             case PLAYERS -> {
                 argument.setArgumentDisplayMode(ArgumentDisplay.TAB_COMPLETE);
@@ -41,7 +42,7 @@ public class ArgumentBuilderImpl implements ArgumentBuilder {
     }
 
     @Override
-    public ArgumentBuilder setTabComplete(List<String> tabComplete) {
+    public ArgumentBuilder setTabComplete(Supplier<List<String>> tabComplete) {
         argument.setTabCompleter(tabComplete);
         return this;
     }
@@ -49,15 +50,16 @@ public class ArgumentBuilderImpl implements ArgumentBuilder {
     @Override
     public ArgumentBuilder setTabComplete(String tabComplete) {
         var tabCompleter = argument.getTabCompleter();
-        tabCompleter.add(tabComplete);
-        return this;
+      //  tabCompleter.add(tabComplete);
+        throw new RuntimeException("NOT IMPLEMENTED");
     }
 
     @Override
     public ArgumentBuilder setTabComplete(String tabComplete, int index) {
         var tabCompleter = argument.getTabCompleter();
-        tabCompleter.set(index, tabComplete);
-        return this;
+        throw new RuntimeException("NOT IMPLEMENTED");
+      //  tabCompleter.set(index, tabComplete);
+
     }
 
     @Override

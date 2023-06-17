@@ -21,7 +21,10 @@ public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManage
     private final PluginLogger logger;
 
     @Getter
+    private final EventGroup<FluentApiSpigotBuilder> beforeOnConfigure;
+    @Getter
     private final EventGroup<FluentApiExtension> beforeEachOnConfigure;
+
     @Getter
     private final EventGroup<FluentApiSpigotBuilder> afterOnConfigure;
     @Getter
@@ -41,6 +44,7 @@ public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManage
     {
         this.logger = logger;
         extensionsModels = new ConcurrentLinkedDeque<>();
+        beforeOnConfigure = new EventGroup<>();
         beforeEachOnConfigure = new EventGroup<>();
         beforeOnEnable = new EventGroup<>();
         beforeEachOnEnable = new EventGroup<>();
@@ -70,6 +74,7 @@ public class FluentApiExtentionsManagerImpl implements FluentApiExtensionsManage
     @Override
     public void onConfiguration(FluentApiSpigotBuilder builder) {
         //FluentLogger.LOGGER.success("onConfiguration");
+        beforeOnConfigure.invoke(builder);
         for(var extention : extensionsModels)
         {
            // FluentLogger.LOGGER.log("Piority",extention.getPiority().name(),extention.getExtention().getClass().getSimpleName());

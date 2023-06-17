@@ -5,8 +5,7 @@ import lombok.Value;
 import org.bukkit.entity.Player;
 
 @Value
-public class SearchGuiEvent
-{
+public class SearchGuiEvent {
     Player player;
     FluentInventory inventory;
     String query;

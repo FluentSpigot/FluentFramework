@@ -5,29 +5,32 @@ import io.github.jwdeveloper.ff.extension.gui.api.events.*;
 
 import java.util.function.Consumer;
 
-public interface EventsManager
-{
-     EventGroup<CreateGuiEvent> onCreate();
-     void onCreate(Consumer<CreateGuiEvent> event);
+public interface EventsManager {
+    EventGroup<GuiCreateEvent> onCreate();
 
-     EventGroup<ClickGuiEvent> onClick();
-     void onClick(Consumer<ClickGuiEvent> event);
+    void onCreate(Consumer<GuiCreateEvent> event);
 
-     EventGroup<ClickPlayerInventoryEvent> onClickPlayerInventory();
+    EventGroup<GuiClickEvent> onClick();
 
-     void onClickPlayerInventory(Consumer<ClickPlayerInventoryEvent> event);
+    void onClick(Consumer<GuiClickEvent> event);
 
-     EventGroup<OpenGuiEvent> onOpen();
-     void onOpen(Consumer<OpenGuiEvent> event);
+    EventGroup<GuiClickPlayerInventoryEvent> onClickPlayerInventory();
 
-     EventGroup<OpenGuiEvent> onRefresh();
-     void onRefresh(Consumer<OpenGuiEvent> event);
+    void onClickPlayerInventory(Consumer<GuiClickPlayerInventoryEvent> event);
 
-     EventGroup<CloseGuiEvent> onClose();
+    EventGroup<GuiOpenEvent> onOpen();
 
-     void onClose(Consumer<CloseGuiEvent> event);
+    void onOpen(Consumer<GuiOpenEvent> event);
 
-     EventGroup<TickGuiEvent> onTick();
+    EventGroup<GuiOpenEvent> onRefresh();
 
-     void onTick(Consumer<TickGuiEvent> event);
+    void onRefresh(Consumer<GuiOpenEvent> event);
+
+    EventGroup<GuiCloseEvent> onClose();
+
+    void onClose(Consumer<GuiCloseEvent> event);
+
+    EventGroup<GuiTickEvent> onTick();
+
+    void onTick(Consumer<GuiTickEvent> event);
 }

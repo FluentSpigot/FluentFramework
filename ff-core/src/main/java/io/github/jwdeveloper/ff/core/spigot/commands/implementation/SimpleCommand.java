@@ -140,8 +140,7 @@ public class SimpleCommand extends Command {
         var argument = arguments.get(argIndex);
         switch (argument.getArgumentDisplayMode()) {
             case TAB_COMPLETE -> {
-                //TODO onTabCompleter for players and other stuff
-                return argument.getOnTabCompleter().get();
+                return argument.getTabCompleter().get();
             }
             case NAME -> {
                 return List.of(argument.getType().name());

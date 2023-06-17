@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.api.managers.buttons;
 
 
-
 import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
 
 import java.util.List;

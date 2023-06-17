@@ -9,17 +9,16 @@ import java.util.function.Consumer;
 
 public class EventManagerImpl implements EventsManager {
 
-    private final EventGroup<CreateGuiEvent> onCreateEvents;
-    private final EventGroup<ClickGuiEvent> onClick;
-    private final EventGroup<ClickPlayerInventoryEvent> onClickPlayerInventory;
-    private final EventGroup<OpenGuiEvent> onOpen;
-    private final EventGroup<OpenGuiEvent> onRefresh;
-    private final EventGroup<CloseGuiEvent> onClose;
+    private final EventGroup<GuiCreateEvent> onCreateEvents;
+    private final EventGroup<GuiClickEvent> onClick;
+    private final EventGroup<GuiClickPlayerInventoryEvent> onClickPlayerInventory;
+    private final EventGroup<GuiOpenEvent> onOpen;
+    private final EventGroup<GuiOpenEvent> onRefresh;
+    private final EventGroup<GuiCloseEvent> onClose;
 
-    private final EventGroup<TickGuiEvent> onTick;
+    private final EventGroup<GuiTickEvent> onTick;
 
-    public EventManagerImpl()
-    {
+    public EventManagerImpl() {
         this.onCreateEvents = new EventGroup<>();
         this.onClick = new EventGroup<>();
         this.onClickPlayerInventory = new EventGroup<>();
@@ -31,72 +30,72 @@ public class EventManagerImpl implements EventsManager {
 
 
     @Override
-    public EventGroup<CreateGuiEvent> onCreate() {
+    public EventGroup<GuiCreateEvent> onCreate() {
         return onCreateEvents;
     }
 
     @Override
-    public void onCreate(Consumer<CreateGuiEvent> event) {
+    public void onCreate(Consumer<GuiCreateEvent> event) {
         onCreateEvents.subscribe(event);
     }
 
     @Override
-    public EventGroup<ClickGuiEvent> onClick() {
+    public EventGroup<GuiClickEvent> onClick() {
         return onClick;
     }
 
     @Override
-    public void onClick(Consumer<ClickGuiEvent> event) {
-       onClick.subscribe(event);
+    public void onClick(Consumer<GuiClickEvent> event) {
+        onClick.subscribe(event);
     }
 
     @Override
-    public EventGroup<ClickPlayerInventoryEvent> onClickPlayerInventory() {
+    public EventGroup<GuiClickPlayerInventoryEvent> onClickPlayerInventory() {
         return onClickPlayerInventory;
     }
 
     @Override
-    public void onClickPlayerInventory(Consumer<ClickPlayerInventoryEvent> event) {
+    public void onClickPlayerInventory(Consumer<GuiClickPlayerInventoryEvent> event) {
         onClickPlayerInventory.subscribe(event);
     }
 
     @Override
-    public EventGroup<OpenGuiEvent> onOpen() {
+    public EventGroup<GuiOpenEvent> onOpen() {
         return onOpen;
     }
 
     @Override
-    public void onOpen(Consumer<OpenGuiEvent> event) {
+    public void onOpen(Consumer<GuiOpenEvent> event) {
         onOpen.subscribe(event);
     }
 
     @Override
-    public EventGroup<OpenGuiEvent> onRefresh() {
+    public EventGroup<GuiOpenEvent> onRefresh() {
         return onRefresh;
     }
 
     @Override
-    public void onRefresh(Consumer<OpenGuiEvent> event) {
+    public void onRefresh(Consumer<GuiOpenEvent> event) {
         onRefresh.subscribe(event);
     }
 
     @Override
-    public EventGroup<CloseGuiEvent> onClose() {
+    public EventGroup<GuiCloseEvent> onClose() {
         return onClose;
     }
 
     @Override
-    public void onClose(Consumer<CloseGuiEvent> event) {
+    public void onClose(Consumer<GuiCloseEvent> event) {
         onClose.subscribe(event);
     }
 
     @Override
-    public EventGroup<TickGuiEvent> onTick() {
+    public EventGroup<GuiTickEvent> onTick() {
         return onTick;
     }
 
     @Override
-    public void onTick(Consumer<TickGuiEvent> event) {
+    public void onTick(Consumer<GuiTickEvent> event) {
         onTick.subscribe(event);
     }
 

@@ -7,8 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Data
-public class StyleColorPallet
-{
+public class StyleColorPallet {
     private String textBight;
     private String textDark;
     private String primary;
@@ -16,12 +15,14 @@ public class StyleColorPallet
 
 
     public void setSecondary(String secondary) {
-        this.secondary = translateHexCodes(secondary);;
+        this.secondary = translateHexCodes(secondary);
+        ;
     }
 
 
     public void setPrimary(String primary) {
-        this.primary = translateHexCodes(primary);;
+        this.primary = translateHexCodes(primary);
+        ;
     }
 
 
@@ -51,14 +52,15 @@ public class StyleColorPallet
 
 
     public static final Pattern HEX_PATTERN = Pattern.compile("&#(\\w{5}[0-9a-f])");
-    public String translateHexCodes (String textToTranslate) {
 
-        textToTranslate = "&"+textToTranslate;
+    public String translateHexCodes(String textToTranslate) {
+
+        textToTranslate = "&" + textToTranslate;
         Matcher matcher = HEX_PATTERN.matcher(textToTranslate);
         StringBuffer buffer = new StringBuffer();
 
-        while(matcher.find()) {
-            matcher.appendReplacement(buffer,  net.md_5.bungee.api.ChatColor.of("#" + matcher.group(1)).toString());
+        while (matcher.find()) {
+            matcher.appendReplacement(buffer, net.md_5.bungee.api.ChatColor.of("#" + matcher.group(1)).toString());
         }
 
         return ChatColor.translateAlternateColorCodes('&', matcher.appendTail(buffer).toString());

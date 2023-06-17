@@ -5,6 +5,7 @@ import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.ComponentsManager;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ComponentsManagerImpl implements ComponentsManager {
@@ -12,14 +13,20 @@ public class ComponentsManagerImpl implements ComponentsManager {
     private final PluginLogger logger;
 
 
-    public ComponentsManagerImpl(PluginLogger logger) {
-        this.components = new ArrayList<>();
+    public ComponentsManagerImpl(PluginLogger logger, List<InventoryComponent> components)
+    {
+        this.components = new LinkedList<>(components);
         this.logger = logger;
     }
 
     @Override
     public void add(List<InventoryComponent> components) {
         this.components.addAll(components);
+    }
+
+    @Override
+    public void add(InventoryComponent... components) {
+        this.components.addAll(List.of(components));
     }
 
     @Override
@@ -58,5 +65,10 @@ public class ComponentsManagerImpl implements ComponentsManager {
             throw new RuntimeException("Inventory don't have component of type: " + clazz.getSimpleName());
         }
         return (T) optional.get();
+    }
+
+    @Override
+    public List<InventoryComponent> findAll() {
+        return components;
     }
 }

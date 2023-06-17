@@ -6,9 +6,9 @@ import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.f
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.list.ListComponent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.list.data_grid.DataGridComponent;
 
-public interface InventoryComponentFactory
-{
+public interface InventoryComponentFactory {
     <T> ListComponent<T> list();
+
     <T> DataGridComponent<T> dataGrid();
 
     SearchComponent search();

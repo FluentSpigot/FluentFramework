@@ -13,14 +13,13 @@ public class StyleRendererOptionsDecorator {
         this.options = options;
     }
 
-    public void withUseCache()
-    {
+    public void withUseCache() {
         options.setUseCache(true);
-        if(!options.hasCacheID())
-        {
+        if (!options.hasCacheID()) {
             options.setCacheId(UUID.randomUUID().toString());
         }
     }
+
     public void withCacheId(String cacheId) {
         options.setCacheId(cacheId);
     }
@@ -69,12 +68,16 @@ public class StyleRendererOptionsDecorator {
         options.addParameter("description", value);
     }
 
+    public void withDescriptionLine(Function<StyleRenderEvent, String> value) {
+        withDescriptionLine(UUID.randomUUID(), value);
+    }
+
     public void withDescriptionLine(String id, Function<StyleRenderEvent, String> value) {
-        options.addParameter("description-"+id, value);
+        options.addParameter("description-" + id, value);
     }
 
     public void withDescriptionLine(UUID id, Function<StyleRenderEvent, String> value) {
-        options.addParameter("description-"+id, value);
+        options.addParameter("description-" + id, value);
     }
 
     public void withDescription(String value) {

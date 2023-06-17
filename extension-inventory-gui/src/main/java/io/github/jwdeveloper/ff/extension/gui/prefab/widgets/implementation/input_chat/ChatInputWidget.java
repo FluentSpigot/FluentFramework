@@ -3,9 +3,10 @@ package io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.inp
 import io.github.jwdeveloper.ff.core.common.java.JavaUtils;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.observer.implementation.ObserverBag;
+import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.buttons.ButtonBuilder;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderEvent;
-import io.github.jwdeveloper.ff.extension.gui.implementation.button_old.events.ButtonClickEvent;
+import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.api.ButtonWidget;
 import io.github.jwdeveloper.ff.plugin.implementation.listeners.ChatInputListener;
 
@@ -21,7 +22,7 @@ public class ChatInputWidget implements ButtonWidget {
 
 
     @Override
-    public void onCreate(ButtonBuilder builder) {
+    public void onCreate(ButtonBuilder builder, InventoryApi inventoryApi) {
         options.valueObserver = JavaUtils.ifNull(options.valueObserver, ObserverBag.createObserver(StringUtils.EMPTY));
         options.openMessage = JavaUtils.ifNull(options.openMessage, "Enter value to chat");
         options.ClickInfo = JavaUtils.ifNull(options.openMessage, "Enter value to chat");
@@ -30,26 +31,22 @@ public class ChatInputWidget implements ButtonWidget {
         builder.withStyleRenderer(renderer ->
         {
             renderer.withLeftClickInfo(options.ClickInfo);
-            if(options.isCanRender())
-            {
+            if (options.isCanRender()) {
                 renderer.withDescriptionLine(options.getId(), this::onRender);
             }
         });
 
 
-        if(options.openOnLeftClick)
-        {
+        if (options.openOnLeftClick) {
             builder.withOnLeftClick(this::onClick);
-        } else if(options.openOnRightClick)
-        {
+        } else if (options.openOnRightClick) {
             builder.withOnRightClick(this::onClick);
         }
 
 
     }
 
-    public void onClick(ButtonClickEvent event)
-    {
+    public void onClick(ButtonClickEvent event) {
         event.getInventory().close();
         event.getPlayer().sendMessage(options.openMessage);
         inputListener.registerPlayer(event.getPlayer(), chatEvent ->

@@ -5,12 +5,13 @@ import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.ArgumentType;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.validators.CommandArgumentValidator;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public interface ArgumentBuilder
 {
     ArgumentBuilder setType(ArgumentType type);
 
-    ArgumentBuilder setTabComplete(List<String> tabComplete);
+    ArgumentBuilder setTabComplete(Supplier<List<String>> tabComplete);
 
     ArgumentBuilder setTabComplete(String tabComplete);
 

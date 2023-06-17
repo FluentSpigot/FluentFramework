@@ -6,8 +6,7 @@ import lombok.Setter;
 import java.util.UUID;
 
 
-public class WidgetOptions
-{
+public class WidgetOptions {
     @Getter
     private final UUID id = UUID.randomUUID();
 

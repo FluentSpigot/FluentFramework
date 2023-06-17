@@ -26,8 +26,7 @@ public class ParameterResolver {
         return rendererOptions.hasParameter(parameter);
     }
 
-    public boolean hasGroup(String groupName)
-    {
+    public boolean hasGroup(String groupName) {
         return !rendererOptions.getParametersByContains(groupName).isEmpty();
     }
 

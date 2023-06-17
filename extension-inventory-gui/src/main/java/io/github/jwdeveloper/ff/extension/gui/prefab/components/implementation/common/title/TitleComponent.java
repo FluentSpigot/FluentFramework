@@ -5,7 +5,7 @@ import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryDecorator;
-import io.github.jwdeveloper.ff.extension.gui.api.events.OpenGuiEvent;
+import io.github.jwdeveloper.ff.extension.gui.api.events.GuiOpenEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.references.InventoryRef;
 
 import java.util.ArrayList;
@@ -27,18 +27,15 @@ public class TitleComponent implements InventoryComponent {
         titleCache = new HashMap<>();
     }
 
-    public void addTitleModel(TitleGuiModel titleGuiModel)
-    {
+    public void addTitleModel(TitleGuiModel titleGuiModel) {
         titleGuiModels.add(titleGuiModel);
     }
 
-    public void addTitleModel(String tag,  Supplier<String> supplier)
-    {
-       addTitleModel(tag, false, supplier);
+    public void addTitleModel(String tag, Supplier<String> supplier) {
+        addTitleModel(tag, false, supplier);
     }
 
-    public void addTitleModel(String tag, boolean cached, Supplier<String> supplier)
-    {
+    public void addTitleModel(String tag, boolean cached, Supplier<String> supplier) {
         var pathModel = new TitleGuiModel();
         pathModel.setTag(tag);
         pathModel.setPiority(1);
@@ -47,31 +44,25 @@ public class TitleComponent implements InventoryComponent {
         addTitleModel(pathModel);
     }
 
-    public void setTitleModel(String tag,  Supplier<String> supplier)
-    {
-        var model =titleGuiModels.stream().filter(e -> e.getTag().equalsIgnoreCase(tag)).findFirst();
-        if(model.isEmpty())
-        {
+    public void setTitleModel(String tag, Supplier<String> supplier) {
+        var model = titleGuiModels.stream().filter(e -> e.getTag().equalsIgnoreCase(tag)).findFirst();
+        if (model.isEmpty()) {
             return;
         }
         model.get().setTitleSupplier(supplier);
     }
 
-    public void disableTitleModel(String tag)
-    {
-        var model =titleGuiModels.stream().filter(e -> e.getTag().equalsIgnoreCase(tag)).findFirst();
-        if(model.isEmpty())
-        {
+    public void disableTitleModel(String tag) {
+        var model = titleGuiModels.stream().filter(e -> e.getTag().equalsIgnoreCase(tag)).findFirst();
+        if (model.isEmpty()) {
             return;
         }
         model.get().setDisabled(true);
     }
 
-    public void enableTitleModel(String tag)
-    {
-        var model =titleGuiModels.stream().filter(e -> e.getTag().equalsIgnoreCase(tag)).findFirst();
-        if(model.isEmpty())
-        {
+    public void enableTitleModel(String tag) {
+        var model = titleGuiModels.stream().filter(e -> e.getTag().equalsIgnoreCase(tag)).findFirst();
+        if (model.isEmpty()) {
             return;
         }
         model.get().setDisabled(false);
@@ -107,31 +98,26 @@ public class TitleComponent implements InventoryComponent {
         addTitleModel(pathModel);
     }
 
-    public void refresh()
-    {
+    public void refresh() {
         buildAndSetTitle();
-        inventoryRef.get().refresh();;
+        inventoryRef.get().refresh();
+        ;
     }
 
-    public void buildAndSetTitle()
-    {
+    public void buildAndSetTitle() {
         var builder = new StringBuilder();
-        for(var model : titleGuiModels)
-        {
-            if(model.isDisabled())
-            {
+        for (var model : titleGuiModels) {
+            if (model.isDisabled()) {
                 continue;
             }
 
-            if(titleCache.containsKey(model.getTag()))
-            {
+            if (titleCache.containsKey(model.getTag())) {
                 builder.append(titleCache.get(model.getTag())).append(" ");
                 continue;
             }
 
             var title = model.getTitleSupplier().get();
-            if(model.isCached())
-            {
+            if (model.isCached()) {
                 titleCache.putIfAbsent(model.getTag(), title);
             }
             builder.append(title).append(" ");
@@ -139,7 +125,7 @@ public class TitleComponent implements InventoryComponent {
         inventoryRef.get().setTitle(builder.toString());
     }
 
-    private void onRefresh(OpenGuiEvent event) {
+    private void onRefresh(GuiOpenEvent event) {
         buildAndSetTitle();
     }
 }

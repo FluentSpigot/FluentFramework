@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class FilePickerComponent implements InventoryComponent {
 
-    private final String TITLE = "files";
+    private final String TITLE_TAG = "files";
     @Setter
     private String filesPath;
 
@@ -28,18 +28,20 @@ public class FilePickerComponent implements InventoryComponent {
             buttonUI.setMaterial(Material.PAPER);
             buttonUI.setTitle(data.getFileName());
         });
-        list.getTitle().addTitleModel(TITLE, () -> "loading files...");
+        list.getTitle().addTitleModel(TITLE_TAG, () -> "loading files...");
         list.setContentSource(() ->
         {
             if (!FileUtility.isPathValid(filesPath)) {
-                list.getTitle().setTitleModel(TITLE, () -> ChatColor.RED + "path not found");
+                list.getTitle().setTitleModel(TITLE_TAG, () -> ChatColor.RED + "path not found");
                 return new ArrayList<>();
             }
-            list.getTitle().setTitleModel(TITLE, () ->  "select file");
+            list.getTitle().setTitleModel(TITLE_TAG, () -> "select file");
             return FileUtility.getFolderFilesName(filesPath, fileExtension)
                     .stream()
                     .map(s -> new FileModel(s, filesPath + FileUtility.separator() + s))
                     .toList();
         });
+
+        list.onContentClick();
     }
 }

@@ -25,18 +25,20 @@
 
 package io.github.jwdeveloper.ff.color_picker.implementation;
 
-import io.github.jwdeveloper.ff.color_picker.api.ColorUtility;
+import io.github.jwdeveloper.ff.color_picker.api.ColorPickerResult;
+import io.github.jwdeveloper.ff.core.common.ColorUtility;
 import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.core.injector.api.annotations.Inject;
-import io.github.jwdeveloper.ff.core.injector.api.annotations.Injection;
-import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
+import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
+import io.github.jwdeveloper.ff.core.spigot.messages.text_component.TextComponentBuilder;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
-import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
+import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
+import io.github.jwdeveloper.ff.plugin.implementation.FluentApiMeta;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
@@ -46,19 +48,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-@Injection
 public class ColorPicker {
-    private final Map<Player, Consumer<ColorPickerResult>> players;
-    private final FluentTranslator translator;
-    private final FluentTaskManager taskManager;
-    private final List<org.bukkit.Color> palleteColors;
 
-    @Inject
-    public ColorPicker(FluentTranslator translator, FluentTaskManager taskManager) {
+    private final FluentTranslator translator;
+    private final FluentTaskManager tasks;
+    private final FluentMessages messages;
+    private final FluentApiMeta apiMeta;
+    private final Map<Player, Consumer<ColorPickerResult>> players;
+    private final List<String> colors;
+
+    public ColorPicker(FluentTranslator translator, FluentTaskManager taskManager, FluentMessages messages, FluentApiMeta fluentApiMeta) {
         players = new HashMap<>();
+        colors = getDefaultHexColors();
         this.translator = translator;
-        this.taskManager = taskManager;
-        palleteColors = createDefaultColors();
+        this.tasks = taskManager;
+        this.messages = messages;
+        this.apiMeta = fluentApiMeta;
     }
 
     public void unregister(Player player) {
@@ -74,7 +79,6 @@ public class ColorPicker {
     public boolean validate(Player player) {
         return players.containsKey(player);
     }
-
 
     public boolean handleColorSelection(Player player, String color, AsyncPlayerChatEvent event) {
         for (var _player : players.keySet()) {
@@ -96,9 +100,9 @@ public class ColorPicker {
 
 
         var consumer = players.get(player);
-        clearChat(player);
+        messages.clearChat(player);
         unregister(player);
-        taskManager.task(() ->
+        tasks.task(() ->
         {
             consumer.accept(new ColorPickerResult(color));
         });
@@ -110,105 +114,75 @@ public class ColorPicker {
             return false;
         }
 
-        var baseColor = ChatColor.of(color);
-        var descCompoent = FluentApi.messages().chat()
-                .color(org.bukkit.ChatColor.AQUA)
-                // .text(translator.get(FluentTranslations.COLOR_PICKER.COMMAND.DESC_1))
-                .toTextComponent();
+        messages.clearChat(player);
+        messages.component()
+                .withBukkitChatColor(org.bukkit.ChatColor.AQUA)
+                .withText(translator.get("command.color-picker.desc-1"))
+                .send(player);
 
+        messages.component()
+                .withBukkitChatColor(org.bukkit.ChatColor.AQUA)
+                .withText(translator.get("command.color-picker.desc-2"))
+                .send(player);
 
-        var titleComponent = FluentApi.messages().chat()
-                .color(org.bukkit.ChatColor.AQUA)
-                // .text(translator.get(FluentTranslations.COLOR_PICKER.COMMAND.DESC_3))
-                .toTextComponent();
-
-        final var avaliableColorsLines = FluentApi.messages().chat()
-                .toTextComponent();
-        avaliableColorsLines.setExtra(getAvaliableColorsLines());
-
-
-        clearChat(player);
-
-        player.spigot().sendMessage(descCompoent);
-        player.spigot().sendMessage(titleComponent);
-        player.sendMessage(" ");
-        for (var line : getPageColorPallete(baseColor)) {
-            player.spigot().sendMessage(line);
+        messages.chat().space().send(player);
+        for (var palletLine : getPageColorPallet(ChatColor.of(color))) {
+            palletLine.send(player);
         }
-        player.spigot().sendMessage(avaliableColorsLines);
+        messages.component().withTextComponent(getAvailableColorsLines()).send(player);
         return true;
     }
 
 
-    private void clearChat(Player player) {
-        for (var i = 0; i < 15; i++) {
-            player.sendMessage(" ");
-        }
-    }
+    private List<TextComponentBuilder> getPageColorPallet(ChatColor baseColor) {
+        var components = new ArrayList<TextComponentBuilder>();
+        var colorBands = ColorUtility.getColorBands(baseColor.getColor(), 5, true);
+        for (var i = 0; i < colorBands.size(); i++) {
+            var rootComponent = messages.component().withText(" ");
 
-    private List<BaseComponent> getPageColorPallete(ChatColor baseColor) {
-        var list = new ArrayList<BaseComponent>();
-
-
-        var bands = ColorUtility.getColorBands(baseColor.getColor(), 5, true);
-        for (var i = 0; i < bands.size(); i++) {
-            var root = new MessageBuilder()
-                    .space(1)
-                    .toTextComponent();
-
-
-            var band = bands.get(i);
-            var variants = ColorUtility.getColorBands(band, 15, false);
-            for (var variant : variants) {
-                var option = new MessageBuilder()
-                        .text(Emoticons.square)
-                        .space()
-                        .toTextComponent();
-
-                option.setColor(ChatColor.of(variant));
-                var hex = ColorUtility.toHex(variant.getRed(), variant.getGreen(), variant.getBlue());
-                option.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, hex));
-               // option.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new MessageBuilder().color(org.bukkit.ChatColor.AQUA).text(translator.get(FluentTranslations.COPY.INFO)).toString())));
-                root.addExtra(option);
+            var colorBand = colorBands.get(i);
+            var colorBandVariants = ColorUtility.getColorBands(colorBand, 15, false);
+            for (var variantColor : colorBandVariants) {
+                var variantHex = ColorUtility.toHex(variantColor.getRed(), variantColor.getGreen(), variantColor.getBlue());
+                var builder = messages.component()
+                        .withText(e -> e.text(Emoticons.square).space())
+                        .withJavaColor(variantColor)
+                        .withClickEvent(ClickEvent.Action.SUGGEST_COMMAND, variantHex)
+                        .withHoverEvent(HoverEvent.Action.SHOW_TEXT, b ->
+                        {
+                            b.withText(translator.get("gui.base.copy.info"));
+                        });
+                rootComponent.withTextComponent(builder.toComponent());
             }
-            list.add(root);
+            components.add(rootComponent);
         }
-        return list;
+        return components;
     }
 
-    private List<BaseComponent> getAvaliableColorsLines() {
-        var list = new ArrayList<BaseComponent>();
-        for (var color : palleteColors) {
-            var hex = ColorUtility.toHex(color.getRed(), color.getGreen(), color.getBlue());
-            final var colorComponent = FluentApi.messages().chat()
-                    .text(Emoticons.boldBar)
-                    .toTextComponent();
-            colorComponent.setColor(ChatColor.of(hex));
-            colorComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/piano colors page " + hex));
-            //  final var hover = new Text(translator.get(FluentTranslations.COLOR_PICKER.CHANGE_COLOR));
-            // colorComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hover));
-            list.add(colorComponent);
+    private List<BaseComponent> getAvailableColorsLines() {
+        var lines = new ArrayList<BaseComponent>();
+        var baseCommand = "/" + apiMeta.getDefaultCommandName() + " colors page ";
+        for (var color : colors) {
+            var line = messages.component()
+                    .withText(Emoticons.boldBar)
+                    .withHexColor(color)
+                    .withClickEvent(ClickEvent.Action.RUN_COMMAND, baseCommand + color)
+                    .withHoverEvent(HoverEvent.Action.SHOW_TEXT, e ->
+                    {
+                        e.withText(translator.get("command.color-picker.change"));
+                    });
+            lines.add(line.toComponent());
         }
-        return list;
+        return lines;
     }
 
 
-    private List<org.bukkit.Color> createDefaultColors() {
-        var result = new ArrayList<org.bukkit.Color>();
-        for (var field : org.bukkit.Color.class.getDeclaredFields()) {
-            try {
-                if (!field.getType().equals(org.bukkit.Color.class)) {
-                    continue;
-                }
-                field.setAccessible(true);
-                var value = (org.bukkit.Color) field.get(null);
-                field.setAccessible(false);
-                result.add(value);
-            } catch (Exception e) {
-                FluentLogger.LOGGER.error("Color", e);
-            }
-        }
-        return result;
+    private List<String> getDefaultHexColors() {
+        return ColorUtility.getBukkitColors()
+                .stream()
+                .map(e -> ColorUtility.toHex(e.getRed(), e.getGreen(), e.getBlue()))
+                .toList();
+
     }
 
 }

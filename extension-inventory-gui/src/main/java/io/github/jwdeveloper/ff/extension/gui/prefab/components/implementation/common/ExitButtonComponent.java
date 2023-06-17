@@ -4,10 +4,10 @@ import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryDecorator;
 import io.github.jwdeveloper.ff.extension.gui.api.InventorySettings;
-import io.github.jwdeveloper.ff.extension.gui.api.events.OpenGuiEvent;
-import io.github.jwdeveloper.ff.extension.gui.implementation.button_old.events.ButtonClickEvent;
+import io.github.jwdeveloper.ff.extension.gui.api.events.GuiOpenEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.references.ButtonRef;
 import io.github.jwdeveloper.ff.extension.gui.api.references.InventoryRef;
+import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
 import org.bukkit.Material;
 
 
@@ -30,7 +30,7 @@ public class ExitButtonComponent implements InventoryComponent {
         decorator.withEvents(e -> e.onOpen(this::onOpen));
     }
 
-    private void onOpen(OpenGuiEvent event) {
+    private void onOpen(GuiOpenEvent event) {
         var button = buttonRef.getOrThrow();
         var inv = event.getInventory();
         if (inv.hasParent()) {

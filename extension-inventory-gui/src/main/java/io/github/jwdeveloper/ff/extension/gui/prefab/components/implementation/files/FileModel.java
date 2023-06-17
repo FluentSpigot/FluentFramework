@@ -3,8 +3,7 @@ package io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.
 import lombok.Value;
 
 @Value
-public class FileModel
-{
+public class FileModel {
     private String fileName;
 
     private String path;

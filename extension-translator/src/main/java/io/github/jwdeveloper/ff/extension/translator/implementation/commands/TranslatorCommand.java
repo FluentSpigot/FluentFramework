@@ -10,6 +10,8 @@ import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
 import org.bukkit.ChatColor;
 
+import java.util.List;
+
 public class TranslatorCommand {
 
     private final FluentApiCommandBuilder defaultCommand;
@@ -36,25 +38,27 @@ public class TranslatorCommand {
                 {
                     argumentConfig.addArgument("language", argumentBuilder ->
                     {
-                        var translator = FluentApi.container().findInjection(FluentTranslator.class);
-                        argumentBuilder.setTabComplete(translator.getLanguagesName());
+                        argumentBuilder.setTabComplete(() -> List.of("en","pl","ger"));
                         argumentBuilder.setArgumentDisplay(ArgumentDisplay.TAB_COMPLETE);
                         argumentBuilder.setDescription("select language");
                     });
                 })
                 .eventsConfig(eventConfig ->
                 {
+                    var translator = FluentApi.container().findInjection(FluentTranslator.class);
                     eventConfig.onExecute(commandEvent ->
                     {
-                        var translator = FluentApi.container().findInjection(FluentTranslator.class);
                         var languageName = commandEvent.getCommandArgs()[0];
-                        if (!translator.isLanguageExists(languageName)) {
+                        if (!translator.isLanguageExists(languageName))
+                        {
+                            translator.generate(commandEvent.getSender(), languageName);
                             new MessageBuilder()
                                     .warning()
                                     .text(" Language ", ChatColor.GRAY)
                                     .text(languageName, ChatColor.RED)
                                     .text(" not found ", ChatColor.GRAY)
                                     .send(commandEvent.getSender());
+
                             return;
                         }
                         configFile.configFile().set(options.getConfigPath(), languageName);

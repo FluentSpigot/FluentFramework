@@ -37,7 +37,7 @@ public class InjectionInfoFactoryImpl implements InjectionInfoFactory {
         var result = new InjectionInfo();
         var constructor = getConstructor(impl);
         var extentedTypes = getExtentedTypes(impl);
-        var implementedTypes = getImplementedTypes(impl, extentedTypes);
+        var implementedTypes = getImplementedTypes(impl);
         var annotations = getAnnotations(impl, extentedTypes);
         result.setSuperClasses(extentedTypes);
         result.setInterfaces(implementedTypes);
@@ -63,7 +63,7 @@ public class InjectionInfoFactoryImpl implements InjectionInfoFactory {
         var result = new InjectionInfo();
         var constructor = getConstructor(impl);
         var extentedTypes = getExtentedTypes(impl);
-        var implementedTypes = getImplementedTypes(impl, extentedTypes);
+        var implementedTypes = getImplementedTypes(impl);
         var annotations = getAnnotations(impl, extentedTypes);
         result.setSuperClasses(extentedTypes);
         result.setInterfaces(implementedTypes);
@@ -88,7 +88,7 @@ public class InjectionInfoFactoryImpl implements InjectionInfoFactory {
     private Pair<Class<?>, InjectionInfo> ListStrategy(RegistrationInfo info) throws Exception {
         var _interface = info._interface();
         if (!Modifier.isInterface(_interface.getModifiers()) || !Modifier.isAbstract(_interface.getModifiers())) {
-            throw new Exception("Implementation must be an Interface or Abtract class");
+            throw new Exception("Implementation must be an Interface or Abstract class");
         }
 
         var result = new InjectionInfo();
@@ -97,11 +97,22 @@ public class InjectionInfoFactoryImpl implements InjectionInfoFactory {
         return new Pair<>(_interface, result);
     }
 
-    private Set<Class<?>> getImplementedTypes(Class<?> type, Set<Class<?>> parentTypes) {
-        var interfaces = new HashSet<>(Arrays.stream(type.getInterfaces()).toList());
-        for (var parent : parentTypes) {
-            interfaces.addAll(Arrays.stream(parent.getInterfaces()).toList());
+
+    private static Set<Class<?>> getImplementedTypes(Class<?> clazz) {
+        Set<Class<?>> interfaces = new HashSet<>();
+
+        Class<?>[] directInterfaces = clazz.getInterfaces();
+        interfaces.addAll(Arrays.asList(directInterfaces));
+
+        for (Class<?> directInterface : directInterfaces) {
+            interfaces.addAll(getImplementedTypes(directInterface));
         }
+
+        Class<?> superClass = clazz.getSuperclass();
+        if (superClass != null) {
+            interfaces.addAll(getImplementedTypes(superClass));
+        }
+
         return interfaces;
     }
 

@@ -5,8 +5,7 @@ import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.api.WidgetOptions;
 import lombok.Setter;
 import org.bukkit.ChatColor;
 
-public class ProgressBarOptions extends WidgetOptions
-{
+public class ProgressBarOptions extends WidgetOptions {
     @Setter
     int yield = 10;
 

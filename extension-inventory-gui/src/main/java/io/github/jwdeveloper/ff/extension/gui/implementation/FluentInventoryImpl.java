@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation;
 
 import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.extension.gui.OLD.events.SpigotListenerActionEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.FluentInventory;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.InventorySettings;
@@ -11,7 +12,6 @@ import io.github.jwdeveloper.ff.extension.gui.api.managers.EventsManager;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.TickManager;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.buttons.ButtonManager;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.permissions.PermissionManager;
-import io.github.jwdeveloper.ff.extension.gui.implementation.button_old.events.SpigotListenerActionEvent;
 import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
 import io.github.jwdeveloper.ff.extension.gui.implementation.managers.ButtonManagerImpl;
 import lombok.Getter;
@@ -96,6 +96,7 @@ public class FluentInventoryImpl implements FluentInventory {
         inventorySettings.setState(InventoryState.CLOSED);
         ticks.stop();
         player.closeInventory();
+        lastArgument = null;
         logger.info("Close Inventory for handle", inventorySettings.getHandle(), player.getName());
     }
 
@@ -195,13 +196,13 @@ public class FluentInventoryImpl implements FluentInventory {
 
 
     private boolean doOnClickPlayerInventoryEvent(Player player, ItemStack itemStack) {
-        var clickEvent = new ClickPlayerInventoryEvent(player, itemStack);
+        var clickEvent = new GuiClickPlayerInventoryEvent(player, itemStack);
         events.onClickPlayerInventory().invoke(clickEvent);
         return !clickEvent.isCancelled();
     }
 
     private boolean doOnClickEvent(Player player, ButtonUI buttonUI) {
-        var clickEvent = new ClickGuiEvent(player, buttonUI, this);
+        var clickEvent = new GuiClickEvent(player, buttonUI, this);
         events.onClick().invoke(clickEvent);
         return !clickEvent.isCancelled();
     }
@@ -211,30 +212,30 @@ public class FluentInventoryImpl implements FluentInventory {
             return true;
         }
         var decorator = new InventoryDecoratorImpl(this, inventoryApi);
-        var event = new CreateGuiEvent(false, player, this, decorator);
-        events.onCreate().invoke(event);
-        if (event.isCancelled()) {
-            return false;
+        var event = new GuiCreateEvent(false, player, this, decorator);
+        for (var component : componentsManager.findAll()) {
+            component.onInitialization(decorator, inventoryApi);
         }
         decorator.apply();
-        return true;
+        events.onCreate().invoke(event);
+        return !event.isCancelled();
     }
 
     private boolean doOnOpenEvent(Player player, Object[] arguments) {
-        var event = new OpenGuiEvent(false, this, player, arguments);
+        var event = new GuiOpenEvent(false, this, player, arguments);
         events.onOpen().invoke(event);
         return !event.isCancelled();
     }
 
     private boolean doOnRefreshEvent() {
-        var event = new OpenGuiEvent(false, this, player, lastArgument);
+        var event = new GuiOpenEvent(false, this, player, lastArgument);
         events.onRefresh().invoke(event);
         return !event.isCancelled();
     }
 
 
     private boolean doOnCloseEvent() {
-        var event = new CloseGuiEvent(false, this, player);
+        var event = new GuiCloseEvent(false, this, player);
         events.onClose().invoke(event);
         return !event.isCancelled();
     }

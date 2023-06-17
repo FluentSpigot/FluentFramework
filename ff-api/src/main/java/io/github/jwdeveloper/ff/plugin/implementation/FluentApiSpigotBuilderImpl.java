@@ -1,5 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
+import io.github.jwdeveloper.ff.core.cache.api.PluginCache;
+import io.github.jwdeveloper.ff.core.cache.implementation.PluginCacheImpl;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
@@ -21,7 +23,6 @@ import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.JarScannerImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.config.FluentConfigLoader;
 import io.github.jwdeveloper.ff.plugin.implementation.config.FluentConfigManager;
-import io.github.jwdeveloper.ff.plugin.implementation.listeners.ChatInputListener;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.FluentApiExtentionsManagerImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiDefaultCommandBuilder;
@@ -34,14 +35,16 @@ import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermissionBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.implementation.FluentPermissionBuilderImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.implementation.FluentPermissionExtention;
+import io.github.jwdeveloper.ff.plugin.implementation.listeners.ChatInputListener;
 import lombok.SneakyThrows;
 import org.bukkit.plugin.Plugin;
 
+import java.io.Closeable;
 import java.nio.file.Path;
 
 public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     private final FluentApiContainerBuilderImpl containerBuilder;
-    private final FluentApiDefaultCommandBuilder commandBuilder;
+    private final FluentApiDefaultCommandBuilder defaultCommandBuilder;
     private final FluentApiExtentionsManagerImpl extensionsManager;
     private final FluentPermissionBuilderImpl fluentPermissionBuilder;
     private final Plugin plugin;
@@ -63,10 +66,10 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         eventManager = FluentEvent.enable(plugin);
         taskManager = FluentTask.enable(plugin);
 
-        fluentApiMeta = new FluentApiMeta(config);
         extensionsManager = new FluentApiExtentionsManagerImpl(logger);
         containerBuilder = new FluentApiContainerBuilderImpl(extensionsManager, logger, FluentDecorator.CreateDecorator());
-        commandBuilder = new FluentApiDefaultCommandBuilder(plugin.getName(), commandManger);
+        defaultCommandBuilder = new FluentApiDefaultCommandBuilder(plugin.getName(), commandManger);
+        fluentApiMeta = new FluentApiMeta(config, plugin, defaultCommandBuilder);
         fluentPermissionBuilder = new FluentPermissionBuilderImpl(plugin);
         jarScanner = new JarScannerImpl(plugin, logger);
         configManager = new FluentConfigManager(jarScanner, logger, config);
@@ -74,7 +77,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
 
     @Override
     public FluentApiCommandBuilder defaultCommand() {
-        return commandBuilder;
+        return defaultCommandBuilder;
     }
 
     @Override
@@ -118,8 +121,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     }
 
     @Override
-    public FluentApiMeta meta()
-    {
+    public FluentApiMeta meta() {
         return fluentApiMeta;
     }
 
@@ -144,14 +146,23 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
 
         extensionsManager.registerLow(new FluentPermissionExtention(fluentPermissionBuilder));
         extensionsManager.registerLow(new FluentMediatorExtention());
-        extensionsManager.register(new FluentDefaultCommandExtension(commandBuilder), ExtentionPriority.HIGH);
+        extensionsManager.register(new FluentDefaultCommandExtension(defaultCommandBuilder), ExtentionPriority.HIGH);
+
 
         extensionsManager.getBeforeEachOnConfigure().subscribe(configManager::onMigration);
         extensionsManager.getAfterOnConfigure().subscribe(configManager::handleRegisterBindings);
         extensionsManager.getBeforeOnEnable().subscribe(configManager::handleClassMappingFromFile);
 
         extensionsManager.getAfterOnEnable().subscribe(configManager::onSaveConfig);
-        //extensionsManager.getAfterOnDisable().subscribe(configManager::onSaveConfig);
+        extensionsManager.getAfterOnDisable().subscribe(e ->
+        {
+            for (var closable : e.container().findAllByInterface(Closeable.class)) {
+                try {
+                    closable.close();
+                } catch (Exception ex) {
+                }
+            }
+        });
 
         extensionsManager.onConfiguration(this);
 
@@ -164,14 +175,18 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         containerBuilder.registerSigleton(FluentEventManager.class, eventManager);
         containerBuilder.registerSigleton(FluentCommandManger.class, commandManger);
         containerBuilder.registerSigleton(PluginLogger.class, logger);
+        containerBuilder.registerSigleton(FluentApiMeta.class, fluentApiMeta);
         containerBuilder.registerSigleton(JarScanner.class, jarScanner);
-        containerBuilder.registerSigleton(ChatInputListener.class);
+
 
         var messages = new FluentMessages();
-        containerBuilder.registerSigleton(FluentMessages.class,messages);
+        containerBuilder.registerSigleton(FluentMessages.class, messages);
 
         var validator = new FluentValidatorImpl();
-        containerBuilder.registerSigleton(FluentValidator.class,validator);
+        containerBuilder.registerSigleton(FluentValidator.class, validator);
+        containerBuilder.registerSigleton(PluginCache.class, PluginCacheImpl.class);
+        containerBuilder.registerSigleton(ChatInputListener.class);
+
 
         final var injectionFactory = new FluentInjectionFactory(containerBuilder, logger, plugin, jarScanner);
         final var factoryResult = injectionFactory.create();

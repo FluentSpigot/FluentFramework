@@ -3,7 +3,6 @@ package io.github.jwdeveloper.ff.extension.gui.api;
 import io.github.jwdeveloper.ff.extension.gui.api.enums.InventoryState;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderer;
 import lombok.Data;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 
@@ -30,22 +29,20 @@ public class InventorySettings {
     private Inventory handle;
 
     private boolean inactive;
+
     public int getSlots() {
         return height * INVENTORY_WIDTH;
     }
 
-    public int getWidth()
-    {
+    public int getWidth() {
         return INVENTORY_WIDTH;
     }
 
-    public boolean hasStyleRenderer()
-    {
+    public boolean hasStyleRenderer() {
         return styleRenderer != null;
     }
 
-    public boolean hasHandle()
-    {
+    public boolean hasHandle() {
         return handle != null;
     }
 }

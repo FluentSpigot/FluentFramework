@@ -11,15 +11,15 @@ import java.util.Collection;
 public class CommandsDocumentationDecorator extends DocumentationDecorator {
 
     private Collection<SimpleCommand> commands;
-    public CommandsDocumentationDecorator(Collection<SimpleCommand> commands)
-    {
+
+    public CommandsDocumentationDecorator(Collection<SimpleCommand> commands) {
         this.commands = commands;
     }
 
     @Override
     public void decorate(Documentation documentation) {
-        addTitle("Commands",documentation,"yml-title");
-        addImage("https://raw.githubusercontent.com/jwdeveloper/SpigotFluentAPI/master/resources/banners/commands.png",documentation);
+        addTitle("Commands", documentation, "yml-title");
+        addImage("https://raw.githubusercontent.com/jwdeveloper/SpigotFluentAPI/master/resources/banners/commands.png", documentation);
 
         var builder = createYmlBuilder();
         builder.newLine();
@@ -33,42 +33,37 @@ public class CommandsDocumentationDecorator extends DocumentationDecorator {
     }
 
 
-
-
-
-
     private void renderCommandInfo(YmlBuilder builder, SimpleCommand command) {
-        if(command.getName().equals("disable"))
-        {
+        if (command.getName().equals("disable")) {
             return;
         }
 
-        var defaultOffset =2;
+        var defaultOffset = 2;
         var propertyOffset = 4;
         var listOffset = 6;
         var model = command.getCommandModel();
-        var title = StringUtils.isNullOrEmpty(model.getUsageMessage())?model.getName():model.getUsageMessage();
+        var title = StringUtils.isNullOrEmpty(model.getUsageMessage()) ? model.getName() : model.getUsageMessage();
         builder.addComment(title);
         builder.addSection(model.getName(), defaultOffset);
         if (!command.getSubCommands().isEmpty()) {
-            builder.addSection("children",propertyOffset);
+            builder.addSection("children", propertyOffset);
             for (var subCommand : command.getSubCommands()) {
-                builder.addListProperty(subCommand.getName(),listOffset);
+                builder.addListProperty(subCommand.getName(), listOffset);
             }
         }
 
         if (!model.getPermissions().isEmpty()) {
-            builder.addSection("permissions",propertyOffset);
+            builder.addSection("permissions", propertyOffset);
             for (var permission : model.getPermissions()) {
-                builder.addListProperty(permission,listOffset);
+                builder.addListProperty(permission, listOffset);
             }
         }
 
 
         if (!model.getCommandAccesses().isEmpty()) {
-            builder.addSection("can-use",propertyOffset);
+            builder.addSection("can-use", propertyOffset);
             for (var access : model.getCommandAccesses()) {
-                builder.addListProperty(access.name().toLowerCase(),listOffset);
+                builder.addListProperty(access.name().toLowerCase(), listOffset);
             }
         }
 
@@ -77,17 +72,18 @@ public class CommandsDocumentationDecorator extends DocumentationDecorator {
         }
 
         if (model.getArguments().size() > 0) {
-            builder.addSection("arguments",propertyOffset);
+            builder.addSection("arguments", propertyOffset);
             for (var argument : model.getArguments()) {
-                builder.addListSection(argument.getName(),listOffset);
-                builder.addProperty("type", argument.getType().name().toLowerCase(),listOffset + 4);
+                builder.addListSection(argument.getName(), listOffset);
+                builder.addProperty("type", argument.getType().name().toLowerCase(), listOffset + 4);
                 if (!StringUtils.isNullOrEmpty(argument.getDescription())) {
-                    builder.addProperty("description", argument.getDescription(),listOffset + 4);
+                    builder.addProperty("description", argument.getDescription(), listOffset + 4);
                 }
-                if (!argument.getTabCompleter().isEmpty()) {
-                    builder.addSection("options",listOffset + 4);
-                    for (var tab : argument.getTabCompleter()) {
-                        builder.addListProperty(tab,listOffset  + 8);
+                var tabCompliter = argument.getTabCompleter().get();
+                if (!tabCompliter.isEmpty()) {
+                    builder.addSection("options", listOffset + 4);
+                    for (var tab : tabCompliter) {
+                        builder.addListProperty(tab, listOffset + 8);
                     }
                 }
             }
@@ -120,11 +116,9 @@ public class CommandsDocumentationDecorator extends DocumentationDecorator {
     }
 
 
-
-    private void renderCommandTreeMember(YmlBuilder builder, SimpleCommand command, int offset)
-    {
-        builder.addSection(command.getName(),offset);
-        offset = offset +2;
+    private void renderCommandTreeMember(YmlBuilder builder, SimpleCommand command, int offset) {
+        builder.addSection(command.getName(), offset);
+        offset = offset + 2;
         for (var subCommand : command.getSubCommands()) {
             renderCommandTreeMember(builder, subCommand, offset);
         }

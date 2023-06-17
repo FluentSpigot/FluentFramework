@@ -37,6 +37,7 @@ public class ColorPickerCommand {
                .propertiesConfig(propertiesConfig ->
                {
                    propertiesConfig.setDescription("command used for internal color picker system, just ignore it");
+                   propertiesConfig.setHideFromTabDisplay(true);
                })
                 .subCommandsConfig(subCommandConfig ->
                 {

@@ -56,10 +56,8 @@ public class StyleRendererOptions {
     public Map<String, Function<StyleRenderEvent, String>> getParametersByContains(String query) {
 
         var result = new LinkedHashMap<String, Function<StyleRenderEvent, String>>();
-        for(var entry : parameters.entrySet())
-        {
-            if(!entry.getKey().contains(query))
-            {
+        for (var entry : parameters.entrySet()) {
+            if (!entry.getKey().contains(query)) {
                 continue;
             }
             result.put(entry.getKey(), entry.getValue());

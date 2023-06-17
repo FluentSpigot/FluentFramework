@@ -1,10 +1,13 @@
 package io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.list;
 
+import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.common.java.JavaUtils;
+import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
+import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.buttons.ButtonBuilder;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderEvent;
-import io.github.jwdeveloper.ff.extension.gui.implementation.button_old.events.ButtonClickEvent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.api.ButtonWidget;
+import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +24,11 @@ public class ContentListWidget<T> implements ButtonWidget {
 
 
     @Override
-    public void onCreate(ButtonBuilder builder) {
+    public void onCreate(ButtonBuilder builder, InventoryApi inventoryApi) {
 
         JavaUtils.throwIfNull(options.selectedItemObserver, "selectedItemSource must not be null");
-        options.itemPrefix = JavaUtils.ifNull(options.itemPrefix, " ");
-        options.selectedItemPrefix = JavaUtils.ifNull(options.selectedItemPrefix, "> ");
+        options.itemPrefix = JavaUtils.ifNull(options.itemPrefix, "   ");
+        options.selectedItemPrefix = JavaUtils.ifNull(options.selectedItemPrefix, " "+Emoticons.dot + " ");
         options.contentSource = JavaUtils.ifNull(options.contentSource, () -> EMPTY_ARRAY);
         options.contentMapping = JavaUtils.ifNull(options.contentMapping, Object::toString);
         options.leftClickInfo = JavaUtils.ifNull(options.leftClickInfo, "Previous");
@@ -34,8 +37,7 @@ public class ContentListWidget<T> implements ButtonWidget {
 
         builder.withStyleRenderer(style ->
         {
-            if(options.isCanRender())
-            {
+            if (options.isCanRender()) {
                 style.withDescriptionLine(options.getId(), this::onRender);
             }
             style.withLeftClickInfo(options.leftClickInfo);
@@ -45,10 +47,8 @@ public class ContentListWidget<T> implements ButtonWidget {
         builder.withOnRightClick(this::onRightClick);
     }
 
-    private void onLeftClick(ButtonClickEvent e)
-    {
-        if(options.disableLeftClick)
-        {
+    private void onLeftClick(ButtonClickEvent e) {
+        if (options.disableLeftClick) {
             return;
         }
 
@@ -61,8 +61,7 @@ public class ContentListWidget<T> implements ButtonWidget {
     }
 
     private void onRightClick(ButtonClickEvent e) {
-        if(options.disableRightClick)
-        {
+        if (options.disableRightClick) {
             return;
         }
 
@@ -77,13 +76,13 @@ public class ContentListWidget<T> implements ButtonWidget {
         options.selectionChangedEvent.invoke(createEvent(e));
     }
 
-    private String onRender(StyleRenderEvent e)
-    {
-        if(options.showOnlySelectedItem)
-        {
+    private String onRender(StyleRenderEvent e) {
+        if (options.showOnlySelectedItem) {
             var selected = options.selectedItemObserver.get();
             return e.builder()
+                    .text(e.pallet().getPrimary())
                     .text(options.selectedItemPrefix)
+                    .text(e.pallet().getTextBight())
                     .text(options.contentMapping.apply(selected))
                     .toString();
         }
@@ -96,15 +95,27 @@ public class ContentListWidget<T> implements ButtonWidget {
 
         for (var i = 0; i < content.size(); i++) {
             value = content.get(i);
-            var msg = currentIndex == i ? builder.text(options.selectedItemPrefix) : builder.text(options.itemPrefix);
+            builder.text(e.pallet().getPrimary());
+            if(currentIndex == i)
+            {
+                builder.text(options.selectedItemPrefix);
+            }
+            else
+            {
+                builder.text(options.itemPrefix);
+            }
+            builder.text(e.pallet().getTextBight());
             builder.text(options.contentMapping.apply(value));
+            builder.text(ChatColor.RESET);
+
+            if(i == content.size()-1)
+            {
+                continue;
+            }
             builder.newLine();
         }
         return builder.toString();
     }
-
-
-
 
 
     private int findCurrentIndex() {

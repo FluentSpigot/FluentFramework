@@ -4,8 +4,8 @@ import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import io.github.jwdeveloper.ff.extension.gui.api.FluentInventory;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRendererOptions;
-import io.github.jwdeveloper.ff.extension.gui.implementation.button_old.events.ButtonClickEvent;
-import io.github.jwdeveloper.ff.extension.gui.implementation.button_old.observer_button.observers.ButtonObservable;
+import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
+import io.github.jwdeveloper.ff.extension.gui.implementation.styles.StyleRendererOptionsDecorator;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.*;
@@ -17,7 +17,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 
@@ -151,6 +154,12 @@ public class ButtonUI {
         itemStack.setItemMeta(meta);
     }
 
+    public void editStyleRendererOptions(Consumer<StyleRendererOptionsDecorator> consumer)
+    {
+        var decorator = new StyleRendererOptionsDecorator(getStyleRendererOptions());
+        consumer.accept(decorator);
+    }
+
     public void setDescription(MessageBuilder messageBuilder) {
         setDescription(messageBuilder.toString());
     }
@@ -163,6 +172,12 @@ public class ButtonUI {
         var builder = new MessageBuilder();
         consumer.accept(builder);
         setDescription(builder.toArray());
+    }
+
+
+    public List<String> getDescription()
+    {
+        return buttonData.getDescription();
     }
 
     public void addDescription(String... description) {

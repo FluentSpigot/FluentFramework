@@ -4,11 +4,12 @@ import io.github.jwdeveloper.ff.extension.gui.prefab.components.api.InventoryCom
 import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.api.ButtonWidgetFactory;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 
-public interface InventoryApi
-{
-    ButtonWidgetFactory buttonWidgets();
+public interface InventoryApi {
+    ButtonWidgetFactory buttons();
 
-    InventoryComponentFactory inventoryComponents();
+    InventoryComponentFactory components();
+
+    FluentInventoryFactory inventory();
 
     FluentTranslator translator();
 }

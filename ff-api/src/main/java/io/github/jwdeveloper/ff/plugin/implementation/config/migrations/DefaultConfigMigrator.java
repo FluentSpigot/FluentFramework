@@ -3,12 +3,11 @@ package io.github.jwdeveloper.ff.plugin.implementation.config.migrations;
 import io.github.jwdeveloper.ff.core.common.java.ObjectUtility;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.common.versions.VersionCompare;
 import io.github.jwdeveloper.ff.core.common.versions.VersionNumberComparator;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
-import io.github.jwdeveloper.ff.plugin.api.config.migrations.ExtensionMigration;
 import io.github.jwdeveloper.ff.plugin.api.config.migrations.ConfigMigrator;
+import io.github.jwdeveloper.ff.plugin.api.config.migrations.ExtensionMigration;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -20,6 +19,8 @@ public class DefaultConfigMigrator implements ConfigMigrator {
     private final FluentApiExtension extension;
     private final JarScanner jarScanner;
     private final PluginLogger logger;
+
+    private final String MODULES_PATH = "plugin-meta.modules-version.";
 
     public DefaultConfigMigrator(FluentApiExtension fluentApiExtension,
                                  JarScanner jarScanner,
@@ -47,8 +48,7 @@ public class DefaultConfigMigrator implements ConfigMigrator {
     @Override
     public void makeMigration(YamlConfiguration configuration) {
 
-        if(StringUtils.isNullOrEmpty(extension.getVersion()))
-        {
+        if (StringUtils.isNullOrEmpty(extension.getVersion())) {
             return;
         }
 
@@ -56,7 +56,7 @@ public class DefaultConfigMigrator implements ConfigMigrator {
         final List<ExtensionMigration> migrations = new ArrayList(extension.getMigrations());
         jarScanner.findByInterface(ExtensionMigration.class)
                 .stream()
-                .filter(e ->  e.getPackageName().contains(packageName))
+                .filter(e -> e.getPackageName().contains(packageName))
                 .toList()
                 .forEach(migrationClazz ->
                 {
@@ -70,29 +70,24 @@ public class DefaultConfigMigrator implements ConfigMigrator {
         var currentVersion = extension.getVersion();
         var configVersion = getConfigVersion(configuration);
 
-        if(currentVersion.equals(configVersion))
-        {
+        if (currentVersion.equals(configVersion)) {
             return;
         }
 
-        if(migrations.size() == 0|| configVersion == null)
-        {
+        if (migrations.size() == 0 || configVersion == null) {
             setConfigVersion(configuration, currentVersion);
             return;
         }
 
 
         var sorted = getMigrationsBetween(migrations, configVersion, currentVersion);
-        logger.info("Migration from",configVersion,"to",currentVersion,"has started");
-        for(var migration : sorted)
-        {
-            logger.info("Migrating config to plugin version",migration.version());
+        logger.info("Migration from", configVersion, "to", currentVersion, "has started");
+        for (var migration : sorted) {
+            logger.info("Migrating config to plugin version", migration.version());
             try {
                 migration.onUpdate(configuration);
-            }
-            catch (Exception e)
-            {
-                logger.warning("Error while migration to"+migration.version(),e.getMessage());
+            } catch (Exception e) {
+                logger.warning("Error while migration to" + migration.version(), e.getMessage());
             }
 
         }
@@ -101,12 +96,12 @@ public class DefaultConfigMigrator implements ConfigMigrator {
     }
 
     private String getConfigVersion(YamlConfiguration configuration) {
-        var versionPath = "plugin-meta.versions." + extension.getName();
+        var versionPath = MODULES_PATH + extension.getName();
         return configuration.getString(versionPath);
     }
 
     private void setConfigVersion(YamlConfiguration configuration, String version) {
-        var versionPath = "plugin-meta.versions." + extension.getName();
+        var versionPath = MODULES_PATH + extension.getName();
         configuration.set(versionPath, version);
     }
 

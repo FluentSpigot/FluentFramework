@@ -1,0 +1,8 @@
+
+
+commands:
+  translator:
+    info-changed: Current language has been set to {{language}}, use /reload to apply changes
+    info-select: Select language
+    info-not-found: language {{language}} has not been found
+    description: Changes plugin languages, changes will be applied after server reload. Change be use both be player or console

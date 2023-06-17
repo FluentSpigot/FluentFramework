@@ -50,9 +50,14 @@ public class DefaultStyleRenderer implements StyleRenderer {
     }
 
     public List<String> createButtonLore(ParameterResolver resolver, MessageBuilder builder) {
-        createMainTitle(builder,resolver);
-        createBarTop(builder);
-        for (var description : resolver.getGroup("description")) {
+        createMainTitle(builder, resolver);
+
+        var descriptions = resolver.getGroup("description");
+        if(!descriptions.isEmpty())
+        {
+            createBarTop(builder);
+        }
+        for (var description :descriptions) {
             builder.text(description).newLine();
         }
         createClickInfo(builder, resolver);
@@ -61,8 +66,7 @@ public class DefaultStyleRenderer implements StyleRenderer {
     }
 
     public void createTitle(MessageBuilder builder, String title) {
-        builder
-                .color(pallet.getSecondary())
+        builder.color(pallet.getSecondary())
                 .color(ChatColor.BOLD)
                 .text("[")
                 .color(pallet.getPrimary())
@@ -73,8 +77,7 @@ public class DefaultStyleRenderer implements StyleRenderer {
     }
 
     private void createClickInfo(MessageBuilder builder, ParameterResolver resolver) {
-        if (!resolver.hasGroup("click"))
-        {
+        if (!resolver.hasGroup("click")) {
             return;
         }
 
@@ -119,55 +122,45 @@ public class DefaultStyleRenderer implements StyleRenderer {
     public void createMid(MessageBuilder builder) {
         builder.color(pallet.getPrimary())
                 .color(ChatColor.BOLD)
-                .bar(Emoticons.upperBar, barLenght)
-                .newLine();
+                .bar(Emoticons.upperBar, barLenght);
     }
 
     public void createBarTop(MessageBuilder builder) {
-        builder.newLine()
-                .color(pallet.getPrimary())
+        builder.color(pallet.getPrimary())
                 .color(ChatColor.BOLD)
                 .bar(Emoticons.boldBar, barLenght)
+                .newLine()
                 .newLine();
-
     }
 
     public void createBarBottom(MessageBuilder builder) {
-        builder.newLine().color(pallet.getPrimary())
+        builder.color(pallet.getPrimary())
                 .color(ChatColor.BOLD)
-                .bar(Emoticons.lowerBar, barLenght)
-                .newLine();
+                .bar(Emoticons.lowerBar, barLenght);
     }
 
     public void createMainTitle(MessageBuilder builder, ParameterResolver info) {
-        if(!info.has("title"))
-        {
+        if (!info.has("title")) {
             return;
         }
         var title = info.get("title");
         var hasClickInfo = info.hasGroup("click");
         var hasDescription = info.hasGroup("description");
-        if(hasClickInfo || hasDescription)
-        {
+        if (hasClickInfo || hasDescription) {
 
-            var lenght = title.length()/2;
-            var offSet =2;
-            var halfBar = barLenght/2;
-            var location = halfBar-(lenght+offSet);
+            var lenght = title.length() / 2;
+            var offSet = 2;
+            var halfBar = barLenght / 2;
+            var location = halfBar - (lenght + offSet);
             builder.space(1);
-        }
-        else
-        {
+        } else {
             builder.space(1);
         }
         createTitle(builder, title);
-        if(!hasClickInfo && !hasDescription)
-        {
+        if (!hasClickInfo && !hasDescription) {
             builder.space(1).newLine();
             builder.text(" ").newLine();
-        }
-        else
-        {
+        } else {
             builder.newLine();
         }
     }

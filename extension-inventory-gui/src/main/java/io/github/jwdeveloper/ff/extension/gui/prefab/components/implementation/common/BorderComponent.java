@@ -3,9 +3,9 @@ package io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryDecorator;
-import io.github.jwdeveloper.ff.extension.gui.api.events.OpenGuiEvent;
-import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.api.events.GuiOpenEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.references.InventoryRef;
+import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
 import org.bukkit.Material;
 
 import java.util.ArrayList;
@@ -30,9 +30,8 @@ public class BorderComponent implements InventoryComponent {
         decorator.withEvents(e -> e.onOpen(this::handleOnOpen));
     }
 
-    private void handleOnOpen(OpenGuiEvent event) {
-        if(isInit)
-        {
+    private void handleOnOpen(GuiOpenEvent event) {
+        if (isInit) {
             return;
         }
         var inventory = event.getInventory();
@@ -41,8 +40,7 @@ public class BorderComponent implements InventoryComponent {
         for (var i = 0; i < height; i++) {
             for (var j = 0; j < width; j++) {
                 if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
-                    if(inventory.buttons().hasButton(i,j))
-                    {
+                    if (inventory.buttons().hasButton(i, j)) {
                         continue;
                     }
                     var button = new ButtonUI();
@@ -59,8 +57,7 @@ public class BorderComponent implements InventoryComponent {
 
     public void setBorderMaterial(Material material) {
         this.material = material;
-        if(!isInit)
-        {
+        if (!isInit) {
             return;
         }
 

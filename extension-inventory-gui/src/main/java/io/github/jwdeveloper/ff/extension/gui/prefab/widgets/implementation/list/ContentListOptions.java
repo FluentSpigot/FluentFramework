@@ -44,8 +44,7 @@ public class ContentListOptions<T> extends WidgetOptions {
     Observer<T> selectedItemObserver;
 
 
-    public void OnSelectionChanged(Consumer<ContentSelectionEvent<T>> consumer)
-    {
+    public void OnSelectionChanged(Consumer<ContentSelectionEvent<T>> consumer) {
         selectionChangedEvent.subscribe(consumer);
     }
 

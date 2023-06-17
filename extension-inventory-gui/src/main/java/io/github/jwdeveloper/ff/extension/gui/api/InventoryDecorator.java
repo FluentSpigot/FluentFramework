@@ -7,7 +7,6 @@ import io.github.jwdeveloper.ff.extension.gui.api.managers.EventsManager;
 import io.github.jwdeveloper.ff.extension.gui.api.references.InventoryRef;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderer;
 import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
-import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonBuilderImpl;
 import org.bukkit.event.inventory.InventoryType;
 
 import java.util.function.Consumer;
@@ -16,6 +15,7 @@ public interface InventoryDecorator {
     InventoryComponent withComponent(Class<? extends InventoryComponent> component);
 
     <T extends InventoryComponent> T withComponent(T component);
+
     InventoryDecorator withStyleRenderer(StyleRenderer renderer);
 
     InventoryDecorator withParent(FluentInventory inventory);

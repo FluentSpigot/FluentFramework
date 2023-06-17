@@ -8,7 +8,7 @@ import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryDecorator;
 import io.github.jwdeveloper.ff.extension.gui.api.references.ButtonRef;
 import io.github.jwdeveloper.ff.extension.gui.api.references.InventoryRef;
-import io.github.jwdeveloper.ff.extension.gui.implementation.button_old.events.ButtonClickEvent;
+import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Value;
@@ -24,7 +24,7 @@ public class SearchComponent implements InventoryComponent {
     private final EventGroup<ButtonClickEvent> onSearchReset = new EventGroup<>();
     private final InventoryRef inventoryRef = new InventoryRef();
     private final List<SearchFilterModel> filters = new ArrayList<>();
-    private final Observer<SearchFilterModel> currentFilterObserver = ObserverBag.createObserver(new SearchFilterModel("empty",null));
+    private final Observer<SearchFilterModel> currentFilterObserver = ObserverBag.createObserver(new SearchFilterModel("empty", null));
     @Setter
     private String searchInfoMessage;
 
@@ -39,7 +39,7 @@ public class SearchComponent implements InventoryComponent {
         {
 
 
-            inventoryApi.buttonWidgets().inputChat(builder, options ->
+            inventoryApi.buttons().inputChat(builder, options ->
             {
                 options.setOpenMessage(searchInfoMessage);
                 options.onChatInput(this::onChatEvent);
@@ -47,7 +47,7 @@ public class SearchComponent implements InventoryComponent {
                 options.setOpenOnRightClick(true);
                 options.setCanRender(false);
             });
-            inventoryApi.buttonWidgets().<SearchFilterModel>contentList(builder, options ->
+            inventoryApi.buttons().<SearchFilterModel>contentList(builder, options ->
             {
                 options.setContentSource(() -> filters);
                 options.setContentMapping(searchFilterModel -> searchFilterModel.name);
@@ -68,12 +68,12 @@ public class SearchComponent implements InventoryComponent {
             builder.withOnShiftClick(event ->
             {
                 onSearchReset.invoke(event);
+                inventoryRef.get().refresh();
             });
         });
     }
 
-    public <T> void addSearchFilter(String name, SearchFilter<T> filter)
-    {
+    public <T> void addSearchFilter(String name, SearchFilter<T> filter) {
         filters.add(new SearchFilterModel(name, filter));
     }
 
@@ -85,8 +85,7 @@ public class SearchComponent implements InventoryComponent {
         onSearchReset.subscribe(event);
     }
 
-    private void onChatEvent(AsyncPlayerChatEvent event)
-    {
+    private void onChatEvent(AsyncPlayerChatEvent event) {
         var searchEvent = new SearchGuiEvent(
                 event.getPlayer(),
                 inventoryRef.get(),

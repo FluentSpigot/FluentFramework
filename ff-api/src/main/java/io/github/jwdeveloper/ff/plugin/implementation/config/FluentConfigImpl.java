@@ -7,6 +7,7 @@ import io.github.jwdeveloper.ff.core.common.TextBuilder;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlModelMapper;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
+import io.github.jwdeveloper.ff.plugin.implementation.config.options.PluginState;
 import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -15,6 +16,8 @@ public class FluentConfigImpl implements FluentConfig {
 
     private final YamlConfiguration fileConfiguration;
     private final String path;
+
+
 
     public FluentConfigImpl(YamlConfiguration fileConfiguration, String path) {
         this.fileConfiguration = fileConfiguration;

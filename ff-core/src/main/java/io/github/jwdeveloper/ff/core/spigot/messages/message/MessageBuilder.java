@@ -104,7 +104,7 @@ public class MessageBuilder extends TextBuilder<MessageBuilder>
     }
 
     public MessageBuilder warning() {
-        return inBrackets(" warning", ChatColor.YELLOW).space();
+        return inBrackets("warning", ChatColor.YELLOW).space();
     }
 
     public MessageBuilder color(int r, int g, int b) {

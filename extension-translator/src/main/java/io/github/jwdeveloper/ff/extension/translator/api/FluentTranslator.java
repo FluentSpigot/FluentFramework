@@ -2,6 +2,7 @@ package io.github.jwdeveloper.ff.extension.translator.api;
 
 
 import io.github.jwdeveloper.ff.extension.translator.api.models.TranslationModel;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface FluentTranslator
     boolean isLanguageExists(String name);
     List<String> getLanguagesName();
     void addTranslationModel(List<TranslationModel> translationModels);
+
+    void generate(CommandSender sender, String name);
 }

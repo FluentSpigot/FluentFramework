@@ -5,7 +5,10 @@ import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import io.github.jwdeveloper.ff.extension.translator.api.models.TranslationModel;
 import io.github.jwdeveloper.ff.extension.translator.implementation.base.SimpleTranslator;
 import io.github.jwdeveloper.ff.extension.translator.implementation.config.TranslatorConfig;
+import io.github.jwdeveloper.ff.extension.translator.implementation.generator.TranslationsGenerator;
+import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import io.github.jwdeveloper.ff.plugin.implementation.config.options.ConfigOptions;
+import org.bukkit.command.CommandSender;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -76,4 +79,32 @@ public class FluentTranslatorImpl implements FluentTranslator {
         return translator.isTranslationExists(name);
     }
 
+
+    public void generate(CommandSender commandSender, String name) {
+
+        if(name.equals("en"))
+        {
+            return;
+        }
+
+        var options = new TranslationsGenerator.Options();
+        options.setFromLanguage("en");
+        options.setLanguageToTranslate(List.of(name));
+        options.setInputPath("D:\\MC\\spigot_1.19.4\\plugins\\teadasdad\\languages");
+
+        FluentApi.tasks().taskAsync(() ->
+        {
+            commandSender.sendMessage("Language generation started");
+            try {
+                TranslationsGenerator.run(options,s ->
+                {
+                    commandSender.sendMessage("Language "+name+" generated");
+                });
+            } catch (Exception e) {
+                commandSender.sendMessage("Language generation started");
+                FluentLogger.LOGGER.error("Unable to generate language " + name, e);
+            }
+        });
+
+    }
 }

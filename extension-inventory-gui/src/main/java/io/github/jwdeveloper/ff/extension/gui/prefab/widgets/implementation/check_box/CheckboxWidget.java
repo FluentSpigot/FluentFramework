@@ -4,10 +4,11 @@ import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.common.java.JavaUtils;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
+import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.buttons.ButtonBuilder;
 import io.github.jwdeveloper.ff.extension.gui.api.references.ButtonRef;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderEvent;
-import io.github.jwdeveloper.ff.extension.gui.implementation.button_old.events.ButtonClickEvent;
+import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.api.ButtonWidget;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -23,23 +24,22 @@ public class CheckboxWidget implements ButtonWidget {
     }
 
     @Override
-    public void onCreate(ButtonBuilder builder)
+    public void onCreate(ButtonBuilder builder, InventoryApi inventoryApi)
     {
         JavaUtils.throwIfNull(options.itemObserver, "ItemObserver must not be null");
 
         options.infoMessage = JavaUtils.ifNull(options.infoMessage, "On / Off");
         options.prefix = JavaUtils.ifNull(options.prefix, StringUtils.EMPTY);
-        options.enabled = JavaUtils.ifNull(options.enabled,  new MessageBuilder().inBrackets(Emoticons.yes, ChatColor.GREEN,ChatColor.GRAY).toString());
-        options.disabled = JavaUtils.ifNull(options.disabled, new MessageBuilder().inBrackets(Emoticons.no, ChatColor.DARK_RED,ChatColor.GRAY).toString());
+        options.enabled = JavaUtils.ifNull(options.enabled, new MessageBuilder().inBrackets(Emoticons.yes, ChatColor.GREEN, ChatColor.GRAY).toString());
+        options.disabled = JavaUtils.ifNull(options.disabled, new MessageBuilder().inBrackets(Emoticons.no, ChatColor.DARK_RED, ChatColor.GRAY).toString());
         options.enableMaterial = JavaUtils.ifNull(options.enableMaterial, Material.LIME_CONCRETE);
         options.disableMaterial = JavaUtils.ifNull(options.disableMaterial, Material.RED_CONCRETE);
 
         builder.withStyleRenderer(render ->
         {
             render.withLeftClickInfo(options.infoMessage);
-            if(options.isCanRender())
-            {
-                render.withDescriptionLine(options.getId(),this::onRender);
+            if (options.isCanRender()) {
+                render.withDescriptionLine(options.getId(), this::onRender);
             }
         });
         builder.withOnLeftClick(this::onLeftClick);
@@ -47,28 +47,23 @@ public class CheckboxWidget implements ButtonWidget {
     }
 
 
-    public void onLeftClick(ButtonClickEvent event)
-    {
-         options.itemObserver.set(!options.itemObserver.get());
+    public void onLeftClick(ButtonClickEvent event) {
+        options.itemObserver.set(!options.itemObserver.get());
     }
 
-    protected String onRender(StyleRenderEvent event)
-    {
+    protected String onRender(StyleRenderEvent event) {
         var value = options.itemObserver.get();
         var button = buttonRef.get();
         var builder = event.builder();
-        if (value)
-        {
+        if (value) {
             button.setHighlighted(true);
             button.setMaterial(options.enableMaterial);
             builder.field(options.prefix, options.enabled);
-        }
-        else
-        {
+        } else {
             button.setHighlighted(false);
             button.setMaterial(options.disableMaterial);
             builder.field(options.prefix, options.disabled);
         }
-       return builder.toString();
+        return builder.toString();
     }
 }

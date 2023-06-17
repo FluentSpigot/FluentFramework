@@ -2,6 +2,9 @@ package io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.
 
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
+import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;
+import io.github.jwdeveloper.ff.extension.gui.api.InventoryDecorator;
+import io.github.jwdeveloper.ff.extension.gui.api.events.GuiClickEvent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.BorderComponent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.ExitButtonComponent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.pagination.ButtonMapping;
@@ -9,9 +12,6 @@ import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.c
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.search.SearchComponent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.search.SearchFilter;
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.title.TitleComponent;
-import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;
-import io.github.jwdeveloper.ff.extension.gui.api.InventoryDecorator;
-import io.github.jwdeveloper.ff.extension.gui.api.events.ClickGuiEvent;
 import lombok.Getter;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 
 public class ListComponent<T> implements InventoryComponent {
 
-    private final EventGroup<ClickGuiEvent> contentClickEvent = new EventGroup<>();
+    private final EventGroup<GuiClickEvent> contentClickEvent = new EventGroup<>();
     @Getter
     private PaginationComponent<T> pagination;
     @Getter
@@ -46,16 +46,13 @@ public class ListComponent<T> implements InventoryComponent {
         search = decorator.withComponent(new SearchComponent());
 
 
-
         search.onSearch(event ->
         {
             pagination.setContentSource(() -> event.getFilter().onFilter(contentSource.get(), event.getQuery()));
-            pagination.refresh();
         });
         search.onReset(event ->
         {
             pagination.setContentSource(contentSource);
-            pagination.refresh();
         });
     }
 
@@ -72,15 +69,15 @@ public class ListComponent<T> implements InventoryComponent {
         getSearch().addSearchFilter(name, searchFilter);
     }
 
-    public void onContentClick(Consumer<ClickGuiEvent> event) {
+    public void onContentClick(Consumer<GuiClickEvent> event) {
         contentClickEvent.subscribe(event);
     }
 
-    public EventGroup<ClickGuiEvent> onContentClick() {
+    public EventGroup<GuiClickEvent> onContentClick() {
         return contentClickEvent;
     }
 
-    private void onContentClickHandler(ClickGuiEvent event) {
+    private void onContentClickHandler(GuiClickEvent event) {
         if (!event.getButton().hasTag(PaginationComponent.CONTENT_BUTTON_TAG)) {
             return;
         }

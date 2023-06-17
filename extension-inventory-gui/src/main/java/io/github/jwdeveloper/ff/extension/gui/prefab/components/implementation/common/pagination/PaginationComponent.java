@@ -1,15 +1,15 @@
 package io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.pagination;
 
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
-import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
-import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.title.TitleComponent;
 import io.github.jwdeveloper.ff.extension.gui.api.FluentInventory;
+import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryDecorator;
-import io.github.jwdeveloper.ff.extension.gui.api.events.CreateGuiEvent;
-import io.github.jwdeveloper.ff.extension.gui.api.events.OpenGuiEvent;
-import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.api.events.GuiCreateEvent;
+import io.github.jwdeveloper.ff.extension.gui.api.events.GuiOpenEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.references.InventoryRef;
+import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
+import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.title.TitleComponent;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Material;
@@ -56,18 +56,17 @@ public class PaginationComponent<T> implements InventoryComponent {
             builder.withMaterial(Material.ARROW);
             builder.withOnLeftClick(event -> openNextPage());
         });
-        onPageChangeEvent.subscribe(this::onPageEvent);
+        onPageChangeEvent.subscribe(this::onPageChangedHandler);
         titleComponent = decorator.withComponent(new TitleComponent());
         titleComponent.addTitleModel(TITLE_TAG, this::getTitleMessage);
     }
 
-    private String getTitleMessage()
-    {
+    private String getTitleMessage() {
         var builder = new StringBuilder();
         builder.append("Page: ");
-        builder.append(getCurrentPage()+1);
+        builder.append(getCurrentPage() + 1);
         builder.append("/");
-        builder.append(getTotalPages(contentSource.get())+1);
+        builder.append(getTotalPages(contentSource.get()) + 1);
         return builder.toString();
     }
 
@@ -77,11 +76,11 @@ public class PaginationComponent<T> implements InventoryComponent {
             return;
         }
 
-        if (currentPage + 1 > getTotalPages(contentSource.get()))
-        {
+        if (currentPage + 1 > getTotalPages(contentSource.get())) {
             return;
         }
         openPage(currentPage + 1);
+        inventory.get().refresh();
     }
 
     public void openPreviousPage() {
@@ -89,6 +88,7 @@ public class PaginationComponent<T> implements InventoryComponent {
             return;
         }
         openPage(currentPage - 1);
+        inventory.get().refresh();
     }
 
     public void openPage(int page) {
@@ -96,22 +96,20 @@ public class PaginationComponent<T> implements InventoryComponent {
         onPageChangeEvent.invoke(page);
     }
 
-    private void onRefreshEvent(OpenGuiEvent event)
-    {
+    private void onRefreshEvent(GuiOpenEvent event) {
         var lastPage = getTotalPages(contentSource.get());
-        if(getCurrentPage() > lastPage)
-        {
+        if (getCurrentPage() > lastPage) {
             openPage(lastPage);
             return;
         }
         renderButtons(event.getInventory());
     }
 
-    private void onPageEvent(Integer page) {
+    private void onPageChangedHandler(Integer page) {
         renderButtons(inventory.get());
     }
 
-    private void createContentButtons(CreateGuiEvent event) {
+    private void createContentButtons(GuiCreateEvent event) {
         event.getInventory().logger().warning("ListComponent", "Loading buttons");
         var height = event.getInventory().settings().getHeight();
         var width = event.getInventory().settings().getWidth();
@@ -158,6 +156,7 @@ public class PaginationComponent<T> implements InventoryComponent {
                 continue;
             }
             var data = dataSource.get(i);
+            button.setDataContext(data);
             contentMapping.onMapping(data, button);
             buttonsManager.addButton(button);
         }
@@ -168,13 +167,12 @@ public class PaginationComponent<T> implements InventoryComponent {
         return content.stream().skip(pageSize * currentPage).limit(pageSize).toList();
     }
 
-    private int getTotalPages(List<T> content)
-    {
+    private int getTotalPages(List<T> content) {
         var totalItems = content.size();
         int numberOfPages = totalItems / getPageSize();
 
         if (totalItems % getPageSize() != 0) {
-           // numberOfPages++;
+            // numberOfPages++;
         }
         return numberOfPages;
     }

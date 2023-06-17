@@ -2,13 +2,13 @@ package io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.
 
 import io.github.jwdeveloper.ff.core.observer.implementation.ObserverBag;
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
+import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
-import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.list.ListComponent;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryDecorator;
-import io.github.jwdeveloper.ff.extension.gui.api.events.ClickGuiEvent;
-import io.github.jwdeveloper.ff.extension.gui.api.events.CreateGuiEvent;
-import io.github.jwdeveloper.ff.extension.gui.implementation.button_old.events.ButtonClickEvent;
+import io.github.jwdeveloper.ff.extension.gui.api.events.GuiClickEvent;
+import io.github.jwdeveloper.ff.extension.gui.api.events.GuiCreateEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.references.ButtonRef;
+import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.list.ListComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
@@ -25,6 +25,9 @@ public class DataGridComponent<T> extends ListComponent<T> {
     private final Map<DataGridAction, EventGroup<ButtonClickEvent>> eventGroupMap = new HashMap<>();
 
     private final ButtonRef cancelButton = new ButtonRef();
+    private ButtonRef deleteButton;
+
+    private ButtonRef createButton;
     private final Material defaultMaterial = Material.GRAY_STAINED_GLASS_PANE;
 
     @Override
@@ -36,7 +39,7 @@ public class DataGridComponent<T> extends ListComponent<T> {
         onContentClick(this::onContentClickHandler);
         decorator.withButton(builder ->
         {
-            builder.withMaterial(Material.GOLD_BLOCK);
+            builder.withMaterial(Material.BARRIER);
             builder.withPosition(6, 4);
             builder.withTitle("Cancel");
             builder.withActive(false);
@@ -47,61 +50,57 @@ public class DataGridComponent<T> extends ListComponent<T> {
             });
         });
 
-        var deleteButton = new DataGridActionButton();
-        deleteButton.setIcon(Material.RED_CONCRETE);
-        deleteButton.setName("Delete");
-        deleteButton.setMessage(ChatColor.DARK_RED + "[DELETE]");
-        deleteButton.setState(DataGridAction.DELETE);
-        deleteButton.setBorderIcon(Material.RED_STAINED_GLASS_PANE);
+        var deleteActionButton = new DataGridActionButton();
+        deleteActionButton.setIcon(Material.RED_CONCRETE);
+        deleteActionButton.setName("Delete");
+        deleteActionButton.setMessage(ChatColor.DARK_RED + "[DELETE]");
+        deleteActionButton.setAction(DataGridAction.DELETE);
+        deleteActionButton.setBorderIcon(Material.RED_STAINED_GLASS_PANE);
 
-        var deleteRef = createActionButton(deleteButton, decorator);
+        deleteButton = createActionButton(deleteActionButton, decorator);
 
 
-        var createButton = new DataGridActionButton();
-        createButton.setIcon(Material.GREEN_CONCRETE);
-        createButton.setName("Create");
-        createButton.setMessage(ChatColor.DARK_GREEN + "[CREATE]");
-        createButton.setState(DataGridAction.CREATE);
-        createButton.setBorderIcon(Material.GREEN_STAINED_GLASS_PANE);
+        var createActionButton = new DataGridActionButton();
+        createActionButton.setIcon(Material.GREEN_CONCRETE);
+        createActionButton.setName("Create");
+        createActionButton.setMessage(ChatColor.DARK_GREEN + "[CREATE]");
+        createActionButton.setAction(DataGridAction.CREATE);
+        createActionButton.setBorderIcon(Material.GREEN_STAINED_GLASS_PANE);
 
-        var createRef = createActionButton(createButton, decorator);
+        createButton = createActionButton(createActionButton, decorator);
 
-        actionButtons.put(deleteRef, deleteButton);
-        actionButtons.put(createRef, createButton);
+        actionButtons.put(deleteButton, deleteActionButton);
+        actionButtons.put(createButton, createActionButton);
 
         stateObserver.subscribe(state ->
         {
-            if(state == DataGridAction.NONE)
-            {
+            if (state == DataGridAction.NONE) {
                 cancelButton.get().setActive(false);
                 getTitle().disableTitleModel(TITLE_TAG);
-               getBorder().setBorderMaterial(defaultMaterial);
-                return;
+                getBorder().setBorderMaterial(defaultMaterial);
             }
         });
     }
 
-    public void onDataGridAction(DataGridAction action, Consumer<ButtonClickEvent> event)
-    {
-         if(!eventGroupMap.containsKey(action))
-         {
-             throw new RuntimeException("Unknown state: " + action);
-         }
-         eventGroupMap.get(action).subscribe(event);
+    public void onDataGridAction(DataGridAction action, Consumer<ButtonClickEvent> event) {
+        if (!eventGroupMap.containsKey(action)) {
+            eventGroupMap.put(action, new EventGroup<ButtonClickEvent>());
+        }
+
+        eventGroupMap.get(action).subscribe(event);
     }
 
-    private void onCreateHandler(CreateGuiEvent event) {
+    private void onCreateHandler(GuiCreateEvent event) {
 
-        var i =4;
+        var i = 4;
         for (var entry : actionButtons.entrySet()) {
             var button = entry.getKey().get();
             event.getInventory().buttons().removeButton(button);
-            if (entry.getValue().getOnInvoke().isEmpty())
-            {
+            if (entry.getValue().getOnInvoke().isEmpty()) {
                 continue;
             }
             i++;
-            button.setPosition(0,i);
+            button.setPosition(0, i);
             event.getInventory().buttons().addButton(button);
         }
     }
@@ -115,26 +114,30 @@ public class DataGridComponent<T> extends ListComponent<T> {
             builder.withTitle(action.getName());
             builder.withOnLeftClick(event ->
             {
+                if (action.getAction() == DataGridAction.CREATE) {
+                    action.getOnInvoke().invoke(event);
+                    return;
+                }
                 cancelButton.get().setActive(true);
                 getTitle().enableTitleModel(TITLE_TAG);
                 getTitle().setTitleModel(TITLE_TAG, action::getMessage);
                 getBorder().setBorderMaterial(action.getBorderIcon());
-                stateObserver.set(action.getState());
+                stateObserver.set(action.getAction());
             });
         });
-        eventGroupMap.put(action.getState(), action.getOnInvoke());
+        eventGroupMap.put(action.getAction(), action.getOnInvoke());
         return buttonRef;
     }
 
-    private void onContentClickHandler(ClickGuiEvent event)
-    {
+    private void onContentClickHandler(GuiClickEvent event) {
         var state = stateObserver.get();
-        if(state == DataGridAction.NONE)
-        {
+        if (state == DataGridAction.NONE) {
+            if (eventGroupMap.containsKey(DataGridAction.SELECT)) {
+                eventGroupMap.get(DataGridAction.SELECT).invoke(new ButtonClickEvent(event.getPlayer(), event.getButton(), event.getInventory()));
+            }
             return;
         }
-        if (!eventGroupMap.containsKey(state))
-        {
+        if (!eventGroupMap.containsKey(state)) {
             throw new RuntimeException("Unknown state: " + state.name());
         }
         var events = eventGroupMap.get(state);

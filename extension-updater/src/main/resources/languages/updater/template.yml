@@ -1,6 +1,0 @@
-updater:
-  info:
-    title: Update info
-    msg-1: New Version {{1}} available!
-    msg-2: Download it with command
-    msg-3: Changes

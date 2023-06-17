@@ -7,8 +7,7 @@ import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.f
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.list.ListComponent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.list.data_grid.DataGridComponent;
 
-public class InventoryComponentFactoryImpl implements InventoryComponentFactory
-{
+public class InventoryComponentFactoryImpl implements InventoryComponentFactory {
 
     @Override
     public <T> ListComponent<T> list() {
@@ -31,5 +30,7 @@ public class InventoryComponentFactoryImpl implements InventoryComponentFactory
     }
 
     @Override
-    public FilePickerComponent filePicker() {return new FilePickerComponent();}
+    public FilePickerComponent filePicker() {
+        return new FilePickerComponent();
+    }
 }

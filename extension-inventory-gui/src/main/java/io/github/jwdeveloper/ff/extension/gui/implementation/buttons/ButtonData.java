@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class ButtonData
-{
+public class ButtonData {
     private String title = " ";
     private String tag = StringUtils.EMPTY;
     private List<String> description = new ArrayList<>();
@@ -20,6 +19,6 @@ public class ButtonData
     private Object dataContext;
     private boolean isActive = true;
     private boolean isHighLighted = false;
-    private Vector position = new Vector(0,0,0);
+    private Vector position = new Vector(0, 0, 0);
     private List<String> permissions = new ArrayList<>();
 }

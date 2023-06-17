@@ -29,9 +29,7 @@ public class TranslationLoader {
 
 
     public List<TranslationModel> load(String folderPath) throws IOException, InvalidConfigurationException {
-
         var translations = mergeTranslationsToOneFiles(folderPath);
-
         var result = new ArrayList<TranslationModel>();
         var reader = new YmlPathReader();
         for (var entry : translations.entrySet())

@@ -9,9 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.jwdeveloper</groupId>
+    <groupId>io.github.jwdeveloper.ff.extension</groupId>
     <artifactId>extension-translator</artifactId>
-    <packaging>pom</packaging>
     <dependencies>
         <dependency>
             <groupId>io.github.jwdeveloper</groupId>

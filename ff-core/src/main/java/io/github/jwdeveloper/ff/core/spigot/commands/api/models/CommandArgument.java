@@ -13,8 +13,7 @@ import java.util.function.Supplier;
 
 @Getter
 @Setter
-public class CommandArgument
-{
+public class CommandArgument {
     private String name;
 
     private ArgumentType type = ArgumentType.TEXT;
@@ -26,11 +25,15 @@ public class CommandArgument
 
     private ChatColor color = ChatColor.WHITE;
 
-    private List<String> tabCompleter = new ArrayList<>();
+    private Supplier<List<String>> tabCompleter = () -> {
+        return List.of();
+    };
 
-    private Supplier<List<String>> onTabCompleter = ()->{return List.of();};
-    public void addValidator(CommandArgumentValidator validator)
-    {
+    private Supplier<List<String>> onTabCompleter = () -> {
+        return List.of();
+    };
+
+    public void addValidator(CommandArgumentValidator validator) {
         validators.add(validator);
     }
 }

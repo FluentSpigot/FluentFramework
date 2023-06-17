@@ -1,16 +1,20 @@
 package io.github.jwdeveloper.ff.plugin.implementation.config;
 
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.common.versions.VersionCompare;
 import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlReader;
 import io.github.jwdeveloper.ff.core.injector.api.events.events.OnInjectionEvent;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
+import io.github.jwdeveloper.ff.plugin.implementation.FluentApiMeta;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.plugin.implementation.config.migrations.DefaultConfigMigrator;
 import io.github.jwdeveloper.ff.plugin.implementation.config.options.ConfigOptions;
 import io.github.jwdeveloper.ff.plugin.implementation.config.options.ConfigOptionsImpl;
+import io.github.jwdeveloper.ff.plugin.implementation.config.options.PluginState;
 import org.bukkit.plugin.Plugin;
 
 import java.lang.reflect.ParameterizedType;
@@ -20,23 +24,21 @@ import java.util.Map;
 public class FluentConfigManager {
     private final JarScanner jarScanner;
     private final PluginLogger logger;
-    private final FluentConfig fluentConfig;
+    private final FluentConfig config;
     private final Map<Class<?>, String> bindings;
 
     public FluentConfigManager(JarScanner jarScanner,
                                PluginLogger logger,
-                               FluentConfig fluentConfig)
-                            {
+                               FluentConfig fluentConfig) {
         bindings = new HashMap<>();
-        this.fluentConfig = fluentConfig;
+        this.config = fluentConfig;
         this.jarScanner = jarScanner;
         this.logger = logger;
     }
 
 
-    public FluentConfig getConfig()
-    {
-        return fluentConfig;
+    public FluentConfig getConfig() {
+        return config;
     }
 
     public void bindToConfig(Class<?> clazz, String ymlPath) {
@@ -49,8 +51,11 @@ public class FluentConfigManager {
         }
     }
 
+
+
+
     public void onMigration(FluentApiExtension extension) {
-        new DefaultConfigMigrator(extension, jarScanner, logger).makeMigration(fluentConfig.configFile());
+        new DefaultConfigMigrator(extension, jarScanner, logger).makeMigration(config.configFile());
     }
 
     public void handleClassMappingFromFile(FluentApiSpigot extension) {
@@ -58,7 +63,7 @@ public class FluentConfigManager {
         try {
             for (var entry : bindings.entrySet()) {
                 var instance = extension.container().findInjection(entry.getKey());
-                ymlReader.fromConfiguration(fluentConfig.configFile(), instance,entry.getValue());
+                ymlReader.fromConfiguration(config.configFile(), instance, entry.getValue());
             }
         } catch (Exception e) {
             throw new RuntimeException("Unable to map config", e);
@@ -71,50 +76,40 @@ public class FluentConfigManager {
         for (var entry : bindings.entrySet()) {
             try {
                 var instance = extension.container().findInjection(entry.getKey());
-                fluentConfig.save(instance, entry.getValue());
+                config.save(instance, entry.getValue());
             } catch (Exception e) {
                 throw new RuntimeException("Unable to map config", e);
             }
         }
     }
 
-    public Object onConfigOptionsInjectionCall(OnInjectionEvent event)
-    {
-        if(!event.input().isAssignableFrom(ConfigOptions.class))
-        {
+    public Object onConfigOptionsInjectionCall(OnInjectionEvent event) {
+        if (!event.input().isAssignableFrom(ConfigOptions.class)) {
             return event.output();
         }
 
-        if(!event.hasGenericParameters())
-        {
+        if (!event.hasGenericParameters()) {
             throw new RuntimeException("ConfigOptions need to has specified config type");
         }
 
-        try
-        {
+        try {
             var parameterType = event.inputGenericParameters()[0];
             Class<?> parameterClass = null;
-            if(parameterType instanceof ParameterizedType pt)
-            {
-                 parameterClass = Class.forName(pt.getActualTypeArguments()[0].getTypeName());
-            }
-            else
-            {
+            if (parameterType instanceof ParameterizedType pt) {
+                parameterClass = Class.forName(pt.getActualTypeArguments()[0].getTypeName());
+            } else {
                 parameterClass = Class.forName(parameterType.getTypeName());
             }
 
 
-            if(!bindings.containsKey(parameterClass))
-            {
-                throw new RuntimeException("ConfigOptions can't be created since class  "+parameterClass.getSimpleName()+" is not register to bindings");
+            if (!bindings.containsKey(parameterClass)) {
+                throw new RuntimeException("ConfigOptions can't be created since class  " + parameterClass.getSimpleName() + " is not register to bindings");
             }
             var instance = event.container().find(parameterClass);
             var ymlPath = bindings.get(parameterClass);
-            return new ConfigOptionsImpl<>(fluentConfig, instance, ymlPath);
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException("Unable to create ConfigOptions for "+event.input().getSimpleName());
+            return new ConfigOptionsImpl<>(config, instance, ymlPath);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to create ConfigOptions for " + event.input().getSimpleName());
         }
 
     }

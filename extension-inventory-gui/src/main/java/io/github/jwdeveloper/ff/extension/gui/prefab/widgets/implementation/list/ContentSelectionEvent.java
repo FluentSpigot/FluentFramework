@@ -8,8 +8,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 @Value
-public class ContentSelectionEvent<T>
-{
+public class ContentSelectionEvent<T> {
     ButtonUI button;
     T selectedItem;
     List<T> contentSource;

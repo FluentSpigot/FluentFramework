@@ -1,0 +1,14 @@
+gui:
+  color-picker:
+    title: Select Color
+    add-color:
+      title: Add Color
+      desc-1: Value must be hexadecimal
+
+
+command:
+   color-picker:
+     change: Change color
+     desc-1: Input custom Hex color in chat
+     desc-2: Or click at the color tile to copy its hex value
+
