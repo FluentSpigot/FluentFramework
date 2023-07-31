@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.extension.translator.implementation.config;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.files.yaml.api.annotations.YamlSection;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ public class TranslatorConfig {
 
     public String getLanguage()
     {
+
         if(StringUtils.isNullOrEmpty(language))
         {
             language = "en";

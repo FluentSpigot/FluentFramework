@@ -1,9 +1,11 @@
 package io.github.jwdeveloper.ff.plugin;
 
-import io.github.jwdeveloper.ff.extension.commands.FluentCommandAPI;
-import io.github.jwdeveloper.ff.extension.commands.api.FluentCommandOptions;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
+import io.github.jwdeveloper.ff.extension.commands.FluentCommandAPI;
+import io.github.jwdeveloper.ff.extension.commands.api.FluentCommandOptions;
+import io.github.jwdeveloper.ff.extension.files.FluentFilesApi;
+import io.github.jwdeveloper.ff.extension.files.implementation.config.FluentFilesOptions;
 import io.github.jwdeveloper.ff.extension.translator.FluentTranslatorAPI;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslatorOptions;
 import io.github.jwdeveloper.ff.extension.updater.FluentUpdaterApi;
@@ -12,8 +14,7 @@ import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.plugin.metrics.BstatsApi;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import org.bukkit.*;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 
@@ -37,53 +38,51 @@ public class FluentPluginBuilder {
         return this;
     }
 
-    public FluentPluginBuilder withCustomExtension(Consumer<FluentApiExtentionBuilder> builderConsumer)
-    {
+    public FluentPluginBuilder withCustomExtension(Consumer<FluentApiExtentionBuilder> builderConsumer) {
         var builder = new FluentApiExtentionBuilder(plugin);
         builderConsumer.accept(builder);
         apiExtensions.add(builder.build());
         return this;
     }
 
-    public FluentPluginBuilder withTranslator(Consumer<FluentTranslatorOptions> options)
-    {
+    public FluentPluginBuilder withTranslator(Consumer<FluentTranslatorOptions> options) {
         apiExtensions.add(FluentTranslatorAPI.use(options));
         return this;
     }
 
-    public FluentPluginBuilder withTranslator()
-    {
+    public FluentPluginBuilder withFiles(Consumer<FluentFilesOptions> options) {
+        apiExtensions.add(FluentFilesApi.use(options));
+        return this;
+    }
+
+    public FluentPluginBuilder withTranslator() {
         apiExtensions.add(FluentTranslatorAPI.use());
         return this;
     }
 
-    public FluentPluginBuilder withUpdater(Consumer<UpdaterApiOptions> options)
-    {
+    public FluentPluginBuilder withUpdater(Consumer<UpdaterApiOptions> options) {
         apiExtensions.add(FluentUpdaterApi.use(options));
         return this;
     }
 
-    public FluentPluginBuilder withCommand(Consumer<FluentCommandOptions> options)
-    {
+    public FluentPluginBuilder withCommand(Consumer<FluentCommandOptions> options) {
         apiExtensions.add(FluentCommandAPI.use(options));
         return this;
     }
 
 
-    public FluentPluginBuilder withBstatsMetrics(int bstatsMetricsId)
-    {
+    public FluentPluginBuilder withBstatsMetrics(int bstatsMetricsId) {
         apiExtensions.add(BstatsApi.use(bstatsMetricsId));
         return this;
     }
 
 
-    public FluentApiSpigot create()
-    {
+    public FluentApiSpigot create() {
         try {
             return tryCreate();
         } catch (Exception e) {
             Bukkit.getPluginManager().disablePlugin(plugin);
-            FluentLogger.LOGGER.error("Unable to run FluentApi",e);
+            FluentLogger.LOGGER.error("Unable to run FluentApi", e);
         }
         return null;
     }
@@ -101,8 +100,7 @@ public class FluentPluginBuilder {
             api.disable();
         });
 
-        if(api.meta().isDebug())
-        {
+        if (api.meta().isDebug()) {
             FluentCommand.create("disable")
                     .propertiesConfig(propertiesConfig ->
                     {
@@ -119,6 +117,28 @@ public class FluentPluginBuilder {
                         });
                     })
                     .buildAndRegister();
+
+
+            FluentCommand.create("debbug")
+                    .eventsConfig(eventConfig ->
+                    {
+                        eventConfig.onPlayerExecute(playerCommandEvent ->
+                        {
+                            if (!playerCommandEvent.getPlayer().isOp()) {
+                                return;
+                            }
+
+                            var world = Bukkit.getWorld("debbugworld");
+                            if(world == null)
+                            {
+                                world = Bukkit.createWorld(new WorldCreator("debbugworld").type(WorldType.FLAT));
+                            }
+                            world.setDifficulty(Difficulty.PEACEFUL);
+                            world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE,false);
+                            world.setGameRule(GameRule.DO_WEATHER_CYCLE,false);
+                            playerCommandEvent.getPlayer().teleport(world.getSpawnLocation());
+                        });
+                    }).buildAndRegister();
         }
         return api;
     }

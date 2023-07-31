@@ -38,7 +38,7 @@ public class SimpleLogger implements PluginLogger {
 
     private void send(String message) {
         if (!isActive()) {
-            return;
+          //  return;
         }
 
         if (Bukkit.getServer() != null) {
@@ -89,7 +89,7 @@ public class SimpleLogger implements PluginLogger {
 
     public void error(String message) {
         if (!isActive()) {
-            return;
+          //  return;
         }
 
         var msg = getBuilder()
@@ -101,7 +101,7 @@ public class SimpleLogger implements PluginLogger {
 
     public void error(String message, Throwable throwable) {
         if (!isActive()) {
-            return;
+         //   return;
         }
 
         var description = getErrorDescription(message, throwable);
@@ -112,7 +112,15 @@ public class SimpleLogger implements PluginLogger {
         send(errorMessage);
     }
 
+    @Override
+    public void disable() {
+        setActive(false);
+    }
 
+    @Override
+    public void enable() {
+       setActive(true);
+    }
 
 
     private TextBuilder getErrorDescription(String message, Throwable exception) {

@@ -213,7 +213,7 @@ public class FluentButtonUIFactory {
                         })
                         .onValueChange(event ->
                         {
-                            event.getButton().setDescription(new MessageBuilder().field(lang.get("gui.base.value"), event.getValue()));
+                          //  event.getButton().setDescription(new MessageBuilder().field(lang.get("gui.base.value"), event.getValue()));
                         })
                 );
     }

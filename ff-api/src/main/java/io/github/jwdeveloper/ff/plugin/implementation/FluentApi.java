@@ -5,7 +5,7 @@ import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.core.validator.api.FluentValidator;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.FluentInjection;
@@ -51,7 +51,7 @@ public class FluentApi {
     public static FluentMessages messages(){
         return getFluentApiSpigot().messages();
     }
-    public static FluentTaskManager tasks() {
+    public static FluentTaskFactory tasks() {
         return getFluentApiSpigot().tasks();
     }
     public static FluentValidator validator()

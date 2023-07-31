@@ -90,14 +90,15 @@ public class PermissionsUtility {
     }
 
     public static void showPlayerPermissions(Player player) {
+        //TODO
         var builder = new MessageBuilder();
 
         builder.newLine().bar(Emoticons.line, 60).newLine();
         builder.inBrackets("Permissions", ChatColor.AQUA).newLine();
-        builder.field("Player", player.getName()).newLine();
+       // builder.field("Player", player.getName()).newLine();
         player.getEffectivePermissions().stream().forEach(permissionAttachmentInfo ->
         {
-            builder.field("X", permissionAttachmentInfo.getPermission()).newLine();
+            //builder.field("X", permissionAttachmentInfo.getPermission()).newLine();
         });
         builder.reset().bar(Emoticons.line, 60).newLine();
         builder.sendToConsole();

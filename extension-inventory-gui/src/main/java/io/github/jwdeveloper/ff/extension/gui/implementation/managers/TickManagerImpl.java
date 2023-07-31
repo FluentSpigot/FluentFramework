@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.managers;
 
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.core.spigot.tasks.implementation.SimpleTaskTimer;
 import io.github.jwdeveloper.ff.extension.gui.api.FluentInventory;
 import io.github.jwdeveloper.ff.extension.gui.api.InventorySettings;
@@ -12,11 +12,11 @@ import org.bukkit.entity.Player;
 public class TickManagerImpl implements TickManager {
 
     private final InventorySettings settings;
-    private final FluentTaskManager taskManager;
+    private final FluentTaskFactory taskManager;
     private SimpleTaskTimer taskTimer;
 
 
-    public TickManagerImpl(InventorySettings inventorySettings, FluentTaskManager taskManager) {
+    public TickManagerImpl(InventorySettings inventorySettings, FluentTaskFactory taskManager) {
         this.settings = inventorySettings;
         this.taskManager = taskManager;
     }

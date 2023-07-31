@@ -3,7 +3,7 @@ package io.github.jwdeveloper.ff.extension.gui.implementation.styles;
 import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleColorPallet;
+import io.github.jwdeveloper.ff.extension.gui.api.styles.ColorPallet;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderer;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRendererOptions;
 import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
@@ -17,12 +17,12 @@ import java.util.Map;
 public class DefaultStyleRenderer implements StyleRenderer {
 
     private final FluentMessages messages;
-    private final StyleColorPallet pallet;
+    private final ColorPallet pallet;
     private final FluentTranslator translator;
     private final Map<String, List<String>> cachedRenders;
     private final int barLenght = 20;
 
-    public DefaultStyleRenderer(FluentMessages messages, StyleColorPallet pallet, FluentTranslator translator) {
+    public DefaultStyleRenderer(FluentMessages messages, ColorPallet pallet, FluentTranslator translator) {
         this.messages = messages;
         this.pallet = pallet;
         this.translator = translator;

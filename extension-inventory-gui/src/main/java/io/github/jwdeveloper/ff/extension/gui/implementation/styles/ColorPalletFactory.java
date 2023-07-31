@@ -1,11 +1,11 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.styles;
 
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleColorPallet;
+import io.github.jwdeveloper.ff.extension.gui.api.styles.ColorPallet;
 import org.bukkit.ChatColor;
 
 public class ColorPalletFactory {
-    public static StyleColorPallet getDefault() {
-        var colorSet = new StyleColorPallet();
+    public static ColorPallet getDefault() {
+        var colorSet = new ColorPallet();
         colorSet.setPrimary(ChatColor.AQUA);
         colorSet.setSecondary(ChatColor.DARK_AQUA);
         colorSet.setTextBight("#C6C6C6");
@@ -14,8 +14,8 @@ public class ColorPalletFactory {
     }
 
 
-    public static StyleColorPallet getDark() {
-        var colorSet = new StyleColorPallet();
+    public static ColorPallet getDark() {
+        var colorSet = new ColorPallet();
         colorSet.setPrimary(ChatColor.GREEN);
         colorSet.setSecondary(ChatColor.DARK_GREEN);
         colorSet.setTextBight("#C6C6C6");

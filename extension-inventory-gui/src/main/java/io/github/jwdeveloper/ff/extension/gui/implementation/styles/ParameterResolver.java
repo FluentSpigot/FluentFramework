@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.extension.gui.implementation.styles;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleColorPallet;
+import io.github.jwdeveloper.ff.extension.gui.api.styles.ColorPallet;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRendererOptions;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
@@ -14,9 +14,9 @@ import java.util.List;
 public class ParameterResolver {
     private final StyleRendererOptions rendererOptions;
     private final FluentTranslator translator;
-    private final StyleColorPallet colorPallet;
+    private final ColorPallet colorPallet;
 
-    public ParameterResolver(StyleRendererOptions rendererOptions, FluentTranslator translator, StyleColorPallet colorPallet) {
+    public ParameterResolver(StyleRendererOptions rendererOptions, FluentTranslator translator, ColorPallet colorPallet) {
         this.rendererOptions = rendererOptions;
         this.translator = translator;
         this.colorPallet = colorPallet;
@@ -37,7 +37,7 @@ public class ParameterResolver {
         }
         try {
             var provider = optional.get();
-            return provider.apply(new StyleRenderEvent(translator, colorPallet, new MessageBuilder()));
+            return provider.apply(new StyleRenderEvent(translator, colorPallet, new MessageBuilder(),null));
         } catch (Exception e) {
             return StringUtils.EMPTY;
         }

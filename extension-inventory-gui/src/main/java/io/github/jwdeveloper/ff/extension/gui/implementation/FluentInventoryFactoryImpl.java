@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation;
 
 import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.extension.gui.api.*;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.ComponentsManager;
 import io.github.jwdeveloper.ff.extension.gui.implementation.managers.*;
@@ -11,10 +11,10 @@ import java.util.*;
 
 public class FluentInventoryFactoryImpl implements FluentInventoryFactory {
     private final InventoryApi fluentInventoryApi;
-    private final FluentTaskManager fluentTaskManager;
+    private final FluentTaskFactory fluentTaskManager;
     private final Set<FluentInventory> inventories;
 
-    public FluentInventoryFactoryImpl(InventoryApi fluentInventoryApi, FluentTaskManager fluentTaskManager) {
+    public FluentInventoryFactoryImpl(InventoryApi fluentInventoryApi, FluentTaskFactory fluentTaskManager) {
         this.fluentInventoryApi = fluentInventoryApi;
         this.fluentTaskManager = fluentTaskManager;
         inventories = new HashSet<>();

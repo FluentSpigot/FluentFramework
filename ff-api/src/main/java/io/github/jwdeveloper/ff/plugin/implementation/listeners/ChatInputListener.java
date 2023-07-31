@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation.listeners;
 
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventBase;
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -16,9 +16,9 @@ import java.util.function.Consumer;
 public class ChatInputListener extends EventBase
 {
     private final Map<UUID, Consumer<AsyncPlayerChatEvent>> consumerMap;
-    private final FluentTaskManager tasks;
+    private final FluentTaskFactory tasks;
 
-    public ChatInputListener(Plugin plugin, FluentTaskManager taskManager)
+    public ChatInputListener(Plugin plugin, FluentTaskFactory taskManager)
     {
         super(plugin);
         consumerMap = new HashMap<>();

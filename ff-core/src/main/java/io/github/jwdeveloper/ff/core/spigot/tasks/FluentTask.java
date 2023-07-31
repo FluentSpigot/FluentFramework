@@ -1,15 +1,15 @@
 package io.github.jwdeveloper.ff.core.spigot.tasks;
 
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.TaskAction;
-import io.github.jwdeveloper.ff.core.spigot.tasks.implementation.SimpleTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.implementation.SimpleTaskFactory;
 import io.github.jwdeveloper.ff.core.spigot.tasks.implementation.SimpleTaskTimer;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 
 public class FluentTask {
-    private static SimpleTaskManager manger;
+    private static SimpleTaskFactory manger;
 
     public SimpleTaskTimer taskTimer(int ticks, TaskAction task) {
         return getManager().taskTimer(ticks, task);
@@ -23,19 +23,20 @@ public class FluentTask {
         getManager().taskLater(action, ticks);
     }
 
-    public BukkitTask taskAsync(Runnable action) {
-        return getManager().taskAsync(action);
+    public void taskAsync(Runnable runnable)
+    {
+         getManager().taskAsync(runnable);
     }
 
-    public static FluentTaskManager getManager() {
+    public static FluentTaskFactory getManager() {
         if (manger == null) {
-            throw new RuntimeException(FluentTaskManager.class.getSimpleName() + " are disabled, use to enable it " + FluentTask.class.getSimpleName() + ".enable(plugin)");
+            throw new RuntimeException(FluentTaskFactory.class.getSimpleName() + " are disabled, use to enable it " + FluentTask.class.getSimpleName() + ".enable(plugin)");
         }
         return manger;
     }
 
-    public static FluentTaskManager enable(Plugin plugin) {
-        manger = new SimpleTaskManager(plugin, FluentLogger.LOGGER);
+    public static FluentTaskFactory enable(Plugin plugin) {
+        manger = new SimpleTaskFactory(plugin, FluentLogger.LOGGER);
         return manger;
     }
 }

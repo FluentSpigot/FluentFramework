@@ -30,7 +30,7 @@ import com.google.gson.Gson;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.files.json.JsonUtility;
 import io.github.jwdeveloper.ff.core.observer.implementation.Observer;
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.core.spigot.tasks.implementation.SimpleTaskTimer;
 import io.github.jwdeveloper.ff.extension.websocket.api.FluentWebsocketPacket;
 import io.github.jwdeveloper.ff.extension.websocket.api.TypeResolver;
@@ -59,7 +59,7 @@ public abstract class WebSocketPacket implements FluentWebsocketPacket {
 
     public abstract int getPacketId();
 
-    public WebSocketPacket(FluentTaskManager manager) {
+    public WebSocketPacket(FluentTaskFactory manager) {
         gson = JsonUtility.getGson();
         packetFields = loadPacketFields();
         packetSize = getPacketSize();

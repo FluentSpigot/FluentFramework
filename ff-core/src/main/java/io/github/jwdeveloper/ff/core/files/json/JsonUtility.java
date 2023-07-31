@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import java.io.*;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public final class JsonUtility implements FileUtility {
     public static boolean save(Object data, String path, String fileName) {
@@ -26,6 +27,7 @@ public final class JsonUtility implements FileUtility {
         try (FileWriter file = new FileWriter(fullPath)) {
             Gson gson = getGson();
             file.write(gson.toJson(data));
+            file.close();
             return true;
         } catch (IOException e) {
             FluentLogger.LOGGER.error("Save File: " + fullPath, e);
@@ -64,7 +66,7 @@ public final class JsonUtility implements FileUtility {
         return null;
     }
 
-    public static <T> ArrayList<T> loadList(InputStream inputStream, Class<T> type) {
+    public static <T> List<T> loadList(InputStream inputStream, Class<T> type) {
         ArrayList<T> result = new ArrayList<>();
         try {
             var json = CharStreams.toString(new InputStreamReader(inputStream, Charsets.UTF_8));
@@ -81,7 +83,7 @@ public final class JsonUtility implements FileUtility {
         return result;
     }
 
-    public static <T> ArrayList<T> loadList(String path, String fileName, Class<T> type) {
+    public static <T> List<T> loadList(String path, String fileName, Class<T> type) {
         ArrayList<T> result = new ArrayList<>();
         String fullPath = getFullPath(path, fileName);
         if (!FileUtility.isPathValid(fullPath)) {

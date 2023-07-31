@@ -7,7 +7,7 @@ import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBu
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.CommandBuilderImpl;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.core.validator.api.FluentValidator;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtensionsManager;
@@ -26,7 +26,7 @@ public final class FluentApiSpigot {
     private final FluentMessages simpleMessages;
     private final FluentApiMeta fluentApiMeta;
     private final FluentEventManager fluentEvents;
-    private final FluentTaskManager simpleTasks;
+    private final FluentTaskFactory simpleTasks;
     private final FluentCommandManger commandManger;
     private final FluentApiExtensionsManager extensionsManager;
     private final PluginLogger logger;
@@ -43,7 +43,7 @@ public final class FluentApiSpigot {
             PluginLogger logger,
             FluentCommandManger commandManger,
             FluentEventManager eventManager,
-            FluentTaskManager taskManager,
+            FluentTaskFactory taskManager,
             FluentApiMeta fluentApiMeta,
             FluentMessages fluentMessages,
             FluentValidator validator) {
@@ -90,7 +90,7 @@ public final class FluentApiSpigot {
         return fluentEvents;
     }
 
-    public FluentTaskManager tasks() {
+    public FluentTaskFactory tasks() {
         return simpleTasks;
     }
 

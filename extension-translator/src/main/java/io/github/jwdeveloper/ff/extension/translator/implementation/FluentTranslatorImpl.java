@@ -55,6 +55,7 @@ public class FluentTranslatorImpl implements FluentTranslator {
     @Override
     public boolean setLanguage(String name) {
 
+
         if (!translator.setCurrentTranslation(name)) {
             return false;
         }
@@ -65,7 +66,7 @@ public class FluentTranslatorImpl implements FluentTranslator {
 
     @Override
     public boolean setDefaultLanguage(String name) {
-        return translator.setCurrentTranslation(name);
+        return translator.setDefaultTranslation(name);
     }
 
 

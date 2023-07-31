@@ -10,4 +10,10 @@ public interface PluginLogger {
     void error(String message);
 
     void error(String message, Throwable throwable);
+
+    void setActive(boolean value);
+
+    void disable();
+
+    void enable();
 }

@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import org.bukkit.Location;
 import org.bukkit.World;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class MathUtility
@@ -78,5 +79,11 @@ public class MathUtility
             rotation += 360.0;
         }
         return rotation;
+    }
+
+    public static String floor(double number) {
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        decimalFormat.setGroupingUsed(false);
+        return decimalFormat.format(number);
     }
 }

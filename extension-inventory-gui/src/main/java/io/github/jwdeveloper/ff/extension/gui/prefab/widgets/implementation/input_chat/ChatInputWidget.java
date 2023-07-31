@@ -58,7 +58,8 @@ public class ChatInputWidget implements ButtonWidget {
     }
 
     public String onRender(StyleRenderEvent event) {
-        event.builder().field(options.prefix, options.valueObserver.get());
+        //TODO
+       //event.builder().field(options.prefix, options.valueObserver.get());
         return event.builder().toString();
     }
 

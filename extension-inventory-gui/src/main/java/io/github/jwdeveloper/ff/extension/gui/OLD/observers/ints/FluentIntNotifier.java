@@ -25,8 +25,8 @@ public class FluentIntNotifier extends ButtonNotifierBase<Integer> {
 
     @Override
     protected void onUpdate(ButtonObserverEvent<Integer> event) {
-        event.getButton().updateDescription(getDescriptionIndex()
-                , new MessageBuilder().field(options.getPrefix(), event.getValue()).toString());
+      //  event.getButton().updateDescription(getDescriptionIndex()        , new MessageBuilder().field(options.getPrefix(), event.getValue()).toString());
+
     }
 
 

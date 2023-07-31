@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.core.injector.implementation.containers.builder;
 
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
 import io.github.jwdeveloper.ff.core.injector.api.containers.builders.ContainerBuilder;
@@ -15,12 +16,10 @@ import io.github.jwdeveloper.ff.core.injector.implementation.factory.InjectionIn
 import io.github.jwdeveloper.ff.core.injector.implementation.provider.InstanceProviderImpl;
 import io.github.jwdeveloper.ff.core.injector.implementation.search.SearchAgentImpl;
 import lombok.SneakyThrows;
-import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.logging.Logger;
 
 public class ContainerBuilderImpl<Builder extends ContainerBuilder<Builder>> implements ContainerBuilder<Builder>, ContainerBuilderConfiguration {
     protected final ContainerConfiguration config;
@@ -42,7 +41,7 @@ public class ContainerBuilderImpl<Builder extends ContainerBuilder<Builder>> imp
                 lifeTime,
                 RegistrationType.OnlyImpl
         ));
-        addRegisterdType(implementation);
+        addRegisteredType(implementation);
         return builder();
     }
 
@@ -55,7 +54,7 @@ public class ContainerBuilderImpl<Builder extends ContainerBuilder<Builder>> imp
                 lifeTime,
                 RegistrationType.InterfaceAndIml
         ));
-        addRegisterdType(_interface);
+        addRegisteredType(_interface);
         return builder();
     }
 
@@ -74,7 +73,7 @@ public class ContainerBuilderImpl<Builder extends ContainerBuilder<Builder>> imp
                 lifeTime,
                 RegistrationType.List
         ));
-        addRegisterdType(_interface);
+        addRegisteredType(_interface);
         return builder();
     }
 
@@ -88,7 +87,7 @@ public class ContainerBuilderImpl<Builder extends ContainerBuilder<Builder>> imp
                 lifeTime,
                 RegistrationType.List
         ));
-        addRegisterdType(_interface);
+        addRegisteredType(_interface);
         return builder();
     }
 
@@ -112,13 +111,14 @@ public class ContainerBuilderImpl<Builder extends ContainerBuilder<Builder>> imp
                 lifeTime,
                 RegistrationType.InterfaceAndProvider
         ));
-        addRegisterdType(_interface);
+        addRegisteredType(_interface);
         return builder();
     }
 
-    private void addRegisterdType(Class<?> type) throws Exception {
+    private void addRegisteredType(Class<?> type) throws Exception
+    {
         if (config.getRegisterdTypes().contains(type)) {
-            throw new Exception("Type " + type.getSimpleName() + " has been already registerd to container");
+            throw new Exception("Type " + type.getSimpleName() + " has been already registered to container");
         }
         config.getRegisterdTypes().add(type);
     }

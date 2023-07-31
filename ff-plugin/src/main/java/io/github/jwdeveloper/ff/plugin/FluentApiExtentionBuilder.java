@@ -37,17 +37,17 @@ public class FluentApiExtentionBuilder
     }
 
 
-    public FluentApiExtentionBuilder OnConfiguration(Consumer<FluentApiSpigotBuilder> event) {
+    public FluentApiExtentionBuilder onConfiguration(Consumer<FluentApiSpigotBuilder> event) {
         onConfiguration = event;
         return this;
     }
 
-    public FluentApiExtentionBuilder OnFluentApiEnable(Consumer<FluentApiSpigot> event) {
+    public FluentApiExtentionBuilder onFluentApiEnable(Consumer<FluentApiSpigot> event) {
         onEnable = event;
         return this;
     }
 
-    public FluentApiExtentionBuilder OnFluentApiDisabled(Consumer<FluentApiSpigot> event) {
+    public FluentApiExtentionBuilder onFluentApiDisabled(Consumer<FluentApiSpigot> event) {
         onDisable = event;
         return this;
     }

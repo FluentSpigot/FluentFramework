@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation;
 
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.extension.gui.api.FluentInventory;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;
@@ -115,7 +115,7 @@ public class InventoryDecoratorImpl implements InventoryDecorator {
     }
 
     @Override
-    public InventoryDecorator withTasks(Consumer<FluentTaskManager> tasks) {
+    public InventoryDecorator withTasks(Consumer<FluentTaskFactory> tasks) {
         return null;
     }
 

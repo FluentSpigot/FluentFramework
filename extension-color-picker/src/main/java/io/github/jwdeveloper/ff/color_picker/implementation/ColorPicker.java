@@ -29,10 +29,9 @@ import io.github.jwdeveloper.ff.color_picker.api.ColorPickerResult;
 import io.github.jwdeveloper.ff.core.common.ColorUtility;
 import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.core.spigot.messages.text_component.TextComponentBuilder;
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiMeta;
 import net.md_5.bungee.api.ChatColor;
@@ -51,13 +50,13 @@ import java.util.function.Consumer;
 public class ColorPicker {
 
     private final FluentTranslator translator;
-    private final FluentTaskManager tasks;
+    private final FluentTaskFactory tasks;
     private final FluentMessages messages;
     private final FluentApiMeta apiMeta;
     private final Map<Player, Consumer<ColorPickerResult>> players;
     private final List<String> colors;
 
-    public ColorPicker(FluentTranslator translator, FluentTaskManager taskManager, FluentMessages messages, FluentApiMeta fluentApiMeta) {
+    public ColorPicker(FluentTranslator translator, FluentTaskFactory taskManager, FluentMessages messages, FluentApiMeta fluentApiMeta) {
         players = new HashMap<>();
         colors = getDefaultHexColors();
         this.translator = translator;

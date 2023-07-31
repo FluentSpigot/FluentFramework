@@ -127,7 +127,7 @@ public interface FileUtility {
         return false;
     }
 
-    static ArrayList<String> getFolderFilesName(String path, String... extensions) {
+    static List<String> getFolderFilesName(String path, String... extensions) {
         final ArrayList<String> filesName = new ArrayList<>();
         if (!isPathValid(path)) {
             FluentLogger.LOGGER.info("Files count not be loaded since path " + path + " not exists!");

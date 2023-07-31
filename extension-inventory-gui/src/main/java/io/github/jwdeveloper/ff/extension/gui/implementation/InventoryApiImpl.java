@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation;
 
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.extension.gui.api.FluentInventoryFactory;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.api.InventoryComponentFactory;
@@ -13,10 +13,10 @@ import io.github.jwdeveloper.ff.plugin.implementation.listeners.ChatInputListene
 public class InventoryApiImpl implements InventoryApi {
 
     private final FluentTranslator translator;
-    private final FluentTaskManager taskManager;
+    private final FluentTaskFactory taskManager;
     private final ChatInputListener chatInputListener;
 
-    public InventoryApiImpl(FluentTranslator translator, FluentTaskManager taskManager, ChatInputListener chatInputListener) {
+    public InventoryApiImpl(FluentTranslator translator, FluentTaskFactory taskManager, ChatInputListener chatInputListener) {
         this.translator = translator;
         this.taskManager = taskManager;
         this.chatInputListener = chatInputListener;

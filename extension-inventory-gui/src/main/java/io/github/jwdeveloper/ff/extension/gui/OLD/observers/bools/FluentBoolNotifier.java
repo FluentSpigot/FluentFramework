@@ -60,9 +60,11 @@ public class FluentBoolNotifier extends ButtonNotifierBase<Boolean> {
         if (StringUtils.isNullOrEmpty(options.getPrefix())) {
             options.setPrefix(translator.get("gui.base.state"));
         }
-
+        //TODO
+        return null;
+/*
         return new SelectBoolNotifierMessages(new MessageBuilder().field(options.getPrefix(), options.getEnable()).toString(),
-                new MessageBuilder().field(options.getPrefix(), options.getDisable()).toString());
+                new MessageBuilder().field(options.getPrefix(), options.getDisable()).toString());*/
     }
 
 }

@@ -47,7 +47,8 @@ public class ResourcepackLinkService
 
     public void send(Player player, String link, String title)
     {
-        var copyToClipboardComponent =  fluentMessages.chat().color(ChatColor.AQUA)
+        //TODO
+     /*   var copyToClipboardComponent =  fluentMessages.chat().color(ChatColor.AQUA)
             .color(ChatColor.BOLD)
             .text(Emoticons.arrowRight)
             .space()
@@ -70,7 +71,7 @@ public class ResourcepackLinkService
         fluentMessages.chat().info().text(title).send(player);
         player.getPlayer().sendMessage(" ");
         player.getPlayer().spigot().sendMessage(copyToClipboardComponent);
-        player.getPlayer().spigot().sendMessage(copyToChatComponent);
+        player.getPlayer().spigot().sendMessage(copyToChatComponent);*/
 
     }
 }

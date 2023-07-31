@@ -18,28 +18,9 @@ import java.util.function.Consumer;
 
 public class MessageBuilder extends TextBuilder<MessageBuilder>
 {
-
     public MessageBuilder reset() {
         builder.append(ChatColor.RESET);
         return this;
-    }
-
-    public MessageBuilder field(String name, Object value) {
-        return field(Emoticons.dot, name, value);
-    }
-
-    public MessageBuilder field(String prefix, String name, Object value) {
-        return color(ChatColor.WHITE)
-                .text(prefix)
-                .space()
-                .text(name)
-                .space()
-                .color(ChatColor.GRAY)
-                .text(Emoticons.arrowRight)
-                .space()
-                .text(value)
-                .space()
-                .reset();
     }
 
     public <T> MessageBuilder addList(List<T> name, Consumer<T> action) {
@@ -57,21 +38,11 @@ public class MessageBuilder extends TextBuilder<MessageBuilder>
     }
 
 
-    public MessageBuilder location(Location text) {
-        color(ChatColor.AQUA).text("World ").color(ChatColor.WHITE).text(text.getWorld().getName()).space();
-        color(ChatColor.AQUA).text("X ").color(ChatColor.WHITE).text(text.getX()).space();
-        color(ChatColor.AQUA).text("Y ").color(ChatColor.WHITE).text(text.getY()).space();
-        color(ChatColor.AQUA).text("Z ").color(ChatColor.WHITE).text(text.getZ()).space();
-        return this;
-    }
-
-    public MessageBuilder textPrimary(Object text) {
-        color(ChatColor.AQUA).text(text).reset();
-        return this;
-    }
-
-    public MessageBuilder textSecondary(Object text) {
-        color(ChatColor.GRAY).text(text).reset();
+    public MessageBuilder location(Location location) {
+        color(ChatColor.AQUA).text("World ").color(ChatColor.WHITE).text(location.getWorld().getName()).space();
+        color(ChatColor.AQUA).text("X ").color(ChatColor.WHITE).text(location.getX()).space();
+        color(ChatColor.AQUA).text("Y ").color(ChatColor.WHITE).text(location.getY()).space();
+        color(ChatColor.AQUA).text("Z ").color(ChatColor.WHITE).text(location.getZ()).space();
         return this;
     }
 
@@ -92,20 +63,6 @@ public class MessageBuilder extends TextBuilder<MessageBuilder>
         return this;
     }
 
-    public MessageBuilder info() {
-        return bold()
-                .inBrackets(" info", ChatColor.AQUA)
-                .space()
-                .reset();
-    }
-
-    public MessageBuilder error() {
-        return inBrackets(" error", ChatColor.RED).space();
-    }
-
-    public MessageBuilder warning() {
-        return inBrackets("warning", ChatColor.YELLOW).space();
-    }
 
     public MessageBuilder color(int r, int g, int b) {
         builder.append(net.md_5.bungee.api.ChatColor.of(new java.awt.Color(r, g, b)));
@@ -205,11 +162,6 @@ public class MessageBuilder extends TextBuilder<MessageBuilder>
             }
         }
     }
-
-    public TextComponent toTextComponent() {
-        return new TextComponent(toString());
-    }
-
     public void sendActionBar(Player player) {
         var tc = new TextComponent();
         tc.setText(this.toString());

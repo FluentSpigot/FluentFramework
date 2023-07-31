@@ -1,5 +1,7 @@
 package io.github.jwdeveloper.ff.core.common;
 
+import io.github.jwdeveloper.ff.core.common.java.MathUtility;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,6 +18,21 @@ public class TextBuilder<SELF extends TextBuilder<SELF>> {
             text(value).space();
         }
         return self();
+    }
+
+    public SELF floor(double number)
+    {
+        return  text(MathUtility.floor(number));
+    }
+
+    public SELF floor(float number)
+    {
+        return text(MathUtility.floor(number));
+    }
+
+    public SELF floor(int number)
+    {
+        return text(MathUtility.floor(number));
     }
 
     public SELF text(Object text) {
@@ -47,6 +64,11 @@ public class TextBuilder<SELF extends TextBuilder<SELF>> {
 
     public SELF newLine() {
         builder.append(System.lineSeparator());
+        return self();
+    }
+
+    public SELF newLine(boolean simple) {
+        builder.append('\n');
         return self();
     }
 

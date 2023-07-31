@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.gui.api;
 
 
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.extension.gui.api.buttons.ButtonBuilder;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.EventsManager;
 import io.github.jwdeveloper.ff.extension.gui.api.references.InventoryRef;
@@ -34,7 +34,7 @@ public interface InventoryDecorator {
 
     InventoryDecorator withHeight(int height);
 
-    InventoryDecorator withTasks(Consumer<FluentTaskManager> tasks);
+    InventoryDecorator withTasks(Consumer<FluentTaskFactory> tasks);
 
     InventoryDecorator withInventoryReference(InventoryRef inventoryRef);
 }

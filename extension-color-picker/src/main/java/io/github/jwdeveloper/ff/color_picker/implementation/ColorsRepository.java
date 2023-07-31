@@ -26,12 +26,12 @@
 package io.github.jwdeveloper.ff.color_picker.implementation;
 
 import io.github.jwdeveloper.ff.color_picker.api.ColorInfo;
-import io.github.jwdeveloper.ff.extension.files.implementation.RepositoryBase;
+import io.github.jwdeveloper.ff.extension.files.implementation.FluentRepository;
 
 
-public class ColorsRepository extends RepositoryBase<ColorInfo> {
+public class ColorsRepository extends FluentRepository<ColorInfo> {
 
     public ColorsRepository() {
-        super("TODO", ColorInfo.class, "colors");
+        super(ColorInfo.class);
     }
 }

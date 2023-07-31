@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.extension.translator.implementation.base;
 
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
 import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.extension.translator.api.models.TranslationModel;
@@ -65,6 +66,7 @@ public class SimpleTranslator {
 
     public boolean setCurrentTranslation(String name) {
         for (var language : languages) {
+
             if (language.getCountry().equals(name))
             {
                 currentLang = language;

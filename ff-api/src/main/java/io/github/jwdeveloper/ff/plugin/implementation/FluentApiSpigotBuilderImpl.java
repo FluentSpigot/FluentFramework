@@ -11,7 +11,8 @@ import io.github.jwdeveloper.ff.core.spigot.events.FluentEvent;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.core.spigot.tasks.FluentTask;
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskManager;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
+import io.github.jwdeveloper.ff.core.spigot.tasks.implementation.SimpleTaskFactory;
 import io.github.jwdeveloper.ff.core.validator.api.FluentValidator;
 import io.github.jwdeveloper.ff.core.validator.implementation.FluentValidatorImpl;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiContainerBuilder;
@@ -50,7 +51,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     private final Plugin plugin;
     private final JarScanner jarScanner;
     private final PluginLogger logger;
-    private final FluentTaskManager taskManager;
+    private final FluentTaskFactory taskFactory;
     private final FluentCommandManger commandManger;
     private final FluentEventManager eventManager;
     private final FluentConfigManager configManager;
@@ -64,7 +65,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         logger = FluentLogger.setLogger(plugin.getName());
         commandManger = FluentCommand.enable(plugin);
         eventManager = FluentEvent.enable(plugin);
-        taskManager = FluentTask.enable(plugin);
+        taskFactory = FluentTask.enable(plugin);
 
         extensionsManager = new FluentApiExtentionsManagerImpl(logger);
         containerBuilder = new FluentApiContainerBuilderImpl(extensionsManager, logger, FluentDecorator.CreateDecorator());
@@ -116,8 +117,8 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     }
 
     @Override
-    public FluentTaskManager tasks() {
-        return taskManager;
+    public FluentTaskFactory tasks() {
+        return taskFactory;
     }
 
     @Override
@@ -171,7 +172,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
 
         containerBuilder.registerSigleton(Plugin.class, plugin);
         containerBuilder.registerSigleton(FluentConfig.class, configManager.getConfig());
-        containerBuilder.registerSigleton(FluentTaskManager.class, taskManager);
+        containerBuilder.registerSigleton(FluentTaskFactory.class, taskFactory);
         containerBuilder.registerSigleton(FluentEventManager.class, eventManager);
         containerBuilder.registerSigleton(FluentCommandManger.class, commandManger);
         containerBuilder.registerSigleton(PluginLogger.class, logger);
@@ -211,7 +212,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
                 logger,
                 commandManger,
                 eventManager,
-                taskManager,
+                taskFactory,
                 fluentApiMeta,
                 messages,
                 validator);

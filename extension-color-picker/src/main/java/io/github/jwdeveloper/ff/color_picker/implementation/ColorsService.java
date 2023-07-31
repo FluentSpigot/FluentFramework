@@ -28,6 +28,7 @@ package io.github.jwdeveloper.ff.color_picker.implementation;
 
 import io.github.jwdeveloper.ff.color_picker.api.ColorInfo;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.extension.files.api.FluentFile;
 import org.bukkit.Color;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public class ColorsService
         if(result.size() == 0)
         {
             load(result);
-            repository.save();
+         //   repository.save();
         }
 
 

@@ -2,14 +2,14 @@ package io.github.jwdeveloper.ff.extension.gui.OLD.observers.ints;
 
 import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleColorPallet;
+import io.github.jwdeveloper.ff.extension.gui.api.styles.ColorPallet;
 import io.github.jwdeveloper.ff.extension.gui.OLD.observer_button.observers.ButtonObserverEvent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.renderers.FluentButtonStyle;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import org.bukkit.ChatColor;
 
 public class FluentBarIntNotifier extends FluentIntNotifier {
-    private final StyleColorPallet style;
+    private final ColorPallet style;
 
     public FluentBarIntNotifier(FluentButtonStyle style, FluentTranslator translator, IntNotifierOptions notifierOptions) {
         super(translator, notifierOptions);

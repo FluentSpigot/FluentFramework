@@ -30,7 +30,8 @@ public class GameObject implements GameComponent, GameComponentEvents {
     @Getter
     protected Location location;
 
-    public GameObject() {
+    public GameObject()
+    {
         id = UUID.randomUUID();
         children = new HashMap<>();
         name = getClass().getSimpleName() + "_" + id.toString();
