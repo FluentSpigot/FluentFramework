@@ -74,6 +74,7 @@ public class FluentRepository<T extends DataModel> implements SaveableRepository
     }
 
 
+
     public boolean insertOne(T data) {
         if (data == null) {
             return false;

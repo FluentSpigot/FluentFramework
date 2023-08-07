@@ -79,7 +79,7 @@ public class TransformationInfoComponent extends GameComponent {
             trans.rotation(0, 0, 0);
 
             textDisplay.setText(builder.toString());
-            textDisplay.teleport(worldTransform().toLocation().add(transform().scale().getX() / 2, transform().scale().getY(), transform().scale().getZ() / 2));
+            textDisplay.teleport(tracking.worldTransform().toLocation());
             textDisplay.setTransformation(trans.toBukkitTransformation());
 
         }
@@ -101,7 +101,6 @@ public class TransformationInfoComponent extends GameComponent {
     public void onDestroy() {
         if (textDisplay != null) {
             textDisplay.remove();
-            ;
         }
     }
 }

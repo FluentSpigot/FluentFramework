@@ -27,6 +27,7 @@ public class InventoryDecoratorImpl implements InventoryDecorator {
 
     private final FluentInventoryImpl inventory;
     private final List<Consumer<ButtonBuilder>> buttons;
+    private final List<ButtonBuilder> buttonBuilders;
     private final List<InventoryComponent> components;
     private final ButtonManagerImpl temporaryButtonManager;
     private final InventoryApi inventoryApi;
@@ -38,6 +39,7 @@ public class InventoryDecoratorImpl implements InventoryDecorator {
         buttons = new ArrayList<>();
         components = new LinkedList<>();
         temporaryButtonManager = new ButtonManagerImpl(6);
+        buttonBuilders = new ArrayList<>();
         styleRenderer = new DefaultStyleRenderer(FluentApi.messages(), ColorPalletFactory.getDark(), FluentApi.container().findInjection(FluentTranslator.class));
     }
 
@@ -84,6 +86,12 @@ public class InventoryDecoratorImpl implements InventoryDecorator {
     }
 
     @Override
+    public InventoryDecorator withButton(ButtonBuilder builder) {
+        buttonBuilders.add(builder);
+        return this;
+    }
+
+    @Override
     public InventoryDecorator withEvents(Consumer<EventsManager> manager) {
         manager.accept(inventory.events());
         return this;
@@ -115,11 +123,6 @@ public class InventoryDecoratorImpl implements InventoryDecorator {
     }
 
     @Override
-    public InventoryDecorator withTasks(Consumer<FluentTaskFactory> tasks) {
-        return null;
-    }
-
-    @Override
     public InventoryDecorator withInventoryReference(InventoryRef inventoryRef) {
         inventoryRef.set(inventory);
         return this;
@@ -134,6 +137,16 @@ public class InventoryDecoratorImpl implements InventoryDecorator {
                 continue;
             }
             inventory.buttons().addButton(button);
+        }
+
+        for(var builder : buttonBuilders)
+        {
+            if(builder instanceof ButtonBuilderImpl b)
+            {
+                var button = b.build();
+                inventory.buttons().addButton(button);
+            }
+
         }
         for (var consumer : buttons) {
             var builder = new ButtonBuilderImpl();

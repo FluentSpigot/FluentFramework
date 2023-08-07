@@ -22,6 +22,8 @@ public interface InventoryDecorator {
 
     InventoryDecorator withButton(ButtonUI buttonUI);
 
+     InventoryDecorator withButton(ButtonBuilder builder);
+
     InventoryDecorator withButton(Consumer<ButtonBuilder> builder);
 
     InventoryDecorator withEvents(Consumer<EventsManager> manager);
@@ -33,8 +35,6 @@ public interface InventoryDecorator {
     InventoryDecorator withType(InventoryType type);
 
     InventoryDecorator withHeight(int height);
-
-    InventoryDecorator withTasks(Consumer<FluentTaskFactory> tasks);
 
     InventoryDecorator withInventoryReference(InventoryRef inventoryRef);
 }

@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gameobject.neww.impl;
 
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
 import org.joml.Quaternionf;
@@ -106,18 +107,23 @@ public class TransformationUtility {
         }
 
         public TransformationBuilder setLeftRotation(float x, float y, float z) {
-           // this.leftRotation = new Quaternionf(x, y, z, i);
-        //  this.leftRotation.rotationX(x);
-            this.leftRotation.rotationYXZ(y,x,z);
-         //   this.leftRotation.rotationZ(z);
+            var pi = Math.PI/180;
+            var angleX = (float)(x*pi);
+            var angleY = (float)(y*pi);
+            var angleZ = (float)(z*pi);
+
+            this.leftRotation.rotationYXZ(angleX,angleY,angleZ);
             return this;
         }
 
         public TransformationBuilder setLeftRotation(Vector vector) {
-            // this.leftRotation = new Quaternionf(x, y, z, i);
-            //  this.leftRotation.rotationX(x);
-            this.leftRotation.rotationXYZ((float) vector.getX(),(float) vector.getY(),(float) vector.getZ());
-            //   this.leftRotation.rotationZ(z);
+
+            var pi = Math.PI/180;
+            var angleX = (float)(vector.getX()*pi);
+            var angleY = (float)(vector.getY()*pi);
+            var angleZ = (float)(vector.getZ()*pi);
+
+           this.leftRotation.rotationXYZ(angleX,angleY,angleZ);
             return this;
         }
 

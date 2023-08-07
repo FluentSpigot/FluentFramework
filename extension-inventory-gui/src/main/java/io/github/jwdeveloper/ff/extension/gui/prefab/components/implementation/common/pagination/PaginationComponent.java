@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.pagination;
 
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
 import io.github.jwdeveloper.ff.extension.gui.api.FluentInventory;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
@@ -146,11 +147,13 @@ public class PaginationComponent<T> implements InventoryComponent {
             return;
         }
 
+
         dataSource = calculateContent(dataSource);
         var dataSourceSize = dataSource.size();
         var buttonsManager = inventory.buttons();
         for (var i = 0; i < contentButtons.size(); i++) {
             var button = contentButtons.get(i);
+
             if (i >= dataSourceSize) {
                 buttonsManager.removeButton(button);
                 continue;

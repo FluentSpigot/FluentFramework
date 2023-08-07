@@ -26,9 +26,11 @@
 package io.github.jwdeveloper.ff.extension.websocket.implementation;
 
 
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
 import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.extension.websocket.api.FluentWebsocketPacket;
+import io.github.jwdeveloper.ff.extension.websocket.implementation.packet.JsonPacketResolver;
 import io.github.jwdeveloper.ff.extension.websocket.implementation.packet.WebSocketPacket;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -42,12 +44,14 @@ import java.util.concurrent.ConcurrentHashMap;
 public class WebSocketBase extends WebSocketServer {
     private final ConcurrentHashMap<Integer, WebSocketPacket> webSocketEvents;
     private final PluginLogger logger;
+    private final JsonPacketResolver jsonPacketResolver;
 
 
     public WebSocketBase(int port, PluginLogger logger) {
         super(new InetSocketAddress(port));
         webSocketEvents = new ConcurrentHashMap<>();
         this.logger = logger;
+        this.jsonPacketResolver = new JsonPacketResolver();
     }
 
     public void registerPackets(Collection<FluentWebsocketPacket> packets)
@@ -60,7 +64,7 @@ public class WebSocketBase extends WebSocketServer {
 
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
-      //  FluentPlugin.logInfo(webSocket.getRemoteSocketAddress().getAddress().getHostAddress() + " entered the room!");
+      // FluentLogger.LOGGER.info(webSocket.getRemoteSocketAddress().getAddress().getHostAddress() + " entered the room!");
     }
 
     @Override
@@ -70,7 +74,9 @@ public class WebSocketBase extends WebSocketServer {
 
     @Override
     public void onMessage(WebSocket webSocket, String message) {
+       // FluentLogger.LOGGER.info(webSocket.getRemoteSocketAddress().getAddress().getHostAddress() ,message);
 
+        jsonPacketResolver.resolveJsonPacket(message, webSocketEvents, webSocket);
     }
 
     @Override

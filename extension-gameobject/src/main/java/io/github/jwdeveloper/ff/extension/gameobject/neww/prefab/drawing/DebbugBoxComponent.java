@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Injection(lifeTime = LifeTime.TRANSIENT)
-public class OutlineComponent extends GameComponent {
+public class DebbugBoxComponent extends GameComponent {
     @ComponentData
     public Material material = Material.RED_CONCRETE;
     @ComponentData

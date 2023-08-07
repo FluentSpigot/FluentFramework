@@ -27,6 +27,8 @@ package io.github.jwdeveloper.ff.extension.websocket.implementation.packet;
 
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.files.json.JsonUtility;
 import io.github.jwdeveloper.ff.core.observer.implementation.Observer;
@@ -52,7 +54,7 @@ public abstract class WebSocketPacket implements FluentWebsocketPacket {
     private final int packetIdSize = 4;
     private final List<PacketFieldWrapper> packetFields;
     private final Queue<Consumer<WebSocket>> tasks = new LinkedBlockingQueue<>();
-    private final SimpleTaskTimer taskTimer;
+    private  SimpleTaskTimer taskTimer;
     private final Gson gson;
 
     public abstract void onPacketTriggered(WebSocket webSocket);
@@ -63,14 +65,19 @@ public abstract class WebSocketPacket implements FluentWebsocketPacket {
         gson = JsonUtility.getGson();
         packetFields = loadPacketFields();
         packetSize = getPacketSize();
-        taskTimer = manager.taskTimer(1, (iteration, taskTimer) ->
+
+        if(manager != null)
         {
-            for (final var task : tasks) {
-                task.accept(null);
-            }
-            tasks.clear();
-        });
-        taskTimer.run();
+            taskTimer = manager.taskTimer(1, (iteration, taskTimer) ->
+            {
+                for (final var task : tasks) {
+                    task.accept(null);
+                }
+                tasks.clear();
+            });
+            taskTimer.run();
+        }
+
     }
 
     protected void addSpigotTask(Consumer<WebSocket> consumer) {
@@ -129,6 +136,57 @@ public abstract class WebSocketPacket implements FluentWebsocketPacket {
         }
         return true;
     }
+
+    public boolean resolveJson(JsonObject content)
+    {
+
+        try {
+
+            for (var packetField : packetFields)
+            {
+                var fieldName = packetField.getObserver().getFieldName();
+                var type = packetField.getObserver().getField().getType();
+                if(!content.has(fieldName))
+                {
+                    continue;
+                }
+
+                Object value = null;
+                var jsonField = content.get(fieldName);
+                try {
+                    if (type.equals(int.class) || type.equals(Integer.class))
+                    {
+                        value = jsonField.getAsInt();
+                    }
+                    if (type.equals(byte.class) || type.equals(Byte.class)) {
+                        value = jsonField.getAsByte();
+                    }
+                    if (type.equals(long.class) || type.equals(Long.class)) {
+                        value = jsonField.getAsLong();
+                    }
+                    if (type.equals(boolean.class) || type.equals(Boolean.class)) {
+                        value = jsonField.getAsBoolean();
+                    }
+                    if (type.equals(String.class)) {
+                        value = jsonField.getAsString();
+                    }
+                }
+                catch (Exception e)
+                {
+                    continue;
+                }
+                packetField.getObserver().set(value);
+            }
+        } catch (Exception e) {
+            FluentLogger.LOGGER.error("Packet resolver error " + this.getClass().getSimpleName(), e);
+            return false;
+        }
+        return true;
+    }
+
+
+
+
 
     private int getPacketSize() {
         int size = 0;

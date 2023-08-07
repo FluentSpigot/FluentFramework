@@ -61,7 +61,12 @@ public class DefaultStyleRenderer implements StyleRenderer {
             builder.text(description).newLine();
         }
         createClickInfo(builder, resolver);
-        createBarBottom(builder);
+
+        if(!descriptions.isEmpty())
+        {
+            createBarBottom(builder);
+        }
+
         return builder.toList();
     }
 

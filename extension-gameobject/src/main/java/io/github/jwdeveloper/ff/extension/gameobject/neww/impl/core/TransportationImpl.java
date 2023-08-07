@@ -93,8 +93,6 @@ public class TransportationImpl implements Transportation {
 
     @Override
     public Transformation toBukkitTransformation() {
-
-
         return TransformationUtility.create()
                 .setTranslation(translation())
                 .setLeftRotation(rotation())

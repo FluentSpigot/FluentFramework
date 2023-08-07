@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.list;
 
+import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;
@@ -14,6 +15,7 @@ import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.c
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.title.TitleComponent;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -37,6 +39,12 @@ public class ListComponent<T> implements InventoryComponent {
 
     @Override
     public void onInitialization(InventoryDecorator decorator, InventoryApi inventoryApi) {
+
+        if(contentSource == null)
+        {
+            contentSource = () -> new ArrayList<>();
+        }
+
         decorator.withEvents(e -> e.onClick(this::onContentClickHandler));
 
         pagination = decorator.withComponent(new PaginationComponent<T>());

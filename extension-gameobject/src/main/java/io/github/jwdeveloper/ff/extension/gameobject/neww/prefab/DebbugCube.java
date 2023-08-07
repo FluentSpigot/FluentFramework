@@ -3,7 +3,6 @@ package io.github.jwdeveloper.ff.extension.gameobject.neww.prefab;
 import io.github.jwdeveloper.ff.core.injector.api.annotations.Injection;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.extension.gameobject.neww.api.core.GameObject;
-import io.github.jwdeveloper.ff.extension.gameobject.neww.impl.GameObjectEngine;
 import io.github.jwdeveloper.ff.extension.gameobject.neww.impl.GameObjectFactory;
 import io.github.jwdeveloper.ff.extension.gameobject.neww.impl.core.GameComponent;
 import io.github.jwdeveloper.ff.extension.gameobject.neww.prefab.drawing.*;
@@ -13,7 +12,7 @@ import org.bukkit.util.Vector;
 
 @Injection(lifeTime = LifeTime.TRANSIENT)
 public class DebbugCube extends GameComponent {
-    OutlineComponent outline;
+    DebbugBoxComponent outline;
     CardatianGridComponent gridComponent;
     ItemPointDisplay point;
 
@@ -29,7 +28,7 @@ public class DebbugCube extends GameComponent {
         transform().position().add(new Vector(0, 1, 0));
 
         gridComponent = gameobject().addComponent(CardatianGridComponent.class);
-      //  outline = gameobject().addComponent(OutlineComponent.class);
+        outline = gameobject().addComponent(DebbugBoxComponent.class);
 
         tracking = gameobject().addComponent(TransformationInfoComponent.class);
 
@@ -55,9 +54,9 @@ public class DebbugCube extends GameComponent {
         point.transform().rotation(0,45,0);
 
         child.transform().scale(0.5,0.5,0.5);
-        child.transform().position(2,0,0);
+        child.transform().position(2,2,2);
 
-        tracking.setTracking(point.gameobject());
+        tracking.setTracking(child);
         tracking.setVisible(true);
     }
 
@@ -68,18 +67,21 @@ public class DebbugCube extends GameComponent {
     public void onRender() {
        waitForSeconds(1f,"X");
        logger().info("Simea",i,this.toString());
+
+       var angle = i*Math.PI/180;
+
        point.transform().rotation().setY(i);
 
 
        var p1 = child.transform().position().clone();
-       p1.rotateAroundY(i);
+       p1.rotateAroundY(angle);
        p1.subtract(child.transform().position());
 
 
        child.transform().translation(p1.getX(),p1.getY(),p1.getZ());
+        child.transform().rotation().setY(i+10);
 
-
-        i += 1;
+        i += 10;
     }
 
     @Override

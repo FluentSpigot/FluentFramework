@@ -55,15 +55,15 @@ public class CheckboxWidget implements ButtonWidget {
         var value = options.itemObserver.get();
         var button = buttonRef.get();
         var builder = event.builder();
-        //TODO
+
         if (value) {
             button.setHighlighted(true);
             button.setMaterial(options.enableMaterial);
-           // builder.field(options.prefix, options.enabled);
+           builder.space().withPrefix(options.prefix, options.enabled);
         } else {
             button.setHighlighted(false);
             button.setMaterial(options.disableMaterial);
-        //    builder.field(options.prefix, options.disabled);
+            builder.space().withPrefix(options.prefix, options.disabled);
         }
         return builder.toString();
     }

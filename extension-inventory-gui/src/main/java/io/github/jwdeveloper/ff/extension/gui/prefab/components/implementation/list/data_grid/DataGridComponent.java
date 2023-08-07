@@ -8,7 +8,9 @@ import io.github.jwdeveloper.ff.extension.gui.api.InventoryDecorator;
 import io.github.jwdeveloper.ff.extension.gui.api.events.GuiClickEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.events.GuiCreateEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.references.ButtonRef;
+import io.github.jwdeveloper.ff.extension.gui.api.references.InventoryRef;
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.list.ListComponent;
+import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
@@ -24,9 +26,13 @@ public class DataGridComponent<T> extends ListComponent<T> {
     private final Map<ButtonRef, DataGridActionButton> actionButtons = new LinkedHashMap<>();
     private final Map<DataGridAction, EventGroup<ButtonClickEvent>> eventGroupMap = new HashMap<>();
 
+    @Getter
     private final ButtonRef cancelButton = new ButtonRef();
+
+    @Getter
     private ButtonRef deleteButton;
 
+    @Getter
     private ButtonRef createButton;
     private final Material defaultMaterial = Material.GRAY_STAINED_GLASS_PANE;
 
@@ -78,7 +84,9 @@ public class DataGridComponent<T> extends ListComponent<T> {
                 cancelButton.get().setActive(false);
                 getTitle().disableTitleModel(TITLE_TAG);
                 getBorder().setBorderMaterial(defaultMaterial);
+                getPagination().openPreviousPage();
             }
+
         });
     }
 
@@ -86,7 +94,6 @@ public class DataGridComponent<T> extends ListComponent<T> {
         if (!eventGroupMap.containsKey(action)) {
             eventGroupMap.put(action, new EventGroup<ButtonClickEvent>());
         }
-
         eventGroupMap.get(action).subscribe(event);
     }
 
@@ -111,18 +118,22 @@ public class DataGridComponent<T> extends ListComponent<T> {
         {
             builder.withReference(buttonRef);
             builder.withMaterial(action.getIcon());
-            builder.withTitle(action.getName());
+            builder.withStyleRenderer(styleRendererOptionsDecorator ->
+            {
+                styleRendererOptionsDecorator.withTitle(action.getName());
+            });
             builder.withOnLeftClick(event ->
             {
                 if (action.getAction() == DataGridAction.CREATE) {
                     action.getOnInvoke().invoke(event);
+                    event.getInventory().refresh();
                     return;
                 }
                 cancelButton.get().setActive(true);
+                stateObserver.set(action.getAction());
                 getTitle().enableTitleModel(TITLE_TAG);
                 getTitle().setTitleModel(TITLE_TAG, action::getMessage);
                 getBorder().setBorderMaterial(action.getBorderIcon());
-                stateObserver.set(action.getAction());
             });
         });
         eventGroupMap.put(action.getAction(), action.getOnInvoke());
@@ -143,7 +154,6 @@ public class DataGridComponent<T> extends ListComponent<T> {
         var events = eventGroupMap.get(state);
         events.invoke(new ButtonClickEvent(event.getPlayer(), event.getButton(), event.getInventory()));
         stateObserver.set(DataGridAction.NONE);
-
     }
 
 

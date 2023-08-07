@@ -2,6 +2,7 @@ package io.github.jwdeveloper.ff.core.observer.implementation;
 
 import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.observer.api.Observable;
+import lombok.Getter;
 
 import java.lang.reflect.Field;
 import java.util.LinkedHashSet;
@@ -9,6 +10,8 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 public class Observer<T> implements Observable<T> {
+
+    @Getter
     private Field field;
     private Object object;
     private Class<?> fieldType;
