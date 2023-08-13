@@ -12,6 +12,14 @@
 
     <groupId>io.github.jwdeveloper</groupId>
     <artifactId>ff-core</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.github.seeseemelk</groupId>
+            <artifactId>MockBukkit-v1.17</artifactId>
+            <version>1.7.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
