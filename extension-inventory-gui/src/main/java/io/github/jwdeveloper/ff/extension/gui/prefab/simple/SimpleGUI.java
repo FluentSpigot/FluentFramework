@@ -75,6 +75,12 @@ public abstract class SimpleGUI implements InventoryComponent
         inventory().get().refresh();;
     }
 
+
+    public final <T extends InventoryComponent> T  getComponent(Class<T> clazz)
+    {
+        return inventory().get().components().find(clazz);
+    }
+
     public final <T extends InventoryComponent> T  addComponent(T inventoryComponent)
     {
         decorator.withComponent(inventoryComponent);

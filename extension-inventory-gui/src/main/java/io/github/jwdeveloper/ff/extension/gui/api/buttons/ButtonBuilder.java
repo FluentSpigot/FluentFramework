@@ -4,6 +4,7 @@ import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import io.github.jwdeveloper.ff.extension.gui.api.references.ButtonRef;
 import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
 import io.github.jwdeveloper.ff.extension.gui.OLD.observer_button.observers.ButtonObservable;
+import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonBuilderImpl;
 import io.github.jwdeveloper.ff.extension.gui.implementation.styles.StyleRendererOptionsDecorator;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -64,6 +65,8 @@ public interface ButtonBuilder {
     ButtonBuilder withStyleRenderer(Consumer<StyleRendererOptionsDecorator> consumer);
 
     ButtonBuilder withHighlighted(boolean value);
+
+    ButtonBuilder withHighlighted();
 
     ButtonBuilder withTag(String tag);
 }

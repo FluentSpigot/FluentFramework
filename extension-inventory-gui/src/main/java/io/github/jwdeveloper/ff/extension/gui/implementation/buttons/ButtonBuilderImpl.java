@@ -180,7 +180,11 @@ public class ButtonBuilderImpl implements ButtonBuilder {
         buttonUI.setHighlighted(value);
         return self();
     }
-
+    @Override
+    public ButtonBuilderImpl withHighlighted() {
+        buttonUI.setHighlighted(true);
+        return self();
+    }
 
     @Override
     public ButtonBuilderImpl withTag(String tag) {
