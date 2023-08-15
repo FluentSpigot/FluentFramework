@@ -5,6 +5,8 @@ import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.api.WidgetOptions;
 import lombok.Setter;
 import org.bukkit.ChatColor;
 
+import java.util.function.Supplier;
+
 public class ProgressBarOptions extends WidgetOptions {
     @Setter
     int yield = 10;
@@ -25,6 +27,11 @@ public class ProgressBarOptions extends WidgetOptions {
     ChatColor color;
 
     @Setter
-    Observer<Integer> valueObserver;
+    Supplier<Observer<Integer>> dataSource;
+
+    public void setDataSourceObserver(Observer<Integer> observer)
+    {
+        dataSource = () -> observer;
+    }
 
 }

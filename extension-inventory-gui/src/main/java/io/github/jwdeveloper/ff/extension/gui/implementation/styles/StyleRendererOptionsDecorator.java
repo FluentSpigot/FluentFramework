@@ -1,9 +1,11 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.styles;
 
+import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRendererOptions;
 
 import java.util.UUID;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class StyleRendererOptionsDecorator {
@@ -82,5 +84,13 @@ public class StyleRendererOptionsDecorator {
 
     public void withDescription(String value) {
         withDescription(x -> value);
+    }
+
+    public void withDescription(Consumer<MessageBuilder> value)
+    {
+        var builder = new MessageBuilder();
+        value.accept(builder);
+        var msg = builder.toString();
+        withDescription(x -> msg);
     }
 }

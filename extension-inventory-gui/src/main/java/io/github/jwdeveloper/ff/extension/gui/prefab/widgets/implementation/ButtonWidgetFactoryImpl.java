@@ -32,12 +32,18 @@ public class ButtonWidgetFactoryImpl implements ButtonWidgetFactory
 
     @Override
     public <T> ButtonWidgetFactory contentList(ButtonBuilder builder, Consumer<ContentListOptions<T>> consumer) {
+        contentListWidget(builder,consumer);
+        return this;
+    }
+
+    @Override
+    public <T> ContentListWidget<T> contentListWidget(ButtonBuilder builder, Consumer<ContentListOptions<T>> consumer) {
         var options = new ContentListOptions<T>();
         consumer.accept(options);
 
         var widget = new ContentListWidget<T>(options);
         widget.onCreate(builder, inventoryApi);
-        return this;
+        return widget;
     }
 
     @Override

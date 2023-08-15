@@ -65,6 +65,7 @@ public abstract class SimpleGUI implements InventoryComponent
         inventory().get().open(player);
     }
 
+
     public final void close()
     {
         inventory().get().close();

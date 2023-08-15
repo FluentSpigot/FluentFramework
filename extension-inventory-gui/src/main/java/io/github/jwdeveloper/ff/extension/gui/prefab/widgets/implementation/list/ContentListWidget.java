@@ -23,6 +23,14 @@ public class ContentListWidget<T> implements ButtonWidget {
     }
 
 
+
+    public void setSelectedItem(T item)
+    {
+
+    }
+
+
+
     @Override
     public void onCreate(ButtonBuilder builder, InventoryApi inventoryApi) {
 

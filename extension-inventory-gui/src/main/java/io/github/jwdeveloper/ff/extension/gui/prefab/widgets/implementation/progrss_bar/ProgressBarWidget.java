@@ -6,6 +6,7 @@ import io.github.jwdeveloper.ff.extension.gui.api.buttons.ButtonBuilder;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderEvent;
 import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.api.ButtonWidget;
+import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.ButtonWidgetException;
 import org.bukkit.ChatColor;
 
 public class ProgressBarWidget implements ButtonWidget {
@@ -14,6 +15,10 @@ public class ProgressBarWidget implements ButtonWidget {
 
     public ProgressBarWidget(ProgressBarOptions options) {
         this.options = options;
+        if(options.dataSource == null)
+        {
+            throw new ButtonWidgetException("DataSource should not be null");
+        }
     }
 
     @Override
@@ -31,27 +36,30 @@ public class ProgressBarWidget implements ButtonWidget {
     }
 
     private void onLeftClick(ButtonClickEvent event) {
-        var value = options.valueObserver.get();
+        var observer =options.dataSource.get();
+        var value = observer.get();
         if (value + options.yield > options.maximum) {
-            options.valueObserver.set(options.maximum);
+            observer.set(options.maximum);
             return;
         }
-        options.valueObserver.set(value + options.yield);
+        observer.set(value + options.yield);
     }
 
     private void onRightClick(ButtonClickEvent event) {
-        var value = options.valueObserver.get();
+        var observer =options.dataSource.get();
+        var value = observer.get();
         if (value - options.yield < options.minimum) {
-            options.valueObserver.set(options.minimum);
+            observer.set(options.minimum);
             return;
         }
-        options.valueObserver.set(value - options.yield);
+        observer.set(value - options.yield);
     }
 
 
     private String onRender(StyleRenderEvent event) {
         var max = options.maximum;
-        var current = options.valueObserver.get();
+        var observer =options.dataSource.get();
+        var current = observer.get();
         float percent = current * 1.0f / max;
         var builder = event.builder();
         builder.space(2);
