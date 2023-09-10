@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.prefab.renderers;
 
-import io.github.jwdeveloper.ff.extension.gui.api.styles.ColorPallet;
+import io.github.jwdeveloper.ff.core.common.ColorPallet;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import org.bukkit.ChatColor;
 

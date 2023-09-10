@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.core.iterator;
+package io.github.jwdeveloper.ff.core.common.iterator;
 
 
 import java.util.List;

@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.extension.gameobject.neww.impl.core;
 
 import io.github.jwdeveloper.ff.core.common.java.EmptyException;
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.SimpleLogger;
 import io.github.jwdeveloper.ff.extension.gameobject.neww.api.core.*;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import org.bukkit.ChatColor;

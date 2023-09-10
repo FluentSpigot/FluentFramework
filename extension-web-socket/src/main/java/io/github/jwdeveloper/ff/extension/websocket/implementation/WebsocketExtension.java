@@ -7,10 +7,9 @@ import io.github.jwdeveloper.ff.extension.websocket.api.FluentWebsocketPacket;
 import io.github.jwdeveloper.ff.extension.websocket.api.data.WebsocketOptions;
 import io.github.jwdeveloper.ff.extension.websocket.implementation.config.WebSocketConfig;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
-import io.github.jwdeveloper.ff.plugin.implementation.config.options.ConfigOptions;
+import io.github.jwdeveloper.ff.plugin.implementation.config.options.FluentConfigFile;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -56,7 +55,7 @@ public class WebsocketExtension implements FluentApiExtension {
     @Override
     public void onFluentApiEnable(FluentApiSpigot fluentAPI) throws Exception {
 
-        var configOptions = fluentAPI.container().findInjection(ConfigOptions.class, WebSocketConfig.class);
+        var configOptions = fluentAPI.container().findInjection(FluentConfigFile.class, WebSocketConfig.class);
         var config = (WebSocketConfig)configOptions.get();
         if(!config.isRunServer())
         {

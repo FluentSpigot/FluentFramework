@@ -3,8 +3,9 @@ package io.github.jwdeveloper.ff.plugin.implementation;
 import io.github.jwdeveloper.ff.core.cache.api.PluginCache;
 import io.github.jwdeveloper.ff.core.cache.implementation.PluginCacheImpl;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.plugin.api.logger.PlayerLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
 import io.github.jwdeveloper.ff.core.spigot.events.FluentEvent;
@@ -37,6 +38,8 @@ import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.implementation.FluentPermissionBuilderImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.implementation.FluentPermissionExtention;
 import io.github.jwdeveloper.ff.plugin.implementation.listeners.ChatInputListener;
+import io.github.jwdeveloper.ff.plugin.api.logger.LoggerConfiguration;
+import io.github.jwdeveloper.ff.plugin.implementation.logger.LoggerConfigurationImpl;
 import lombok.SneakyThrows;
 import org.bukkit.plugin.Plugin;
 
@@ -54,6 +57,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     private final FluentTaskFactory taskFactory;
     private final FluentCommandManger commandManger;
     private final FluentEventManager eventManager;
+    private final LoggerConfigurationImpl loggerConfiguration;
     private final FluentConfigManager configManager;
     private final FluentApiMeta fluentApiMeta;
 
@@ -74,6 +78,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         fluentPermissionBuilder = new FluentPermissionBuilderImpl(plugin);
         jarScanner = new JarScannerImpl(plugin, logger);
         configManager = new FluentConfigManager(jarScanner, logger, config);
+        loggerConfiguration = new LoggerConfigurationImpl(logger, plugin);
     }
 
     @Override
@@ -117,6 +122,11 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     }
 
     @Override
+    public LoggerConfiguration loggerConfiguration() {
+        return loggerConfiguration;
+    }
+
+    @Override
     public FluentTaskFactory tasks() {
         return taskFactory;
     }
@@ -157,6 +167,8 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         extensionsManager.getAfterOnEnable().subscribe(configManager::onSaveConfig);
         extensionsManager.getAfterOnDisable().subscribe(e ->
         {
+            var factory = (SimpleTaskFactory)taskFactory;
+            factory.close();
             for (var closable : e.container().findAllByInterface(Closeable.class)) {
                 try {
                     closable.close();
@@ -166,7 +178,6 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         });
 
         extensionsManager.onConfiguration(this);
-
         containerBuilder.getConfiguration().onInjection(configManager::onConfigOptionsInjectionCall);
 
 
@@ -175,7 +186,8 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         containerBuilder.registerSigleton(FluentTaskFactory.class, taskFactory);
         containerBuilder.registerSigleton(FluentEventManager.class, eventManager);
         containerBuilder.registerSigleton(FluentCommandManger.class, commandManger);
-        containerBuilder.registerSigleton(PluginLogger.class, logger);
+        containerBuilder.registerSigleton(PluginLogger.class, loggerConfiguration.getPluginLogger());
+        containerBuilder.registerSigleton(PlayerLogger.class, loggerConfiguration.getPlayerLogger());
         containerBuilder.registerSigleton(FluentApiMeta.class, fluentApiMeta);
         containerBuilder.registerSigleton(JarScanner.class, jarScanner);
 

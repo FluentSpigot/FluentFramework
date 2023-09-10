@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.documentation.api.DocumentationDecorator;
 import io.github.jwdeveloper.ff.core.documentation.api.models.Documentation;
 

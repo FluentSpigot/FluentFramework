@@ -1,11 +1,12 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiContainerBuilder;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
+import io.github.jwdeveloper.ff.plugin.api.logger.LoggerConfiguration;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermissionBuilder;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
@@ -85,6 +86,11 @@ public class FluentApiBuilder implements FluentApiSpigotBuilder {
     @Override
     public PluginLogger logger() {
         return builder.logger();
+    }
+
+    @Override
+    public LoggerConfiguration loggerConfiguration() {
+        return builder.loggerConfiguration();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.list;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;

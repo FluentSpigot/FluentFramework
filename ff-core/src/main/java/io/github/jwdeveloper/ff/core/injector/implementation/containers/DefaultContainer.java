@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.core.injector.implementation.containers;
 
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
 import io.github.jwdeveloper.ff.core.injector.api.events.EventHandler;
 import io.github.jwdeveloper.ff.core.injector.api.events.events.OnInjectionEvent;

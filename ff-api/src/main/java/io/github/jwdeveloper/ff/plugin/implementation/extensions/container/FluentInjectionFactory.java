@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.container;
 
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
@@ -10,7 +9,6 @@ import io.github.jwdeveloper.ff.core.injector.api.annotations.Injection;
 import io.github.jwdeveloper.ff.core.injector.api.models.ContainerConfiguration;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiContainerBuilderImpl;
-import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.JarScannerImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.implementation.FluentPlayerContext;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.implementation.FluentPlayerContextListener;
 import org.bukkit.plugin.Plugin;

@@ -1,6 +1,5 @@
 package io.github.jwdeveloper.ff.extension.translator.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
@@ -14,7 +13,7 @@ import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
-import io.github.jwdeveloper.ff.plugin.implementation.config.options.ConfigOptions;
+import io.github.jwdeveloper.ff.plugin.implementation.config.options.FluentConfigFile;
 
 import java.util.function.Consumer;
 
@@ -42,7 +41,7 @@ public class FluentTranslationExtension implements FluentApiExtension {
         builder.container()
                 .register(FluentTranslator.class, LifeTime.SINGLETON, (x) ->
                 {
-                    var config = (ConfigOptions<TranslatorConfig>) x.find(ConfigOptions.class, TranslatorConfig.class);
+                    var config = (FluentConfigFile<TranslatorConfig>) x.find(FluentConfigFile.class, TranslatorConfig.class);
                     var simpleTranslator = new SimpleTranslator(builder.logger());
                     return new FluentTranslatorImpl(translatorPath, simpleTranslator, config);
                 });

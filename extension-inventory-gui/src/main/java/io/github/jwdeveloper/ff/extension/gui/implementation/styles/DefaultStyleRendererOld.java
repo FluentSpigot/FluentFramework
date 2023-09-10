@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.styles;
 
+import io.github.jwdeveloper.ff.core.common.ColorPallet;
 import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.ColorPallet;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import org.bukkit.ChatColor;
 

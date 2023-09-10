@@ -4,10 +4,9 @@ import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlModelFactory;
 import io.github.jwdeveloper.ff.plugin.api.config.ConfigProperty;
 import io.github.jwdeveloper.ff.core.common.TextBuilder;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlModelMapper;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
-import io.github.jwdeveloper.ff.plugin.implementation.config.options.PluginState;
 import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
 

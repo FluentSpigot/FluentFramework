@@ -2,20 +2,24 @@ package io.github.jwdeveloper.ff.extension.files.implementation.fluent_files;
 
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.files.json.JsonUtility;
-import io.github.jwdeveloper.ff.extension.files.api.FluentFile;
-import io.github.jwdeveloper.ff.extension.files.api.repository.SaveableRepository;
+import io.github.jwdeveloper.ff.extension.files.api.FluentFileModel;
+import io.github.jwdeveloper.ff.extension.files.api.fluent_files.FluentFile;
+import io.github.jwdeveloper.ff.extension.files.api.fluent_files.repository.SaveableRepository;
 import io.github.jwdeveloper.ff.extension.files.implementation.config.FluentFilesConfig;
+import lombok.Getter;
 
-import java.util.UUID;
-
-public class JsonFile implements FluentFile<SaveableRepository> {
+public class JsonRepositoryFile implements FluentFile<SaveableRepository> {
     private final SaveableRepository repository;
     private final FluentFilesConfig config;
 
-    public JsonFile(SaveableRepository repository, FluentFilesConfig config)
+    @Getter
+    private final FluentFileModel model;
+
+    public JsonRepositoryFile(FluentFileModel model, SaveableRepository repository, FluentFilesConfig config)
     {
         this.repository = repository;
         this.config = config;
+        this.model = model;
     }
 
 

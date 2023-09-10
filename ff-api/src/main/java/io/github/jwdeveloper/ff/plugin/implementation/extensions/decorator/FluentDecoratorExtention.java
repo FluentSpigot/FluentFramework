@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator;
 
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.injector.decorator.api.builder.DecoratorBuilder;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 

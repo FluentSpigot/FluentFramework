@@ -1,13 +1,13 @@
 package io.github.jwdeveloper.ff.extension.translator.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import io.github.jwdeveloper.ff.extension.translator.api.models.TranslationModel;
 import io.github.jwdeveloper.ff.extension.translator.implementation.base.SimpleTranslator;
 import io.github.jwdeveloper.ff.extension.translator.implementation.config.TranslatorConfig;
 import io.github.jwdeveloper.ff.extension.translator.implementation.generator.TranslationsGenerator;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
-import io.github.jwdeveloper.ff.plugin.implementation.config.options.ConfigOptions;
+import io.github.jwdeveloper.ff.plugin.implementation.config.options.FluentConfigFile;
 import org.bukkit.command.CommandSender;
 
 import java.nio.file.Path;
@@ -16,11 +16,11 @@ import java.util.List;
 public class FluentTranslatorImpl implements FluentTranslator {
     private final SimpleTranslator translator;
     private final String path;
-    private final ConfigOptions<TranslatorConfig> options;
+    private final FluentConfigFile<TranslatorConfig> options;
 
     public FluentTranslatorImpl(Path path,
                                 SimpleTranslator lang,
-                                ConfigOptions<TranslatorConfig> options) {
+                                FluentConfigFile<TranslatorConfig> options) {
         this.path = path.toString();
         this.translator = lang;
         this.options = options;

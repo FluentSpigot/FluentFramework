@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.extension.gui.api.styles;
+package io.github.jwdeveloper.ff.core.common;
 
 import lombok.Data;
 import org.bukkit.ChatColor;
@@ -14,15 +14,23 @@ public class ColorPallet {
     private String secondary;
 
 
+    public static ColorPallet DEFAULT()
+    {
+        var colorSet = new ColorPallet();
+        colorSet.setPrimary(ChatColor.AQUA);
+        colorSet.setSecondary(ChatColor.DARK_AQUA);
+        colorSet.setTextBight("#C6C6C6");
+        colorSet.setTextDark("#C6C6C6");
+        return colorSet;
+    }
+
     public void setSecondary(String secondary) {
         this.secondary = translateHexCodes(secondary);
-        ;
     }
 
 
     public void setPrimary(String primary) {
         this.primary = translateHexCodes(primary);
-        ;
     }
 
 

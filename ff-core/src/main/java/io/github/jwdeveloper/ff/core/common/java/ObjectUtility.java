@@ -14,12 +14,31 @@ import java.util.*;
 public class ObjectUtility {
 
     private static final Set<Class<?>> WRAPPER_TYPES = new HashSet(Arrays.asList(
-            Boolean.class, Character.class, Byte.class, Short.class, Integer.class, Long.class, Float.class, Double.class, Void.class));
+            String.class,
+            boolean.class,
+            Boolean.class,
+            char.class,
+            Character.class,
+            byte.class,
+            Byte.class,
+            short.class,
+            Short.class,
+            int.class,
+            Integer.class,
+            long.class,
+            Long.class,
+            float.class,
+            Float.class,
+            double.class,
+            Double.class,
+            void.class,
+            Void.class));
 
 
-    public static <T> T initialize(Class<?> clazz, Object ... params) throws InvocationTargetException, InstantiationException, IllegalAccessException {
-       return (T) clazz.getConstructors()[0].newInstance(params);
+    public static <T> T initialize(Class<?> clazz, Object... params) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+        return (T) clazz.getConstructors()[0].newInstance(params);
     }
+
     public static boolean isPrimitiveType(Class<?> clazz) {
         return WRAPPER_TYPES.contains(clazz);
     }
@@ -66,7 +85,7 @@ public class ObjectUtility {
 
     public static <T> boolean copyToObjectDeep(T obj, T destination) throws IllegalAccessException {
         if (!obj.getClass().equals(destination.getClass())) {
-           // FluentLogger.LOGGER.error("Unable deep copy object" + obj.getClass() + " to " + destination.getClass() + " this are different classes");
+            // FluentLogger.LOGGER.error("Unable deep copy object" + obj.getClass() + " to " + destination.getClass() + " this are different classes");
             return false;
         }
 

@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.core.spigot.tasks.implementation;
 
 import io.github.jwdeveloper.ff.core.async.cancelation.CancelationToken;
 import io.github.jwdeveloper.ff.core.async.cancelation.CancelationTokenSource;
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.TaskAction;
 import org.bukkit.Bukkit;

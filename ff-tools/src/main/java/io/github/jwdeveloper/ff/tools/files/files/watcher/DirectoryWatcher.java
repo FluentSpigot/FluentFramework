@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.tools.files.files.watcher;
 
 
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import lombok.Getter;
 import lombok.Setter;
 

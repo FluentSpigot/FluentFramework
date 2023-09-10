@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.core.common.logger;
+package io.github.jwdeveloper.ff.core.logger.plugin;
 
 import io.github.jwdeveloper.ff.core.common.TextBuilder;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
@@ -7,10 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.plugin.Plugin;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SimpleLogger implements PluginLogger {
     private final String errorBar;
@@ -87,7 +83,7 @@ public class SimpleLogger implements PluginLogger {
         send(message);
     }
 
-    public void error(String message) {
+    public void error(Object... message) {
         if (!isActive()) {
           //  return;
         }

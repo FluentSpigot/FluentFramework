@@ -10,7 +10,7 @@ import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
-import io.github.jwdeveloper.ff.plugin.implementation.config.options.ConfigOptions;
+import io.github.jwdeveloper.ff.plugin.implementation.config.options.FluentConfigFile;
 
 import java.util.function.Consumer;
 
@@ -52,7 +52,7 @@ public class ResourcepackExtention implements FluentApiExtension {
     @Override
     public void onFluentApiEnable(FluentApiSpigot fluentAPI) throws Exception {
 
-        var config = (ConfigOptions<ResourcepackConfig>) fluentAPI.container().findInjection(ConfigOptions.class, ResourcepackConfig.class);
+        var config = (FluentConfigFile<ResourcepackConfig>) fluentAPI.container().findInjection(FluentConfigFile.class, ResourcepackConfig.class);
         if (StringUtils.isNullOrEmpty(config.get().getUrl()))
         {
                  config.get().setUrl(options.getResourcepackUrl());

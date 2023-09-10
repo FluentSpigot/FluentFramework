@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.extension.files.api.repository;
+package io.github.jwdeveloper.ff.extension.files.api.fluent_files.repository;
 
 import java.util.List;
 import java.util.Optional;

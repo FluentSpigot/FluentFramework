@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.api;
 
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.SimpleLogger;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.ComponentsManager;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.EventsManager;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.buttons.ButtonManager;

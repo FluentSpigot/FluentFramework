@@ -1,24 +1,26 @@
 package io.github.jwdeveloper.ff.extension.commands.implementation;
 
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
+import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.ArgumentBuilder;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.extension.commands.api.annotations.Argument;
 import io.github.jwdeveloper.ff.extension.commands.api.annotations.Command;
 import io.github.jwdeveloper.ff.extension.commands.api.annotations.CommandChild;
-import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FluentCommandFactory {
     public List<FluentCommandInvoker> create(Class<?> clazz, SimpleCommandBuilder builder) {
-        var invokers = handleChildren(clazz,builder);
+        var invokers = handleChildren(clazz, builder);
         handleCommandAnnotation(clazz, builder);
-        handleArgumentAnnotation(clazz, builder);
-
         var invoker = new FluentCommandInvoker(clazz);
+        handleArgumentAnnotation(clazz, clazz, builder, invoker);
         handleMethods(clazz, builder, invoker);
 
         invokers.add(invoker);
@@ -43,11 +45,11 @@ public class FluentCommandFactory {
 
     private void handleMethods(Class<?> clazz, SimpleCommandBuilder builder, FluentCommandInvoker invoker) {
         for (var method : clazz.getDeclaredMethods()) {
-            handleMethod(method, builder, invoker);
+            handleMethod(clazz, method, builder, invoker);
         }
     }
 
-    private void handleMethod(Method method, SimpleCommandBuilder builder, FluentCommandInvoker invoker) {
+    private void handleMethod(Class<?> clazz, Method method, SimpleCommandBuilder builder, FluentCommandInvoker invoker) {
         if (!method.isAnnotationPresent(Command.class)) {
             return;
         }
@@ -62,13 +64,14 @@ public class FluentCommandFactory {
             eventConfig.addSubCommand(annotation.name(), builder1 ->
             {
                 handleCommandAnnotation(method, builder1);
-                handleArgumentAnnotation(method, builder1);
+                handleArgumentAnnotation(clazz, method, builder1, invoker);
                 handleInvoke(method, builder1, invoker);
             });
         });
     }
 
     private void handleInvoke(Method method, SimpleCommandBuilder builder, FluentCommandInvoker invoker) {
+
         builder.eventsConfig(eventConfig ->
         {
             eventConfig.onExecute(commandEvent ->
@@ -98,7 +101,7 @@ public class FluentCommandFactory {
         });
     }
 
-    private void handleArgumentAnnotation(AnnotatedElement element, SimpleCommandBuilder builder) {
+    private void handleArgumentAnnotation(Class<?> clazz, AnnotatedElement element, SimpleCommandBuilder builder, FluentCommandInvoker invoker) {
         var annotations = element.getDeclaredAnnotationsByType(Argument.class);
         for (var argument : annotations) {
             builder.argumentsConfig(propertiesConfig ->
@@ -107,9 +110,34 @@ public class FluentCommandFactory {
                 {
                     argumentBuilder.setType(argument.argumentType());
                     argumentBuilder.setDescription(argument.description());
+                    argumentBuilder.setArgumentDisplay(argument.displayMode());
+                    if (StringUtils.isNotNullOrEmpty(argument.onTabComplete())) {
+                        addTabComplete(clazz, argumentBuilder, argument.onTabComplete(), invoker);
+                    }
                 });
             });
         }
+    }
+
+    private void addTabComplete(Class<?> clazz, ArgumentBuilder builder, String methodName, FluentCommandInvoker invoker) {
+
+
+        var optional = Arrays.stream(clazz.getDeclaredMethods()).filter(e -> e.getName().equals(methodName)).findFirst();
+        if (optional.isEmpty()) {
+            FluentLogger.LOGGER.error("Not found OnComplete method: ", methodName, "in class", clazz.getSimpleName());
+            return;
+        }
+        var method = optional.get();
+        if (!method.getReturnType().equals(List.class)) {
+            FluentLogger.LOGGER.error("OnComplete method: ", methodName, "in class", clazz.getSimpleName(), " should return List<String>");
+            return;
+        }
+        if (method.getParameterCount() > 0) {
+            FluentLogger.LOGGER.error("OnComplete method: ", methodName, "in class", clazz.getSimpleName(), " should has 0 parameters but was: ",method.getParameterCount());
+            return;
+        }
+        builder.setTabComplete(() ->   invoker.invokeOnComplete(method));
+
     }
 
 }

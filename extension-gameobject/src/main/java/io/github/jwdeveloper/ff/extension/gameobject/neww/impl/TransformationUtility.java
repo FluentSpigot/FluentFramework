@@ -1,6 +1,5 @@
 package io.github.jwdeveloper.ff.extension.gameobject.neww.impl;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
 import org.joml.Quaternionf;

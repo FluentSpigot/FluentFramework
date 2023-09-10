@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gameobject.neww.api.core;
 
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 
 import java.util.List;
 import java.util.Optional;

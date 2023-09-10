@@ -1,9 +1,9 @@
 package io.github.jwdeveloper.ff.extension.files.implementation;
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.core.spigot.tasks.implementation.SimpleTaskTimer;
 import io.github.jwdeveloper.ff.extension.files.api.FluentFilesManager;
-import io.github.jwdeveloper.ff.extension.files.api.FluentFile;
+import io.github.jwdeveloper.ff.extension.files.api.fluent_files.FluentFile;
 import io.github.jwdeveloper.ff.extension.files.implementation.config.FluentFilesConfig;
 
 import java.util.*;
@@ -59,6 +59,10 @@ public class FluentFilesManagerImpl implements FluentFilesManager
     {
         for(var file : files.values())
         {
+            if(!file.getModel().isAllowAutomaticSaving())
+            {
+                continue;
+            }
             file.save();
         }
     }
@@ -71,6 +75,7 @@ public class FluentFilesManagerImpl implements FluentFilesManager
 
     public void start()
     {
+        load();
         if(!config.isAutoSave())
         {
             return;

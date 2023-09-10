@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;

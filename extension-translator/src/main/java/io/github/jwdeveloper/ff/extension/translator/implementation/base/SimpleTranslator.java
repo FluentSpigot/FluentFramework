@@ -1,8 +1,6 @@
 package io.github.jwdeveloper.ff.extension.translator.implementation.base;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.extension.translator.api.models.TranslationModel;
 import lombok.Getter;
 import org.bukkit.ChatColor;

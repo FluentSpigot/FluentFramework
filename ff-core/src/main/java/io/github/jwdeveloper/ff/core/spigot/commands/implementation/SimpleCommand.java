@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation;
 
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.models.CommandArgument;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.models.CommandModel;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.services.CommandService;

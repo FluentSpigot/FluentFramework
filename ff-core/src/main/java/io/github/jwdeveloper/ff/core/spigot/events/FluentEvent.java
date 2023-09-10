@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.events;
 
 import io.github.jwdeveloper.ff.core.common.java.JavaUtils;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.SimpleEvent;
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.SimpleEventManager;

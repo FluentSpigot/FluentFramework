@@ -3,7 +3,7 @@ package io.github.jwdeveloper.ff.core.files.json;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import com.google.gson.*;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.files.json.adapters.DateTimeOffsetAdapter;
 import io.github.jwdeveloper.ff.core.files.json.adapters.ItemStackAdapter;
@@ -51,7 +51,8 @@ public final class JsonUtility implements FileUtility {
 
     public static <T> T load(String path, String fileName, Class<T> type) {
         String fullPath = getFullPath(path, fileName);
-        if (!FileUtility.isPathValid(path)) {
+        if (!FileUtility.isPathValid(fullPath)) {
+
             ensureFile(path, fileName, "{}");
         }
         try (FileReader reader = new FileReader(fullPath)) {
@@ -113,8 +114,9 @@ public final class JsonUtility implements FileUtility {
                 .create();
     }
 
-    public static void ensureFile(String path, String fileName, String content) {
-        final String fullPath = getFullPath(path, fileName);
+
+    static void ensureFile(String path, String fileName, String content) {
+        final String fullPath = getFullPath(path,fileName);
         final File file = new File(fullPath);
         if (file.exists()) {
             return;
@@ -129,7 +131,6 @@ public final class JsonUtility implements FileUtility {
             FluentLogger.LOGGER.error("Creating path error " + exception.getMessage() + "  " + fullPath, exception);
         }
     }
-
 
     private static String getFullPath(String path, String fileName) {
         return path + File.separator + fileName + ".json";

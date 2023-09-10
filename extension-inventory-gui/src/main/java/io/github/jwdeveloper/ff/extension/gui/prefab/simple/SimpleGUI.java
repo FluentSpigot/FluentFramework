@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.prefab.simple;
 
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.SimpleLogger;
 import io.github.jwdeveloper.ff.extension.gui.api.FluentInventory;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;

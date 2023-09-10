@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import lombok.Data;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;

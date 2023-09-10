@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.text_renderer;
 
-import io.github.jwdeveloper.ff.core.iterator.AbstractIterator;
+import io.github.jwdeveloper.ff.core.common.iterator.AbstractIterator;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 
 import java.util.ArrayList;

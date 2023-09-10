@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.core.files;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,7 +30,7 @@ public interface FileUtility {
     }
 
     static boolean isPathValid(String path) {
-        if(path == null)
+        if (path == null)
             return false;
 
         return new File(path).exists();
@@ -43,18 +43,17 @@ public interface FileUtility {
         return path;
     }
 
-     static String getPathFileName(String path) {
+    static String getPathFileName(String path) {
         return Paths.get(path).getFileName().toString();
     }
 
-     static void saveClassFile(String result, String outputPath, String fileName) throws IOException {
+    static void saveClassFile(String result, String outputPath, String fileName) throws IOException {
         FileUtility.ensurePath(outputPath);
         outputPath = outputPath + FileUtility.separator() + fileName + ".java";
         var writer = new FileWriter(outputPath);
         writer.write(result);
         writer.close();
     }
-
 
 
     static void removeDirectory(File file) {
@@ -118,11 +117,15 @@ public interface FileUtility {
     }
 
     static boolean save(String content, String path, String fileName) {
-        try (FileWriter file = new FileWriter(path + File.separator + fileName)) {
+        return save(content, path + File.separator + fileName);
+    }
+
+    static boolean save(String content, String path) {
+        try (FileWriter file = new FileWriter(path)) {
             file.write(content);
             return true;
         } catch (IOException e) {
-            FluentLogger.LOGGER.error("Save File: " + fileName, e);
+            FluentLogger.LOGGER.error("Save File: " + path, e);
         }
         return false;
     }
@@ -172,12 +175,27 @@ public interface FileUtility {
         return directory;
     }
 
+    static void ensureFile(String paths) {
+        var file =   new File(paths);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e)
+            {
+                FluentLogger.LOGGER.error("Could not ensure file: "+paths, e);
+            }
+        }
+    }
+
+
+
 
     static String loadFileContent(String path) throws IOException {
+        ensureFile(path);
         return Files.asCharSource(new File(path), Charsets.UTF_8).read();
     }
 
-   static String[] loadFile(String filePath) {
+    static String[] loadFile(String filePath) {
         List<String> lines = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -185,7 +203,7 @@ public interface FileUtility {
                 lines.add(line);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            FluentLogger.LOGGER.error("Could not loadFile", e);
         }
         return lines.toArray(new String[0]);
     }
@@ -193,7 +211,6 @@ public interface FileUtility {
     static void saveToFile(String path, String name, String content) throws IOException {
         ensurePath(path);
         Files.write(content.getBytes(), new File(Path.of(path, name).toString()));
-        ;
     }
 
     public static List<String> findAllYmlFiles(File file) {

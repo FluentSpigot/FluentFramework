@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.extension.translator.implementation.base;
 
 import io.github.jwdeveloper.ff.core.common.ResourceSearch;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.files.yaml.implementation.YmlPathReader;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslatorOptions;
@@ -32,10 +31,6 @@ public class TranslationLoader {
     public List<TranslationModel> loadTranslations(String folderPath) throws IOException, InvalidConfigurationException {
         var pluginTranslations = loadFromPluginResources(folderPath);
         var folderTranslations = loadFromLanguagesFolder(folderPath);
-
-        FluentLogger.LOGGER.info("pluginTranslations",pluginTranslations.size());
-        FluentLogger.LOGGER.info("folderTranslations",folderTranslations.size());
-
         pluginTranslations.addAll(folderTranslations);
         return pluginTranslations;
     }

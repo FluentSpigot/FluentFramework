@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.mysql.implementation.factories;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.extension.mysql.implementation.models.SqlConnectionModel;
 
 import java.sql.Connection;

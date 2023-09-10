@@ -1,9 +1,9 @@
 package io.github.jwdeveloper.ff.extension.files.implementation;
 
 import io.github.jwdeveloper.ff.core.common.java.ObjectUtility;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.extension.files.api.DataModel;
-import io.github.jwdeveloper.ff.extension.files.api.repository.SaveableRepository;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
+import io.github.jwdeveloper.ff.extension.files.api.fluent_files.repository.DataModel;
+import io.github.jwdeveloper.ff.extension.files.api.fluent_files.repository.SaveableRepository;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 

@@ -27,8 +27,7 @@ package io.github.jwdeveloper.ff.color_picker.implementation;
 
 
 import io.github.jwdeveloper.ff.color_picker.api.ColorInfo;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.extension.files.api.FluentFile;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import org.bukkit.Color;
 
 import java.util.List;

@@ -6,7 +6,6 @@ import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import io.github.jwdeveloper.ff.core.spigot.messages.text_component.TextComponentBuilder;
 import io.github.jwdeveloper.ff.core.spigot.messages.title.SimpleTitleBuilder;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class FluentMessages {
     public SimpleTitleBuilder title() {
@@ -17,11 +16,9 @@ public class FluentMessages {
     {
         return new MessageBuilder();
     }
-
     public BossBarBuilder bossBar() {
         return new BossBarBuilder();
     }
-
     public TextComponentBuilder component() {
         return new TextComponentBuilder();
     }

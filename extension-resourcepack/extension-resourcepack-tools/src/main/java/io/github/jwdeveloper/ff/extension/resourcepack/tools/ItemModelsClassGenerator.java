@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.resourcepack.tools;
 
 import com.google.gson.JsonParser;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.SimpleLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.extension.resourcepack.api.models.ResourceItemModel;
 import io.github.jwdeveloper.ff.tools.files.code.ClassCodeBuilder;

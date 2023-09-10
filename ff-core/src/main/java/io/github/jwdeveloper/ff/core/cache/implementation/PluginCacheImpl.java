@@ -2,7 +2,6 @@ package io.github.jwdeveloper.ff.core.cache.implementation;
 
 import io.github.jwdeveloper.ff.core.cache.api.CacheObjectData;
 import io.github.jwdeveloper.ff.core.cache.api.PluginCache;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 
 import java.io.IOException;
 import java.time.Duration;

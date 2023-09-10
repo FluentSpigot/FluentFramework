@@ -13,8 +13,8 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Argument {
     String name();
-
     String description() default "";
     ArgumentDisplay displayMode() default ArgumentDisplay.NAME;
     ArgumentType argumentType() default ArgumentType.TEXT;
+    String onTabComplete() default "";
 }

@@ -1,9 +1,10 @@
 package io.github.jwdeveloper.ff.extension.commands.implementation;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.events.CommandEvent;
 import lombok.Getter;
 import lombok.Setter;
 import java.lang.reflect.Method;
+import java.util.List;
 
 public class FluentCommandInvoker
 {
@@ -43,6 +44,7 @@ public class FluentCommandInvoker
                 input[i] = commandEvent.getArgumentValue(argCounter);
                 argCounter ++;
             }
+            method.setAccessible(true);
             method.invoke(commandObject, input);
         }
         catch (Exception e)
@@ -52,5 +54,24 @@ public class FluentCommandInvoker
             FluentLogger.LOGGER.info(  e.getMessage(), e.getCause(), e.getClass().getSimpleName());
            // throw new RuntimeException("Command Invoke error",e);
         }
+    }
+
+    public List<String> invokeOnComplete(Method method)
+    {
+        try {
+            method.setAccessible(true);
+           var result = method.invoke(commandObject);
+           if(result == null)
+           {
+               return List.of();
+           }
+           return  (List<String>)result;
+        }
+        catch (Exception e)
+        {
+            FluentLogger.LOGGER.error("Unable to invoke onTabComplete at "+commandClass.getSimpleName(),e);
+            return List.of();
+        }
+
     }
 }

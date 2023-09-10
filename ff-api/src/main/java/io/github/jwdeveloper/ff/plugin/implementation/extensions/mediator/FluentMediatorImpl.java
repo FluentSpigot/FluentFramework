@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator;
 
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.mediator.api.MediatorHandler;
 import io.github.jwdeveloper.ff.core.mediator.implementation.SimpleMediator;
 

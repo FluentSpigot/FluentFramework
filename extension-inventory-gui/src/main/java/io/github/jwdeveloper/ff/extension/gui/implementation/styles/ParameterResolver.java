@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.styles;
 
+import io.github.jwdeveloper.ff.core.common.ColorPallet;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.ColorPallet;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRendererOptions;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;

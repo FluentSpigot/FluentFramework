@@ -1,21 +1,16 @@
 package io.github.jwdeveloper.ff.plugin.implementation.config;
 
-import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
-import io.github.jwdeveloper.ff.core.common.versions.VersionCompare;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlReader;
 import io.github.jwdeveloper.ff.core.injector.api.events.events.OnInjectionEvent;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
-import io.github.jwdeveloper.ff.plugin.implementation.FluentApiMeta;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.plugin.implementation.config.migrations.DefaultConfigMigrator;
-import io.github.jwdeveloper.ff.plugin.implementation.config.options.ConfigOptions;
+import io.github.jwdeveloper.ff.plugin.implementation.config.options.FluentConfigFile;
 import io.github.jwdeveloper.ff.plugin.implementation.config.options.ConfigOptionsImpl;
-import io.github.jwdeveloper.ff.plugin.implementation.config.options.PluginState;
-import org.bukkit.plugin.Plugin;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
@@ -84,7 +79,7 @@ public class FluentConfigManager {
     }
 
     public Object onConfigOptionsInjectionCall(OnInjectionEvent event) {
-        if (!event.input().isAssignableFrom(ConfigOptions.class)) {
+        if (!event.input().isAssignableFrom(FluentConfigFile.class)) {
             return event.output();
         }
 

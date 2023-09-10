@@ -16,7 +16,5 @@ public class FluentFilesConfig
              """)
     private String savingFrequency;
 
-
-
     private String savingPath;
 }

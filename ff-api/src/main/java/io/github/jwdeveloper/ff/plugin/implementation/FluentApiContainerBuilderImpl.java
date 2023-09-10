@@ -1,10 +1,9 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiContainerBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtensionsManager;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator.FluentDecoratorExtention;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
 import io.github.jwdeveloper.ff.core.injector.decorator.api.builder.DecoratorBuilder;
 import io.github.jwdeveloper.ff.core.injector.implementation.containers.FluentContainerImpl;

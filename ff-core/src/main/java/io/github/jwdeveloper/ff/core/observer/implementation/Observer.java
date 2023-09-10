@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.observer.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.SimpleLogger;
 import io.github.jwdeveloper.ff.core.observer.api.Observable;
 import lombok.Getter;
 

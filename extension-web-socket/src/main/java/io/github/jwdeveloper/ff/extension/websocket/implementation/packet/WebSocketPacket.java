@@ -28,8 +28,7 @@ package io.github.jwdeveloper.ff.extension.websocket.implementation.packet;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.files.json.JsonUtility;
 import io.github.jwdeveloper.ff.core.observer.implementation.Observer;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;

@@ -1,18 +1,11 @@
 import io.github.jwdeveloper.ff.api.tests.FluentApiTest;
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.ff.plugin.implementation.config.options.ConfigOptions;
-import org.bukkit.entity.Player;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import resources.config.AnotherOptions;
 import resources.config.ConfigListContent;
 import resources.config.TestConfig;
 import resources.ExampleExtension;
-
-import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 
 public class ConfigBindingTests extends FluentApiTest
 {

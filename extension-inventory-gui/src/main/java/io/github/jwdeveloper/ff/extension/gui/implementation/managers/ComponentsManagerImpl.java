@@ -1,10 +1,9 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation.managers;
 
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.ComponentsManager;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

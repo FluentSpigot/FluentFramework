@@ -1,8 +1,4 @@
-package io.github.jwdeveloper.ff.core.common.logger;
-
-import org.bukkit.plugin.Plugin;
-
-import java.util.logging.Logger;
+package io.github.jwdeveloper.ff.core.logger.plugin;
 
 public class FluentLogger
 {

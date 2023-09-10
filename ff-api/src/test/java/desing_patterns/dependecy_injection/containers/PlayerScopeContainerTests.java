@@ -5,7 +5,7 @@ import desing_patterns.dependecy_injection.example_classes.ExampleClass;
 import desing_patterns.dependecy_injection.example_classes.ExampleClassV2;
 import desing_patterns.dependecy_injection.example_classes.ExampleInterface;
 import desing_patterns.dependecy_injection.example_classes.ExampleInterfaceV2;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.SimpleLogger;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.core.injector.api.enums.RegistrationType;
 import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;

@@ -25,7 +25,7 @@
 
 package io.github.jwdeveloper.ff.color_picker.api;
 
-import io.github.jwdeveloper.ff.extension.files.api.DataModel;
+import io.github.jwdeveloper.ff.extension.files.api.fluent_files.repository.DataModel;
 import lombok.Data;
 import org.bukkit.Color;
 

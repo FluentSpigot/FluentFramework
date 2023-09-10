@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions;
 
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtensionModel;
@@ -8,7 +8,6 @@ import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtensionsManager;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import lombok.Getter;
 
 import java.util.Collection;

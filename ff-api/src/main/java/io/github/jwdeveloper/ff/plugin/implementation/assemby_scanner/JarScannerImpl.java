@@ -1,8 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner;
 
 import io.github.jwdeveloper.ff.core.common.java.ClassTypeUtility;
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
 import lombok.Getter;
 import org.bukkit.plugin.Plugin;
@@ -30,7 +29,6 @@ public class JarScannerImpl extends ClassLoader implements JarScanner {
     private final PluginLogger logger;
 
     public JarScannerImpl(Plugin plugin, PluginLogger logger) {
-        //TODO check if PLUGIN will works instead of JAVAPLUGIN
         this(plugin.getClass(), logger);
     }
 
@@ -63,7 +61,13 @@ public class JarScannerImpl extends ClassLoader implements JarScanner {
                 name = name.replace('/', '.').substring(0, name.length() - 6);
                 try {
                     classes.add(Class.forName(name, false, clazz.getClassLoader()));
-                } catch (NoClassDefFoundError | ClassNotFoundException e) {
+                }
+                catch (IncompatibleClassChangeError e)
+                {
+
+                }
+                catch (NoClassDefFoundError | ClassNotFoundException e)
+                {
                     logger.error("Unable to load class:" + name, e);
                 }
             }

@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.core.injector.implementation.containers.builder;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.SimpleLogger;
 import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
 import io.github.jwdeveloper.ff.core.injector.api.containers.builders.ContainerBuilder;
 import io.github.jwdeveloper.ff.core.injector.api.containers.builders.ContainerBuilderConfiguration;

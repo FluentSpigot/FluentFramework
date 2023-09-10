@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.extension.gui.OLD.observers.ints;
 
+import io.github.jwdeveloper.ff.core.common.ColorPallet;
 import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.ColorPallet;
 import io.github.jwdeveloper.ff.extension.gui.OLD.observer_button.observers.ButtonObserverEvent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.renderers.FluentButtonStyle;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;

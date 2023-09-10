@@ -27,6 +27,7 @@
         <module>extension-updater</module>
         <module>extension-commands</module>
         <module>extension-plugin-reloader</module>
+        <module>extension-http</module>
     </modules>
     <packaging>pom</packaging>
 

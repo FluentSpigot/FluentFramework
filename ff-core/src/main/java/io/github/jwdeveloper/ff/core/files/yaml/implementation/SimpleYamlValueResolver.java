@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.files.yaml.implementation;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.files.yaml.api.models.YamlContent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

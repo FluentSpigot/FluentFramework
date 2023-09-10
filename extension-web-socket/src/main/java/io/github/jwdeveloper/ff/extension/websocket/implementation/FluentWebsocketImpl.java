@@ -1,9 +1,8 @@
 package io.github.jwdeveloper.ff.extension.websocket.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.extension.websocket.api.FluentWebsocket;
 import io.github.jwdeveloper.ff.extension.websocket.api.data.WebsocketOptions;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import org.java_websocket.WebSocket;
 
 public class FluentWebsocketImpl extends WebSocketBase implements FluentWebsocket

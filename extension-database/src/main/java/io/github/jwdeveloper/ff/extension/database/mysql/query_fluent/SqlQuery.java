@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.extension.database.mysql.query_fluent;
 
 
 import com.google.common.base.Stopwatch;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.extension.database.api.database_table.models.ColumnModel;
 import io.github.jwdeveloper.ff.extension.database.api.database_table.models.TableModel;
 import io.github.jwdeveloper.ff.extension.database.api.query_fluent.QueryFluent;

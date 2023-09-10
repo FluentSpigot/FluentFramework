@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.tasks;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.TaskAction;
 import io.github.jwdeveloper.ff.core.spigot.tasks.implementation.SimpleTaskFactory;

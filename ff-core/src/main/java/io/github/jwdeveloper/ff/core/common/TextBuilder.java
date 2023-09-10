@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.core.common;
 
 import io.github.jwdeveloper.ff.core.common.java.MathUtility;
+import org.bukkit.ChatColor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,9 +14,16 @@ public class TextBuilder<SELF extends TextBuilder<SELF>> {
     }
 
     public SELF text(Object... texts) {
-        for (var text : texts) {
+        for (var text : texts)
+        {
             var value = text == null ? "NULL" : text.toString();
-            text(value).space();
+            text(value);
+
+            if(text instanceof ChatColor)
+            {
+                continue;
+            }
+            space();
         }
         return self();
     }

@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation.services;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.AccessType;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.models.CommandArgument;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.models.CommandTarget;

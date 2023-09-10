@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.plugin.implementation.config.options;
 
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 
-public class ConfigOptionsImpl<T> implements ConfigOptions<T> {
+public class ConfigOptionsImpl<T> implements FluentConfigFile<T> {
     private final FluentConfig fluentConfig;
     private final Object target;
     private final String path;

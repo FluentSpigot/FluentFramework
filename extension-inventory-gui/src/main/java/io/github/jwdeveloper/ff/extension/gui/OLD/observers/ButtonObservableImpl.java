@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.OLD.observers;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.observer.implementation.Observer;
 import io.github.jwdeveloper.ff.extension.gui.OLD.ButtonUIOld;
 import io.github.jwdeveloper.ff.extension.gui.OLD.observer_button.observers.ButtonNotifier;

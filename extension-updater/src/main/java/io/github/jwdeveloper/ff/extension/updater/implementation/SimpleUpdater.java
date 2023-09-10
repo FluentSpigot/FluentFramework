@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.updater.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.common.versions.VersionCompare;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.extension.updater.api.FluentUpdater;

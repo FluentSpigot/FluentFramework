@@ -1,8 +1,9 @@
 package io.github.jwdeveloper.ff.extension.files.api;
 
+import io.github.jwdeveloper.ff.extension.files.api.fluent_files.FluentFile;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public interface FluentFilesManager
 {

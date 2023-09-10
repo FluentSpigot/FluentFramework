@@ -1,8 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.implementation;
 
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.api.PlayerContainerBuilder;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
 import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
 import io.github.jwdeveloper.ff.core.injector.implementation.containers.DefaultContainer;
 import io.github.jwdeveloper.ff.core.injector.implementation.containers.builder.ContainerBuilderImpl;

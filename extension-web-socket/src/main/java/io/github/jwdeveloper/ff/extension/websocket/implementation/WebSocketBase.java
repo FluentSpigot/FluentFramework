@@ -26,9 +26,7 @@
 package io.github.jwdeveloper.ff.extension.websocket.implementation;
 
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
-import io.github.jwdeveloper.ff.core.common.logger.SimpleLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.extension.websocket.api.FluentWebsocketPacket;
 import io.github.jwdeveloper.ff.extension.websocket.implementation.packet.JsonPacketResolver;
 import io.github.jwdeveloper.ff.extension.websocket.implementation.packet.WebSocketPacket;

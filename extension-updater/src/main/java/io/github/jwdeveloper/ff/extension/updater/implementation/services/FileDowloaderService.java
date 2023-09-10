@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.updater.implementation.services;
 
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.extension.updater.api.info.UpdateInfoResponse;
 import org.bukkit.plugin.Plugin;

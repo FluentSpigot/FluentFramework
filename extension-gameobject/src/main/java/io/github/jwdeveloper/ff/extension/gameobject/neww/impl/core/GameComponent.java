@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.gameobject.neww.impl.core;
 
 import io.github.jwdeveloper.ff.core.common.java.EmptyException;
-import io.github.jwdeveloper.ff.core.common.logger.PluginLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.extension.gameobject.neww.api.core.Component;
 import io.github.jwdeveloper.ff.extension.gameobject.neww.api.core.ComponentsManager;
 import io.github.jwdeveloper.ff.extension.gameobject.neww.api.core.GameObject;

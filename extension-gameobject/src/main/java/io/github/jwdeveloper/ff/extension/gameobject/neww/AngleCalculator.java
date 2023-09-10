@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gameobject.neww;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
-import io.github.jwdeveloper.ff.extension.gameobject.api.Vector3;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import org.bukkit.util.Vector;
 import org.joml.Vector3f;
 

@@ -1,6 +1,5 @@
 package io.github.jwdeveloper.ff.core.common;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 

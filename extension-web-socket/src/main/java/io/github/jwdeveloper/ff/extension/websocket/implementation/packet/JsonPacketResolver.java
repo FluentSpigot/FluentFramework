@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.extension.websocket.implementation.packet;
 
 import com.google.gson.JsonParser;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
 import lombok.Data;
 import org.java_websocket.WebSocket;
 

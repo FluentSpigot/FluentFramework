@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.plugin;
 
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
 import io.github.jwdeveloper.ff.extension.commands.FluentCommandAPI;
 import io.github.jwdeveloper.ff.extension.commands.api.FluentCommandOptions;

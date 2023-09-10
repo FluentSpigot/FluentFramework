@@ -1,8 +1,8 @@
-package io.github.jwdeveloper.ff.extension.files.api;
+package io.github.jwdeveloper.ff.extension.files.api.fluent_files.repository;
 
 
 import io.github.jwdeveloper.ff.core.common.java.ObjectUtility;
-import io.github.jwdeveloper.ff.core.common.logger.FluentLogger;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import lombok.Data;
 import org.bukkit.Material;
 
