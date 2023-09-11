@@ -75,6 +75,11 @@ public class FluentFileWatcher implements FluentFile<FileWatcher> {
     {
         var filePath = getPath();
         var path = Paths.get(filePath);
+
+        if(!FileUtility.pathExists(path.toString()))
+        {
+            FileUtility.ensureFile(path.toString());
+        }
         try {
             lastModifiedTime = Files.getLastModifiedTime(path);
         }

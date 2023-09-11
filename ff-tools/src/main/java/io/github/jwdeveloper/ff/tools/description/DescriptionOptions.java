@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.tools.description;
-import io.github.jwdeveloper.descrabble.api.DescrabbleBuilder;
 import io.github.jwdeveloper.descrabble.api.DescriptionDecorator;
-import io.github.jwdeveloper.descrabble.api.DescriptionGenerator;
+import io.github.jwdeveloper.descrabble.framework.api.DescrabbleBuilder;
 import lombok.Data;
 import lombok.Setter;
 

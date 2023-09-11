@@ -1,11 +1,13 @@
 package io.github.jwdeveloper.ff.tools;
+import io.github.jwdeveloper.ff.core.files.FileUtility;
+import io.github.jwdeveloper.ff.plugin.tests.FluentPluginTest;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.nio.file.Path;
 
 
 
-public class TaskBase
+public abstract class FluentTaskAction extends FluentPluginTest
 {
 
     public String getResourcepackItemPath(String resourcePackName, String ... params)
@@ -31,7 +33,7 @@ public class TaskBase
 
     public String getProjectPath()
     {
-        return System.getProperty("user.dir");
+        return FileUtility.getProjectPath();
     }
 
     public String getCodePath()
@@ -73,4 +75,6 @@ public class TaskBase
     {
         return Path.of( getTestResourcePath(), params).toString();
     }
+
+
 }

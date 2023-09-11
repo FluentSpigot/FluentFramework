@@ -3,12 +3,11 @@ package io.github.jwdeveloper.ff.tools.description.elements;
 import io.github.jwdeveloper.descrabble.api.DescriptionDecorator;
 import io.github.jwdeveloper.descrabble.api.elements.Element;
 import io.github.jwdeveloper.descrabble.api.elements.ElementFactory;
-import io.github.jwdeveloper.descrabble.api.elements.ElementType;
 
 public class SectionWithImageElement implements DescriptionDecorator {
-    private String sectionName;
-    private String image;
-    private String content;
+    private final String sectionName;
+    private final String image;
+    private final String content;
 
     public SectionWithImageElement(String sectionName, String image, String content) {
         this.sectionName = sectionName;
@@ -23,12 +22,17 @@ public class SectionWithImageElement implements DescriptionDecorator {
             return;
         }
 
-
         for (var section : sections) {
-            var imageElement = BannerElement.getImage(elementFactory.getBuilder(), image, "");
+
+            var imageElement  = elementFactory.imageElement(image);
+            imageElement.removeProperty("open");
+            imageElement.setProperty("height","100%");
+
+            var spoiler =elementFactory.spoilerElement("open " + sectionName);
+            var codeElement =elementFactory.codeElement(content, "yml");
 
 
-            var spoiler = elementFactory.getBuilder()
+          /*  var spoiler = elementFactory.getBuilder()
                     .withName("spoiler")
                     .withType(ElementType.SPOILER)
                     .withProperty("title", "open " + sectionName)
@@ -39,9 +43,8 @@ public class SectionWithImageElement implements DescriptionDecorator {
                     .withType(ElementType.CODE)
                     .withProperty("code", content)
                     .withProperty("language", "yml").build();
-
+            */
             spoiler.addElement(codeElement);
-
             section.addElement(imageElement);
             section.addElement(spoiler);
         }

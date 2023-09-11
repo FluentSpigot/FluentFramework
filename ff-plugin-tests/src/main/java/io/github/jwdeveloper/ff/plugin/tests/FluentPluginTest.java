@@ -11,6 +11,7 @@ import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.plugin.FluentPlugin;
 import io.github.jwdeveloper.ff.plugin.FluentPluginBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
+import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.TestsJarScanner;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.FluentInjection;
 import lombok.Getter;
 import org.bukkit.event.Event;
@@ -33,8 +34,9 @@ public abstract class FluentPluginTest
     private static WorldMock worldMock;
 
 
-
-
+    public Class<?> getJarScannerClass() {
+        return this.getClass();
+    }
     public String getPluginName() {return StringUtils.EMPTY;};
     public PlayerMock getPlayer()
     {
@@ -100,6 +102,12 @@ public abstract class FluentPluginTest
         }
 
         var builder = FluentPlugin.initialize(pluginMock);
+        builder.withExtension(builder1 ->
+        {
+            var scanner = new TestsJarScanner(getJarScannerClass(),builder1.logger());
+            var classess = scanner.findAll();
+            builder1.jarScanner().addClasses(classess);
+        });
         onFluentPluginBuild(builder);
         fluentApiMock = builder.tryCreate();
         fluentApiMock.enable();
@@ -128,5 +136,8 @@ public abstract class FluentPluginTest
         }
         MockBukkit.unmock();
     }
+
+
+
 
 }

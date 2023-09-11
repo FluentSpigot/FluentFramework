@@ -43,6 +43,11 @@ public interface FileUtility {
         return path;
     }
 
+
+    static String getProgramPath() {
+        return System.getProperty("user.dir");
+    }
+
     static String getPathFileName(String path) {
         return Paths.get(path).getFileName().toString();
     }
@@ -176,18 +181,15 @@ public interface FileUtility {
     }
 
     static void ensureFile(String paths) {
-        var file =   new File(paths);
+        var file = new File(paths);
         if (!file.exists()) {
             try {
                 file.createNewFile();
-            } catch (IOException e)
-            {
-                FluentLogger.LOGGER.error("Could not ensure file: "+paths, e);
+            } catch (IOException e) {
+                FluentLogger.LOGGER.error("Could not ensure file: " + paths, e);
             }
         }
     }
-
-
 
 
     static String loadFileContent(String path) throws IOException {

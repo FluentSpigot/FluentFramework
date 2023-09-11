@@ -34,15 +34,19 @@ public class JarScannerImpl extends ClassLoader implements JarScanner {
 
     public JarScannerImpl(Class<?> clazz, PluginLogger logger) {
         this.logger = logger;
-        classes = loadClassess(clazz);
+        classes = loadClasses(clazz);
         byInterfaceCatch = new IdentityHashMap<>();
         byParentCatch = new IdentityHashMap<>();
         byPackageCatch = new IdentityHashMap<>();
         byAnnotationCatch = new HashMap<>();
     }
 
+    public void addClasses(Collection<Class<?>> classes)
+    {
+        this.classes.addAll(classes);
+    }
 
-    private List<Class<?>> loadClassess(final Class<?> clazz) {
+    protected List<Class<?>> loadClasses(final Class<?> clazz) {
         final var source = clazz.getProtectionDomain().getCodeSource();
         if (source == null)
             return Collections.emptyList();
@@ -80,7 +84,7 @@ public class JarScannerImpl extends ClassLoader implements JarScanner {
 
     public void attacheAllClassesFromPackage(Class<?> clazz)
     {
-        classes.addAll(loadClassess(clazz));
+        classes.addAll(loadClasses(clazz));
         byInterfaceCatch.clear();;
         byAnnotationCatch.clear();
         byPackageCatch.clear();;
@@ -148,6 +152,11 @@ public class JarScannerImpl extends ClassLoader implements JarScanner {
         }
         byPackageCatch.put(_package, result);
         return result;
+    }
+
+    @Override
+    public Collection<Class<?>> findAll() {
+        return  Collections.unmodifiableList(classes);
     }
 
 

@@ -17,14 +17,20 @@ public class BannerElement  implements DescriptionDecorator
         }
 
 
-        var bannerImage = getImage(factory.getBuilder(),"https://raw.githubusercontent.com/jwdeveloper/JW_Piano/master/resources/images/banner.png","");
-
+        var bannerImage = factory.imageElement("https://raw.githubusercontent.com/jwdeveloper/TikTokLiveSpigot/master/webeditor/resources/banner.jpg");
+        bannerImage.removeProperty("open");
         var container = factory.getBuilder()
                 .withName("container")
                 .build();
-        var discordLink = getImage(factory.getBuilder(),"https://raw.githubusercontent.com/jwdeveloper/SpigotFluentAPI/master/resources/social-media/discord.png", "google.com");
-        var githubLink =getImage(factory.getBuilder(),"https://raw.githubusercontent.com/jwdeveloper/SpigotFluentAPI/master/resources/social-media/github.png", "google.com");
-        var spigotLink = getImage(factory.getBuilder(),"https://raw.githubusercontent.com/jwdeveloper/SpigotFluentAPI/master/resources/social-media/spigot.png", "google.com");
+
+
+
+        var baseLinkBanner= "D:\\Git\\fluent-framework\\ff-tools\\resources\\banners";
+       // baseLinkBanner = "https://raw.githubusercontent.com/jwdeveloper/SpigotFluentAPI/master/resources/social-media";
+
+        var discordLink =  factory.imageElement(baseLinkBanner+"\\discord.png", "google.com");
+        var githubLink = factory.imageElement(baseLinkBanner+"\\github.png", "google.com");
+        var spigotLink =  factory.imageElement(baseLinkBanner+"\\support.png", "google.com");
         container.addElement(discordLink, githubLink, spigotLink);
 
         for (var banner : banners)
@@ -32,16 +38,6 @@ public class BannerElement  implements DescriptionDecorator
             banner.addElement(bannerImage);
             banner.addElement(container);
         }
-    }
-
-
-    public static Element getImage(ElementBuilder builder, String image, String redirect) {
-
-        return builder.withName("image")
-                .withType(ElementType.IMAGE)
-                .withProperty("image", image)
-                .withProperty("open", redirect)
-                .build();
     }
 
 

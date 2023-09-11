@@ -1,16 +1,14 @@
 package io.github.jwdeveloper.ff.tools.description;
-
-import io.github.jwdeveloper.descrabble.Descrabble;
 import io.github.jwdeveloper.descrabble.api.DescriptionDecorator;
-import io.github.jwdeveloper.descrabble.github.DescrabbleGithub;
-import io.github.jwdeveloper.descrabble.spigot.DescrabbleSpigot;
+import io.github.jwdeveloper.descrabble.framework.Descrabble;
+import io.github.jwdeveloper.descrabble.plugin.github.DescrabbleGithub;
+import io.github.jwdeveloper.descrabble.plugin.spigot.DescrabbleSpigot;
 import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionDto;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.tools.description.elements.BannerElement;
-import io.github.jwdeveloper.ff.tools.description.elements.ConfigElement;
 import io.github.jwdeveloper.ff.tools.description.elements.SectionWithImageElement;
 import io.github.jwdeveloper.ff.tools.description.spigot.CommandsDocumentationGenerator;
 import io.github.jwdeveloper.ff.tools.description.spigot.PermissionDocumentationGenerator;
@@ -41,10 +39,10 @@ public class DescriptionExtension implements FluentApiExtension {
 
         var builder = Descrabble.create()
                 .withTemplate(options.getInput())
+                .withDecorator(banner)
                 .withDecorator(getCommandsDecorator(fluentAPI))
                 .withDecorator(getPermissionsDecorator(fluentAPI))
                 .withDecorator(getConfigDecorator(fluentAPI))
-                .withDecorator(banner)
                 .withPlugin(DescrabbleGithub.plugin())
                 .withPlugin(DescrabbleSpigot.plugin());
 
