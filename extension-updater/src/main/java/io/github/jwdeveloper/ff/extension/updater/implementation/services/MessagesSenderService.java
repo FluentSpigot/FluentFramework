@@ -57,15 +57,22 @@ public class MessagesSenderService
 
     public void sendUpdateInfoMessage(CommandSender commandSender, UpdateInfoResponse response)
     {
+        if(response == UpdateInfoResponse.NOT_FOUND)
+        {
+            return;
+        }
         this.infoResponse = response;
-        getMessagePrefix().text(translator.get("updater.info.msg-1")).send(commandSender);
-        getMessagePrefix().text(translator.get("updater.info.msg-2")).text(ChatColor.AQUA).space().text("TODO ADD COMMAND NAME").send(commandSender);
-        getMessagePrefix().text(translator.get("updater.info.msg-3")).send(commandSender);
-        commandSender.sendMessage(infoResponse.getDescription());
+      //  getMessagePrefix().text(translator.get("updater.info.msg-1")).send(commandSender);
+      //  getMessagePrefix().text(translator.get("updater.info.msg-2")).text(ChatColor.AQUA).space().text("TODO ADD COMMAND NAME").send(commandSender);
+      //  getMessagePrefix().text(translator.get("updater.info.msg-3")).send(commandSender);
+        getMessagePrefix()
+                .text("New version detected")
+                .text("Version:").text(infoResponse.getVersion())
+                .text("Description:").text(infoResponse.getDescription()).send(commandSender);
     }
 
     public MessageBuilder getMessagePrefix() {
         var msg = fluentMessages.chat().inBrackets(plugin.getName());
-        return msg.space().color(ChatColor.AQUA).inBrackets(translator.get("updater.info.title")).color(ChatColor.GRAY).space();
+        return msg.space().color(ChatColor.AQUA).inBrackets("Updater").color(ChatColor.GRAY).space();
     }
 }

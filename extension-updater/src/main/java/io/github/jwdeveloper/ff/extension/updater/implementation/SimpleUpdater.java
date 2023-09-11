@@ -6,6 +6,7 @@ import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.extension.updater.api.FluentUpdater;
 import io.github.jwdeveloper.ff.extension.updater.api.UpdateInfoProvider;
 import io.github.jwdeveloper.ff.extension.updater.api.info.CheckUpdateInfo;
+import io.github.jwdeveloper.ff.extension.updater.api.info.UpdateInfoResponse;
 import io.github.jwdeveloper.ff.extension.updater.implementation.services.FileDowloaderService;
 import io.github.jwdeveloper.ff.extension.updater.implementation.services.MessagesSenderService;
 import org.bukkit.ChatColor;
@@ -70,6 +71,12 @@ public class SimpleUpdater implements FluentUpdater {
     @Override
     public CheckUpdateInfo checkUpdate() throws IOException {
         var infoResponse = provider.getUpdateInfo();
+
+        if(infoResponse == UpdateInfoResponse.NOT_FOUND)
+        {
+            return new CheckUpdateInfo(false, infoResponse);
+        }
+
         if (VersionCompare.isHigher(infoResponse.getVersion(), currentVersion)) {
             return new CheckUpdateInfo(true, infoResponse);
         }

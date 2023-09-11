@@ -1,25 +1,16 @@
-package io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator;
+package io.github.jwdeveloper.ff.tools.description.spigot;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.documentation.api.DocumentationDecorator;
-import io.github.jwdeveloper.ff.core.documentation.api.builders.YmlBuilder;
-import io.github.jwdeveloper.ff.core.documentation.api.models.Documentation;
+import io.github.jwdeveloper.ff.tools.description.documentation.api.builders.YmlBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleCommand;
 
 import java.util.Collection;
 
-public class CommandsDocumentationDecorator extends DocumentationDecorator {
+public class CommandsDocumentationGenerator {
 
-    private Collection<SimpleCommand> commands;
 
-    public CommandsDocumentationDecorator(Collection<SimpleCommand> commands) {
-        this.commands = commands;
-    }
+    public String generate(Collection<SimpleCommand> commands) {
 
-    @Override
-    public void decorate(Documentation documentation) {
-        addTitle("Commands", documentation, "yml-title");
-        addImage("https://raw.githubusercontent.com/jwdeveloper/SpigotFluentAPI/master/resources/banners/commands.png", documentation);
 
         var builder = createYmlBuilder();
         builder.newLine();
@@ -28,8 +19,11 @@ public class CommandsDocumentationDecorator extends DocumentationDecorator {
         for (var command : commands) {
             renderCommandInfo(builder, command);
         }
-        var yml = builder.build();
-        addYml(yml, documentation);
+        return builder.build();
+    }
+
+    protected YmlBuilder createYmlBuilder() {
+        return new YmlBuilder();
     }
 
 

@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.core.documentation.api.builders;
+package io.github.jwdeveloper.ff.tools.description.documentation.api.builders;
 
 
 import io.github.jwdeveloper.ff.core.common.TextBuilder;

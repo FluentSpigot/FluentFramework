@@ -17,6 +17,8 @@ import org.bukkit.event.Event;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.util.Objects;
+
 public abstract class FluentPluginTest
 {
     @Getter
@@ -30,6 +32,10 @@ public abstract class FluentPluginTest
     @Getter
     private static WorldMock worldMock;
 
+
+
+
+    public String getPluginName() {return StringUtils.EMPTY;};
     public PlayerMock getPlayer()
     {
         return  serverMock.addPlayer();
@@ -75,8 +81,7 @@ public abstract class FluentPluginTest
 
 
     @BeforeEach
-    public void before()
-    {
+    public void before() throws Exception {
         if(MockBukkit.isMocked())
         {
             MockBukkit.unmock();
@@ -84,10 +89,19 @@ public abstract class FluentPluginTest
         serverMock = MockBukkit.mock();
         worldMock = serverMock.addSimpleWorld("world");
         serverMock.addWorld(worldMock);
-        pluginMock = MockBukkit.createMockPlugin();
+
+        if(!Objects.equals(getPluginName(), StringUtils.EMPTY))
+        {
+            pluginMock = MockBukkit.createMockPlugin(getPluginName());
+        }
+        else
+        {
+            pluginMock = MockBukkit.createMockPlugin();
+        }
+
         var builder = FluentPlugin.initialize(pluginMock);
         onFluentPluginBuild(builder);
-        fluentApiMock = builder.create();
+        fluentApiMock = builder.tryCreate();
         fluentApiMock.enable();
     }
 
@@ -99,17 +113,19 @@ public abstract class FluentPluginTest
         {
             return;
         }
-        fluentApiMock.disable();
-
-        var commandSender = (ConsoleCommandSenderMock)serverMock.getConsoleSender();
-        var message = StringUtils.EMPTY;
-        do
+        if(fluentApiMock != null)
         {
-            System.out.println(message);
-            message =  commandSender.nextMessage();
-        }
-        while (message != null);
+            fluentApiMock.disable();
 
+            var commandSender = (ConsoleCommandSenderMock)serverMock.getConsoleSender();
+            var message = StringUtils.EMPTY;
+            do
+            {
+                System.out.println(message);
+                message =  commandSender.nextMessage();
+            }
+            while (message != null);
+        }
         MockBukkit.unmock();
     }
 

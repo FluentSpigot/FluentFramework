@@ -9,4 +9,6 @@ public class CheckUpdateInfo {
 
     private boolean isUpdate;
     private UpdateInfoResponse updateInfo;
+
+
 }

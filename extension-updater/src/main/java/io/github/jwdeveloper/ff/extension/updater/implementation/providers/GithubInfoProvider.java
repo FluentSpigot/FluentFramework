@@ -7,6 +7,7 @@ import io.github.jwdeveloper.ff.extension.updater.api.info.UpdateInfoResponse;
 import io.github.jwdeveloper.ff.extension.updater.api.options.GithubUpdaterOptions;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -44,9 +45,17 @@ public class GithubInfoProvider implements UpdateInfoProvider {
             var response = doRequest();
             return mapToInfoResponse(response);
         }
+        catch (FileNotFoundException fileNotFoundException)
+        {
+            return UpdateInfoResponse.NOT_FOUND;
+        }
+        catch (RuntimeException error)
+        {
+            return UpdateInfoResponse.NOT_FOUND;
+        }
         catch (Exception e)
         {
-          throw new RuntimeException("Unable to do update request");
+          throw new RuntimeException("Unable to do update request",e);
         }
     }
 

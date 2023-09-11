@@ -1,10 +1,8 @@
-package io.github.jwdeveloper.ff.plugin.implementation.extensions.decorator;
+package io.github.jwdeveloper.ff.tools.description.spigot;
 
 import io.github.jwdeveloper.ff.core.common.TextBuilder;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
-import io.github.jwdeveloper.ff.core.documentation.api.DocumentationDecorator;
-import io.github.jwdeveloper.ff.core.documentation.api.builders.YmlBuilder;
-import io.github.jwdeveloper.ff.core.documentation.api.models.Documentation;
+import io.github.jwdeveloper.ff.tools.description.documentation.api.builders.YmlBuilder;
 import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionDto;
 import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
 import io.github.jwdeveloper.ff.core.spigot.permissions.implementation.PermissionModelResolver;
@@ -13,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PermissionDocumentationDecorator extends DocumentationDecorator {
+public class PermissionDocumentationGenerator {
 
     private final PermissionDto permissionGeneratorDto;
 
@@ -22,23 +20,26 @@ public class PermissionDocumentationDecorator extends DocumentationDecorator {
     private final int defaultOffset = 2;
     private final int propertyOffset = 4;
 
-    public PermissionDocumentationDecorator(PermissionDto permissionGeneratorDto) {
+    public PermissionDocumentationGenerator(PermissionDto permissionGeneratorDto) {
         this.permissionGeneratorDto = permissionGeneratorDto;
         resolver = new PermissionModelResolver();
     }
 
-    @Override
-    public void decorate(Documentation documentation) {
+
+    public String generate()
+    {
         var models = getModels();
-        addTitle("Permissions", documentation, "yml-title");
-        addImage("https://raw.githubusercontent.com/jwdeveloper/SpigotFluentAPI/master/resources/banners/permissions.png", documentation);
         var builder = createYmlBuilder();
         builder.addSection("permissions");
         builder.newLine();
         renderSections(builder, models);
-        var yml = builder.build();
-        addYml(yml, documentation);
+        return  builder.build();
     }
+
+    protected YmlBuilder createYmlBuilder() {
+        return new YmlBuilder();
+    }
+
 
     private void renderSections(YmlBuilder builder, List<PermissionModel> sections) {
         for (var section : sections) {

@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.core.documentation.api.models;
+package io.github.jwdeveloper.ff.tools.description.documentation.api.models;
 
 import lombok.Getter;
 
