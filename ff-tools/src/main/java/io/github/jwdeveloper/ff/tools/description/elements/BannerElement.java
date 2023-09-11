@@ -26,11 +26,12 @@ public class BannerElement  implements DescriptionDecorator
 
 
         var baseLinkBanner= "D:\\Git\\fluent-framework\\ff-tools\\resources\\banners";
-       // baseLinkBanner = "https://raw.githubusercontent.com/jwdeveloper/SpigotFluentAPI/master/resources/social-media";
 
-        var discordLink =  factory.imageElement(baseLinkBanner+"\\discord.png", "google.com");
-        var githubLink = factory.imageElement(baseLinkBanner+"\\github.png", "google.com");
-        var spigotLink =  factory.imageElement(baseLinkBanner+"\\support.png", "google.com");
+       baseLinkBanner = "https://raw.githubusercontent.com/jwdeveloper/FluentFramework/master/ff-tools/resources/banners";
+
+        var discordLink =  factory.imageElement(baseLinkBanner+"/discord.png", "google.com");
+        var githubLink = factory.imageElement(baseLinkBanner+"/github.png", "google.com");
+        var spigotLink =  factory.imageElement(baseLinkBanner+"/support.png", "google.com");
         container.addElement(discordLink, githubLink, spigotLink);
 
         for (var banner : banners)
