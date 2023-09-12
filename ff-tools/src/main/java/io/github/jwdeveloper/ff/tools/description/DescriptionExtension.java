@@ -17,7 +17,7 @@ import io.github.jwdeveloper.ff.tools.description.spigot.PermissionDocumentation
 public class DescriptionExtension implements FluentApiExtension {
     private final DescriptionOptions options;
 
-    private final String basePath = "https://raw.githubusercontent.com/jwdeveloper/FluentFramework/master/ff-tools/resources/banners2";
+    private final String basePath = "https://raw.githubusercontent.com/jwdeveloper/FluentFramework/master/ff-tools/resources/banners";
 
     public DescriptionExtension(DescriptionOptions descriptionOptions) {
         this.options = descriptionOptions;
