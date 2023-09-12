@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.tools.description;
 
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
+import io.github.jwdeveloper.ff.tools.description.options.DescriptionOptions;
 
 import java.util.function.Consumer;
 

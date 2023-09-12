@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.tools.description;
+package io.github.jwdeveloper.ff.tools.description.options;
 import io.github.jwdeveloper.descrabble.api.DescriptionDecorator;
 import io.github.jwdeveloper.descrabble.framework.api.DescrabbleBuilder;
 import lombok.Data;
@@ -21,6 +21,13 @@ public class DescriptionOptions
     private final HashMap<String, Object> parameters = new HashMap<>();
 
     private Consumer<DescrabbleBuilder> onBuild = (e)->{};
+
+    private final BannerOptions bannerOptions = new BannerOptions();
+
+    public void configureBanner(Consumer<BannerOptions> consumer)
+    {
+        consumer.accept(bannerOptions);
+    }
 
     public void addParameter(String key, Object value)
     {

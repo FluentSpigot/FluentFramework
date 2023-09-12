@@ -4,9 +4,11 @@ import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.plugin.FluentPluginBuilder;
 import io.github.jwdeveloper.ff.tools.FluentTaskAction;
 import io.github.jwdeveloper.ff.tools.description.DescriptionToolAPI;
+import io.github.jwdeveloper.ff.tools.description.options.BannerOptions;
 import lombok.Data;
 
 import java.nio.file.Path;
+import java.util.function.Consumer;
 
 
 public abstract class GenerateDescriptionTask extends FluentTaskAction
@@ -41,6 +43,7 @@ public abstract class GenerateDescriptionTask extends FluentTaskAction
         onFluentPluginBuilding(builder);
         builder.withExtension(DescriptionToolAPI.use(descriptionOptions ->
         {
+            descriptionOptions.configureBanner(descriptionDto.bannerOptions);
             descriptionOptions.setInput(Path.of(FileUtility.getProgramPath(),descriptionDto.input));
             descriptionOptions.setOutput(Path.of(FileUtility.getProgramPath(),descriptionDto.output));
         }));
@@ -57,6 +60,8 @@ public abstract class GenerateDescriptionTask extends FluentTaskAction
         private String input;
 
         private String output;
+
+        private Consumer<BannerOptions> bannerOptions = (e)->{};
     }
 
 }

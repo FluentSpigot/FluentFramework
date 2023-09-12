@@ -10,11 +10,14 @@ import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.tools.description.elements.BannerElement;
 import io.github.jwdeveloper.ff.tools.description.elements.SectionWithImageElement;
+import io.github.jwdeveloper.ff.tools.description.options.DescriptionOptions;
 import io.github.jwdeveloper.ff.tools.description.spigot.CommandsDocumentationGenerator;
 import io.github.jwdeveloper.ff.tools.description.spigot.PermissionDocumentationGenerator;
 
 public class DescriptionExtension implements FluentApiExtension {
     private final DescriptionOptions options;
+
+    private final String basePath = "https://raw.githubusercontent.com/jwdeveloper/FluentFramework/master/ff-tools/resources/banners";
 
     public DescriptionExtension(DescriptionOptions descriptionOptions) {
         this.options = descriptionOptions;
@@ -33,10 +36,7 @@ public class DescriptionExtension implements FluentApiExtension {
 
     @Override
     public void onFluentApiEnable(FluentApiSpigot fluentAPI) throws Exception {
-        var banner = new BannerElement();
-
-
-
+        var banner = new BannerElement(options.getBannerOptions());
         var builder = Descrabble.create()
                 .withTemplate(options.getInput())
                 .withDecorator(banner)
@@ -60,14 +60,14 @@ public class DescriptionExtension implements FluentApiExtension {
     }
 
     private DescriptionDecorator getCommandsDecorator(FluentApiSpigot fluentApiSpigot) {
-        var imageUrl = "https://raw.githubusercontent.com/jwdeveloper/SpigotFluentAPI/master/resources/banners/commands.png";
+        var imageUrl = basePath+"/commands.png";
         var generator = new CommandsDocumentationGenerator();
         var content = generator.generate(fluentApiSpigot.commands().getSimpleCommands());
         return new SectionWithImageElement("commands", imageUrl, content);
     }
 
     private DescriptionDecorator getPermissionsDecorator(FluentApiSpigot fluentApiSpigot) {
-        var imageUrl = "https://raw.githubusercontent.com/jwdeveloper/SpigotFluentAPI/master/resources/banners/permissions.png";
+        var imageUrl = basePath+"/permissions.png";
 
         var dto = new PermissionDto(FluentApiSpigot.class, fluentApiSpigot.permission().getPermissions());
         var permissions = new PermissionDocumentationGenerator(dto);
@@ -76,7 +76,7 @@ public class DescriptionExtension implements FluentApiExtension {
     }
 
     private DescriptionDecorator getConfigDecorator(FluentApiSpigot fluentApiSpigot) {
-        var imageUrl = "https://raw.githubusercontent.com/jwdeveloper/SpigotFluentAPI/master/resources/banners/configuration.png";
+        var imageUrl = basePath+"/config.png";
         var content = fluentApiSpigot.config().configFile().saveToString();
         return new SectionWithImageElement("config", imageUrl, content);
     }

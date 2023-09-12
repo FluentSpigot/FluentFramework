@@ -2,12 +2,17 @@ package io.github.jwdeveloper.ff.tools.description.elements;
 
 import io.github.jwdeveloper.descrabble.api.DescriptionDecorator;
 import io.github.jwdeveloper.descrabble.api.elements.Element;
-import io.github.jwdeveloper.descrabble.api.elements.ElementBuilder;
 import io.github.jwdeveloper.descrabble.api.elements.ElementFactory;
-import io.github.jwdeveloper.descrabble.api.elements.ElementType;
+import io.github.jwdeveloper.ff.tools.description.options.BannerOptions;
 
-public class BannerElement  implements DescriptionDecorator
-{
+public class BannerElement implements DescriptionDecorator {
+
+    private final BannerOptions bannerOptions;
+
+    public BannerElement(BannerOptions bannerOptions) {
+        this.bannerOptions = bannerOptions;
+    }
+
 
     @Override
     public void decorate(Element root, ElementFactory factory) {
@@ -17,25 +22,31 @@ public class BannerElement  implements DescriptionDecorator
         }
 
 
-        var bannerImage = factory.imageElement("https://raw.githubusercontent.com/jwdeveloper/TikTokLiveSpigot/master/webeditor/resources/banner.jpg");
+        var bannerImage = factory.imageElement(bannerOptions.getBannerImage());
         bannerImage.removeProperty("open");
         var container = factory.getBuilder()
                 .withName("container")
                 .build();
 
 
+        var baseLinkBanner = "https://raw.githubusercontent.com/jwdeveloper/FluentFramework/master/ff-tools/resources/banners";
 
-        var baseLinkBanner= "D:\\Git\\fluent-framework\\ff-tools\\resources\\banners";
+        var supportLink = factory.imageElement(baseLinkBanner + "/support.png", bannerOptions.getDonationUrl());
+        var discordLink = factory.imageElement(baseLinkBanner + "/discord.png", bannerOptions.getDiscordUrl());
+        var githubLink = factory.imageElement(baseLinkBanner + "/github.png", bannerOptions.getGithubUrl());
+        var spigotLink = factory.imageElement(baseLinkBanner + "/spigot.png", bannerOptions.getSpigotUrl());
 
-       baseLinkBanner = "https://raw.githubusercontent.com/jwdeveloper/FluentFramework/master/ff-tools/resources/banners";
+        discordLink.setProperty("width", "30%");
+        supportLink.setProperty("width", "30%");
 
-        var discordLink =  factory.imageElement(baseLinkBanner+"/discord.png", "google.com");
-        var githubLink = factory.imageElement(baseLinkBanner+"/github.png", "google.com");
-        var spigotLink =  factory.imageElement(baseLinkBanner+"/support.png", "google.com");
-        container.addElement(discordLink, githubLink, spigotLink);
+        githubLink.setProperty("width", "30%");
+        githubLink.addTag("github-ignore");
 
-        for (var banner : banners)
-        {
+        spigotLink.setProperty("width", "30%");
+        spigotLink.addTag("spigot-ignore");
+        container.addElement(supportLink, discordLink, githubLink, spigotLink);
+
+        for (var banner : banners) {
             banner.addElement(bannerImage);
             banner.addElement(container);
         }
