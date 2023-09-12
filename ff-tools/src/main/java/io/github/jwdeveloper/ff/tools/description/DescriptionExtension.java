@@ -36,7 +36,7 @@ public class DescriptionExtension implements FluentApiExtension {
 
     @Override
     public void onFluentApiEnable(FluentApiSpigot fluentAPI) throws Exception {
-        var banner = new BannerElement(options.getBannerOptions());
+        var banner = new BannerElement(basePath, options.getBannerOptions());
         var builder = Descrabble.create()
                 .withTemplate(options.getInput())
                 .withDecorator(banner)

@@ -8,9 +8,11 @@ import io.github.jwdeveloper.ff.tools.description.options.BannerOptions;
 public class BannerElement implements DescriptionDecorator {
 
     private final BannerOptions bannerOptions;
+    private final String path;
 
-    public BannerElement(BannerOptions bannerOptions) {
+    public BannerElement(String path, BannerOptions bannerOptions) {
         this.bannerOptions = bannerOptions;
+        this.path = path;
     }
 
 
@@ -29,12 +31,12 @@ public class BannerElement implements DescriptionDecorator {
                 .build();
 
 
-        var baseLinkBanner = "https://raw.githubusercontent.com/jwdeveloper/FluentFramework/master/ff-tools/resources/banners";
 
-        var supportLink = factory.imageElement(baseLinkBanner + "/support.png", bannerOptions.getDonationUrl());
-        var discordLink = factory.imageElement(baseLinkBanner + "/discord.png", bannerOptions.getDiscordUrl());
-        var githubLink = factory.imageElement(baseLinkBanner + "/github.png", bannerOptions.getGithubUrl());
-        var spigotLink = factory.imageElement(baseLinkBanner + "/spigot.png", bannerOptions.getSpigotUrl());
+
+        var supportLink = factory.imageElement(path + "/support.svg", bannerOptions.getDonationUrl());
+        var discordLink = factory.imageElement(path + "/discord.svg", bannerOptions.getDiscordUrl());
+        var githubLink = factory.imageElement(path + "/github.svg", bannerOptions.getGithubUrl());
+        var spigotLink = factory.imageElement(path + "/spigot.svg", bannerOptions.getSpigotUrl());
 
         discordLink.setProperty("width", "30%");
         supportLink.setProperty("width", "30%");
