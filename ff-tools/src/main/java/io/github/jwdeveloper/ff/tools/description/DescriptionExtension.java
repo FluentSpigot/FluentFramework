@@ -17,7 +17,7 @@ import io.github.jwdeveloper.ff.tools.description.spigot.PermissionDocumentation
 public class DescriptionExtension implements FluentApiExtension {
     private final DescriptionOptions options;
 
-    private final String basePath = "https://raw.githubusercontent.com/jwdeveloper/FluentFramework/master/ff-tools/resources/banners";
+    private final String basePath = "https://raw.githubusercontent.com/jwdeveloper/FluentFramework/master/ff-tools/resources/banners2";
 
     public DescriptionExtension(DescriptionOptions descriptionOptions) {
         this.options = descriptionOptions;
@@ -60,14 +60,14 @@ public class DescriptionExtension implements FluentApiExtension {
     }
 
     private DescriptionDecorator getCommandsDecorator(FluentApiSpigot fluentApiSpigot) {
-        var imageUrl = basePath+"/commands.png";
+        var imageUrl = basePath+"/commands.svg";
         var generator = new CommandsDocumentationGenerator();
         var content = generator.generate(fluentApiSpigot.commands().getSimpleCommands());
         return new SectionWithImageElement("commands", imageUrl, content);
     }
 
     private DescriptionDecorator getPermissionsDecorator(FluentApiSpigot fluentApiSpigot) {
-        var imageUrl = basePath+"/permissions.png";
+        var imageUrl = basePath+"/permissions.svg";
 
         var dto = new PermissionDto(FluentApiSpigot.class, fluentApiSpigot.permission().getPermissions());
         var permissions = new PermissionDocumentationGenerator(dto);
@@ -76,7 +76,7 @@ public class DescriptionExtension implements FluentApiExtension {
     }
 
     private DescriptionDecorator getConfigDecorator(FluentApiSpigot fluentApiSpigot) {
-        var imageUrl = basePath+"/config.png";
+        var imageUrl = basePath+"/config.svg";
         var content = fluentApiSpigot.config().configFile().saveToString();
         return new SectionWithImageElement("config", imageUrl, content);
     }
