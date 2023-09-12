@@ -33,10 +33,10 @@ public class BannerElement implements DescriptionDecorator {
 
 
 
-        var supportLink = factory.imageElement(path + "/discord_medium.svg", bannerOptions.getDonationUrl());
-        var discordLink = factory.imageElement(path + "/discord_medium.svg", bannerOptions.getDiscordUrl());
-        var githubLink = factory.imageElement(path + "/discord_medium.svg", bannerOptions.getGithubUrl());
-        var spigotLink = factory.imageElement(path + "/discord_medium.svg", bannerOptions.getSpigotUrl());
+        var supportLink = factory.imageElement(path + "/discord_medium2.svg", bannerOptions.getDonationUrl());
+        var discordLink = factory.imageElement(path + "/discord_medium2.svg", bannerOptions.getDiscordUrl());
+        var githubLink = factory.imageElement(path + "/discord_medium2.svg", bannerOptions.getGithubUrl());
+        var spigotLink = factory.imageElement(path + "/discord_medium2.svg", bannerOptions.getSpigotUrl());
 
         discordLink.setProperty("width", "30%");
         supportLink.setProperty("width", "30%");
