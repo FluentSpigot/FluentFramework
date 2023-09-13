@@ -18,7 +18,7 @@ import java.util.List;
 public class FluentCommandFactory {
     public List<FluentCommandInvoker> create(Class<?> clazz, SimpleCommandBuilder builder) {
         var invokers = handleChildren(clazz, builder);
-        handleCommandAnnotation(clazz, builder);
+        handleCommandAnnotation(null,clazz, builder);
         var invoker = new FluentCommandInvoker(clazz);
         handleArgumentAnnotation(clazz, clazz, builder, invoker);
         handleMethods(clazz, builder, invoker);
@@ -63,7 +63,7 @@ public class FluentCommandFactory {
         {
             eventConfig.addSubCommand(annotation.name(), builder1 ->
             {
-                handleCommandAnnotation(method, builder1);
+                handleCommandAnnotation(clazz,method, builder1);
                 handleArgumentAnnotation(clazz, method, builder1, invoker);
                 handleInvoke(method, builder1, invoker);
             });
@@ -81,23 +81,42 @@ public class FluentCommandFactory {
         });
     }
 
-    private void handleCommandAnnotation(AnnotatedElement element, SimpleCommandBuilder builder) {
-        if (!element.isAnnotationPresent(Command.class)) {
+    private void handleCommandAnnotation(Class<?> parentClass, AnnotatedElement methodElement, SimpleCommandBuilder builder) {
+        if (!methodElement.isAnnotationPresent(Command.class)) {
             return;
         }
-        var annotation = element.getAnnotation(Command.class);
+        var methodAnnotation = methodElement.getAnnotation(Command.class);
+
+
+        var parentName = StringUtils.EMPTY;
+        if (parentClass != null && parentClass.isAnnotationPresent(Command.class)) {
+            var annotation = parentClass.getAnnotation(Command.class);
+            parentName = annotation.name();
+        }
+        var finalParentName = parentName;
+
         builder.propertiesConfig(propertiesConfig ->
         {
-            if (StringUtils.isNotNullOrEmpty(annotation.name())) {
-                propertiesConfig.setName(annotation.name());
+            if (StringUtils.isNotNullOrEmpty(methodAnnotation.name())) {
+                propertiesConfig.setName(methodAnnotation.name());
             }
-            propertiesConfig.setLabel(annotation.label());
-            propertiesConfig.setHideFromTabDisplay(annotation.hideFromDisplay());
-            propertiesConfig.setDescription(annotation.description());
-            propertiesConfig.setAccess(annotation.access());
-            propertiesConfig.setShortDescription(annotation.shortDescription());
-            propertiesConfig.setLabel(annotation.label());
-            propertiesConfig.addPermissions(annotation.permissions());
+
+            if (StringUtils.isNotNullOrEmpty(finalParentName)) {
+                propertiesConfig.setUsageMessage("/" +finalParentName+" "+ methodAnnotation.name());
+            }
+            else
+            {
+                propertiesConfig.setUsageMessage("/" + methodAnnotation.name());
+            }
+
+
+            propertiesConfig.setLabel(methodAnnotation.label());
+            propertiesConfig.setHideFromTabDisplay(methodAnnotation.hideFromDisplay());
+            propertiesConfig.setDescription(methodAnnotation.description());
+            propertiesConfig.setAccess(methodAnnotation.access());
+            propertiesConfig.setShortDescription(methodAnnotation.shortDescription());
+            propertiesConfig.setLabel(methodAnnotation.label());
+            propertiesConfig.addPermissions(methodAnnotation.permissions());
         });
     }
 
@@ -121,7 +140,6 @@ public class FluentCommandFactory {
 
     private void addTabComplete(Class<?> clazz, ArgumentBuilder builder, String methodName, FluentCommandInvoker invoker) {
 
-
         var optional = Arrays.stream(clazz.getDeclaredMethods()).filter(e -> e.getName().equals(methodName)).findFirst();
         if (optional.isEmpty()) {
             FluentLogger.LOGGER.error("Not found OnComplete method: ", methodName, "in class", clazz.getSimpleName());
@@ -133,10 +151,10 @@ public class FluentCommandFactory {
             return;
         }
         if (method.getParameterCount() > 0) {
-            FluentLogger.LOGGER.error("OnComplete method: ", methodName, "in class", clazz.getSimpleName(), " should has 0 parameters but was: ",method.getParameterCount());
+            FluentLogger.LOGGER.error("OnComplete method: ", methodName, "in class", clazz.getSimpleName(), " should has 0 parameters but was: ", method.getParameterCount());
             return;
         }
-        builder.setTabComplete(() ->   invoker.invokeOnComplete(method));
+        builder.setTabComplete(() -> invoker.invokeOnComplete(method));
 
     }
 

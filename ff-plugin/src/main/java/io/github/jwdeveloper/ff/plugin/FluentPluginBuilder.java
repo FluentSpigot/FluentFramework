@@ -107,6 +107,7 @@ public class FluentPluginBuilder {
                         propertiesConfig.setDescription("Command only for plugin development purpose. Can be only trigger by Console. disables all plugins");
                         propertiesConfig.setUsageMessage("/disable");
                         propertiesConfig.setHideFromTabDisplay(true);
+                        propertiesConfig.setHideFromDocumentation(true);
                     })
                     .eventsConfig(eventConfig ->
                     {
@@ -120,6 +121,13 @@ public class FluentPluginBuilder {
 
 
             FluentCommand.create("debbug")
+                    .propertiesConfig(propertiesConfig ->
+                    {
+                        propertiesConfig.setDescription("Command only for plugin development purpose. Can be only trigger by Console. disables all plugins");
+                        propertiesConfig.setUsageMessage("/debbug");
+                        propertiesConfig.setHideFromTabDisplay(true);
+                        propertiesConfig.setHideFromDocumentation(true);
+                    })
                     .eventsConfig(eventConfig ->
                     {
                         eventConfig.onPlayerExecute(playerCommandEvent ->
@@ -129,13 +137,12 @@ public class FluentPluginBuilder {
                             }
 
                             var world = Bukkit.getWorld("debbugworld");
-                            if(world == null)
-                            {
+                            if (world == null) {
                                 world = Bukkit.createWorld(new WorldCreator("debbugworld").type(WorldType.FLAT));
                             }
                             world.setDifficulty(Difficulty.PEACEFUL);
-                            world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE,false);
-                            world.setGameRule(GameRule.DO_WEATHER_CYCLE,false);
+                            world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+                            world.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
                             playerCommandEvent.getPlayer().teleport(world.getSpawnLocation());
                         });
                     }).buildAndRegister();

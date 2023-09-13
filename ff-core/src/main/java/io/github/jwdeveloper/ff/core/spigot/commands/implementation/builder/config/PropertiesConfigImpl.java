@@ -21,6 +21,12 @@ public class PropertiesConfigImpl implements PropertiesConfig {
     }
 
     @Override
+    public PropertiesConfig setHideFromDocumentation(boolean value) {
+        model.setHideFromDocumentation(value);
+        return this;
+    }
+
+    @Override
     public PropertiesConfig setUsageMessage(String usageMessage) {
         model.setUsageMessage(usageMessage);
         return this;

@@ -21,4 +21,6 @@ public interface PropertiesConfig extends BuilderConfig {
     PropertiesConfig setAccess(AccessType accessType);
 
     PropertiesConfig setHideFromTabDisplay(boolean isHide);
+
+    PropertiesConfig setHideFromDocumentation(boolean value);
 }

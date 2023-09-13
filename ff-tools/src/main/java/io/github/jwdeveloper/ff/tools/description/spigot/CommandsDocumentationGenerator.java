@@ -28,7 +28,7 @@ public class CommandsDocumentationGenerator {
 
 
     private void renderCommandInfo(YmlBuilder builder, SimpleCommand command) {
-        if (command.getName().equals("disable")) {
+        if (command.getCommandModel().isHideFromDocumentation()) {
             return;
         }
 

@@ -32,4 +32,6 @@ public class CommandModel {
     private boolean allParametersRequired = true;
 
     private boolean hideFromTabDisplay = false;
+
+    private boolean hideFromDocumentation = false;
 }
