@@ -26,9 +26,7 @@ public class BannerElement implements DescriptionDecorator {
 
         var bannerImage = factory.imageElement(bannerOptions.getBannerImage());
         bannerImage.removeProperty("open");
-        var container = factory.getBuilder()
-                .withName("container")
-                .build();
+        var socialsContainer = factory.containerElement();
 
 
 
@@ -46,11 +44,11 @@ public class BannerElement implements DescriptionDecorator {
 
         spigotLink.setProperty("width", "30%");
         spigotLink.addTag("spigot-ignore");
-        container.addElement(supportLink, discordLink, githubLink, spigotLink);
+        socialsContainer.addElement(supportLink, discordLink, githubLink, spigotLink);
 
         for (var banner : banners) {
+            banner.addElement(socialsContainer);
             banner.addElement(bannerImage);
-            banner.addElement(container);
         }
     }
 

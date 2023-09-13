@@ -13,7 +13,7 @@
     <artifactId>extension-resourcepack</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>extension-resourcepack-tools</module>
+
     </modules>
     <dependencies>
         <dependency>

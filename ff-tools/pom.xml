@@ -29,7 +29,7 @@
         <dependency>
             <groupId>com.github.jwdeveloper.Descrabble</groupId>
             <artifactId>Descrabble-Full</artifactId>
-            <version>0.0.9-Release</version>
+            <version>0.0.11-Release</version>
         </dependency>
 
         <dependency>
