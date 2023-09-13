@@ -4,22 +4,37 @@ import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.tools.description.documentation.api.builders.YmlBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleCommand;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class CommandsDocumentationGenerator {
 
 
+
+    private List<String> allCommandsNames = new ArrayList<>();
+
     public String generate(Collection<SimpleCommand> commands) {
 
-
-        var builder = createYmlBuilder();
-        builder.newLine();
-        builder.newLine();
-        builder.addSection("commands");
+        var commandInfoBuilder = createYmlBuilder();
+        commandInfoBuilder.newLine();
+        commandInfoBuilder.newLine();
+        commandInfoBuilder.addSection("commands");
         for (var command : commands) {
-            renderCommandInfo(builder, command);
+            renderCommandInfo(commandInfoBuilder, command);
         }
-        return builder.build();
+
+        var commandInfoResult = commandInfoBuilder.build();
+
+
+        var output = createYmlBuilder();
+        output.addComment("Commands");
+        for(var cmd : allCommandsNames)
+        {
+            output.addComment(cmd);
+        }
+        output.addSection(commandInfoResult);
+        return output.build();
     }
 
     protected YmlBuilder createYmlBuilder() {
@@ -38,6 +53,7 @@ public class CommandsDocumentationGenerator {
         var model = command.getCommandModel();
         var title = StringUtils.isNullOrEmpty(model.getUsageMessage()) ? model.getName() : model.getUsageMessage();
         builder.addComment(title);
+        allCommandsNames.add(title);
         builder.addSection(model.getName(), defaultOffset);
         if (!command.getSubCommands().isEmpty()) {
             builder.addSection("children", propertyOffset);

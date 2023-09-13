@@ -5,6 +5,7 @@ import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.extension.gui.api.*;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.ComponentsManager;
 import io.github.jwdeveloper.ff.extension.gui.implementation.managers.*;
+import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -14,7 +15,8 @@ public class FluentInventoryFactoryImpl implements FluentInventoryFactory {
     private final FluentTaskFactory fluentTaskManager;
     private final Set<FluentInventory> inventories;
 
-    public FluentInventoryFactoryImpl(InventoryApi fluentInventoryApi, FluentTaskFactory fluentTaskManager) {
+    public FluentInventoryFactoryImpl(InventoryApi fluentInventoryApi,
+                                      FluentTaskFactory fluentTaskManager) {
         this.fluentInventoryApi = fluentInventoryApi;
         this.fluentTaskManager = fluentTaskManager;
         inventories = new HashSet<>();
@@ -39,9 +41,12 @@ public class FluentInventoryFactoryImpl implements FluentInventoryFactory {
     }
 
     @Override
-    public FluentInventory create(Class<? extends InventoryComponent>... componentsTypes)
-    {
-        return null;
+    public FluentInventory create(Class<? extends InventoryComponent>... componentsTypes) {
+        var components = Arrays.stream(componentsTypes).map(aClass ->
+        {
+            return FluentApi.container().findInjection(aClass);
+        }).toList().toArray(new InventoryComponent[componentsTypes.length]);
+        return create(components);
     }
 
     public List<FluentInventory> find(UUID uuid, Class<? extends InventoryComponent>... componentsTypes) {

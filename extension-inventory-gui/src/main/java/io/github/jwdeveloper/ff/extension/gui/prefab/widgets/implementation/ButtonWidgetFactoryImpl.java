@@ -13,6 +13,8 @@ import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.inpu
 import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.input_chat.ChatInputWidget;
 import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.list.ContentListOptions;
 import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.list.ContentListWidget;
+import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.list_check_box.ContentListCheckBoxOptions;
+import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.list_check_box.ContentListCheckBoxWidget;
 import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.progrss_bar.ProgressBarOptions;
 import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.progrss_bar.ProgressBarWidget;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
@@ -44,6 +46,16 @@ public class ButtonWidgetFactoryImpl implements ButtonWidgetFactory
         var widget = new ContentListWidget<T>(options);
         widget.onCreate(builder, inventoryApi);
         return widget;
+    }
+
+    @Override
+    public ButtonWidgetFactory checkBoxList(ButtonBuilder builder, Consumer<ContentListCheckBoxOptions> consumer) {
+        var options = new ContentListCheckBoxOptions();
+        consumer.accept(options);
+
+        var widget = new ContentListCheckBoxWidget(options);
+        widget.onCreate(builder, inventoryApi);
+        return this;
     }
 
     @Override

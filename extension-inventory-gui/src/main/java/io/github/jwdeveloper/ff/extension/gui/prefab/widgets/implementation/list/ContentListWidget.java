@@ -2,6 +2,7 @@ package io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.lis
 
 import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.common.java.JavaUtils;
+import io.github.jwdeveloper.ff.core.observer.implementation.Observer;
 import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.buttons.ButtonBuilder;
@@ -13,8 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContentListWidget<T> implements ButtonWidget {
-    private final ContentListOptions<T> options;
+    protected final ContentListOptions<T> options;
     private int currentIndex;
+
+    private Observer<T> selectedItemObserver;
 
     private final List<T> EMPTY_ARRAY = new ArrayList<>();
 
@@ -23,20 +26,23 @@ public class ContentListWidget<T> implements ButtonWidget {
     }
 
 
-
-    public void setSelectedItem(T item)
-    {
+    public void setSelectedItem(T item) {
 
     }
 
+    public T getSelectedItem()
+    {
+        return selectedItemObserver.get();
+    }
 
 
     @Override
     public void onCreate(ButtonBuilder builder, InventoryApi inventoryApi) {
 
         JavaUtils.throwIfNull(options.selectedItemObserver, "selectedItemSource must not be null");
+        selectedItemObserver = options.selectedItemObserver;
         options.itemPrefix = JavaUtils.ifNull(options.itemPrefix, "   ");
-        options.selectedItemPrefix = JavaUtils.ifNull(options.selectedItemPrefix, " "+Emoticons.dot + " ");
+        options.selectedItemPrefix = JavaUtils.ifNull(options.selectedItemPrefix, " " + Emoticons.dot + " ");
         options.contentSource = JavaUtils.ifNull(options.contentSource, () -> EMPTY_ARRAY);
         options.contentMapping = JavaUtils.ifNull(options.contentMapping, Object::toString);
         options.leftClickInfo = JavaUtils.ifNull(options.leftClickInfo, "Previous");
@@ -64,7 +70,7 @@ public class ContentListWidget<T> implements ButtonWidget {
             return;
         }
         currentIndex = (currentIndex + 1) % getContent().size();
-        options.selectedItemObserver.set(getContent().get(currentIndex));
+        selectedItemObserver.set(getContent().get(currentIndex));
         options.selectionChangedEvent.invoke(createEvent(e));
     }
 
@@ -80,13 +86,13 @@ public class ContentListWidget<T> implements ButtonWidget {
         if (currentIndex < 0) {
             currentIndex = getContent().size() - 1;
         }
-        options.selectedItemObserver.set(getContent().get(currentIndex));
+        selectedItemObserver.set(getContent().get(currentIndex));
         options.selectionChangedEvent.invoke(createEvent(e));
     }
 
     private String onRender(StyleRenderEvent e) {
         if (options.showOnlySelectedItem) {
-            var selected = options.selectedItemObserver.get();
+            var selected = selectedItemObserver.get();
             return e.builder()
                     .text(e.pallet().getPrimary())
                     .text(options.selectedItemPrefix)
@@ -104,20 +110,16 @@ public class ContentListWidget<T> implements ButtonWidget {
         for (var i = 0; i < content.size(); i++) {
             value = content.get(i);
             builder.text(e.pallet().getPrimary());
-            if(currentIndex == i)
-            {
+            if (currentIndex == i) {
                 builder.text(options.selectedItemPrefix);
-            }
-            else
-            {
+            } else {
                 builder.text(options.itemPrefix);
             }
             builder.text(e.pallet().getTextBight());
             builder.text(options.contentMapping.apply(value));
             builder.text(ChatColor.RESET);
 
-            if(i == content.size()-1)
-            {
+            if (i == content.size() - 1) {
                 continue;
             }
             builder.newLine();
@@ -127,7 +129,7 @@ public class ContentListWidget<T> implements ButtonWidget {
 
 
     private int findCurrentIndex() {
-        var item = options.selectedItemObserver.get();
+        var item = selectedItemObserver.get();
         if (item == null) {
             return 0;
         }
@@ -149,7 +151,7 @@ public class ContentListWidget<T> implements ButtonWidget {
     private ContentSelectionEvent<T> createEvent(ButtonClickEvent event) {
         return new ContentSelectionEvent<T>(
                 event.getButton(),
-                options.selectedItemObserver.get(),
+                selectedItemObserver.get(),
                 getContent(),
                 currentIndex, event.getPlayer(),
                 event.getInventory());

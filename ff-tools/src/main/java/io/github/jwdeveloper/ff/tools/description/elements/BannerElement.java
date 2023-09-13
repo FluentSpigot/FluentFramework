@@ -31,7 +31,7 @@ public class BannerElement implements DescriptionDecorator {
 
 
 
-        var supportLink = factory.imageElement(path + "/support.svg", bannerOptions.getDonationUrl());
+        var supportLink = factory.imageElement(path + "/support_old.gif", bannerOptions.getDonationUrl());
         var discordLink = factory.imageElement(path + "/discord.svg", bannerOptions.getDiscordUrl());
         var githubLink = factory.imageElement(path + "/github.svg", bannerOptions.getGithubUrl());
         var spigotLink = factory.imageElement(path + "/spigot.svg", bannerOptions.getSpigotUrl());

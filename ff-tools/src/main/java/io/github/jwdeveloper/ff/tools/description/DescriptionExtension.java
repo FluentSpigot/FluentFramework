@@ -71,7 +71,7 @@ public class DescriptionExtension implements FluentApiExtension {
     private DescriptionDecorator getPermissionsDecorator(FluentApiSpigot fluentApiSpigot) {
         var imageUrl = bannersPath +"/permissions.svg";
 
-        var dto = new PermissionDto(FluentApiSpigot.class, fluentApiSpigot.permission().getPermissions());
+        var dto = new PermissionDto(options.getPermissionsClass(), fluentApiSpigot.permission().getPermissions());
         var permissions = new PermissionDocumentationGenerator(dto);
         var content = permissions.generate();
         return new SectionWithImageElement("permissions", imageUrl, content);

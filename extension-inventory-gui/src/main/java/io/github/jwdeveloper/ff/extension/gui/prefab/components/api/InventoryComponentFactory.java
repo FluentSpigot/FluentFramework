@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.prefab.components.api;
 
+import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.BorderComponent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.search.SearchComponent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.title.TitleComponent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.files.FilePickerComponent;
@@ -16,4 +17,6 @@ public interface InventoryComponentFactory {
     TitleComponent title();
 
     FilePickerComponent filePicker();
+
+    BorderComponent border();
 }

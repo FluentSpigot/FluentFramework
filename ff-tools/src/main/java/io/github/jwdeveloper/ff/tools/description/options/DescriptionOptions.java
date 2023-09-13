@@ -21,8 +21,9 @@ public class DescriptionOptions
     private final HashMap<String, Object> parameters = new HashMap<>();
 
     private Consumer<DescrabbleBuilder> onBuild = (e)->{};
-
     private final BannerOptions bannerOptions = new BannerOptions();
+
+    private Class<?> permissionsClass = Object.class;
 
     public void configureBanner(Consumer<BannerOptions> consumer)
     {
