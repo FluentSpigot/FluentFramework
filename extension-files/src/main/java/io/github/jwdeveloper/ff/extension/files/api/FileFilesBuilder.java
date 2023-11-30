@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.extension.files.api;
 
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.FileWatcher;
+import io.github.jwdeveloper.ff.extension.files.api.fluent_files.FolderWatcher;
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.repository.Repository;
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.TextFile;
 
@@ -26,4 +27,6 @@ public interface FileFilesBuilder
     <T extends FileWatcher> void addFileWatcher(Class<T> repository);
 
     <T extends FileWatcher> void addFileWatcher(T repository);
+
+     <T extends FolderWatcher> void  addFolderWatcher(T watcher);
 }

@@ -11,15 +11,5 @@ public class TranslatorConfig {
             If you want add your language open `languages` folder copy `en.yml`
             set `default-language` property to your file name and /reload server
             """)
-    private String language;
-
-    public String getLanguage()
-    {
-
-        if(StringUtils.isNullOrEmpty(language))
-        {
-            language = "en";
-        }
-       return language;
-    }
+    private String language ="en";
 }

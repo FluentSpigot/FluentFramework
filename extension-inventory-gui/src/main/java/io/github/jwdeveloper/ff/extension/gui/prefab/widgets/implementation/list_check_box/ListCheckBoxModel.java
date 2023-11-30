@@ -11,11 +11,13 @@ public class ListCheckBoxModel
     private String name;
 
     private Observer<Boolean> observer;
+    private String permission;
 
 
-    public ListCheckBoxModel(String name, Observer<Boolean> observer) {
+    public ListCheckBoxModel(String name, Observer<Boolean> observer,String permission) {
         this.name = name;
         this.observer = observer;
+        this.permission = permission;
     }
 
     public ListCheckBoxModel() {

@@ -43,8 +43,14 @@ public class FluentFileWatcher implements FluentFile<FileWatcher> {
     }
 
     @Override
-    public void load() {
+    public void load()
+    {
+        FileUtility.ensurePath(getDirectoryPath());
         try {
+            if(!FileUtility.isPathValid(getPath()) && model.getOnIfFileNotFound() != null)
+            {
+                model.getOnIfFileNotFound().accept(getPath());
+            }
             var content = FileUtility.loadFileContent(getPath());
             if (StringUtils.isNullOrEmpty(content)) {
                 content = StringUtils.EMPTY;
@@ -62,6 +68,15 @@ public class FluentFileWatcher implements FluentFile<FileWatcher> {
         FileUtility.save(content, getPath());
     }
 
+
+    public String getDirectoryPath()
+    {
+        if (model.hasCustomPath()) {
+            return FileUtility.combinePath(model.getCustomPath());
+        }
+        return FileUtility.combinePath(config.getSavingPath());
+    }
+
     @Override
     public String getPath()
     {
@@ -73,6 +88,7 @@ public class FluentFileWatcher implements FluentFile<FileWatcher> {
     FileTime lastModifiedTime = null;
     public void run(CancelationToken ctx)
     {
+        load();
         var filePath = getPath();
         var path = Paths.get(filePath);
 
@@ -88,7 +104,7 @@ public class FluentFileWatcher implements FluentFile<FileWatcher> {
 
         }
         catch (IOException e) {
-            e.printStackTrace();
+            FluentLogger.LOGGER.error("Error",e);
         }
 
         ctx.throwIfCancel();

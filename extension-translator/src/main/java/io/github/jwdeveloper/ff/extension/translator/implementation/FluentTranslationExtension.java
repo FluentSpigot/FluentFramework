@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.extension.translator.implementation;
 
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
@@ -12,6 +13,7 @@ import io.github.jwdeveloper.ff.extension.translator.implementation.config.Trans
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
+import io.github.jwdeveloper.ff.plugin.api.logger.PlayerLogger;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.plugin.implementation.config.options.FluentConfigFile;
 
@@ -41,9 +43,10 @@ public class FluentTranslationExtension implements FluentApiExtension {
         builder.container()
                 .register(FluentTranslator.class, LifeTime.SINGLETON, (x) ->
                 {
+                    var logger = (PlayerLogger)x.find(PlayerLogger.class);
                     var config = (FluentConfigFile<TranslatorConfig>) x.find(FluentConfigFile.class, TranslatorConfig.class);
                     var simpleTranslator = new SimpleTranslator(builder.logger());
-                    return new FluentTranslatorImpl(translatorPath, simpleTranslator, config);
+                    return new FluentTranslatorImpl(translatorPath, simpleTranslator, config, logger);
                 });
 
         builder.permissions()
@@ -73,6 +76,12 @@ public class FluentTranslationExtension implements FluentApiExtension {
 
         var loader = new TranslationLoader(fluentAPI.plugin(), options);
         var language = config.getLanguage();
+        if(StringUtils.isNullOrEmpty(language))
+        {
+            config.setLanguage("en");
+            language = "en";
+        }
+
         var translationsPath = translator.getTranslationsPath();
         var translations = loader.loadTranslations(translationsPath);
         translator.addTranslationModel(translations);

@@ -3,6 +3,9 @@ package io.github.jwdeveloper.ff.extension.files.api;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import lombok.Data;
 
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 @Data
 public class FluentFileModel
 {
@@ -11,6 +14,8 @@ public class FluentFileModel
     private String customPath;
 
     private FluentFileType type;
+
+    private Consumer<String> onIfFileNotFound;
 
     private boolean allowAutomaticSaving = true;
 

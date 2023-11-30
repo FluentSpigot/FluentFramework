@@ -3,6 +3,7 @@ package io.github.jwdeveloper.ff.extension.files.implementation.config;
 import io.github.jwdeveloper.ff.extension.files.api.FileFilesBuilder;
 import io.github.jwdeveloper.ff.extension.files.api.FluentFileModel;
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.FileWatcher;
+import io.github.jwdeveloper.ff.extension.files.api.fluent_files.FolderWatcher;
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.repository.Repository;
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.TextFile;
 import io.github.jwdeveloper.ff.extension.files.implementation.builder.FluentFilesBuilderImpl;
@@ -70,5 +71,11 @@ public class FluentFilesOptions extends ExtensionOptions implements FileFilesBui
     @Override
     public <T extends FileWatcher> void addFileWatcher(T repository) {
         builder.addFileWatcher(repository);
+    }
+
+
+    public <T extends FolderWatcher> void  addFolderWatcher(T watcher)
+    {
+        builder.addFolderWatcher(watcher);
     }
 }

@@ -18,6 +18,5 @@ public interface FluentTranslator
     boolean isLanguageExists(String name);
     List<String> getLanguagesName();
     void addTranslationModel(List<TranslationModel> translationModels);
-
     void generate(CommandSender sender, String name);
 }

@@ -6,6 +6,7 @@ import io.github.jwdeveloper.ff.extension.translator.api.models.TranslationModel
 import io.github.jwdeveloper.ff.extension.translator.implementation.base.SimpleTranslator;
 import io.github.jwdeveloper.ff.extension.translator.implementation.config.TranslatorConfig;
 import io.github.jwdeveloper.ff.extension.translator.implementation.generator.TranslationsGenerator;
+import io.github.jwdeveloper.ff.plugin.api.logger.PlayerLogger;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import io.github.jwdeveloper.ff.plugin.implementation.config.options.FluentConfigFile;
 import org.bukkit.command.CommandSender;
@@ -17,13 +18,15 @@ public class FluentTranslatorImpl implements FluentTranslator {
     private final SimpleTranslator translator;
     private final String path;
     private final FluentConfigFile<TranslatorConfig> options;
+    private final PlayerLogger playerLogger;
 
     public FluentTranslatorImpl(Path path,
                                 SimpleTranslator lang,
-                                FluentConfigFile<TranslatorConfig> options) {
+                                FluentConfigFile<TranslatorConfig> options, PlayerLogger playerLogger) {
         this.path = path.toString();
         this.translator = lang;
         this.options = options;
+        this.playerLogger = playerLogger;
     }
 
     @Override
@@ -91,19 +94,19 @@ public class FluentTranslatorImpl implements FluentTranslator {
         var options = new TranslationsGenerator.Options();
         options.setFromLanguage("en");
         options.setLanguageToTranslate(List.of(name));
-        options.setInputPath("D:\\MC\\spigot_1.19.4\\plugins\\teadasdad\\languages");
+        options.setInputPath(path);
 
         FluentApi.tasks().taskAsync(() ->
         {
-            commandSender.sendMessage("Language generation started");
+            playerLogger.info("Generating translations for language: "+name).send(commandSender);
             try {
                 TranslationsGenerator.run(options,s ->
                 {
-                    commandSender.sendMessage("Language "+name+" generated");
+                    playerLogger.info("Translations generated, reload server to see new language").send(commandSender);
                 });
-            } catch (Exception e) {
-                commandSender.sendMessage("Language generation started");
-                FluentLogger.LOGGER.error("Unable to generate language " + name, e);
+            } catch (Exception e)
+            {
+                playerLogger.error(e,"Unable to generate language",name);
             }
         });
 

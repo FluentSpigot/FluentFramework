@@ -5,13 +5,11 @@ import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.extension.files.api.FluentFileModel;
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.FileWatcher;
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.FluentFile;
+import io.github.jwdeveloper.ff.extension.files.api.fluent_files.FolderWatcher;
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.TextFile;
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.repository.SaveableRepository;
 import io.github.jwdeveloper.ff.extension.files.implementation.config.FluentFilesConfig;
-import io.github.jwdeveloper.ff.extension.files.implementation.fluent_files.FluentFileWatcher;
-import io.github.jwdeveloper.ff.extension.files.implementation.fluent_files.JsonFileWrapper;
-import io.github.jwdeveloper.ff.extension.files.implementation.fluent_files.JsonRepositoryFile;
-import io.github.jwdeveloper.ff.extension.files.implementation.fluent_files.TextFileWrapper;
+import io.github.jwdeveloper.ff.extension.files.implementation.fluent_files.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +30,7 @@ public class FluentFilesFactoryImpl {
                 case JsonFile -> getJsonFiles(model,container);
                 case JsonRepository -> getJsonRepositoryFiles(model,container);
                 case FileWatcher -> getFileWatcher(model,container);
+                case FolderWatcher -> getFolderWatcher(model,container);
             };
             result.add(fluentFile);
         }
@@ -58,6 +57,12 @@ public class FluentFilesFactoryImpl {
     private TextFileWrapper getTextFiles(FluentFileModel model, Container container) {
         var object = (TextFile) container.find(model.getClassType());
         return new TextFileWrapper(model, object, config);
+    }
+
+    private FolderFileWatcher getFolderWatcher(FluentFileModel model, Container container) {
+        var object = (FolderWatcher) container.find(model.getClassType());
+        var tasksFactory = (FluentTaskFactory)container.find(FluentTaskFactory.class);
+        return new FolderFileWatcher(model, object, tasksFactory);
     }
 
 }

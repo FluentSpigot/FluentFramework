@@ -54,6 +54,7 @@ public class FluentInventoryImpl implements FluentInventory {
         this.inventoryApi = inventoryApi;
         this.ticks = tickManager;
         logger.setPrefix(this.toString());
+        logger.disable();;
     }
 
 

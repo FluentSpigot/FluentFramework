@@ -27,7 +27,7 @@ public class SectionWithImageElement implements DescriptionDecorator {
 
 
             var container = elementFactory.containerElement();
-
+            var spoilerContainer = elementFactory.containerElement();
             var imageElement = elementFactory.imageElement(image);
             imageElement.removeProperty("open");
             imageElement.setProperty("height", "100%");
@@ -45,11 +45,11 @@ public class SectionWithImageElement implements DescriptionDecorator {
 
 
             codeContainer.addElement(codeElement);
-
             spoiler.addElement(codeContainer);
+            spoilerContainer.addElement(spoiler);
 
             container.addElement(imageElement);
-            container.addElement(spoiler);
+            container.addElement(spoilerContainer);
 
             section.addElement(container);
         }

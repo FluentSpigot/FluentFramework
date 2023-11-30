@@ -8,11 +8,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
@@ -135,6 +137,39 @@ public interface FileUtility {
         return false;
     }
 
+    static List<String> getAllFiles(String path, String... extensions) {
+        final var result = new ArrayList<String>();
+        if (!isPathValid(path)) {
+            FluentLogger.LOGGER.info("Files count not be loaded since path " + path + " not exists!");
+            return result;
+        }
+        final File folder = new File(path);
+        for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
+            if (fileEntry.isDirectory()) {
+                var files = getAllFiles(fileEntry.getPath(), extensions);
+                result.addAll(files);
+                continue;
+            }
+            if (extensions.length == 0) {
+                result.add(fileEntry.getPath());
+                continue;
+            }
+
+            var name = fileEntry.getName();
+            var dotIndex = name.lastIndexOf('.');
+            var extension = name.substring(dotIndex + 1);
+            for (var fileName : extensions) {
+                if (extension.equalsIgnoreCase(fileName.toLowerCase()))
+                {
+                    result.add(fileEntry.getPath());
+                    break;
+                }
+            }
+
+        }
+        return result;
+    }
+
     static List<String> getFolderFilesName(String path, String... extensions) {
         final ArrayList<String> filesName = new ArrayList<>();
         if (!isPathValid(path)) {
@@ -194,7 +229,32 @@ public interface FileUtility {
 
     static String loadFileContent(String path) throws IOException {
         ensureFile(path);
-        return Files.asCharSource(new File(path), Charsets.UTF_8).read();
+
+        StringBuilder contentBuilder = new StringBuilder();
+        try (var scanner = new Scanner(new File(path), StandardCharsets.UTF_8)) {
+            while (scanner.hasNextLine()) {
+                contentBuilder.append(scanner.nextLine()).append(System.lineSeparator());
+            }
+        }
+        return contentBuilder.toString();
+    }
+
+    static String loadInputStream(InputStream inputStream) {
+        var stringBuilder = new StringBuilder();
+        try {
+
+            String line;
+            try (var bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"))) {
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line);
+                    stringBuilder.append('\n');  // optional, for newline preservation
+                }
+            }
+
+        } catch (Exception e) {
+            stringBuilder.append("LOADING FILE ERROR").append(e.getMessage());
+        }
+        return stringBuilder.toString();
     }
 
     static String[] loadFile(String filePath) {

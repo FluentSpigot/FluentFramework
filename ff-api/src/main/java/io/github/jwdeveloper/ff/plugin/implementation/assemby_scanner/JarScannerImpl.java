@@ -72,7 +72,7 @@ public class JarScannerImpl extends ClassLoader implements JarScanner {
                 }
                 catch (NoClassDefFoundError | ClassNotFoundException e)
                 {
-                    logger.error("Unable to load class:" + name, e);
+                   // logger.error("Unable to load class:" + name, e);
                 }
             }
             return classes;

@@ -4,6 +4,7 @@ import io.github.jwdeveloper.ff.extension.files.api.FileFilesBuilder;
 import io.github.jwdeveloper.ff.extension.files.api.FluentFileModel;
 import io.github.jwdeveloper.ff.extension.files.api.FluentFileType;
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.FileWatcher;
+import io.github.jwdeveloper.ff.extension.files.api.fluent_files.FolderWatcher;
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.TextFile;
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.repository.Repository;
 
@@ -107,6 +108,16 @@ public class FluentFilesBuilderImpl implements FileFilesBuilder {
             model.setClassType(fileWatcher.getClass());
             model.setObject(fileWatcher);
             model.setType(FluentFileType.FileWatcher);
+        });
+    }
+
+    @Override
+    public <T extends FolderWatcher> void addFolderWatcher(T watcher) {
+        addFluentFile(model ->
+        {
+            model.setClassType(watcher.getClass());
+            model.setObject(watcher);
+            model.setType(FluentFileType.FolderWatcher);
         });
     }
 

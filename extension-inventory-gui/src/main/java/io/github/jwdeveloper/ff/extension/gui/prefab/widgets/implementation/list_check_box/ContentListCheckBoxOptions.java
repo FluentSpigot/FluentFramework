@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.list_check_box;
 
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.observer.implementation.Observer;
 import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.list.ContentListOptions;
 import lombok.Getter;
@@ -22,7 +23,12 @@ public class ContentListCheckBoxOptions extends ContentListOptions<ListCheckBoxM
 
     public void addCheckBox(String name, Observer<Boolean> observer)
     {
-        listCheckBoxModels.add(new ListCheckBoxModel(name,observer));
+        listCheckBoxModels.add(new ListCheckBoxModel(name,observer, StringUtils.EMPTY));
+    }
+
+    public void addCheckBox(String name, Observer<Boolean> observer, String permission)
+    {
+        listCheckBoxModels.add(new ListCheckBoxModel(name,observer, permission));
     }
 
     public void addCheckBox(Consumer<ListCheckBoxModel> consumer)
