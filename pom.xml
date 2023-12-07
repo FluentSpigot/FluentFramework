@@ -5,36 +5,43 @@
     <modelVersion>4.0.0</modelVersion>
 
 
-    <groupId>io.github</groupId>
+    <groupId>io.github.jwdeveloper.ff</groupId>
     <artifactId>fluent-framework</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
+
     <modules>
         <module>ff-core</module>
         <module>ff-api</module>
-        <module>ff-tools</module>
-        <module>extension-web-socket</module>
-        <module>extension-database</module>
-        <module>extension-gameobject</module>
-        <module>extension-inventory-gui</module>
-        <module>extension-mysql</module>
-        <module>extension-translator</module>
-        <module>ff-plugin</module>
-        <module>extension-color-picker</module>
-        <module>ff-plugin-tests</module>
         <module>ff-api-tests</module>
-        <module>extension-files</module>
-        <module>extension-resourcepack</module>
+
+
+        <module>extension-translator</module>
         <module>extension-updater</module>
         <module>extension-commands</module>
-        <module>extension-plugin-reloader</module>
-        <module>extension-http</module>
-    </modules>
-    <packaging>pom</packaging>
+        <module>extension-files</module>
 
-    <name>fluent-framework</name>
+        <module>ff-plugin</module>
+        <module>ff-plugin-tests</module>
+        <module>ff-tools</module>
+
+        <module>extension-web-socket</module>
+        <module>extension-resourcepack</module>
+        <module>extension-plugin-reloader</module>
+        <module>extension-mysql</module>
+        <module>extension-inventory-gui</module>
+        <module>extension-http</module>
+        <module>extension-gameobject</module>
+        <module>extension-database</module>
+        <module>extension-color-picker</module>
+    </modules>
+
 
     <properties>
-        <java.version>17</java.version>
+        <java.version>16</java.version>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -45,33 +52,19 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>16</source>
+                    <target>16</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                        </configuration>
-                    </execution>
-                </executions>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
     </build>
 
     <repositories>
@@ -82,10 +75,6 @@
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>papermc</id>
-            <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
     </repositories>
 
@@ -98,12 +87,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.github.seeseemelk</groupId>
-            <artifactId>MockBukkit-v1.19</artifactId>
-            <version>2.29.0</version>
-            <scope>test</scope>
-        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -131,6 +114,21 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.seeseemelk</groupId>
+            <artifactId>MockBukkit-v1.19</artifactId>
+            <version>2.29.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.9.2</version>
+            <scope>compile</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>org.slf4j</groupId>

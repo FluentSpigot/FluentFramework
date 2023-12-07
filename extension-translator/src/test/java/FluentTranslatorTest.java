@@ -20,7 +20,6 @@ public class FluentTranslatorTest extends FluentApiTest {
     @Test
     public void ShouldLoadLanaguages() {
         var translator = getFluentApiMock().container().findInjection(FluentTranslator.class);
-        var config = getFluentApiMock().config().get("language");
-        Assertions.assertEquals(translator.getLanguagesName().size(), 3);
+        Assertions.assertEquals(translator.getLanguagesName().size(), 6);
     }
 }

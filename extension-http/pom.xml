@@ -4,18 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>fluent-framework</artifactId>
-        <groupId>io.github</groupId>
+        <groupId>io.github.jwdeveloper.ff</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.jwdeveloper.spigot.ff.extensions</groupId>
     <artifactId>extension-http</artifactId>
     <dependencies>
         <dependency>
-            <groupId>io.github.jwdeveloper</groupId>
+            <groupId>io.github.jwdeveloper.ff</groupId>
             <artifactId>ff-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
