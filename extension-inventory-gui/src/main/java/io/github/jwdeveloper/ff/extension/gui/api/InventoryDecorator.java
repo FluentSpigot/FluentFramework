@@ -32,6 +32,8 @@ public interface InventoryDecorator {
 
     InventoryDecorator withTitle(String title);
 
+    InventoryDecorator withCancelClick(boolean isClickCanceled);
+
     InventoryDecorator withType(InventoryType type);
 
     InventoryDecorator withHeight(int height);

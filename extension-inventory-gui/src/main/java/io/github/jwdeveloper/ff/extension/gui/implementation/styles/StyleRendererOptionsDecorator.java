@@ -15,82 +15,100 @@ public class StyleRendererOptionsDecorator {
         this.options = options;
     }
 
-    public void withUseCache() {
+    public StyleRendererOptionsDecorator withUseCache() {
         options.setUseCache(true);
         if (!options.hasCacheID()) {
             options.setCacheId(UUID.randomUUID().toString());
         }
+        return this;
     }
 
-    public void withCacheId(String cacheId) {
+    public StyleRendererOptionsDecorator withCacheId(String cacheId) {
         options.setCacheId(cacheId);
+        return this;
     }
 
-    public void withParameter(String parameter, String value) {
+    public StyleRendererOptionsDecorator withParameter(String parameter, String value) {
         options.addParameter(parameter, value);
+        return this;
     }
 
-    public void withParameter(String parameter, Function<StyleRenderEvent, String> value) {
+    public StyleRendererOptionsDecorator withParameter(String parameter, Function<StyleRenderEvent, String> value) {
         options.addParameter(parameter, value);
+        return this;
     }
 
-    public void withLeftClickInfo(Function<StyleRenderEvent, String> value) {
+    public StyleRendererOptionsDecorator withLeftClickInfo(Function<StyleRenderEvent, String> value) {
         options.addParameter("click-left", value);
+        return this;
     }
 
-    public void withLeftClickInfo(String value) {
+    public StyleRendererOptionsDecorator withLeftClickInfo(String value) {
         withLeftClickInfo(x -> value);
+        return this;
     }
 
-    public void withRightClickInfo(Function<StyleRenderEvent, String> value) {
+    public StyleRendererOptionsDecorator withRightClickInfo(Function<StyleRenderEvent, String> value) {
         options.addParameter("click-right", value);
+        return this;
     }
 
-    public void withRightClickInfo(String value) {
+    public StyleRendererOptionsDecorator withRightClickInfo(String value) {
         withRightClickInfo(x -> value);
+        return this;
     }
 
-    public void withShiftClickInfo(Function<StyleRenderEvent, String> value) {
+    public StyleRendererOptionsDecorator withShiftClickInfo(Function<StyleRenderEvent, String> value) {
         options.addParameter("click-shift", value);
+        return this;
     }
 
-    public void withShiftClickInfo(String value) {
+    public StyleRendererOptionsDecorator withShiftClickInfo(String value) {
         withShiftClickInfo(x -> value);
+        return this;
     }
 
-    public void withTitle(Function<StyleRenderEvent, String> value) {
+    public StyleRendererOptionsDecorator withTitle(Function<StyleRenderEvent, String> value) {
         options.addParameter("title", value);
+        return this;
     }
 
-    public void withTitle(String value) {
+    public StyleRendererOptionsDecorator withTitle(String value) {
         withTitle(x -> value);
+        return this;
     }
 
-    public void withDescription(Function<StyleRenderEvent, String> value) {
+    public StyleRendererOptionsDecorator withDescription(Function<StyleRenderEvent, String> value) {
         options.addParameter("description", value);
+        return this;
     }
 
-    public void withDescriptionLine(Function<StyleRenderEvent, String> value) {
+    public StyleRendererOptionsDecorator withDescriptionLine(Function<StyleRenderEvent, String> value) {
         withDescriptionLine(UUID.randomUUID(), value);
+        return this;
     }
 
-    public void withDescriptionLine(String id, Function<StyleRenderEvent, String> value) {
+    public StyleRendererOptionsDecorator withDescriptionLine(String id, Function<StyleRenderEvent, String> value) {
         options.addParameter("description-" + id, value);
+        return this;
     }
 
-    public void withDescriptionLine(UUID id, Function<StyleRenderEvent, String> value) {
+    public StyleRendererOptionsDecorator withDescriptionLine(UUID id, Function<StyleRenderEvent, String> value) {
         options.addParameter("description-" + id, value);
+        return this;
     }
 
-    public void withDescription(String value) {
+    public StyleRendererOptionsDecorator withDescription(String value) {
         withDescription(x -> value);
+        return this;
     }
 
-    public void withDescription(Consumer<MessageBuilder> value)
+    public StyleRendererOptionsDecorator withDescription(Consumer<MessageBuilder> value)
     {
         var builder = new MessageBuilder();
         value.accept(builder);
         var msg = builder.toString();
         withDescription(x -> msg);
+        return this;
     }
 }

@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.search;
 
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.observer.implementation.Observer;
 import io.github.jwdeveloper.ff.core.observer.implementation.ObserverBag;
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
@@ -9,6 +10,7 @@ import io.github.jwdeveloper.ff.extension.gui.api.InventoryDecorator;
 import io.github.jwdeveloper.ff.extension.gui.api.references.ButtonRef;
 import io.github.jwdeveloper.ff.extension.gui.api.references.InventoryRef;
 import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Value;
@@ -37,8 +39,6 @@ public class SearchComponent implements InventoryComponent {
         decorator.withInventoryReference(inventoryRef);
         decorator.withButton(builder ->
         {
-
-
             inventoryApi.buttons().inputChat(builder, options ->
             {
                 options.setOpenMessage(searchInfoMessage);
@@ -96,10 +96,16 @@ public class SearchComponent implements InventoryComponent {
     }
 
 
-    @Value
-    public class SearchFilterModel {
-        String name;
 
-        SearchFilter filter;
+    @Getter
+    public class SearchFilterModel {
+        String name = "";
+
+        SearchFilter filter = (a, b) -> a;
+
+        public SearchFilterModel(String name, SearchFilter filter) {
+            this.name = name;
+            this.filter = filter;
+        }
     }
 }

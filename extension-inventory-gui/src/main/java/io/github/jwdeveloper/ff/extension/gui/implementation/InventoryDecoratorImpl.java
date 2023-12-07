@@ -111,6 +111,12 @@ public class InventoryDecoratorImpl implements InventoryDecorator {
     }
 
     @Override
+    public InventoryDecorator withCancelClick(boolean isClickCanceled) {
+        inventory.settings().setCancelClick(isClickCanceled);
+        return this;
+    }
+
+    @Override
     public InventoryDecorator withType(InventoryType type) {
         inventory.settings().setInventoryType(type);
         return this;

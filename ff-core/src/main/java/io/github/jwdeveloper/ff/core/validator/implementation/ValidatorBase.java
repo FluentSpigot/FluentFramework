@@ -51,7 +51,13 @@ public abstract class ValidatorBase<Model, SubClass extends ValidatorBase> imple
 
 
     @Override
-    public ActionResult<Model> validate(Model target) {
+    public ActionResult<Model> validate(Model target)
+    {
+        if(target == null)
+        {
+            return ActionResult.failed("target is null");
+        }
+
         for (var rule : validationRules) {
             var result = rule.validate(target);
             if (result.isFailed()) {

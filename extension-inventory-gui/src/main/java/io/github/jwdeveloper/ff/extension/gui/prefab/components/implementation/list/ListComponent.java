@@ -34,6 +34,7 @@ public class ListComponent<T> implements InventoryComponent {
     private ExitButtonComponent exitButton;
 
     private Supplier<List<T>> contentSource;
+    private ButtonMapping<T> contentMapping;
 
 
     @Override
@@ -43,10 +44,17 @@ public class ListComponent<T> implements InventoryComponent {
         {
             contentSource = () -> new ArrayList<>();
         }
+        if(contentMapping == null)
+        {
+            contentMapping = (a,b) -> {};
+        }
 
         decorator.withEvents(e -> e.onClick(this::onContentClickHandler));
 
         pagination = decorator.withComponent(new PaginationComponent<T>());
+        pagination.setContentSource(contentSource);
+        pagination.setContentMapping(contentMapping);
+
         border = decorator.withComponent(new BorderComponent());
         exitButton = decorator.withComponent(new ExitButtonComponent());
         title = decorator.withComponent(new TitleComponent());
@@ -65,11 +73,19 @@ public class ListComponent<T> implements InventoryComponent {
 
     public void setContentSource(Supplier<List<T>> contentSource) {
         this.contentSource = contentSource;
-        pagination.setContentSource(contentSource);
+        if(pagination != null)
+        {
+            pagination.setContentSource(contentSource);
+        }
+
     }
 
     public void setContentMapping(ButtonMapping<T> contentMapping) {
-        pagination.setContentMapping(contentMapping);
+        this.contentMapping = contentMapping;
+        if(pagination != null)
+        {
+            pagination.setContentMapping(contentMapping);
+        }
     }
 
     public void addSearchFilter(String name, SearchFilter<T> searchFilter) {

@@ -10,6 +10,8 @@ public class FluentTranslatorOptions extends ExtensionOptions
 
       private String commandName = "language";
 
+      private boolean addCommands = true;
+
       private String permissionName = "language";
 
       // server/plugins/<plugin>/ + translationsPath

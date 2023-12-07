@@ -34,6 +34,8 @@ public interface ButtonManager {
 
     void removeButton(int index);
 
+    void removeButtons();
+
     void removeButton(ButtonUI buttonUI);
 
     void resize(int height, int width);

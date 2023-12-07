@@ -1,12 +1,10 @@
 package io.github.jwdeveloper.ff.core.spigot.events.implementation;
 
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import org.bukkit.Bukkit;
-import org.bukkit.event.Event;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
+import org.bukkit.event.*;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.plugin.Plugin;
@@ -83,15 +81,16 @@ public class SimpleEventManager implements Listener, FluentEventManager
             onPluginEnableEvents.add((SimpleEvent<PluginEnableEvent>)fluentEvent);
             return fluentEvent;
         }
-        Bukkit.getPluginManager().registerEvent(eventType,this, EventPriority.NORMAL,
+
+        var virtualListener = new Listener(){};
+        Bukkit.getServer().getPluginManager().registerEvents(virtualListener, plugin);
+        Bukkit.getPluginManager().registerEvent(eventType,virtualListener, EventPriority.NORMAL,
                 (listener, event) ->
                 {
                     if(!fluentEvent.isRegister())
                     {
-                        event.getHandlers().unregister(this);
                         return;
                     }
-
                     if(!event.getClass().getSimpleName().equalsIgnoreCase(eventType.getSimpleName()))
                     {
                         return;
@@ -99,21 +98,22 @@ public class SimpleEventManager implements Listener, FluentEventManager
                     fluentEvent.invoke((T) event);
                 }, plugin);
 
-        events.add(fluentEvent);
-        return fluentEvent;
-    }
 
-    public <T extends Event> SimpleEvent<T> onEventAsync(Class<T> tClass, Consumer<T> action)
-    {
-        var fluentEvent = new SimpleEvent<T>(action, logger);
-        Bukkit.getPluginManager().registerEvent(tClass,this, EventPriority.NORMAL,
-                (listener, event) ->
-                {
-                    Bukkit.getScheduler().runTask(plugin,()->
-                    {
-                        fluentEvent.invoke((T)event);
-                    });
-                }, plugin);
+        fluentEvent.onUnregister(tSimpleEvent ->
+        {
+            try
+            {
+                var handlersMethod = eventType.getDeclaredField("handlers");
+                handlersMethod.setAccessible(true);
+                var handlers = (HandlerList)handlersMethod.get(null);
+                handlers.unregister(virtualListener);
+                events.remove(fluentEvent);
+            }
+            catch (Exception e)
+            {
+                FluentLogger.LOGGER.error("Unable to unregister listener for event: "+eventType.getSimpleName(),e);
+            }
+        });
         events.add(fluentEvent);
         return fluentEvent;
     }

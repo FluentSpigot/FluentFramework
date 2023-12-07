@@ -24,6 +24,8 @@ public class InventorySettings {
 
     private InventoryType inventoryType = InventoryType.CHEST;
 
+    private boolean cancelClick = true;
+
     private List<String> permissions = new ArrayList<>();
     private StyleRenderer styleRenderer;
     private Inventory handle;

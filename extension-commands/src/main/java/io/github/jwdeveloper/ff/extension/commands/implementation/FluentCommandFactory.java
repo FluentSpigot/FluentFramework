@@ -5,6 +5,7 @@ import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.ArgumentBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.models.ValidationResult;
 import io.github.jwdeveloper.ff.extension.commands.api.annotations.Argument;
 import io.github.jwdeveloper.ff.extension.commands.api.annotations.Command;
 import io.github.jwdeveloper.ff.extension.commands.api.annotations.CommandChild;
@@ -18,7 +19,7 @@ import java.util.List;
 public class FluentCommandFactory {
     public List<FluentCommandInvoker> create(Class<?> clazz, SimpleCommandBuilder builder) {
         var invokers = handleChildren(clazz, builder);
-        handleCommandAnnotation(null,clazz, builder);
+        handleCommandAnnotation(null, clazz, builder);
         var invoker = new FluentCommandInvoker(clazz);
         handleArgumentAnnotation(clazz, clazz, builder, invoker);
         handleMethods(clazz, builder, invoker);
@@ -63,7 +64,7 @@ public class FluentCommandFactory {
         {
             eventConfig.addSubCommand(annotation.name(), builder1 ->
             {
-                handleCommandAnnotation(clazz,method, builder1);
+                handleCommandAnnotation(clazz, method, builder1);
                 handleArgumentAnnotation(clazz, method, builder1, invoker);
                 handleInvoke(method, builder1, invoker);
             });
@@ -102,10 +103,8 @@ public class FluentCommandFactory {
             }
 
             if (StringUtils.isNotNullOrEmpty(finalParentName)) {
-                propertiesConfig.setUsageMessage("/" +finalParentName+" "+ methodAnnotation.name());
-            }
-            else
-            {
+                propertiesConfig.setUsageMessage("/" + finalParentName + " " + methodAnnotation.name());
+            } else {
                 propertiesConfig.setUsageMessage("/" + methodAnnotation.name());
             }
 
@@ -133,6 +132,9 @@ public class FluentCommandFactory {
                     if (StringUtils.isNotNullOrEmpty(argument.onTabComplete())) {
                         addTabComplete(clazz, argumentBuilder, argument.onTabComplete(), invoker);
                     }
+                    if (StringUtils.isNotNullOrEmpty(argument.onValidation())) {
+                        addValidationMessage(clazz, argumentBuilder, argument.onValidation(), invoker);
+                    }
                 });
             });
         }
@@ -155,6 +157,28 @@ public class FluentCommandFactory {
             return;
         }
         builder.setTabComplete(() -> invoker.invokeOnComplete(method));
+
+    }
+
+    private void addValidationMessage(Class<?> clazz, ArgumentBuilder builder, String methodName, FluentCommandInvoker invoker) {
+
+        var optional = Arrays.stream(clazz.getDeclaredMethods()).filter(e -> e.getName().equals(methodName)).findFirst();
+        if (optional.isEmpty()) {
+            FluentLogger.LOGGER.error("Not found OnValidation method: ", methodName, "in class", clazz.getSimpleName());
+            return;
+        }
+        var method = optional.get();
+        if (!method.getReturnType().equals(ValidationResult.class)) {
+            FluentLogger.LOGGER.error("OnValidation method: ", methodName, "in class", clazz.getSimpleName(), " should return ValidationResult but was ",method.getReturnType().getSimpleName());
+            return;
+        }
+
+        if (method.getParameterCount() != 1) {
+            FluentLogger.LOGGER.error("OnValidation method: ", methodName, "in class", clazz.getSimpleName(), " should has 1 parameter but was: ", method.getParameterCount());
+            return;
+        }
+        method.setAccessible(true);
+        builder.setValidator((value) -> invoker.invokeOnValidation(method, value));
 
     }
 

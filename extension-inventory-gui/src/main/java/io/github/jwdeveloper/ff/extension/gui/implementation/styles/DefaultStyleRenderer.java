@@ -2,6 +2,7 @@ package io.github.jwdeveloper.ff.extension.gui.implementation.styles;
 
 import io.github.jwdeveloper.ff.core.common.ColorPallet;
 import io.github.jwdeveloper.ff.core.common.Emoticons;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderer;
@@ -53,17 +54,16 @@ public class DefaultStyleRenderer implements StyleRenderer {
         createMainTitle(builder, resolver);
 
         var descriptions = resolver.getGroup("description");
-        if(!descriptions.isEmpty())
-        {
+
+        if (!descriptions.isEmpty()) {
             createBarTop(builder);
         }
-        for (var description :descriptions) {
+        for (var description : descriptions) {
             builder.text(description).newLine();
         }
         createClickInfo(builder, resolver);
 
-        if(!descriptions.isEmpty())
-        {
+        if (!descriptions.isEmpty()) {
             createBarBottom(builder);
         }
 

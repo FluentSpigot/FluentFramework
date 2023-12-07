@@ -1,7 +1,9 @@
 package io.github.jwdeveloper.ff.core.validator.implementation.item;
 
 import io.github.jwdeveloper.ff.core.validator.implementation.ValidatorBase;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 public class ItemMetaValidator extends ValidatorBase<ItemMeta, ItemMetaValidator> {
 
@@ -12,6 +14,11 @@ public class ItemMetaValidator extends ValidatorBase<ItemMeta, ItemMetaValidator
 
     public ItemMetaValidator mustHasDisplayedName(String name) {
         return mustComplyRule(e -> e.hasDisplayName() && e.getDisplayName().equals(name), "Meta has not displayed name or Displayed name is not equal");
+    }
+
+    public ItemMetaValidator mustHasNamespaceKey(NamespacedKey namespacedKey)
+    {
+        return mustComplyRule(e -> e.getPersistentDataContainer().has(namespacedKey, PersistentDataType.STRING), "Namespace key not found");
     }
 
     public ItemMetaValidator mustHasCustomModelData(int customModelDataId) {

@@ -29,7 +29,7 @@ public class MessageBuilder extends TextBuilder<MessageBuilder>
         return this;
     }
 
-    public MessageBuilder addList(ArrayList<String> name) {
+    public MessageBuilder addList(List<String> name) {
         for (var value : name) {
             this.text(" -" + value).newLine();
         }

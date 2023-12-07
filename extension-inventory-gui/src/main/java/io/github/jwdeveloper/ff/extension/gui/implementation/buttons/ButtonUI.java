@@ -25,26 +25,26 @@ import java.util.function.Consumer;
 
 
 public class ButtonUI {
-    private ButtonData buttonData;
+    private final ButtonData buttonData;
 
     @Getter
     @Setter
     private StyleRendererOptions styleRendererOptions = new StyleRendererOptions();
     private ItemStack itemStack;
     @Getter
-    private EventGroup<ButtonClickEvent> onLeftClick;
+    private final EventGroup<ButtonClickEvent> onLeftClick;
 
     @Getter
-    private EventGroup<ButtonClickEvent> onShiftClick;
+    private final EventGroup<ButtonClickEvent> onShiftClick;
 
     @Getter
-    private EventGroup<ButtonClickEvent> onRightClick;
+    private final EventGroup<ButtonClickEvent> onRightClick;
 
     @Getter
-    private EventGroup<ButtonClickEvent> onInventoryTick;
+    private final EventGroup<ButtonClickEvent> onInventoryTick;
 
     public ButtonUI(Material material) {
-        super();
+        this();
         setMaterial(material);
     }
 
@@ -57,6 +57,14 @@ public class ButtonUI {
         onInventoryTick = new EventGroup<>();
         hideAttributes();
         setTitle(buttonData.getTitle());
+    }
+
+    public ButtonUI(ItemStack itemStack) {
+        this();
+        buttonData.setMaterial(itemStack.getType());
+        buttonData.setDescription(itemStack.getItemMeta().getLore());
+        buttonData.setTitle(itemStack.getItemMeta().getDisplayName());
+        this.itemStack = itemStack;
     }
 
     public ItemStack getItemStack() {
@@ -154,8 +162,7 @@ public class ButtonUI {
         itemStack.setItemMeta(meta);
     }
 
-    public void editStyleRendererOptions(Consumer<StyleRendererOptionsDecorator> consumer)
-    {
+    public void editStyleRendererOptions(Consumer<StyleRendererOptionsDecorator> consumer) {
         var decorator = new StyleRendererOptionsDecorator(getStyleRendererOptions());
         consumer.accept(decorator);
     }
@@ -175,8 +182,7 @@ public class ButtonUI {
     }
 
 
-    public List<String> getDescription()
-    {
+    public List<String> getDescription() {
         return buttonData.getDescription();
     }
 
@@ -299,4 +305,6 @@ public class ButtonUI {
     private ItemMeta ensureMeta(ItemStack itemStack) {
         return itemStack.hasItemMeta() ? itemStack.getItemMeta() : Bukkit.getItemFactory().getItemMeta(itemStack.getType());
     }
+
+
 }

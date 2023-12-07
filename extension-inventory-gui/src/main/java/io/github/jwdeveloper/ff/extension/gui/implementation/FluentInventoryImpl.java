@@ -116,7 +116,10 @@ public class FluentInventoryImpl implements FluentInventory {
     @Override
     public boolean click(InventoryClickEvent event) {
         try {
-            event.setCancelled(true);
+            if(settings().isCancelClick())
+            {
+                event.setCancelled(true);
+            }
             logger.info("Click event begin");
             if (event.getSlot() > inventorySettings.getSlots()) {
                 if (!doOnClickPlayerInventoryEvent(player, event.getCurrentItem())) {
@@ -163,7 +166,6 @@ public class FluentInventoryImpl implements FluentInventory {
             buttonManager.refresh(button);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
             logger.error("Error onClick, inventory " + inventorySettings.getTitle() + " by player " + player.getName(), e);
             return false;
         }

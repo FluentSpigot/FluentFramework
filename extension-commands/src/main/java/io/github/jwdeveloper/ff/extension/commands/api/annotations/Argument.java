@@ -17,4 +17,5 @@ public @interface Argument {
     ArgumentDisplay displayMode() default ArgumentDisplay.NAME;
     ArgumentType argumentType() default ArgumentType.TEXT;
     String onTabComplete() default "";
+    String onValidation() default "";
 }

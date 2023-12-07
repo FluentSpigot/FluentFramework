@@ -14,10 +14,7 @@ public class FluentEvent
 {
     private static SimpleEventManager manager;
 
-    public static <T extends Event> SimpleEvent<T> onEventAsync(Class<T> eventClass, Consumer<T> action)
-    {
-        return getManager().onEventAsync(eventClass, action);
-    }
+
 
     public static <T extends Event> SimpleEvent<T> onEvent(Class<T> eventClass, Consumer<T> action)
     {

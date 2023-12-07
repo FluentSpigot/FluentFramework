@@ -5,6 +5,7 @@ import io.github.jwdeveloper.ff.extension.gui.api.InventorySettings;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.buttons.ButtonManager;
 import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ButtonManagerImpl implements ButtonManager {
@@ -145,6 +146,11 @@ public class ButtonManagerImpl implements ButtonManager {
             return;
         }
         buttons[index] = null;
+    }
+
+    @Override
+    public void removeButtons() {
+        Arrays.fill(buttons, null);
     }
 
     @Override

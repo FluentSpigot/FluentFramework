@@ -4,7 +4,10 @@ import io.github.jwdeveloper.ff.core.common.ActionResult;
 import io.github.jwdeveloper.ff.core.validator.api.FluentValidator;
 import io.github.jwdeveloper.ff.core.validator.implementation.ValidatorBase;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
+
 import java.util.function.Consumer;
 
 
@@ -36,6 +39,9 @@ public class ItemStackValidator extends ValidatorBase<ItemStack, ItemStackValida
     {
         return mustComplyRule(e -> e.getType() == material, "Different Material");
     }
+
+
+
 
     public ItemStackValidator mustHasTranslationKey(String translationKey)
     {
