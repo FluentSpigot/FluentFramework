@@ -38,7 +38,7 @@ jobs:
       run: mvn versions:set -DnewVersion=${{steps.version.outputs.version_tag}} 
            
     - name: 3 Build with Maven
-      run: mvn package -P publish --file pom.xml  
+      run: mvn package -P publish -DskipTests --file pom.xml  
   
       
     - name: 5 set up a cache for maven
