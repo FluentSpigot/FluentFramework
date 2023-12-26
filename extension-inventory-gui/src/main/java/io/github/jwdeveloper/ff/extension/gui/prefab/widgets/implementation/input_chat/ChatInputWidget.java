@@ -5,9 +5,9 @@ import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.observer.implementation.ObserverBag;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.buttons.ButtonBuilder;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderEvent;
 import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.api.ButtonWidget;
+import io.github.jwdeveloper.ff.extension.styles.styles.StyleRenderEvent;
 import io.github.jwdeveloper.ff.plugin.implementation.listeners.ChatInputListener;
 
 public class ChatInputWidget implements ButtonWidget {

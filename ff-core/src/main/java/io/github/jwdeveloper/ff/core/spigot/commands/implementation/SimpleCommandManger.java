@@ -59,7 +59,10 @@ public class SimpleCommandManger extends EventBase implements FluentCommandMange
     private boolean registerBukkitCommand(SimpleCommand simpleCommand) {
         try {
             var commandMap =  (SimpleCommandMap)ObjectUtility.getPrivateField(Bukkit.getServer(), "commandMap");
-            return commandMap.register(plugin.getName(), simpleCommand);
+            var registerResult =  commandMap.register(plugin.getName(), simpleCommand);
+
+
+            return registerResult;
         } catch (Exception e) {
             FluentLogger.LOGGER.error("Unable to register command " + simpleCommand.getName(), e);
             return false;

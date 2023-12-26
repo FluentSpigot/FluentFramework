@@ -5,7 +5,7 @@ import io.github.jwdeveloper.ff.extension.gui.api.buttons.ButtonBuilder;
 import io.github.jwdeveloper.ff.extension.gui.api.references.ButtonRef;
 import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
 import io.github.jwdeveloper.ff.extension.gui.OLD.observer_button.observers.ButtonObservable;
-import io.github.jwdeveloper.ff.extension.gui.implementation.styles.StyleRendererOptionsDecorator;
+import io.github.jwdeveloper.ff.extension.styles.StyleRendererOptionsDecorator;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -169,11 +169,12 @@ public class ButtonBuilderImpl implements ButtonBuilder {
     }
 
     @Override
-    public ButtonBuilderImpl withStyleRenderer(Consumer<StyleRendererOptionsDecorator> consumer) {
+    public ButtonBuilder withStyleRenderer(Consumer<StyleRendererOptionsDecorator> consumer) {
         var decorator = new StyleRendererOptionsDecorator(buttonUI.getStyleRendererOptions());
         consumer.accept(decorator);
         return self();
     }
+
 
     @Override
     public ButtonBuilderImpl withHighlighted(boolean value) {

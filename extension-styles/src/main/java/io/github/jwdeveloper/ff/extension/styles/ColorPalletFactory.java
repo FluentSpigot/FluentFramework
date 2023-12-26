@@ -1,4 +1,5 @@
-package io.github.jwdeveloper.ff.extension.gui.implementation.styles;
+package io.github.jwdeveloper.ff.extension.styles;
+
 
 import io.github.jwdeveloper.ff.core.common.ColorPallet;
 import org.bukkit.ChatColor;

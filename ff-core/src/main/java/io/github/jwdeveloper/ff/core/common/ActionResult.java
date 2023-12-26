@@ -46,6 +46,11 @@ public class ActionResult<T> {
         return new ActionResult<>(output, this.isSuccess(), this.getMessage());
     }
 
+    public <Output> ActionResult<Output> cast()
+    {
+        return new ActionResult<>(null, this.isSuccess(), this.getMessage());
+    }
+
     public static <Input, Output> ActionResult<Output> cast(ActionResult<Input> action, Output output)
     {
         return new ActionResult<>(output, action.isSuccess(), action.getMessage());

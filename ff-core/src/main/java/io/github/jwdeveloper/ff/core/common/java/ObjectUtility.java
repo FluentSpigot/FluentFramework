@@ -72,6 +72,25 @@ public class ObjectUtility {
         return result;
     }
 
+    public static Object getStaticFieldValue(Class<?> clazz, String fieldName) throws IllegalAccessException {
+
+        var optional =   Arrays.stream(clazz.getDeclaredFields()).filter(e -> e.getName().equals(fieldName))
+                .findFirst();
+        if(optional.isEmpty())
+        {
+            var superClass = clazz.getSuperclass();
+            if(superClass == Object.class)
+            {
+                return new RuntimeException(fieldName+ " No field found for class: "+clazz);
+            }
+            return getStaticFieldValue(superClass,fieldName);
+        }
+
+        var filed = optional.get();
+        filed.setAccessible(true);
+        return filed.get(null);
+    }
+
     public static boolean copyToObject(Object obj, Object desination, Class type) throws IllegalAccessException {
         for (var field : type.getDeclaredFields()) {
             if (Modifier.isStatic(field.getModifiers())) {

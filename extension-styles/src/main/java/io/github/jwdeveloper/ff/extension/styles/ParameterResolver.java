@@ -1,14 +1,14 @@
-package io.github.jwdeveloper.ff.extension.gui.implementation.styles;
+package io.github.jwdeveloper.ff.extension.styles;
 
 import io.github.jwdeveloper.ff.core.common.ColorPallet;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
-import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderEvent;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRendererOptions;
+
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
+import io.github.jwdeveloper.ff.extension.styles.styles.StyleRenderEvent;
+import io.github.jwdeveloper.ff.extension.styles.styles.StyleRendererOptions;
 
 import java.util.ArrayList;
 import java.util.List;

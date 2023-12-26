@@ -75,8 +75,7 @@ public class CommandServiceImpl implements CommandService {
             case CONSOLE -> {
                 return commandSender instanceof ConsoleCommandSender;
             }
-            case COMMAND_SENDER ->
-            {
+            case COMMAND_SENDER -> {
                 return true;
             }
             default -> {
@@ -84,32 +83,28 @@ public class CommandServiceImpl implements CommandService {
             }
         }
     }
+
     @Override
     public ValidationResult hasSenderPermissions(CommandSender commandSender, List<String> permissions) {
 
-        if(permissions.isEmpty())
-        {
+        if (permissions.isEmpty()) {
             return new ValidationResult(true, "");
         }
-        if(commandSender instanceof ConsoleCommandSender)
-        {
+        if (commandSender instanceof ConsoleCommandSender) {
             return new ValidationResult(true, "");
         }
 
-        if (commandSender instanceof Player player)
-        {
-           if(PermissionsUtility.hasOnePermission(player,permissions))
-           {
-               return new ValidationResult(true, "");
-           }
+        if (commandSender instanceof Player player) {
+            if (PermissionsUtility.hasOnePermission(player, permissions)) {
+                return new ValidationResult(true, "");
+            }
         }
         return new ValidationResult(false, "");
     }
 
     public Object[] getArgumentValues(String[] args, List<CommandArgument> commandArguments) {
 
-        if(commandArguments.isEmpty())
-        {
+        if (commandArguments.isEmpty()) {
             return args;
         }
         Object[] result = new Object[args.length];
@@ -126,43 +121,29 @@ public class CommandServiceImpl implements CommandService {
                     default -> result[i] = value;
                 }
             } catch (Exception e) {
-                FluentLogger.LOGGER.error("Error while getting argument ",e);
+                FluentLogger.LOGGER.error("Error while getting argument ", e);
             }
         }
         return result;
     }
 
     @Override
-    public ValidationResult validateArguments(String[] args, List<CommandArgument> commandArguments) {
+    public ValidationResult validateArguments(CommandSender sender,String[] args, List<CommandArgument> commandArguments) {
 
-        if (commandArguments.size() == 0) {
+        if (commandArguments.isEmpty()) {
             return new ValidationResult(true, "");
         }
 
-        if (args.length != commandArguments.size()) {
-            return new ValidationResult(false, "incorrect number of arguments, should be: " + commandArguments.size());
-        }
-
-        for (int i = 0; i < args.length; i++) {
+        for (int i = 0; i < commandArguments.size(); i++)
+        {
+            var value = i < args.length ? args[i] : null;
             var argument = commandArguments.get(i);
             ValidationResult validationResult;
             for (var validator : argument.getValidators()) {
-                validationResult = validator.validate(args[i]);
+                validationResult = validator.validate(value, sender);
                 if (validationResult.isFail())
                 {
-                    var message = new MessageBuilder()
-                            .text("Argument")
-                            .space()
-                            .inBrackets((i + 1) + "")
-                            .space()
-                            .color(ChatColor.GREEN)
-                            .color(ChatColor.BOLD)
-                            .inBrackets(argument.getName())
-                            .space()
-                            .color(ChatColor.WHITE)
-                            .text(validationResult.getMessage())
-                            .toString();
-                    return new ValidationResult(false, message);
+                    return validationResult;
                 }
             }
         }

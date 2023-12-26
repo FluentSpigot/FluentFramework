@@ -73,6 +73,11 @@ public class SearchComponent implements InventoryComponent {
         });
     }
 
+    @Override
+    public void disable() {
+        inventoryRef.get().buttons().removeButton(searchButton.get());
+    }
+
     public <T> void addSearchFilter(String name, SearchFilter<T> filter) {
         filters.add(new SearchFilterModel(name, filter));
     }

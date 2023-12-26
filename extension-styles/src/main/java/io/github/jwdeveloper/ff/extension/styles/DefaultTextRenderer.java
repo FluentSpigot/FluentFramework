@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.extension.gui.implementation.styles;
+package io.github.jwdeveloper.ff.extension.styles;
 
 import io.github.jwdeveloper.ff.core.common.ColorPallet;
 import io.github.jwdeveloper.ff.core.common.Emoticons;
@@ -66,7 +66,7 @@ public class DefaultTextRenderer implements TextElementRenderer {
 
     @Override
     public String getProperty(String name, Object value) {
-        return builder().color(colorPallet.getPrimary()).text(Emoticons.dot).space().text(name).space().color(colorPallet.getSecondary()).text(Emoticons.arrowRight).space().text(value).space().reset().toString();
+        return builder().color(colorPallet.getPrimary()).text(Emoticons.dot).space().text(name).space().color(colorPallet.getTextBight()).text(Emoticons.arrowRight).space().text(value).space().reset().toString();
     }
 
     @Override

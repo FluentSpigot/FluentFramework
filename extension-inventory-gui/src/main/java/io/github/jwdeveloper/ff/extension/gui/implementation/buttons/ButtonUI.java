@@ -3,9 +3,9 @@ package io.github.jwdeveloper.ff.extension.gui.implementation.buttons;
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventGroup;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import io.github.jwdeveloper.ff.extension.gui.api.FluentInventory;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRendererOptions;
 import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
-import io.github.jwdeveloper.ff.extension.gui.implementation.styles.StyleRendererOptionsDecorator;
+import io.github.jwdeveloper.ff.extension.styles.StyleRendererOptionsDecorator;
+import io.github.jwdeveloper.ff.extension.styles.styles.StyleRendererOptions;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.*;
@@ -258,7 +258,7 @@ public class ButtonUI {
         var meta = ensureMeta(itemStack);
         if (meta == null)
             return;
-        meta.setDisplayName(name);
+        meta.setDisplayName(ChatColor.WHITE+name);
         itemStack.setItemMeta(meta);
     }
 

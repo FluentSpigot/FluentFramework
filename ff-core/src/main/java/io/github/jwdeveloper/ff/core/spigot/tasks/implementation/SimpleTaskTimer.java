@@ -39,7 +39,7 @@ public class SimpleTaskTimer {
     {
         this.time  =iteration;
     }
-    public SimpleTaskTimer runAsync() {
+    public SimpleTaskTimer startAsync() {
 
 
 
@@ -53,7 +53,7 @@ public class SimpleTaskTimer {
         this.time = 0;
     }
 
-    public SimpleTaskTimer run() {
+    public SimpleTaskTimer start() {
         isCancel =false;
         if (onStart != null)
             onStart.accept(this);

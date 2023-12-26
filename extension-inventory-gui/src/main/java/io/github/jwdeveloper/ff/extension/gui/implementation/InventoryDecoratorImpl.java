@@ -1,6 +1,5 @@
 package io.github.jwdeveloper.ff.extension.gui.implementation;
 
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.extension.gui.api.FluentInventory;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;
@@ -8,12 +7,12 @@ import io.github.jwdeveloper.ff.extension.gui.api.InventoryDecorator;
 import io.github.jwdeveloper.ff.extension.gui.api.buttons.ButtonBuilder;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.EventsManager;
 import io.github.jwdeveloper.ff.extension.gui.api.references.InventoryRef;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderer;
 import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonBuilderImpl;
 import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
 import io.github.jwdeveloper.ff.extension.gui.implementation.managers.ButtonManagerImpl;
-import io.github.jwdeveloper.ff.extension.gui.implementation.styles.ColorPalletFactory;
-import io.github.jwdeveloper.ff.extension.gui.implementation.styles.DefaultStyleRenderer;
+import io.github.jwdeveloper.ff.extension.styles.ColorPalletFactory;
+import io.github.jwdeveloper.ff.extension.styles.DefaultStyleRenderer;
+import io.github.jwdeveloper.ff.extension.styles.styles.StyleRenderer;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import org.bukkit.event.inventory.InventoryType;

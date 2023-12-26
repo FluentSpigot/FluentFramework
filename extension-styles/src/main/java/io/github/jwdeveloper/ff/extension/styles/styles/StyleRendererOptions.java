@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.extension.gui.api.styles;
+package io.github.jwdeveloper.ff.extension.styles.styles;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import lombok.Getter;

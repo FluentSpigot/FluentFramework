@@ -40,6 +40,13 @@ public class TextComponentBuilder {
         return this;
     }
 
+    public <T extends BaseComponent> TextComponentBuilder withComponents(List<T> components)
+    {
+        components.forEach(component::addExtra);
+        return this;
+    }
+
+
     public TextComponentBuilder withTextComponent(Consumer<TextComponentBuilder> consumer) {
         var builder = new TextComponentBuilder();
         consumer.accept(builder);

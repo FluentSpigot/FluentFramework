@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation.validators;
 
 import io.github.jwdeveloper.ff.core.spigot.commands.api.models.ValidationResult;
+import org.bukkit.command.CommandSender;
 
 public class EnumValidator<T extends Enum<T>> implements CommandArgumentValidator
 {
@@ -13,7 +14,7 @@ public class EnumValidator<T extends Enum<T>> implements CommandArgumentValidato
     }
 
     @Override
-    public ValidationResult validate(String arg)
+    public ValidationResult validate(String arg, CommandSender sender)
     {
         try {
             Enum.valueOf(enumClass, arg.toUpperCase());

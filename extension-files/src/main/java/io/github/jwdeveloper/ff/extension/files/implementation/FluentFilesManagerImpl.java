@@ -92,7 +92,7 @@ public class FluentFilesManagerImpl implements FluentFilesManager
         }
 
         stop();
-        taskTimer.run();
+        taskTimer.start();
     }
 
     public void stop()

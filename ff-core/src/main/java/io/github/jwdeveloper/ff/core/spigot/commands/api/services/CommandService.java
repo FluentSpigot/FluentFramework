@@ -21,5 +21,5 @@ public interface CommandService {
 
     ValidationResult hasSenderPermissions(CommandSender commandSender, List<String> permissions);
 
-    ValidationResult validateArguments(String[] args, List<CommandArgument> commandArguments);
+    ValidationResult validateArguments(CommandSender sender, String[] args, List<CommandArgument> commandArguments);
 }

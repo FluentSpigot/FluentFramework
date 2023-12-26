@@ -34,7 +34,7 @@ public class TickManagerImpl implements TickManager {
         }
         taskTimer.reset();
         taskTimer.setSpeed(settings.getTicksUpdate());
-        taskTimer.run();
+        taskTimer.start();
     }
 
     @Override

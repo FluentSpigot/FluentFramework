@@ -35,6 +35,8 @@
         <module>extension-gameobject</module>
         <module>extension-database</module>
         <module>extension-color-picker</module>
+        <module>extension-advancements</module>
+        <module>extension-styles</module>
     </modules>
 
 

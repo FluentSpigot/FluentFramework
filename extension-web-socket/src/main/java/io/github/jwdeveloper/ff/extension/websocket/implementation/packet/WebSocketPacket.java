@@ -74,7 +74,7 @@ public abstract class WebSocketPacket implements FluentWebsocketPacket {
                 }
                 tasks.clear();
             });
-            taskTimer.run();
+            taskTimer.start();
         }
 
     }

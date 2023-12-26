@@ -7,6 +7,7 @@ import io.github.jwdeveloper.ff.extension.gui.api.InventoryComponent;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryDecorator;
 import io.github.jwdeveloper.ff.extension.gui.api.events.GuiCreateEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.events.GuiOpenEvent;
+import io.github.jwdeveloper.ff.extension.gui.api.references.ButtonRef;
 import io.github.jwdeveloper.ff.extension.gui.api.references.InventoryRef;
 import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
 import io.github.jwdeveloper.ff.extension.gui.prefab.components.implementation.common.title.TitleComponent;
@@ -21,7 +22,7 @@ import java.util.function.Supplier;
 public class PaginationComponent<T> implements InventoryComponent {
 
     public static final String CONTENT_BUTTON_TAG = "list-button";
-    private static final String TITLE_TAG = "pagination-page";
+    public static final String TITLE_TAG = "pagination-page";
     private final InventoryRef inventory = new InventoryRef();
     private final EventGroup<Integer> onPageChangeEvent = new EventGroup<>();
     private final List<ButtonUI> contentButtons = new ArrayList<>();
@@ -36,6 +37,11 @@ public class PaginationComponent<T> implements InventoryComponent {
     @Getter
     private int pageSize;
 
+
+    private ButtonRef backButton = new ButtonRef();
+    private ButtonRef nextButton = new ButtonRef();
+
+
     @Override
     public void onInitialization(InventoryDecorator decorator, InventoryApi inventoryApi) {
         decorator.withInventoryReference(inventory);
@@ -43,7 +49,11 @@ public class PaginationComponent<T> implements InventoryComponent {
         decorator.withEvents(e -> e.onCreate(this::createContentButtons));
         decorator.withButton(builder ->
         {
-            builder.withTitle("Back");
+            builder.withReference(backButton);
+            builder.withStyleRenderer(styleRendererOptionsDecorator ->
+            {
+                styleRendererOptionsDecorator.withTitle("Back");
+            });
             builder.withPosition(inventory.get().settings().getHeight() - 1, 3);
             builder.withMaterial(Material.ARROW);
             builder.withOnLeftClick(event -> openPreviousPage());
@@ -51,7 +61,11 @@ public class PaginationComponent<T> implements InventoryComponent {
         });
         decorator.withButton(builder ->
         {
-            builder.withTitle("Next");
+            builder.withReference(nextButton);
+            builder.withStyleRenderer(styleRendererOptionsDecorator ->
+            {
+                styleRendererOptionsDecorator.withTitle("Next");
+            });
             builder.withPosition(inventory.get().settings().getHeight() - 1, 5);
             builder.withMaterial(Material.ARROW);
             builder.withOnLeftClick(event -> openNextPage());
@@ -60,6 +74,14 @@ public class PaginationComponent<T> implements InventoryComponent {
         titleComponent = decorator.withComponent(new TitleComponent());
         titleComponent.addTitleModel(TITLE_TAG, this::getTitleMessage);
     }
+
+    public void disable()
+    {
+        inventory.get().buttons().removeButton(backButton.get());
+        inventory.get().buttons().removeButton(nextButton.get());
+    }
+
+
 
     private String getTitleMessage() {
         var builder = new StringBuilder();

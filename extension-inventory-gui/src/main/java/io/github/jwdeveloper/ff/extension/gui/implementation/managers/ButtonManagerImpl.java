@@ -73,7 +73,8 @@ public class ButtonManagerImpl implements ButtonManager {
             return;
 
         if (settings.hasStyleRenderer()) {
-            settings.getStyleRenderer().render(button, button.getStyleRendererOptions());
+            //TODO Setting description
+            settings.getStyleRenderer().render(button.getItemStack(), button.getStyleRendererOptions());
         }
 
         settings.getHandle().setItem(index, button.isActive() ? button.getItemStack() : null);

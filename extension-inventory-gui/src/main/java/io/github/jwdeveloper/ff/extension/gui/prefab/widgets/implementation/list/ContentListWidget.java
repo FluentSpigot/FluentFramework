@@ -6,8 +6,8 @@ import io.github.jwdeveloper.ff.core.observer.implementation.Observer;
 import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.buttons.ButtonBuilder;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderEvent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.api.ButtonWidget;
+import io.github.jwdeveloper.ff.extension.styles.styles.StyleRenderEvent;
 import org.bukkit.ChatColor;
 
 import java.util.ArrayList;

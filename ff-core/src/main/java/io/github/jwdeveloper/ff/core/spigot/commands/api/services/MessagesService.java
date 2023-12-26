@@ -1,5 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.api.services;
 
+import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 public interface MessagesService
@@ -17,8 +19,19 @@ public interface MessagesService
         return "Sorry but "+sender.getName()+" has no access";
     }
 
-    default String invalidArgument(String message)
+    default String invalidArgument()
     {
-        return "Sorry but invalid argument "+message;
+        return new MessageBuilder()
+                .text("Argument")
+                .space()
+                //.inBrackets((i + 1) + "")
+                .space()
+                .color(ChatColor.GREEN)
+                .color(ChatColor.BOLD)
+              //  .inBrackets(argument.getName())
+                .space()
+                .color(ChatColor.WHITE)
+              //  .text(message)
+                .toString();
     }
 }

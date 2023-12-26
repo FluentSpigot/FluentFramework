@@ -1,16 +1,18 @@
-package io.github.jwdeveloper.ff.extension.gui.implementation.styles;
+package io.github.jwdeveloper.ff.extension.styles;
 
 import io.github.jwdeveloper.ff.core.common.ColorPallet;
 import io.github.jwdeveloper.ff.core.common.Emoticons;
-import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderer;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRendererOptions;
-import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
+import io.github.jwdeveloper.ff.extension.styles.styles.StyleRenderer;
+import io.github.jwdeveloper.ff.extension.styles.styles.StyleRendererOptions;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +20,8 @@ import java.util.Map;
 public class DefaultStyleRenderer implements StyleRenderer {
 
     private final FluentMessages messages;
-    private final ColorPallet pallet;
-    private final FluentTranslator translator;
+    protected final ColorPallet pallet;
+    protected final FluentTranslator translator;
     private final Map<String, List<String>> cachedRenders;
     private final int barLenght = 20;
 
@@ -31,19 +33,19 @@ public class DefaultStyleRenderer implements StyleRenderer {
     }
 
     @Override
-    public void render(ButtonUI buttonUI, StyleRendererOptions options) {
+    public void render(ItemStack buttonUI, StyleRendererOptions options) {
         if (!options.hasAnyParameter()) {
             return;
         }
         if (options.isUseCache() && cachedRenders.containsKey(options.getCacheId())) {
-            buttonUI.setDescription(cachedRenders.get(options.getCacheId()));
+            setDescription(buttonUI, cachedRenders.get(options.getCacheId()));
             return;
         }
 
         var resolver = new ParameterResolver(options, translator, pallet);
         var builder = messages.chat();
         var description = createButtonLore(resolver, builder);
-        buttonUI.setDescription(description);
+        setDescription(buttonUI, description);
 
         if (options.isUseCache()) {
             cachedRenders.put(options.getCacheId(), description);
@@ -81,7 +83,7 @@ public class DefaultStyleRenderer implements StyleRenderer {
                 .text("]");
     }
 
-    private void createClickInfo(MessageBuilder builder, ParameterResolver resolver) {
+    protected void createClickInfo(MessageBuilder builder, ParameterResolver resolver) {
         if (!resolver.hasGroup("click")) {
             return;
         }
@@ -92,26 +94,26 @@ public class DefaultStyleRenderer implements StyleRenderer {
                 .color(pallet.getSecondary()).text(" <").newLine();
 
         createMid(builder);
-
+        builder.newLine();
         if (resolver.has("click-left")) {
-            builder.newLine();
+          //  builder.newLine();
             createClickInfoLine(builder, translator.get("gui.base.left-click"), resolver.get("click-left"));
         }
 
         if (resolver.has("click-right")) {
-            builder.newLine();
+           // builder.newLine();
             createClickInfoLine(builder, translator.get("gui.base.right-click"), resolver.get("click-right"));
 
         }
 
         if (resolver.has("click-shift")) {
-            builder.newLine();
+          //  builder.newLine();
             createClickInfoLine(builder, translator.get("gui.base.shift-click"), resolver.get("click-shift"));
         }
     }
 
 
-    private void createClickInfoLine(MessageBuilder builder, String name, String value) {
+    protected void createClickInfoLine(MessageBuilder builder, String name, String value) {
         builder.space(2);
         createTitle(builder, name);
         builder.space(1)
@@ -169,4 +171,25 @@ public class DefaultStyleRenderer implements StyleRenderer {
             builder.newLine();
         }
     }
+
+    public void setDescription(ItemStack itemStack, List<String> description) {
+        var meta = ensureMeta(itemStack);
+        if (meta == null) {
+            return;
+        }
+
+        var finalArray = new ArrayList<String>(description);
+        for (var i = 0; i < finalArray.size(); i++) {
+            var line = finalArray.get(i);
+            finalArray.set(i, ChatColor.WHITE + line);
+        }
+
+        meta.setLore(finalArray);
+        itemStack.setItemMeta(meta);
+    }
+
+    private ItemMeta ensureMeta(ItemStack itemStack) {
+        return itemStack.hasItemMeta() ? itemStack.getItemMeta() : Bukkit.getItemFactory().getItemMeta(itemStack.getType());
+    }
 }
+

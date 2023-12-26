@@ -1,5 +1,7 @@
 package io.github.jwdeveloper.ff.extension.commands.implementation;
 
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
+import io.github.jwdeveloper.ff.extension.commands.api.CommandBuilderConfig;
 import io.github.jwdeveloper.ff.extension.commands.api.FluentCommandOptions;
 import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
@@ -39,8 +41,8 @@ public class FluentCommandExtension implements FluentApiExtension {
 
         for (var command : options.getCommandClasses()) {
             var cmdBuilder = FluentCommand.create(command.getSimpleName());
-            var cmdModels = factory.create(command, cmdBuilder);
-            invokers.addAll(cmdModels);
+            var cmdInvokers = factory.create(command, cmdBuilder);
+            invokers.addAll(cmdInvokers);
             builders.add(cmdBuilder);
         }
 
@@ -53,10 +55,16 @@ public class FluentCommandExtension implements FluentApiExtension {
 
     @Override
     public void onFluentApiEnable(FluentApiSpigot fluentAPI) {
+
         for (var invoker : invokers)
         {
+
             var invokerInstance = fluentAPI.container().findInjection(invoker.getCommandClass());
             invoker.setCommandObject(invokerInstance);
+            if(invokerInstance instanceof CommandBuilderConfig config)
+            {
+                config.onBuild(invoker.getBuilder());
+            }
         }
 
         for(var builder : builders)

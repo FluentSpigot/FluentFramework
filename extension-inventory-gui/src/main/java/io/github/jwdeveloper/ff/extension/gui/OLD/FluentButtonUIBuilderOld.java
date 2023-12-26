@@ -9,7 +9,6 @@ import io.github.jwdeveloper.ff.extension.gui.OLD.observer_button.ButtonObserver
 import io.github.jwdeveloper.ff.extension.gui.OLD.observer_button.observers.ButtonNotifier;
 import io.github.jwdeveloper.ff.extension.gui.OLD.observer_button.observers.ButtonObserver;
 import io.github.jwdeveloper.ff.extension.gui.OLD.observer_button.observers.ButtonObserverBuilder;
-import io.github.jwdeveloper.ff.extension.gui.implementation.styles.DefaultStyleRendererOld;
 import org.bukkit.Color;
 import org.bukkit.Material;
 
@@ -116,13 +115,5 @@ public class FluentButtonUIBuilderOld {
         return this;
     }
 
-    public ButtonObserverUI build(DefaultStyleRendererOld renderer) {
-      /*  var description = renderer.render(descriptionBuilder.build());
-        buttonBuilder.setDescription(description);
-        buttonBuilder.setTitle(" ");
-        var button = buttonBuilder.build();
-        buttonUIRef.set(null);
-        return button;*/
-        return null;
-    }
+
 }

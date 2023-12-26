@@ -4,6 +4,12 @@ import java.util.Objects;
 
 public record Pair<A,B>(A key, B value)
 {
+
+    public static <X,Y> Pair<X,Y> of(X one, Y two)
+    {
+        return new Pair<>(one,two);
+    }
+
     @Override
     public boolean equals(Object o)
     {

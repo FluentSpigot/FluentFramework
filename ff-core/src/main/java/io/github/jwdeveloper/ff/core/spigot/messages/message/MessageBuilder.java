@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class MessageBuilder extends TextBuilder<MessageBuilder>
-{
+public class MessageBuilder extends TextBuilder<MessageBuilder> {
     public MessageBuilder reset() {
         builder.append(ChatColor.RESET);
         return this;
@@ -29,11 +28,60 @@ public class MessageBuilder extends TextBuilder<MessageBuilder>
         return this;
     }
 
-    public MessageBuilder addList(List<String> name) {
-        for (var value : name) {
-            this.text(" -" + value).newLine();
+
+    public MessageBuilder gray()
+    {
+        builder.append(ChatColor.GRAY);
+        return this;
+    }
+
+    public MessageBuilder green()
+    {
+        builder.append(ChatColor.GREEN);
+        return this;
+    }
+
+    public MessageBuilder darkGreen()
+    {
+        builder.append(ChatColor.DARK_GREEN);
+        return this;
+    }
+
+    public MessageBuilder red()
+    {
+        builder.append(ChatColor.RED);
+        return this;
+    }
+
+    public MessageBuilder darkRed()
+    {
+        builder.append(ChatColor.DARK_RED);
+        return this;
+    }
+    public MessageBuilder white()
+    {
+        builder.append(ChatColor.WHITE);
+        return this;
+    }
+
+    public MessageBuilder addList(List<String> name, boolean mark) {
+        for (var value : name)
+        {
+            if(mark)
+            {
+                this.text(" -" + value).newLine();
+            }
+            else
+            {
+                this.text(" ").text(value).newLine();
+            }
+
         }
         return this;
+    }
+
+    public MessageBuilder addList(List<String> name) {
+        return addList(name, false);
     }
 
 
@@ -161,6 +209,7 @@ public class MessageBuilder extends TextBuilder<MessageBuilder>
             }
         }
     }
+
     public void sendActionBar(Player player) {
         var tc = new TextComponent();
         tc.setText(this.toString());

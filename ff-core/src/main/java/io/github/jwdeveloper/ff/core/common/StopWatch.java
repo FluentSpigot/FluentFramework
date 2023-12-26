@@ -1,26 +1,30 @@
 package io.github.jwdeveloper.ff.core.common;
 
 
+import lombok.Getter;
+
 public class StopWatch
 {
     private long startTime;
     private long endTime;
-    private boolean running;
+
+    @Getter
+    private boolean started;
 
     public void start()
     {
-        if (!running) {
+        if (!started) {
             reset();
             startTime = System.currentTimeMillis();
-            running = true;
+            started = true;
 
         }
     }
 
     public String stop() {
-        if (running) {
+        if (started) {
             endTime = System.currentTimeMillis();
-            running = false;
+            started = false;
         }
         return toString();
     }
@@ -29,7 +33,7 @@ public class StopWatch
     {
         endTime = 0;
         startTime =0;
-        running = false;
+        started = false;
     }
 
     public static StopWatch create()
@@ -43,7 +47,7 @@ public class StopWatch
     }
 
     public long getMiliseconds() {
-        if (running) {
+        if (started) {
             return System.currentTimeMillis() - startTime;
         } else {
             return endTime - startTime;

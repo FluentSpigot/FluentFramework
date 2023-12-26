@@ -20,7 +20,7 @@ public class FluentCommandFactory {
     public List<FluentCommandInvoker> create(Class<?> clazz, SimpleCommandBuilder builder) {
         var invokers = handleChildren(clazz, builder);
         handleCommandAnnotation(null, clazz, builder);
-        var invoker = new FluentCommandInvoker(clazz);
+        var invoker = new FluentCommandInvoker(clazz, builder);
         handleArgumentAnnotation(clazz, clazz, builder, invoker);
         handleMethods(clazz, builder, invoker);
 
@@ -169,16 +169,16 @@ public class FluentCommandFactory {
         }
         var method = optional.get();
         if (!method.getReturnType().equals(ValidationResult.class)) {
-            FluentLogger.LOGGER.error("OnValidation method: ", methodName, "in class", clazz.getSimpleName(), " should return ValidationResult but was ",method.getReturnType().getSimpleName());
+            FluentLogger.LOGGER.error("OnValidation method: ", methodName, "in class", clazz.getSimpleName(), " should return ValidationResult but was ", method.getReturnType().getSimpleName());
             return;
         }
 
-        if (method.getParameterCount() != 1) {
-            FluentLogger.LOGGER.error("OnValidation method: ", methodName, "in class", clazz.getSimpleName(), " should has 1 parameter but was: ", method.getParameterCount());
+        if (method.getParameterCount() != 2) {
+            FluentLogger.LOGGER.error("OnValidation method: ", methodName, "in class", clazz.getSimpleName(), " should has 2 parameter but was: ", method.getParameterCount());
             return;
         }
         method.setAccessible(true);
-        builder.setValidator((value) -> invoker.invokeOnValidation(method, value));
+        builder.setValidator((value, sender) -> invoker.invokeOnValidation(method, value, sender));
 
     }
 

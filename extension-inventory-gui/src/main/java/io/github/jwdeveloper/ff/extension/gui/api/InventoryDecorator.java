@@ -1,12 +1,11 @@
 package io.github.jwdeveloper.ff.extension.gui.api;
 
 
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.extension.gui.api.buttons.ButtonBuilder;
 import io.github.jwdeveloper.ff.extension.gui.api.managers.EventsManager;
 import io.github.jwdeveloper.ff.extension.gui.api.references.InventoryRef;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderer;
 import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
+import io.github.jwdeveloper.ff.extension.styles.styles.StyleRenderer;
 import org.bukkit.event.inventory.InventoryType;
 
 import java.util.function.Consumer;

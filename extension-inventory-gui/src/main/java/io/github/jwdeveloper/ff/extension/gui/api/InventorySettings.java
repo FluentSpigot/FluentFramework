@@ -1,7 +1,8 @@
 package io.github.jwdeveloper.ff.extension.gui.api;
 
 import io.github.jwdeveloper.ff.extension.gui.api.enums.InventoryState;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderer;
+
+import io.github.jwdeveloper.ff.extension.styles.styles.StyleRenderer;
 import lombok.Data;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;

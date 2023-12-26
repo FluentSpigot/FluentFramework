@@ -1,10 +1,12 @@
 package io.github.jwdeveloper.ff.extension.commands.implementation;
 
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.models.ValidationResult;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.events.CommandEvent;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.command.CommandSender;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -15,9 +17,14 @@ public class FluentCommandInvoker {
     @Setter
     private Object commandObject;
 
-    public FluentCommandInvoker(Class<?> clazz) {
-        this.commandClass = clazz;
+    @Getter
+    private SimpleCommandBuilder builder;
+
+    public FluentCommandInvoker(Class<?> commandClass, SimpleCommandBuilder builder) {
+        this.commandClass = commandClass;
+        this.builder = builder;
     }
+
 
     public void invoke(CommandEvent commandEvent, Method method) {
         try {
@@ -64,9 +71,9 @@ public class FluentCommandInvoker {
         }
     }
 
-    public ValidationResult invokeOnValidation(Method method, String value) {
+    public ValidationResult invokeOnValidation(Method method, String value, CommandSender sender) {
         try {
-            return (ValidationResult) method.invoke(commandObject, value);
+            return (ValidationResult) method.invoke(commandObject, value, sender);
 
         } catch (Exception e) {
             FluentLogger.LOGGER.error("Unable to invoke onValidation at " + commandClass.getSimpleName(), e);

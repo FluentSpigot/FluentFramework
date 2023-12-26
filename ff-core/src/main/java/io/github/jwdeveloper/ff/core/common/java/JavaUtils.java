@@ -14,6 +14,17 @@ public class JavaUtils
         action.accept(input);
     }
 
+
+    public static boolean isNull(Object o)
+    {
+        return  o == null;
+    }
+
+    public static boolean isNotNull(Object o)
+    {
+        return  o != null;
+    }
+
     public static <T> T ifNull(T input, T value)
     {
         if(input != null)

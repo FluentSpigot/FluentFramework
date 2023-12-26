@@ -21,10 +21,9 @@ public class ExitButtonComponent implements InventoryComponent {
         decorator.withInventoryReference(inventoryRef);
         decorator.withButton(btn ->
         {
-            btn.withTitle("Exit");
             btn.withReference(buttonRef);
             btn.withPosition(inventoryRef.get().settings().getHeight() - 1, InventorySettings.INVENTORY_WIDTH - 1);
-            btn.withMaterial(Material.ARROW);
+            btn.withMaterial(Material.BARRIER);
             btn.withOnLeftClick(this::onClick);
         });
         decorator.withEvents(e -> e.onOpen(this::onOpen));
@@ -33,11 +32,15 @@ public class ExitButtonComponent implements InventoryComponent {
     private void onOpen(GuiOpenEvent event) {
         var button = buttonRef.getOrThrow();
         var inv = event.getInventory();
-        if (inv.hasParent()) {
-            button.setTitle("Go back");
-        } else {
-            button.setTitle("Close");
-        }
+        button.editStyleRendererOptions(styleRendererOptionsDecorator ->
+        {
+            if (inv.hasParent()) {
+                styleRendererOptionsDecorator.withTitle("Go back");
+            } else {
+                styleRendererOptionsDecorator.withTitle("Close");
+            }
+        });
+
         inv.buttons().refresh(button);
     }
 

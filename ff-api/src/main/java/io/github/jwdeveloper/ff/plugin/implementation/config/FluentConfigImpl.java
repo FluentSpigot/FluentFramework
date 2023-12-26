@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation.config;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlModelFactory;
 import io.github.jwdeveloper.ff.plugin.api.config.ConfigProperty;
 import io.github.jwdeveloper.ff.core.common.TextBuilder;
@@ -10,12 +11,13 @@ import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
+
 @Getter
 public class FluentConfigImpl implements FluentConfig {
 
     private final YamlConfiguration fileConfiguration;
     private final String path;
-
 
 
     public FluentConfigImpl(YamlConfiguration fileConfiguration, String path) {
@@ -73,6 +75,12 @@ public class FluentConfigImpl implements FluentConfig {
         }
     }
 
+    @Override
+    public YamlConfiguration loadSnapshot()
+    {
+        var file = new File(path);
+        return YamlConfiguration.loadConfiguration(file);
+    }
 
 
     public Object getRequired(String name) {

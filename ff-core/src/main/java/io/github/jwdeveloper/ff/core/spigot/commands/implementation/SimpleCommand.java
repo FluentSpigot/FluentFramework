@@ -86,10 +86,15 @@ public class SimpleCommand extends Command {
             return false;
         }
 
-        var validationResult = commandService.validateArguments(commandArgs, commandModel.getArguments());
+        var validationResult = commandService.validateArguments(sender, commandArgs, commandModel.getArguments());
         if (!validationResult.isSuccess()) {
             displayLog("invalid arguments: " + validationResult.getMessage());
-            sender.sendMessage(messagesService.invalidArgument(validationResult.getMessage()));
+
+            var msg = validationResult.getMessage().isEmpty() ?
+                    messagesService.invalidArgument() :
+                    validationResult.getMessage();
+
+            sender.sendMessage(msg);
             return false;
         }
 
@@ -143,7 +148,7 @@ public class SimpleCommand extends Command {
                 return argument.getTabCompleter().get();
             }
             case NAME -> {
-                return List.of(argument.getType().name());
+                return List.of(argument.getName().toLowerCase());
             }
             case TYPE -> {
                 return List.of(argument.getType().name().toLowerCase());

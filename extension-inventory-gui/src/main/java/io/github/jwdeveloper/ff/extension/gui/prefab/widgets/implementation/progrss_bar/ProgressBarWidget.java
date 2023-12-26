@@ -3,10 +3,10 @@ package io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.pro
 import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.extension.gui.api.buttons.ButtonBuilder;
-import io.github.jwdeveloper.ff.extension.gui.api.styles.StyleRenderEvent;
 import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
 import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.api.ButtonWidget;
 import io.github.jwdeveloper.ff.extension.gui.prefab.widgets.implementation.ButtonWidgetException;
+import io.github.jwdeveloper.ff.extension.styles.styles.StyleRenderEvent;
 import org.bukkit.ChatColor;
 
 public class ProgressBarWidget implements ButtonWidget {
