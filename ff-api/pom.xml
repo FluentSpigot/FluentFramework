@@ -13,7 +13,6 @@
     <artifactId>ff-api</artifactId>
 
     <dependencies>
-
         <dependency>
             <groupId>io.github.jwdeveloper.ff</groupId>
             <artifactId>ff-core</artifactId>
