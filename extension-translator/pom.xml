@@ -5,7 +5,7 @@
     <parent>
         <artifactId>fluent-framework</artifactId>
         <groupId>io.github.jwdeveloper.ff</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.0.2-Release</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>extension-translator</artifactId>
