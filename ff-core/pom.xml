@@ -5,7 +5,7 @@
     <parent>
         <artifactId>fluent-framework</artifactId>
         <groupId>io.github.jwdeveloper.ff</groupId>
-        <version>0.0.2-Release</version>
+        <version>0.0.3-Release</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
