@@ -16,7 +16,7 @@ import java.io.File;
 @Getter
 public class FluentConfigImpl implements FluentConfig {
 
-    private final YamlConfiguration fileConfiguration;
+    private YamlConfiguration fileConfiguration;
     private final String path;
 
 
@@ -29,57 +29,52 @@ public class FluentConfigImpl implements FluentConfig {
         return (T) fileConfiguration.get(name);
     }
 
-    public YamlConfiguration configFile()
-    {
+    public YamlConfiguration configFile() {
         return fileConfiguration;
     }
 
     @Override
-    public <T> T toObject(Class<T> clazz)
-    {
+    public <T> T toObject(Class<T> clazz) {
         return null;
     }
 
     @Override
     public void save() {
-        try
-        {
+        try {
             fileConfiguration.save(path);
-        }
-        catch (Exception e)
-        {
-            FluentLogger.LOGGER.error("Unable to save config path!",e);
+        } catch (Exception e) {
+            FluentLogger.LOGGER.error("Unable to save config path!", e);
         }
 
     }
 
 
-    public void save(Object configSection)
-    {
+    public void save(Object configSection) {
         save(configSection, StringUtils.EMPTY);
     }
 
     @Override
     public void save(Object configSection, String ymlPath) {
-        try
-        {
+        try {
             var factory = new SimpleYamlModelFactory();
-            var model = factory.createModel(configSection.getClass(),ymlPath);
+            var model = factory.createModel(configSection.getClass(), ymlPath);
             var mapper = new SimpleYamlModelMapper();
-            mapper.mapToConfiguration(configSection, model, fileConfiguration ,true);
+            mapper.mapToConfiguration(configSection, model, fileConfiguration, true);
             fileConfiguration.save(path);
-        }
-        catch (Exception e)
-        {
-            FluentLogger.LOGGER.error("Unable to save config path!",e);
+        } catch (Exception e) {
+            FluentLogger.LOGGER.error("Unable to save config path!", e);
         }
     }
 
     @Override
-    public YamlConfiguration loadSnapshot()
-    {
+    public YamlConfiguration loadSnapshot() {
         var file = new File(path);
         return YamlConfiguration.loadConfiguration(file);
+    }
+
+    @Override
+    public void setConfig(YamlConfiguration config) {
+        fileConfiguration = config;
     }
 
 
@@ -92,38 +87,34 @@ public class FluentConfigImpl implements FluentConfig {
     }
 
     @Override
-    public <T> T getOrCreate(String path, T defaultValue, String ... description) {
+    public <T> T getOrCreate(String path, T defaultValue, String... description) {
 
-        if(!fileConfiguration.contains(path))
-        {
-            fileConfiguration.set(path,defaultValue);
+        if (!fileConfiguration.contains(path)) {
+            fileConfiguration.set(path, defaultValue);
         }
 
-        if(description.length != 0)
-        {
+        if (description.length != 0) {
             var builder = new TextBuilder();
             builder.text(fileConfiguration.options().header());
             builder.newLine();
             builder.text(path);
             builder.newLine();
-            for(var desc : description)
-            {
-                builder.bar(" ",3).text(desc).newLine();
+            for (var desc : description) {
+                builder.bar(" ", 3).text(desc).newLine();
             }
             builder.newLine();
             fileConfiguration.options().header(builder.toString());
         }
         save();
-        return (T)fileConfiguration.get(path);
+        return (T) fileConfiguration.get(path);
     }
 
-    public void set(String path, Object value)
-    {
-        fileConfiguration.set(path,value);
+    public void set(String path, Object value) {
+        fileConfiguration.set(path, value);
     }
 
     @Override
     public <T> T getOrCreate(ConfigProperty<T> configProperty) {
-        return getOrCreate(configProperty.path(),configProperty.defaultValue(),configProperty.description());
+        return getOrCreate(configProperty.path(), configProperty.defaultValue(), configProperty.description());
     }
 }

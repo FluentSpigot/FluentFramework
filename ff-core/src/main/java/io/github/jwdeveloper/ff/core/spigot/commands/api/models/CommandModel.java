@@ -23,6 +23,8 @@ public class CommandModel {
 
     private String label = "";
 
+    private boolean debug = false;
+
     private List<AccessType> commandAccesses = new ArrayList<>();
 
     private List<String> permissions = new ArrayList<>();

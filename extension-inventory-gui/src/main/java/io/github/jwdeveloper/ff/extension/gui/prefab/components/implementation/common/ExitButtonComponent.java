@@ -8,6 +8,7 @@ import io.github.jwdeveloper.ff.extension.gui.api.events.GuiOpenEvent;
 import io.github.jwdeveloper.ff.extension.gui.api.references.ButtonRef;
 import io.github.jwdeveloper.ff.extension.gui.api.references.InventoryRef;
 import io.github.jwdeveloper.ff.extension.gui.OLD.events.ButtonClickEvent;
+import io.github.jwdeveloper.ff.extension.gui.implementation.buttons.ButtonUI;
 import org.bukkit.Material;
 
 
@@ -27,6 +28,11 @@ public class ExitButtonComponent implements InventoryComponent {
             btn.withOnLeftClick(this::onClick);
         });
         decorator.withEvents(e -> e.onOpen(this::onOpen));
+    }
+
+    @Override
+    public void disable() {
+        inventoryRef.get().buttons().removeButton(buttonRef.get());
     }
 
     private void onOpen(GuiOpenEvent event) {
@@ -50,6 +56,11 @@ public class ExitButtonComponent implements InventoryComponent {
         } else {
             event.getInventory().close();
         }
-
     }
+
+    public ButtonUI button()
+    {
+        return buttonRef.get();
+    }
+
 }

@@ -25,7 +25,7 @@ public class SimpleParticle {
         this.plugin = plugin;
         this.logger = logger;
         this.settings = particleSettings;
-        this.particleInvoker = new ParticleInvoker();
+        this.particleInvoker = new ParticleInvoker(this);
     }
 
     public void start() {

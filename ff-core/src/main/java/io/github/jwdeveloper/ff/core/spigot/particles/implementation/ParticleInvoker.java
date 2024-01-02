@@ -6,6 +6,16 @@ import org.bukkit.Particle;
 
 public class ParticleInvoker
 {
+    private final SimpleParticle simpleParticle;
+    public ParticleInvoker(SimpleParticle simpleParticle) {
+        this.simpleParticle = simpleParticle;
+    }
+
+    public void stop()
+    {
+        simpleParticle.stop();
+    }
+
     public void spawnParticle(ParticleEvent particleEvent)
     {
         particleEvent.getOriginLocation().getWorld().spawnParticle(particleEvent.getParticle(),particleEvent.originLocation,particleEvent.amount);

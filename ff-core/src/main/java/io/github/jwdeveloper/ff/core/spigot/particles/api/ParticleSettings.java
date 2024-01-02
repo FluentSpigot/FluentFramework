@@ -6,10 +6,16 @@ import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
+import org.bukkit.plugin.Plugin;
 
 @Getter
 @Setter
 public class ParticleSettings {
+    public ParticleSettings(Plugin plugin) {
+        this.plugin = plugin;
+    }
+
+    private Plugin plugin;
     private int startAfterTicks;
     private int stopAfterTicks;
     private int triggerEveryTicks;

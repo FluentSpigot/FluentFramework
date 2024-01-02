@@ -1,12 +1,22 @@
 package io.github.jwdeveloper.ff.core.spigot.player;
 
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Consumer;
 
 public class PlayerUtils {
+
+
+    public static void playSound(Player player, Sound sound) {
+        player.playSound(player.getLocation(), sound, 1, 1);
+    }
+
+    public static void playSound(Player player, Sound sound, float volume, float pitch) {
+        player.playSound(player.getLocation(), sound, volume, pitch);
+    }
 
     public static boolean giveItem(Player player, ItemStack itemStack, Consumer<Player> ifThereIsNoSlot) {
         var slot = getEmptyEquipmentSlot(player);
@@ -23,14 +33,11 @@ public class PlayerUtils {
 
         var index = 0;
         var items = inventory.getStorageContents();
-        for (var i=0;i<items.length;i++)
-        {
-            if(items[i]== null)
-            {
+        for (var i = 0; i < items.length; i++) {
+            if (items[i] == null) {
                 return i;
             }
-            if(items[i].getType() == Material.AIR)
-            {
+            if (items[i].getType() == Material.AIR) {
                 return i;
             }
         }

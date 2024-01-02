@@ -45,6 +45,12 @@ public class PropertiesConfigImpl implements PropertiesConfig {
     }
 
     @Override
+    public PropertiesConfig setDebbug(boolean isDebbug) {
+        model.setDebug(isDebbug);
+        return this;
+    }
+
+    @Override
     public PropertiesConfig setAccess(AccessType accessType) {
         model.getCommandAccesses().add(accessType);
         return this;

@@ -14,6 +14,7 @@ public @interface Command
      String label() default "";
      String[] permissions() default "";
      String usage() default "";
+     boolean debug() default false;
      AccessType access() default AccessType.COMMAND_SENDER;
      boolean hideFromDisplay() default false;
 }

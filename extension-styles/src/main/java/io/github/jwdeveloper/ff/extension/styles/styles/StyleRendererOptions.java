@@ -30,6 +30,11 @@ public class StyleRendererOptions {
         parameters.put(parameter, value);
     }
 
+    public void reset()
+    {
+        parameters.clear();;
+    }
+
     public void addParameter(String parameter, String value) {
         addParameter(parameter, (e) -> value);
     }

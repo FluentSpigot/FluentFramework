@@ -10,6 +10,8 @@ public interface PropertiesConfig extends BuilderConfig {
 
     PropertiesConfig setLabel(String label);
 
+    PropertiesConfig setDebbug(boolean isDebbug);
+
     PropertiesConfig setShortDescription(String shortDescription);
 
     PropertiesConfig setDescription(String description);

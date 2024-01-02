@@ -23,6 +23,13 @@ public class StyleRendererOptionsDecorator {
         return this;
     }
 
+
+    public StyleRendererOptionsDecorator reset()
+    {
+        options.reset();
+        return this;
+    }
+
     public StyleRendererOptionsDecorator withCacheId(String cacheId) {
         options.setCacheId(cacheId);
         return this;

@@ -5,6 +5,7 @@ import io.github.jwdeveloper.ff.core.spigot.particles.api.ParticleDisplayMode;
 import io.github.jwdeveloper.ff.core.spigot.particles.api.ParticleSettings;
 import io.github.jwdeveloper.ff.core.spigot.particles.implementation.SimpleParticle;
 import io.github.jwdeveloper.ff.core.spigot.particles.implementation.builder.SimpleParticleBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -13,12 +14,11 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HitBoxDisplay
-{
+public class HitBoxDisplay {
     private InteractiveHitBox hitBox;
     private SimpleParticle task;
 
-    private  Particle.DustOptions lineOptions;
+    private Particle.DustOptions lineOptions;
 
     private Color lineColor;
 
@@ -33,8 +33,7 @@ public class HitBoxDisplay
         task = getHitboxDisplay();
     }
 
-    public void color(Color color)
-    {
+    public void color(Color color) {
         this.lineColor = color;
         lineOptions = new Particle.DustOptions(color, particleSize);
     }
@@ -59,7 +58,7 @@ public class HitBoxDisplay
         Particle.DustOptions optionsMax = new Particle.DustOptions(color2, size);
         var mini = hitBox.getOrigin().clone().add(hitBox.getMin());
         var maxi = hitBox.getOrigin().clone().add(hitBox.getMin());
-        return new SimpleParticleBuilder(new ParticleSettings())
+        return new SimpleParticleBuilder(new ParticleSettings(Bukkit.getPluginManager().getPlugins()[0]))
                 .startAfterTicks(1)
                 .triggerEveryTicks(5)
                 .nextStep()

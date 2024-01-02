@@ -28,6 +28,13 @@ public interface FluentConfig {
     YamlConfiguration loadSnapshot();
 
     /**
+     *  sets handle for config file
+     * @param config
+     */
+    void setConfig(YamlConfiguration config);
+
+
+    /**
      *
      * @return virtual YamlConfiguration that is saved and handle by methods
      */

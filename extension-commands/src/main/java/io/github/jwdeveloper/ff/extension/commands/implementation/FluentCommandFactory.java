@@ -9,6 +9,7 @@ import io.github.jwdeveloper.ff.core.spigot.commands.api.models.ValidationResult
 import io.github.jwdeveloper.ff.extension.commands.api.annotations.Argument;
 import io.github.jwdeveloper.ff.extension.commands.api.annotations.Command;
 import io.github.jwdeveloper.ff.extension.commands.api.annotations.CommandChild;
+import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
@@ -32,7 +33,8 @@ public class FluentCommandFactory {
     private List<FluentCommandInvoker> handleChildren(Class<?> clazz, SimpleCommandBuilder builder) {
         var list = new ArrayList<FluentCommandInvoker>();
         var children = clazz.getDeclaredAnnotationsByType(CommandChild.class);
-        for (var child : children) {
+        for (var child : children)
+        {
             var childBuilder = FluentCommand.create(child.childClass().getSimpleName());
             var invokers = create(child.childClass(), childBuilder);
             builder.subCommandsConfig(config ->
@@ -89,6 +91,7 @@ public class FluentCommandFactory {
         var methodAnnotation = methodElement.getAnnotation(Command.class);
 
 
+
         var parentName = StringUtils.EMPTY;
         if (parentClass != null && parentClass.isAnnotationPresent(Command.class)) {
             var annotation = parentClass.getAnnotation(Command.class);
@@ -109,6 +112,7 @@ public class FluentCommandFactory {
             }
 
 
+            propertiesConfig.setDebbug(methodAnnotation.debug());
             propertiesConfig.setLabel(methodAnnotation.label());
             propertiesConfig.setHideFromTabDisplay(methodAnnotation.hideFromDisplay());
             propertiesConfig.setDescription(methodAnnotation.description());

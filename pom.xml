@@ -37,6 +37,7 @@
         <module>extension-color-picker</module>
         <module>extension-advancements</module>
         <module>extension-styles</module>
+        <module>extension-items</module>
     </modules>
 
 

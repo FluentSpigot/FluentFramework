@@ -93,6 +93,14 @@ public class ColorUtility {
     }
 
 
+    /**
+     * looks for & symbol in string and converts it to colors
+     */
+    public static String toSpigotColors(String input) {
+        return ChatColor.translateAlternateColorCodes('&', input);
+    }
+
+
     public static List<org.bukkit.Color> getBukkitColors() {
         var result = new ArrayList<org.bukkit.Color>();
         for (var field : org.bukkit.Color.class.getDeclaredFields()) {

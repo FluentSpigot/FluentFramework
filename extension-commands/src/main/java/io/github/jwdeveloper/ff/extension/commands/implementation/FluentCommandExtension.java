@@ -33,8 +33,7 @@ public class FluentCommandExtension implements FluentApiExtension {
     public void onConfiguration(FluentApiSpigotBuilder builder) {
         consumer.accept(options);
 
-        if(options.getDefaultCommand() != null)
-        {
+        if (options.getDefaultCommand() != null) {
             var model = factory.create(options.getDefaultCommand(), builder.defaultCommand());
             invokers.addAll(model);
         }
@@ -46,8 +45,7 @@ public class FluentCommandExtension implements FluentApiExtension {
             builders.add(cmdBuilder);
         }
 
-        for(var invoker : invokers)
-        {
+        for (var invoker : invokers) {
             builder.container().registerSigleton(invoker.getCommandClass());
         }
     }
@@ -56,20 +54,20 @@ public class FluentCommandExtension implements FluentApiExtension {
     @Override
     public void onFluentApiEnable(FluentApiSpigot fluentAPI) {
 
-        for (var invoker : invokers)
-        {
+        for (var invoker : invokers) {
 
             var invokerInstance = fluentAPI.container().findInjection(invoker.getCommandClass());
             invoker.setCommandObject(invokerInstance);
-            if(invokerInstance instanceof CommandBuilderConfig config)
-            {
+            if (invokerInstance instanceof CommandBuilderConfig config) {
                 config.onBuild(invoker.getBuilder());
             }
         }
 
-        for(var builder : builders)
-        {
-            builder.buildAndRegister();
+        for (var builder : builders) {
+            var cmd = builder.buildAndRegister();
+            if (cmd.getCommandModel().isDebug() && !fluentAPI.meta().isDebug()) {
+                fluentAPI.commands().unregister(cmd);
+            }
         }
     }
 }

@@ -23,7 +23,7 @@ public class DefaultStyleRenderer implements StyleRenderer {
     protected final ColorPallet pallet;
     protected final FluentTranslator translator;
     private final Map<String, List<String>> cachedRenders;
-    private final int barLenght = 20;
+    protected   int barLenght = 20;
 
     public DefaultStyleRenderer(FluentMessages messages, ColorPallet pallet, FluentTranslator translator) {
         this.messages = messages;
@@ -60,8 +60,10 @@ public class DefaultStyleRenderer implements StyleRenderer {
         if (!descriptions.isEmpty()) {
             createBarTop(builder);
         }
-        for (var description : descriptions) {
+        for (var description : descriptions)
+        {
             builder.text(description).newLine();
+
         }
         createClickInfo(builder, resolver);
 
@@ -114,7 +116,7 @@ public class DefaultStyleRenderer implements StyleRenderer {
 
 
     protected void createClickInfoLine(MessageBuilder builder, String name, String value) {
-        builder.space(2);
+        builder.space(1);
         createTitle(builder, name);
         builder.space(1)
                 .color(pallet.getPrimary())

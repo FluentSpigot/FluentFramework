@@ -14,7 +14,7 @@ public class FinalizeBuild  {
 
     public SimpleParticle build() {
         //TODO PASS PLUGIN INSTANCE
-        return new SimpleParticle(particleSettings, null, FluentLogger.LOGGER);
+        return new SimpleParticle(particleSettings, particleSettings.getPlugin(), FluentLogger.LOGGER);
     }
 
     public SimpleParticle buildAndStart() {

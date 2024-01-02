@@ -3,12 +3,14 @@ package io.github.jwdeveloper.ff.core.spigot.messages.text_component;
 import io.github.jwdeveloper.ff.core.common.ColorUtility;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Content;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.awt.*;
 import java.util.List;
@@ -142,4 +144,12 @@ public class TextComponentBuilder {
     public void send(CommandSender sender) {
         sender.spigot().sendMessage(toComponent());
     }
+    public void sendActionBar(CommandSender sender)
+    {
+        if(sender instanceof Player player)
+        {
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, toComponent());
+        }
+    }
+
 }
