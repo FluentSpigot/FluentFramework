@@ -8,7 +8,7 @@
     <groupId>io.github.jwdeveloper.ff</groupId>
     <artifactId>fluent-framework</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.3-Release</version>
+    <version>0.0.4-Release</version>
 
 
     <modules>
