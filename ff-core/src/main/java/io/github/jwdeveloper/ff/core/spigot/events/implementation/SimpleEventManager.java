@@ -89,12 +89,13 @@ public class SimpleEventManager implements Listener, FluentEventManager {
         fluentEvent.onUnregister(tSimpleEvent ->
         {
             try {
-                var handlers = (HandlerList) ObjectUtility.getStaticFieldValue(eventType, "handlers");
+                // var handlers = (HandlerList) ObjectUtility.getStaticFieldValue(eventType, "handlers");
                 //   var handlersMethod = eventType.getDeclaredField("handlers");
                 //  handlersMethod.setAccessible(true);
-          //      var handlers = (HandlerList) handlersMethod.get(null);
-                handlers.unregister(virtualListener);
+                //  var handlers = (HandlerList) handlersMethod.get(null);
+                ///handlers.unregister(virtualListener);
                 events.remove(fluentEvent);
+                HandlerList.unregisterAll(virtualListener);
             } catch (Exception e) {
                 FluentLogger.LOGGER.error("Unable to unregister listener for event: " + eventType.getSimpleName(), e);
             }
