@@ -2,6 +2,7 @@ package io.github.jwdeveloper.ff.core.spigot.permissions.implementation;
 
 import io.github.jwdeveloper.ff.core.common.Emoticons;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -25,6 +26,7 @@ public class PermissionsUtility {
                 .color(ChatColor.DARK_RED)
                 .text("One of this permissions is required").send(player);
 
+        FluentLogger.LOGGER.info(permissions[0]);
         for (var permission : permissions) {
             new MessageBuilder()
                     .color(ChatColor.GRAY)
@@ -46,9 +48,15 @@ public class PermissionsUtility {
         if (player.isOp()) {
             return true;
         }
-        if (permissions == null || permissions.length == 0) {
+        if (permissions == null || permissions.length == 0)  {
             return true;
         }
+
+        if(permissions.length  == 1 && permissions[0].isEmpty())
+        {
+            return true;
+        }
+
         var last = StringUtils.EMPTY;
         var current = StringUtils.EMPTY;
         var subPermissions = new String[0];

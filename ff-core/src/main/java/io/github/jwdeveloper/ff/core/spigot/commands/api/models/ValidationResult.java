@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.api.models;
 
 
+import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import lombok.Data;
 import lombok.Getter;
 
@@ -20,6 +21,7 @@ public class ValidationResult
     public ValidationResult(boolean success)
     {
         this.success = success;
+        this.message = StringUtils.EMPTY;
     }
 
     public boolean isFail()
