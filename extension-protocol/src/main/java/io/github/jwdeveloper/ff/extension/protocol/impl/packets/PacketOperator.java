@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.protocol.impl.packets;
 
 
-import com.mojang.authlib.GameProfile;
+
 import io.github.jwdeveloper.ff.extension.protocol.impl.FluentProtocolNms;
 import io.github.jwdeveloper.reflect.implementation.models.JavaClassModel;
 import io.github.jwdeveloper.reflect.implementation.models.JavaFieldModel;
