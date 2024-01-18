@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.jwdeveloper.ff</groupId>
         <artifactId>fluent-framework</artifactId>
-        <version>0.0.4-Release</version>
+        <version>0.0.5-Release</version>
     </parent>
 
 
@@ -15,13 +15,13 @@
         <dependency>
             <groupId>io.github.jwdeveloper.ff</groupId>
             <artifactId>ff-core</artifactId>
-            <version>0.0.4-Release</version>
+            <version>0.0.5-Release</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.jwdeveloper.ff</groupId>
             <artifactId>extension-translator</artifactId>
-            <version>0.0.4-Release</version>
+            <version>0.0.5-Release</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
