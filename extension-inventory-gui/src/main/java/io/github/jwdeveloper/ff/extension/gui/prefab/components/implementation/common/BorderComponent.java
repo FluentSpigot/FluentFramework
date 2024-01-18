@@ -16,11 +16,18 @@ public class BorderComponent implements InventoryComponent {
     private final InventoryRef inventoryRef = new InventoryRef();
     private boolean isInit;
     private Material material;
+    private boolean disabled;
 
     public BorderComponent() {
         buttonUI = new ArrayList<>();
         material = Material.GRAY_STAINED_GLASS_PANE;
         isInit = false;
+    }
+
+
+    @Override
+    public void disable() {
+        disabled = true;
     }
 
     @Override
@@ -31,6 +38,12 @@ public class BorderComponent implements InventoryComponent {
     }
 
     private void handleOnOpen(GuiOpenEvent event) {
+
+        if(disabled)
+        {
+            return;
+        }
+
         if (isInit) {
             return;
         }
