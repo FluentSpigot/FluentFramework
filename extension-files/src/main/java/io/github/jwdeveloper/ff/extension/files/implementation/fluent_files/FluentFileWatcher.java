@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.files.implementation.fluent_files;
 
-import io.github.jwdeveloper.ff.core.async.cancelation.CancelationToken;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationToken;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
@@ -11,11 +11,9 @@ import io.github.jwdeveloper.ff.extension.files.api.fluent_files.FluentFile;
 import io.github.jwdeveloper.ff.extension.files.implementation.config.FluentFilesConfig;
 import lombok.Getter;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.FileTime;
-import java.util.concurrent.TimeUnit;
 
 public class FluentFileWatcher implements FluentFile<FileWatcher> {
     private final FileWatcher fileWatcher;

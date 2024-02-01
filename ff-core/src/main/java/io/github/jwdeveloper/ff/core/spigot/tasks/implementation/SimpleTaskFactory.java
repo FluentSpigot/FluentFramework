@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.tasks.implementation;
 
-import io.github.jwdeveloper.ff.core.async.cancelation.CancelationToken;
-import io.github.jwdeveloper.ff.core.async.cancelation.CancelationTokenSource;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationToken;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationTokenSource;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.TaskAction;
@@ -14,15 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class SimpleTaskFactory implements FluentTaskFactory, Closeable
-{
+public class SimpleTaskFactory implements FluentTaskFactory, Closeable {
     private final Plugin plugin;
     private final PluginLogger logger;
     private final CancelationTokenSource cancelationTokenSource;
     private final List<Thread> asyncThreads;
 
-    public SimpleTaskFactory(Plugin plugin, PluginLogger logger)
-    {
+    public SimpleTaskFactory(Plugin plugin, PluginLogger logger) {
         this.plugin = plugin;
         this.logger = logger;
         this.cancelationTokenSource = new CancelationTokenSource();
@@ -30,8 +28,15 @@ public class SimpleTaskFactory implements FluentTaskFactory, Closeable
     }
 
     public SimpleTaskTimer taskTimer(int ticks, TaskAction task) {
-        return new SimpleTaskTimer(ticks, task, plugin, logger);
+        return new SimpleTaskTimer(ticks, task, plugin, logger, cancelationTokenSource.createToken());
     }
+
+    @Override
+    public SimpleTaskTimer taskTimer(int ticks, TaskAction task, CancelationToken cancelationToken) {
+        cancelationTokenSource.attacheToken(cancelationToken);
+        return new SimpleTaskTimer(ticks, task, plugin, logger, cancelationToken);
+    }
+
     public BukkitTask task(Runnable action) {
         return Bukkit.getScheduler().runTask(plugin, action);
     }
@@ -40,15 +45,13 @@ public class SimpleTaskFactory implements FluentTaskFactory, Closeable
         Bukkit.getScheduler().runTaskLater(plugin, action, ticks);
     }
 
-    public void taskAsync(Runnable action)
-    {
-         taskAsync(action, cancelationTokenSource.createToken());
+    public void taskAsync(Runnable action) {
+        taskAsync(action, cancelationTokenSource.createToken());
     }
 
     @Override
-    public CancelationToken taskAsync(Consumer<CancelationToken> action)
-    {
-        var ctx =  cancelationTokenSource.createToken();
+    public CancelationToken taskAsync(Consumer<CancelationToken> action) {
+        var ctx = cancelationTokenSource.createToken();
         taskAsync(action, ctx);
         return ctx;
     }
@@ -56,47 +59,38 @@ public class SimpleTaskFactory implements FluentTaskFactory, Closeable
     @Override
     public void taskAsync(Consumer<CancelationToken> action, CancelationToken ctx) {
         cancelationTokenSource.attacheToken(ctx);
-        taskAsync(()->
+        taskAsync(() ->
         {
             action.accept(ctx);
-        },ctx);
+        }, ctx);
     }
 
 
     @Override
-    public void taskAsync(Runnable action, CancelationToken ctx)
-    {
+    public void taskAsync(Runnable action, CancelationToken ctx) {
         var thread = new Thread(() ->
         {
-            if(ctx.isCancel())
-            {
+            if (ctx.isCancel()) {
                 return;
             }
-            try
-            {
+            try {
                 action.run();
-            }
-            catch (Exception ex)
-            {
-                logger.error("Error while running async task",ex);
+            } catch (Exception ex) {
+                logger.error("Error while running async task", ex);
             }
         });
         asyncThreads.add(thread);
         thread.start();
     }
 
+
     @Override
-    public void close()
-    {
+    public void close() {
         cancelationTokenSource.cancel();
-        for(var task : asyncThreads)
-        {
-            try
-            {
+        for (var task : asyncThreads) {
+            try {
                 task.interrupt();
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
 
             }
         }

@@ -5,6 +5,8 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.Objects;
+
 public class ItemMetaValidator extends ValidatorBase<ItemMeta, ItemMetaValidator> {
 
 
@@ -16,9 +18,17 @@ public class ItemMetaValidator extends ValidatorBase<ItemMeta, ItemMetaValidator
         return mustComplyRule(e -> e.hasDisplayName() && e.getDisplayName().equals(name), "Meta has not displayed name or Displayed name is not equal");
     }
 
-    public ItemMetaValidator mustHasNamespaceKey(NamespacedKey namespacedKey)
-    {
+    public ItemMetaValidator mustHasNamespaceKey(NamespacedKey namespacedKey) {
         return mustComplyRule(e -> e.getPersistentDataContainer().has(namespacedKey, PersistentDataType.STRING), "Namespace key not found");
+    }
+
+    public ItemMetaValidator mustHasNamespaceKey(NamespacedKey namespacedKey, String value) {
+        return mustHasNamespaceKey(namespacedKey).mustComplyRule(target ->
+        {
+            var container = target.getPersistentDataContainer();
+            var val = container.get(namespacedKey, PersistentDataType.STRING);
+            return Objects.equals(val, value);
+        }, "Namespace data value is not matching");
     }
 
     public ItemMetaValidator mustHasCustomModelData(int customModelDataId) {

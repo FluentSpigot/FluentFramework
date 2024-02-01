@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.extension.gameobject.neww.impl;
 
-import io.github.jwdeveloper.ff.core.async.BackgroundWorkerBase;
-import io.github.jwdeveloper.ff.core.async.cancelation.CancelationException;
-import io.github.jwdeveloper.ff.core.async.cancelation.CancelationToken;
+import io.github.jwdeveloper.ff.core.workers.background.BackgroundWorkerBase;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationException;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationToken;
 import io.github.jwdeveloper.ff.core.common.StopWatch;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.logger.plugin.SimpleLogger;

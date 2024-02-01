@@ -11,11 +11,8 @@ public interface FluentValidator {
     PlayerValidator player();
 
     EntityValidator entity();
-
     BlockValidator block();
-
     LocationValidator location();
-
     ItemStackValidator itemStack();
     ItemMetaValidator itemMeta();
 }

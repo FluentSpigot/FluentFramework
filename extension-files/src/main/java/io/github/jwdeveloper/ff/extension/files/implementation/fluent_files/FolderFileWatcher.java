@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.files.implementation.fluent_files;
 
-import io.github.jwdeveloper.ff.core.async.cancelation.CancelationToken;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationToken;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;

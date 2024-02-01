@@ -1,0 +1,37 @@
+
+
+#all properties are optional
+slime_sword:
+  name: '&fSlime Backpack'
+  item: prismarine_shard
+  item-id: 507
+  tag: backpack
+  category: 'body items'
+  permission: player.items.backpack
+  color: '#FFFFF'
+  stackable: true
+  unbreakable: true
+  renameable: true
+  durability: -1
+  lore:
+    - If you fall down, you will bounce
+    - instead of losing health.
+  crafting-map:
+    1: SLIME_BALL
+    a: AIR
+  crafting:
+    - a,1,a
+    - 1,backpack,1
+    - a,1,a
+
+  #all other properties will be used as item NBT data
+  max-jump: 3
+
+backpack:
+    name: '&fBackpack'
+    item: prismarine_shard
+    item-id: 507
+    crafting:
+      - air  , LEATHER     , air
+      - LEATHER, STRING, LEATHER
+      - air  , LEATHER     , air

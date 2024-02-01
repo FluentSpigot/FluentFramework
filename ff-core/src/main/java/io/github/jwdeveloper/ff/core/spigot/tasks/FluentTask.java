@@ -23,9 +23,8 @@ public class FluentTask {
         getManager().taskLater(action, ticks);
     }
 
-    public void taskAsync(Runnable runnable)
-    {
-         getManager().taskAsync(runnable);
+    public void taskAsync(Runnable runnable) {
+        getManager().taskAsync(runnable);
     }
 
     public static FluentTaskFactory getManager() {

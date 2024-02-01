@@ -1,0 +1,18 @@
+items:
+  red-wood:
+    name: Red Wood
+    material: STICK
+    materialId: 123
+    tag: backpack
+
+upgrades:
+  tier-4:
+    name: tier four
+    slots: 6
+    crafting-map:
+      1: netherite_ingot
+    crafting:
+      -   /     1     /
+      - 1 / @backpack / 1
+      -   /    1      /
+

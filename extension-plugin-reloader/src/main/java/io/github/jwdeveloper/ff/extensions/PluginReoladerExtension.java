@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extensions;
 
-import io.github.jwdeveloper.ff.core.async.cancelation.CancelationToken;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationToken;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;

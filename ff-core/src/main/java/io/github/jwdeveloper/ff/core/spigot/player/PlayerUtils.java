@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.player;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -10,6 +11,10 @@ import java.util.function.Consumer;
 public class PlayerUtils {
 
 
+    public static float getBodyYaw(Location from, Location to)
+    {
+        return new BodyRotation().tickMovement(from,to);
+    }
     public static void playSound(Player player, Sound sound) {
         player.playSound(player.getLocation(), sound, 1, 1);
     }

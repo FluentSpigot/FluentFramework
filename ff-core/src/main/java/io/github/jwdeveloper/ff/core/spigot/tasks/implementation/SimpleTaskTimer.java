@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.tasks.implementation;
 
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationToken;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.TaskAction;
 import lombok.Setter;
@@ -24,25 +25,26 @@ public class SimpleTaskTimer {
     private boolean isCancel = false;
     private BukkitTask bukkitTask;
 
+    @Setter
+    private CancelationToken cancelationToken;
+
     public SimpleTaskTimer(int speed,
                            TaskAction action,
                            Plugin plugin,
-                           PluginLogger logger)
-    {
+                           PluginLogger logger,
+                           CancelationToken cancelationToken) {
         this.speed = speed;
         this.task = action;
         this.plugin = plugin;
         this.logger = logger;
+        this.cancelationToken = cancelationToken;
     }
 
-    public void setIteration(int iteration)
-    {
-        this.time  =iteration;
+    public void setIteration(int iteration) {
+        this.time = iteration;
     }
+
     public SimpleTaskTimer startAsync() {
-
-
-
         if (onStart != null)
             onStart.accept(this);
         bukkitTask = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, this::taskBody, runAfter, speed);
@@ -54,19 +56,19 @@ public class SimpleTaskTimer {
     }
 
     public SimpleTaskTimer start() {
-        isCancel =false;
+        if (cancelationToken.isCancel()) {
+            return this;
+        }
+        isCancel = false;
         if (onStart != null)
             onStart.accept(this);
         bukkitTask = Bukkit.getScheduler().runTaskTimer(plugin, this::taskBody, runAfter, speed);
         return this;
     }
 
-    private void taskBody()
-    {
-        try
-        {
-            if (time >= stopAfter || isCancel || bukkitTask.isCancelled())
-            {
+    private void taskBody() {
+        try {
+            if (time >= stopAfter || isCancel || bukkitTask.isCancelled() || cancelationToken.isCancel()) {
                 if (onStop != null)
                     onStop.accept(this);
                 stop();
@@ -74,10 +76,8 @@ public class SimpleTaskTimer {
             }
             task.execute(time, this);
             time++;
-        }
-        catch (Exception e)
-        {
-            logger.error("FluentTask error",e);
+        } catch (Exception e) {
+            logger.error("FluentTask error", e);
             stop();
         }
     }
@@ -88,12 +88,11 @@ public class SimpleTaskTimer {
 
         Bukkit.getScheduler().cancelTask(bukkitTask.getTaskId());
         bukkitTask.cancel();
-        isCancel =true;
+        isCancel = true;
         bukkitTask = null;
     }
 
-    public boolean isRunning()
-    {
+    public boolean isRunning() {
         return bukkitTask != null;
     }
 

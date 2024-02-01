@@ -23,6 +23,11 @@ public class ColorUtility {
         return Color.fromRGB(r, g, b);
     }
 
+    public static Color fromRgb(int r, int g, int b)
+    {
+        var hex = toHex(r,g,b);
+        return fromHex(hex);
+    }
     public static java.awt.Color fromHexJava(String hex) {
         if (StringUtils.isNullOrEmpty(hex)) {
             hex = "#FFFFFF";

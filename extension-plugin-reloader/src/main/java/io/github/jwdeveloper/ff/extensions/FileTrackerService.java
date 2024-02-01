@@ -1,5 +1,5 @@
 package io.github.jwdeveloper.ff.extensions;
-import io.github.jwdeveloper.ff.core.async.cancelation.CancelationToken;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationToken;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import java.io.IOException;
 import java.nio.file.*;
