@@ -10,6 +10,9 @@ import io.github.jwdeveloper.ff.extension.translator.FluentTranslatorAPI;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslatorOptions;
 import io.github.jwdeveloper.ff.extension.updater.FluentUpdaterApi;
 import io.github.jwdeveloper.ff.extension.updater.api.UpdaterApiOptions;
+import io.github.jwdeveloper.ff.plugin.addons.AddonsApi;
+import io.github.jwdeveloper.ff.plugin.addons.AddonsExtension;
+import io.github.jwdeveloper.ff.plugin.addons.AddonsOptions;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
@@ -70,6 +73,14 @@ public class FluentPluginBuilder {
         return this;
     }
 
+    public FluentPluginBuilder withAddons(Consumer<AddonsOptions> options) {
+        apiExtensions.add(AddonsApi.use(options));
+        return this;
+    }
+
+    public FluentPluginBuilder withAddons() {
+        return withAddons((x)->{});
+    }
 
     public FluentPluginBuilder withBstatsMetrics(int bstatsMetricsId) {
         apiExtensions.add(BstatsApi.use(bstatsMetricsId));

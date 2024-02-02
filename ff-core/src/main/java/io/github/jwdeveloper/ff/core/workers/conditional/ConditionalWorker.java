@@ -27,16 +27,18 @@ public class ConditionalWorker {
             long currentTime = System.currentTimeMillis();
             if (currentTime - startTime >= this.timeout) {
                 action.onCancel();
+                action.onEnd();
                 timer.cancel();
                 task.stop();
                 return;
             }
             if (action.onCondition()) {
                 action.onDone();
+                action.onEnd();
                 task.stop();
                 return;
             }
-        }).start();
+        }).startAfterTicks(1).start();
         action.onStart();
     }
 

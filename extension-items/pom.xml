@@ -27,25 +27,25 @@
         <dependency>
             <groupId>io.github.jwdeveloper.ff</groupId>
             <artifactId>ff-api</artifactId>
-            <version>0.0.5-Release</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.jwdeveloper.ff</groupId>
             <artifactId>ff-api</artifactId>
-            <version>0.0.5-Release</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.jwdeveloper.ff</groupId>
             <artifactId>ff-api-tests</artifactId>
-            <version>0.0.5-Release</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.github.jwdeveloper.ff</groupId>
             <artifactId>ff-api-tests</artifactId>
-            <version>0.0.5-Release</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 

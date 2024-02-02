@@ -9,6 +9,7 @@ import org.bukkit.plugin.Plugin;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -41,10 +42,23 @@ public class JarScannerImpl extends ClassLoader implements JarScanner {
         byAnnotationCatch = new HashMap<>();
     }
 
+
+    public JarScannerImpl(Collection<Class<?>> classes, PluginLogger logger) {
+        this.logger = logger;
+        this.classes = new ArrayList<>(classes);;
+        byInterfaceCatch = new IdentityHashMap<>();
+        byParentCatch = new IdentityHashMap<>();
+        byPackageCatch = new IdentityHashMap<>();
+        byAnnotationCatch = new HashMap<>();
+    }
+
     public void addClasses(Collection<Class<?>> classes)
     {
         this.classes.addAll(classes);
     }
+
+
+
 
     protected List<Class<?>> loadClasses(final Class<?> clazz) {
         final var source = clazz.getProtectionDomain().getCodeSource();
