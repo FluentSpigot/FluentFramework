@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>io.github.jwdeveloper.ff</groupId>
+        <groupId>com.github.FluentSpigot</groupId>
         <artifactId>fluent-framework</artifactId>
         <version>0.0.7-Release</version>
     </parent>
@@ -12,7 +12,7 @@
     <artifactId>extension-advancements</artifactId>
     <dependencies>
         <dependency>
-            <groupId>io.github.jwdeveloper.ff</groupId>
+           <groupId>com.github.FluentSpigot</groupId>
             <artifactId>ff-api</artifactId>
             <version>0.0.7-Release</version>
             <scope>compile</scope>

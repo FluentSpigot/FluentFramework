@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>fluent-framework</artifactId>
-        <groupId>io.github.jwdeveloper.ff</groupId>
+        <groupId>com.github.FluentSpigot</groupId>
         <version>0.0.7-Release</version>
     </parent>
     <artifactId>extension-items</artifactId>
@@ -25,25 +25,25 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.github.jwdeveloper.ff</groupId>
+           <groupId>com.github.FluentSpigot</groupId>
             <artifactId>ff-api</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>io.github.jwdeveloper.ff</groupId>
+           <groupId>com.github.FluentSpigot</groupId>
             <artifactId>ff-api</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>io.github.jwdeveloper.ff</groupId>
+           <groupId>com.github.FluentSpigot</groupId>
             <artifactId>ff-api-tests</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>io.github.jwdeveloper.ff</groupId>
+           <groupId>com.github.FluentSpigot</groupId>
             <artifactId>ff-api-tests</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
