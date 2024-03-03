@@ -2,6 +2,7 @@ package io.github.jwdeveloper.ff.plugin.implementation.config.migrations;
 
 import io.github.jwdeveloper.ff.core.common.java.ObjectUtility;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.common.versions.VersionCompare;
 import io.github.jwdeveloper.ff.core.common.versions.VersionNumberComparator;
@@ -11,9 +12,7 @@ import io.github.jwdeveloper.ff.plugin.api.config.migrations.ExtensionMigration;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class DefaultConfigMigrator implements ConfigMigrator {
     private final FluentApiExtension extension;
@@ -53,19 +52,20 @@ public class DefaultConfigMigrator implements ConfigMigrator {
         }
 
         var packageName = extension.getClass().getPackageName();
-        final List<ExtensionMigration> migrations = new ArrayList(extension.getMigrations());
-        jarScanner.findByInterface(ExtensionMigration.class)
+        final Set<ExtensionMigration> migrations = new HashSet(extension.getMigrations());
+/*        jarScanner.findByInterface(ExtensionMigration.class)
                 .stream()
                 .filter(e -> e.getPackageName().contains(packageName))
                 .toList()
                 .forEach(migrationClazz ->
                 {
                     try {
+                        FluentLogger.LOGGER.success("Add migration for class", migrationClazz.getSimpleName());
                         migrations.add(ObjectUtility.initialize(migrationClazz));
                     } catch (Exception e) {
                         throw new RuntimeException("Unable to load migrations", e);
                     }
-                });
+                });*/
 
         var currentVersion = extension.getVersion();
         var configVersion = getConfigVersion(configuration);
@@ -74,15 +74,18 @@ public class DefaultConfigMigrator implements ConfigMigrator {
             return;
         }
 
+        List<ExtensionMigration> migrationsToExecute = List.of();
+        //if migration was not set in config then set version and execute all migrations
         if (migrations.size() == 0 || configVersion == null) {
             setConfigVersion(configuration, currentVersion);
-            return;
+            migrationsToExecute = migrations.stream().toList();
+        } else {
+            migrationsToExecute = getMigrationsBetween(migrations.stream().toList(), configVersion, currentVersion);
         }
 
+        logger.info("Migration of", extension.getName(), "for  version", configVersion, "to", currentVersion, "has started");
 
-        var sorted = getMigrationsBetween(migrations, configVersion, currentVersion);
-        logger.info("Migration from", configVersion, "to", currentVersion, "has started");
-        for (var migration : sorted) {
+        for (var migration : migrationsToExecute) {
             logger.info("Migrating config to plugin version", migration.version());
             try {
                 migration.onUpdate(configuration);
