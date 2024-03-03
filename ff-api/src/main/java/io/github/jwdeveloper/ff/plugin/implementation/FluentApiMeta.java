@@ -2,6 +2,7 @@ package io.github.jwdeveloper.ff.plugin.implementation;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.common.versions.VersionCompare;
+import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.implementation.config.options.PluginState;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiDefaultCommandBuilder;
@@ -71,6 +72,7 @@ public class FluentApiMeta {
     }
 
     public PluginState loadPluginState() {
+        setEnviroment();
         var currentVersion = plugin.getDescription().getVersion();
         var configPluginVersion = config.configFile().getString("plugin-meta.plugin-version");
         config.set("plugin-meta.plugin-version", currentVersion);
@@ -88,6 +90,23 @@ public class FluentApiMeta {
             return PluginState.DOWNGRADED;
         }
         return PluginState.NONE;
+    }
+
+    private void setEnviroment() {
+        var pluginYml = FileUtility.loadFileFromResponse("plugin.yml", plugin.getClass());
+        var pluginYmlEnviroment = pluginYml.get("environment");
+        if (pluginYmlEnviroment == null) {
+            return;
+        }
+        if (!config.configFile().isConfigurationSection("plugin-meta")) {
+            return;
+        }
+        var section = config.configFile().getConfigurationSection("plugin-meta");
+        if (section.contains("environment")) {
+            return;
+        }
+        section.set("environment", pluginYmlEnviroment);
+        config.save();
     }
 }
 

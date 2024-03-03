@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.core.files;
 
-import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -225,7 +225,20 @@ public interface FileUtility {
             }
         }
     }
+    public static YamlConfiguration loadFileFromResponse(String fileName, Class<?> clazz) {
+        var classLoader = clazz.getClassLoader();
+        try (var inputStream = classLoader.getResourceAsStream(fileName)) {
+            if (inputStream == null) {
+                throw new RuntimeException("Default config has not been found!");
+            }
 
+            try (var reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+                return YamlConfiguration.loadConfiguration(reader);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to load default config file", e);
+        }
+    }
 
     static String loadFileContent(String path) throws IOException {
         ensureFile(path);
