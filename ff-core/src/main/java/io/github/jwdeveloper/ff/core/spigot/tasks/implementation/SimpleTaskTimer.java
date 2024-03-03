@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.tasks.implementation;
 
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationToken;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancellationToken;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.TaskAction;
 import lombok.Setter;
@@ -26,13 +26,13 @@ public class SimpleTaskTimer {
     private BukkitTask bukkitTask;
 
     @Setter
-    private CancelationToken cancelationToken;
+    private CancellationToken cancelationToken;
 
     public SimpleTaskTimer(int speed,
                            TaskAction action,
                            Plugin plugin,
                            PluginLogger logger,
-                           CancelationToken cancelationToken) {
+                           CancellationToken cancelationToken) {
         this.speed = speed;
         this.task = action;
         this.plugin = plugin;

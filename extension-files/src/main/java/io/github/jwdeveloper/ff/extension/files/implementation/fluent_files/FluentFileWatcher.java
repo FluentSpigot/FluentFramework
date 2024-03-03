@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.files.implementation.fluent_files;
 
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationToken;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancellationToken;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
@@ -84,7 +84,7 @@ public class FluentFileWatcher implements FluentFile<FileWatcher> {
         return FileUtility.combinePath(config.getSavingPath(), fileWatcher.getFileName());
     }
     FileTime lastModifiedTime = null;
-    public void run(CancelationToken ctx)
+    public void run(CancellationToken ctx)
     {
         load();
         var filePath = getPath();

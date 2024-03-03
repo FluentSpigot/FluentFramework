@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.files.implementation.fluent_files;
 
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationToken;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancellationToken;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
@@ -67,7 +67,7 @@ public class FolderFileWatcher implements FluentFile<FolderWatcher> {
     }
 
 
-    public void run(CancelationToken ctx) throws InterruptedException {
+    public void run(CancellationToken ctx) throws InterruptedException {
 
         var filePath = getPath();
         var path = Paths.get(filePath);

@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation;
 
-public class CancelationToken
+public class CancellationToken
 {
     private boolean isCanceled =false;
 
@@ -21,7 +21,7 @@ public class CancelationToken
         {
             return;
         }
-        throw new CancelationException("Token requested cancelation");
+        throw new CancelationException("Token requested cancellation");
     }
 
     public boolean isNotCancel()
@@ -29,9 +29,8 @@ public class CancelationToken
         return !isCancel();
     }
 
-    public static CancelationToken create()
+    public static CancellationToken create()
     {
-        return new CancelationToken();
+        return new CancellationToken();
     }
-
 }

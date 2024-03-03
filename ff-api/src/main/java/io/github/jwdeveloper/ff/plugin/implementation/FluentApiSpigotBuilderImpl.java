@@ -1,8 +1,10 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
+import com.google.gson.Gson;
 import io.github.jwdeveloper.ff.core.cache.api.PluginCache;
 import io.github.jwdeveloper.ff.core.cache.implementation.PluginCacheImpl;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.files.json.JsonUtility;
 import io.github.jwdeveloper.ff.plugin.api.logger.PlayerLogger;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
@@ -167,7 +169,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         extensionsManager.getAfterOnEnable().subscribe(configManager::onSaveConfig);
         extensionsManager.getAfterOnDisable().subscribe(e ->
         {
-            var factory = (SimpleTaskFactory)taskFactory;
+            var factory = (SimpleTaskFactory) taskFactory;
             factory.close();
             for (var closable : e.container().findAllByInterface(Closeable.class)) {
                 try {
@@ -197,6 +199,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
 
         var validator = new FluentValidatorImpl();
         containerBuilder.registerSigleton(FluentValidator.class, validator);
+        containerBuilder.registerSigleton(Gson.class, JsonUtility.getGson());
         containerBuilder.registerSigleton(PluginCache.class, PluginCacheImpl.class);
         containerBuilder.registerSigleton(ChatInputListener.class);
 

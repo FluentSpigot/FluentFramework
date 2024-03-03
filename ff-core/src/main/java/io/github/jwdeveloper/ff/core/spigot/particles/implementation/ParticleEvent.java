@@ -36,4 +36,8 @@ public class ParticleEvent {
     public Location getLocation() {
         return originLocation;
     }
+
+    public void setLocation(Location setLocation) {
+        this.originLocation = setLocation;
+    }
 }

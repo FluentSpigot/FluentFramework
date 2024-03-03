@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.core.spigot.particles.implementation;
 
 
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.spigot.particles.api.ParticleSettings;
 import org.bukkit.Bukkit;
@@ -57,19 +58,21 @@ public class SimpleParticle {
                         event.particle = settings.getParticle();
                         event.setParticleColor(settings.getColor());
                         event.time = time;
-                        switch (settings.getParticleDisplayMode()) {
-                            case ALL_AT_ONCE -> {
+                        switch (settings.getParticleDisplayMode())
+                        {
+                            case ALL_AT_ONCE ->
+                            {
                                 for (var i = 0; i < settings.getParticleCount(); i++) {
                                     event.originLocation = settings.getLocation().clone();
                                     event.index = i;
+
                                     settings.getOnParticleEvent().execute(event, particleInvoker);
                                 }
-                                return;
                             }
                             case SINGLE_AT_ONCE -> {
+
                                 event.index = time % settings.getParticleCount();
                                 settings.getOnParticleEvent().execute(event, particleInvoker);
-                                return;
                             }
                         }
                         time++;

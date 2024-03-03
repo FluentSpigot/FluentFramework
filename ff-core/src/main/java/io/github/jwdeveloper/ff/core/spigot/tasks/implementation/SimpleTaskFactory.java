@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.tasks.implementation;
 
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationToken;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancellationToken;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationTokenSource;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
@@ -32,7 +32,7 @@ public class SimpleTaskFactory implements FluentTaskFactory, Closeable {
     }
 
     @Override
-    public SimpleTaskTimer taskTimer(int ticks, TaskAction task, CancelationToken cancelationToken) {
+    public SimpleTaskTimer taskTimer(int ticks, TaskAction task, CancellationToken cancelationToken) {
         cancelationTokenSource.attacheToken(cancelationToken);
         return new SimpleTaskTimer(ticks, task, plugin, logger, cancelationToken);
     }
@@ -50,14 +50,14 @@ public class SimpleTaskFactory implements FluentTaskFactory, Closeable {
     }
 
     @Override
-    public CancelationToken taskAsync(Consumer<CancelationToken> action) {
+    public CancellationToken taskAsync(Consumer<CancellationToken> action) {
         var ctx = cancelationTokenSource.createToken();
         taskAsync(action, ctx);
         return ctx;
     }
 
     @Override
-    public void taskAsync(Consumer<CancelationToken> action, CancelationToken ctx) {
+    public void taskAsync(Consumer<CancellationToken> action, CancellationToken ctx) {
         cancelationTokenSource.attacheToken(ctx);
         taskAsync(() ->
         {
@@ -67,7 +67,7 @@ public class SimpleTaskFactory implements FluentTaskFactory, Closeable {
 
 
     @Override
-    public void taskAsync(Runnable action, CancelationToken ctx) {
+    public void taskAsync(Runnable action, CancellationToken ctx) {
         var thread = new Thread(() ->
         {
             if (ctx.isCancel()) {

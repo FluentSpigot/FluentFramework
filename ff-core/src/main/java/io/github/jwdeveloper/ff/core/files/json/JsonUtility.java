@@ -3,11 +3,9 @@ package io.github.jwdeveloper.ff.core.files.json;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import com.google.gson.*;
+import io.github.jwdeveloper.ff.core.files.json.adapters.*;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
-import io.github.jwdeveloper.ff.core.files.json.adapters.DateTimeOffsetAdapter;
-import io.github.jwdeveloper.ff.core.files.json.adapters.ItemStackAdapter;
-import io.github.jwdeveloper.ff.core.files.json.adapters.LocationAdapter;
 import io.github.jwdeveloper.ff.core.files.json.execution.BindingFieldSkip;
 import io.github.jwdeveloper.ff.core.files.json.execution.JsonIgnoreAnnotationSkip;
 import org.bukkit.Location;
@@ -108,6 +106,9 @@ public final class JsonUtility implements FileUtility {
                 .registerTypeHierarchyAdapter(ItemStack.class, new ItemStackAdapter())
                 .registerTypeHierarchyAdapter(Location.class, new LocationAdapter())
                 .registerTypeHierarchyAdapter(OffsetDateTime.class, new DateTimeOffsetAdapter())
+                .registerTypeHierarchyAdapter(Byte.class, new ByteAdapter())
+                .registerTypeHierarchyAdapter(String.class, new StringAdapter())
+                .registerTypeHierarchyAdapter(Class.class,new ClassSerializer())
                 .setExclusionStrategies(new BindingFieldSkip())
                 .setExclusionStrategies(new JsonIgnoreAnnotationSkip())
                 .setPrettyPrinting()
@@ -116,7 +117,7 @@ public final class JsonUtility implements FileUtility {
 
 
     static void ensureFile(String path, String fileName, String content) {
-        final String fullPath = getFullPath(path,fileName);
+        final String fullPath = getFullPath(path, fileName);
         final File file = new File(fullPath);
         if (file.exists()) {
             return;

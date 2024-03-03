@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extensions;
 
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationToken;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancellationToken;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
@@ -8,12 +8,12 @@ import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 
 public class PluginReoladerExtension implements FluentApiExtension
 {
-    private  CancelationToken ctx;
+    private CancellationToken ctx;
 
     @Override
     public void onConfiguration(FluentApiSpigotBuilder builder)
     {
-        ctx = new CancelationToken();
+        ctx = new CancellationToken();
     }
 
     @Override

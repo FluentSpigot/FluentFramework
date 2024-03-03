@@ -10,7 +10,9 @@ import io.github.jwdeveloper.ff.extension.items.api.FluentItemRegistry;
 import io.github.jwdeveloper.ff.extension.items.api.config.FluentItemApiSettings;
 import io.github.jwdeveloper.ff.extension.items.api.crafting.FluentCrafting;
 import io.github.jwdeveloper.ff.extension.items.api.mappers.FluentCraftingMapper;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Arrays;

@@ -37,6 +37,7 @@ import io.github.jwdeveloper.ff.extension.websocket.api.FluentWebsocketPacket;
 import io.github.jwdeveloper.ff.extension.websocket.api.TypeResolver;
 import io.github.jwdeveloper.ff.extension.websocket.api.annotations.PacketProperty;
 import io.github.jwdeveloper.ff.extension.websocket.implementation.resolver.*;
+import org.bukkit.Bukkit;
 import org.java_websocket.WebSocket;
 
 import java.lang.reflect.Field;

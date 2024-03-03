@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.workers.background;
 
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationToken;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancellationToken;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 
 import java.util.concurrent.FutureTask;
@@ -8,20 +8,20 @@ import java.util.function.Supplier;
 
 public abstract class BackgroundWorkerBase implements BackgroundWorker {
     protected final FluentTaskFactory tasksFactory;
-    protected CancelationToken cancelationToken;
+    protected CancellationToken cancelationToken;
     private boolean paused;
     private boolean running;
 
     public BackgroundWorkerBase(FluentTaskFactory factory) {
         this.tasksFactory = factory;
-        this.cancelationToken = new CancelationToken();
+        this.cancelationToken = new CancellationToken();
     }
 
     public void onRun() {
 
     }
 
-    public abstract void onWork(CancelationToken cancelationToken);
+    public abstract void onWork(CancellationToken cancelationToken);
 
     public void onClose() {
 
@@ -33,7 +33,7 @@ public abstract class BackgroundWorkerBase implements BackgroundWorker {
     }
 
     @Override
-    public final synchronized void runAsync(CancelationToken cancelationToken) {
+    public final synchronized void runAsync(CancellationToken cancelationToken) {
         if (isRunning()) {
             close();
         }
@@ -64,7 +64,7 @@ public abstract class BackgroundWorkerBase implements BackgroundWorker {
     }
 
 
-    protected <T> void waitForBukkitThread(Supplier<T> body, CancelationToken ctx) {
+    protected <T> void waitForBukkitThread(Supplier<T> body, CancellationToken ctx) {
         var future = new FutureTask<>(body::get);
         ctx.throwIfCancel();
         tasksFactory.task(future);

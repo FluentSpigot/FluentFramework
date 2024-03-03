@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.extension.gameobject.neww.impl;
 
 import io.github.jwdeveloper.ff.core.workers.background.BackgroundWorkerBase;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationException;
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationToken;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancellationToken;
 import io.github.jwdeveloper.ff.core.common.StopWatch;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.logger.plugin.SimpleLogger;
@@ -53,7 +53,7 @@ public class GameObjectEngine extends BackgroundWorkerBase {
 
 
     @Override
-    public void onWork(CancelationToken cancelationToken) {
+    public void onWork(CancellationToken cancelationToken) {
         gameTime = 0;
         while (cancelationToken.isNotCancel()) {
             try {
@@ -81,7 +81,7 @@ public class GameObjectEngine extends BackgroundWorkerBase {
         }
     }
 
-    public void tryLoopCycle(CancelationToken cancelationToken) throws InterruptedException {
+    public void tryLoopCycle(CancellationToken cancelationToken) throws InterruptedException {
         runEventAsync(gameObject -> gameObject.events.phisicAsyncEvent.invoke(null), "PhisicAsync");
         runEventAsync(gameObject -> gameObject.events.updateAsyncEvent.invoke(gameTime), "UpdateAsync");
         runEventAsync(gameObject -> gameObject.events.renderAsyncEvent.invoke(null), "PreRenderAsync");

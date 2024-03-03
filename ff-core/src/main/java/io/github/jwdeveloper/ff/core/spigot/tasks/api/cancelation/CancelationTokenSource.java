@@ -5,18 +5,18 @@ import java.util.Set;
 
 public class CancelationTokenSource implements IAsyncCancelation
 {
-    private final Set<CancelationToken> tokens = new HashSet<>();
+    private final Set<CancellationToken> tokens = new HashSet<>();
 
     private boolean canceld = false;
 
-    public void attacheToken(CancelationToken cancelationToken)
+    public void attacheToken(CancellationToken cancelationToken)
     {
         tokens.add(cancelationToken);
     }
 
-    public CancelationToken createToken()
+    public CancellationToken createToken()
     {
-        var ctx = new CancelationToken();
+        var ctx = new CancellationToken();
         tokens.add(ctx);
         return ctx;
     }

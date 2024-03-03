@@ -11,16 +11,16 @@ public class ActionResult<T> {
     public ActionResult() {
     }
 
-    public ActionResult(T object) {
+    protected ActionResult(T object) {
         this.content = object;
     }
 
-    public ActionResult(T object, boolean success) {
+    protected ActionResult(T object, boolean success) {
         this(object);
         this.success = success;
     }
 
-    public ActionResult(T object, boolean status, String message) {
+    protected ActionResult(T object, boolean status, String message) {
         this(object, status);
         this.message = message;
     }
@@ -41,18 +41,15 @@ public class ActionResult<T> {
         return new ActionResult<>(null, true);
     }
 
-    public <Output> ActionResult<Output> cast(Output output)
-    {
+    public <Output> ActionResult<Output> cast(Output output) {
         return new ActionResult<>(output, this.isSuccess(), this.getMessage());
     }
 
-    public <Output> ActionResult<Output> cast()
-    {
+    public <Output> ActionResult<Output> cast() {
         return new ActionResult<>(null, this.isSuccess(), this.getMessage());
     }
 
-    public static <Input, Output> ActionResult<Output> cast(ActionResult<Input> action, Output output)
-    {
+    public static <Input, Output> ActionResult<Output> cast(ActionResult<Input> action, Output output) {
         return new ActionResult<>(output, action.isSuccess(), action.getMessage());
     }
 
@@ -76,7 +73,4 @@ public class ActionResult<T> {
         return new ActionResult<>(target, false, message);
     }
 
-    public static <T> Class<ActionResult<T>> type() {
-        return (Class<ActionResult<T>>) new ActionResult<T>().getClass();
-    }
 }

@@ -1,5 +1,5 @@
 package io.github.jwdeveloper.ff.extensions;
-import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationToken;
+import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancellationToken;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
 import java.io.IOException;
 import java.nio.file.*;
@@ -12,7 +12,7 @@ public class FileTrackerService {
         this.taskFactory = taskFactory;
     }
 
-    public void startAsync(CancelationToken ctx) throws IOException, InterruptedException {
+    public void startAsync(CancellationToken ctx) throws IOException, InterruptedException {
         var watchService = FileSystems.getDefault().newWatchService();
         directory.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
         taskFactory.taskAsync(() ->
@@ -27,7 +27,7 @@ public class FileTrackerService {
         },ctx);
     }
 
-    private  void taskBody(WatchService watchService, CancelationToken ctx) throws InterruptedException
+    private  void taskBody(WatchService watchService, CancellationToken ctx) throws InterruptedException
     {
         while (ctx.isNotCancel())
         {
