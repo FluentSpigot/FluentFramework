@@ -18,6 +18,16 @@ public class ExampleTest extends FluentPluginTest
     public void onFluentPluginBuild(FluentPluginBuilder builder) {
 
         FluentLogger.LOGGER.info("hello world");
+        builder.withCustomExtension(fluentApiExtentionBuilder ->
+        {
+            fluentApiExtentionBuilder.onConfiguration(fluentApiSpigotBuilder ->
+            {
+
+               var scanner =  fluentApiSpigotBuilder.jarScanner();
+
+               var i =0;
+            });
+        });
     }
 
 

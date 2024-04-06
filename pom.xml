@@ -111,6 +111,7 @@
             <groupId>com.github.jwdeveloper.DepenDance</groupId>
             <artifactId>DepenDance-Full</artifactId>
             <version>0.0.6-Release</version>
+            <scope>compile</scope>
         </dependency>
 
 
