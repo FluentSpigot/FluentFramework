@@ -12,10 +12,10 @@ public class ColorPickerExtension implements FluentApiExtension {
     @Override
     public void onConfiguration(FluentApiSpigotBuilder builder) {
         var container = builder.container();
-        container.registerSigleton(ColorPicker.class);
-        container.registerSigleton(ColorsService.class);
-        container.registerSigleton(ColorsRepository.class);
-        container.registerSigleton(ColorPickerWidget.class);
+        container.registerSingleton(ColorPicker.class);
+        container.registerSingleton(ColorsService.class);
+        container.registerSingleton(ColorsRepository.class);
+        container.registerSingleton(ColorPickerWidget.class);
         builder.defaultCommand()
                 .subCommandsConfig(subCommandConfig ->
                 {

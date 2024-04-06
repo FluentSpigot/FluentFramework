@@ -10,8 +10,8 @@ public class FluentInventoryExtension implements FluentApiExtension {
     @Override
     public void onConfiguration(FluentApiSpigotBuilder builder)
     {
-        builder.container().registerSigleton(InventorySpigotListener.class);
-        builder.container().registerSigleton(InventoryApi.class, InventoryApiImpl.class);
+        builder.container().registerSingleton(InventorySpigotListener.class);
+        builder.container().registerSingleton(InventoryApi.class, InventoryApiImpl.class);
     }
 
     @Override

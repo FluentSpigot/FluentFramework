@@ -8,10 +8,10 @@ import be.seeseemelk.mockbukkit.command.ConsoleCommandSenderMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import be.seeseemelk.mockbukkit.plugin.PluginManagerMock;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.plugin.FluentPlugin;
 import io.github.jwdeveloper.ff.plugin.FluentPluginBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
-import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.TestsJarScanner;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.FluentInjection;
 import lombok.Getter;
 import org.bukkit.event.Event;
@@ -43,6 +43,7 @@ public abstract class FluentPluginTest
         return  serverMock.addPlayer();
     }
 
+    public abstract Class<?> mainPluginClass();
 
     public PluginManagerMock getPluginManager()
     {
@@ -101,12 +102,11 @@ public abstract class FluentPluginTest
             pluginMock = MockBukkit.createMockPlugin();
         }
 
+        FluentLogger.setLogger("test");
         var builder = FluentPlugin.initialize(pluginMock);
         builder.withExtension(builder1 ->
         {
-            var scanner = new TestsJarScanner(getJarScannerClass(),builder1.logger());
-            var classess = scanner.findAll();
-            builder1.jarScanner().addClasses(classess);
+            builder1.jarScanner().attacheAllClassesFromPackage(mainPluginClass());
         });
         onFluentPluginBuild(builder);
         fluentApiMock = builder.tryCreate();

@@ -1,14 +1,12 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.container;
 
+import io.github.jwdeveloper.dependance.injector.api.annotations.IgnoreInjection;
+import io.github.jwdeveloper.dependance.injector.api.annotations.Injection;
+import io.github.jwdeveloper.dependance.injector.api.containers.ContainerConfiguration;
+import io.github.jwdeveloper.dependance.injector.api.models.RegistrationInfo;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
-import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
-import io.github.jwdeveloper.ff.core.injector.api.annotations.IgnoreInjection;
-import io.github.jwdeveloper.ff.core.injector.api.annotations.Injection;
-import io.github.jwdeveloper.ff.core.injector.api.models.ContainerConfiguration;
-import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
-import io.github.jwdeveloper.ff.plugin.implementation.FluentApiContainerBuilderImpl;
+import io.github.jwdeveloper.dependance.api.JarScanner;
+import io.github.jwdeveloper.ff.plugin.api.FluentApiContainerBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.implementation.FluentPlayerContext;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.implementation.FluentPlayerContextListener;
 import org.bukkit.plugin.Plugin;
@@ -19,7 +17,7 @@ import java.util.List;
 public class FluentInjectionFactory {
     public record Result(FluentInjectionImpl fluentInjection, List<Class<?>> toInitializeTypes){}
     private final Plugin plugin;
-    private final FluentApiContainerBuilderImpl builder;
+    private final FluentApiContainerBuilder builder;
     private final JarScanner typeManager;
     private final PluginLogger logger;
     private final List<Class<?>> toInitializeTypes;
@@ -27,7 +25,7 @@ public class FluentInjectionFactory {
     public List<RegistrationInfo> playerScopedRegistrations;
 
 
-    public FluentInjectionFactory(FluentApiContainerBuilderImpl builder,
+    public FluentInjectionFactory(FluentApiContainerBuilder builder,
                                   PluginLogger logger,
                                   Plugin plugin,
                                   JarScanner classTypesManager)
@@ -42,7 +40,7 @@ public class FluentInjectionFactory {
 
     public Result create() throws Exception {
 
-        var containerConfig = builder.getConfiguration();
+      /*  var containerConfig = builder.getConfiguration();
         if(containerConfig.isEnableAutoScan())
         {
             autoScan(containerConfig);
@@ -60,9 +58,11 @@ public class FluentInjectionFactory {
         var container = builder.build();
         var playerContext = createPlayerScopeContainer(container);
         var fluentInjection = new FluentInjectionImpl(container, playerContext);
-        return new Result(fluentInjection, toInitializeTypes);
+        return new Result(fluentInjection, toInitializeTypes);*/
+        return null;
     }
 
+/*
     public FluentPlayerContext createPlayerScopeContainer(FluentContainer fluentContainer)
     {
         var listener = new FluentPlayerContextListener(plugin);
@@ -83,9 +83,10 @@ public class FluentInjectionFactory {
             registerType(_class);
         }
     }
+*/
 
     private void registerType(Class<?> _class) {
-        var injectionInfo = _class.getAnnotation(Injection.class);
+  /*      var injectionInfo = _class.getAnnotation(Injection.class);
 
         if (!injectionInfo.lazyLoad())
             toInitializeTypes.add(_class);
@@ -101,7 +102,7 @@ public class FluentInjectionFactory {
             return;
         }
 
-        builder.register((Class) injectionInfo.toInterface(), _class, injectionInfo.lifeTime());
+        builder.register((Class) injectionInfo.toInterface(), _class, injectionInfo.lifeTime());*/
     }
 
 

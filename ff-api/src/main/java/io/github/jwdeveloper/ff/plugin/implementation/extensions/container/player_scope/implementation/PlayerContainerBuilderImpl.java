@@ -1,15 +1,15 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.implementation;
 
+import io.github.jwdeveloper.dependance.injector.api.containers.Container;
+import io.github.jwdeveloper.dependance.injector.implementation.containers.DefaultContainer;
+import io.github.jwdeveloper.dependance.injector.implementation.containers.builder.ContainerBuilderImpl;
+import io.github.jwdeveloper.dependance.injector.implementation.events.EventHandlerImpl;
+import io.github.jwdeveloper.dependance.injector.implementation.factory.InjectionInfoFactoryImpl;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.api.PlayerContainerBuilder;
-import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
-import io.github.jwdeveloper.ff.core.injector.implementation.containers.DefaultContainer;
-import io.github.jwdeveloper.ff.core.injector.implementation.containers.builder.ContainerBuilderImpl;
-import io.github.jwdeveloper.ff.core.injector.implementation.events.EventHandlerImpl;
-import io.github.jwdeveloper.ff.core.injector.implementation.factory.InjectionInfoFactoryImpl;
-import io.github.jwdeveloper.ff.core.injector.implementation.search.SearchAgentImpl;
 
-public class PlayerContainerBuilderImpl extends ContainerBuilderImpl<PlayerContainerBuilder> implements PlayerContainerBuilder {
+
+public class PlayerContainerBuilderImpl  {
     private Container parentContainer;
     private PluginLogger logger;
 
@@ -20,10 +20,11 @@ public class PlayerContainerBuilderImpl extends ContainerBuilderImpl<PlayerConta
 
     public PlayerContainerBuilder setParentContainer(Container container) {
         parentContainer = container;
-        return this;
+        // return this;
+        return null;
     }
 
-    @Override
+ /*   @Override
     public Container build() {
         var eventHandler = new EventHandlerImpl(config.getEvents());
         var instanceProvider = new PlayerContextInstanceProvider(parentContainer);
@@ -37,5 +38,5 @@ public class PlayerContainerBuilderImpl extends ContainerBuilderImpl<PlayerConta
                 logger,
                 injectionInfoFactory,
                 config.getRegistrations());
-    }
+    }*/
 }

@@ -35,22 +35,22 @@ public class FluentItemExtension implements FluentApiExtension {
     @Override
     public void onConfiguration(FluentApiSpigotBuilder builder) {
         var container = builder.container();
-        container.registerSigleton(FluentItemApiSettings.class, container1 ->
+        container.registerSingleton(FluentItemApiSettings.class, container1 ->
         {
             var settings = getDefaultSettings(builder.plugin());
             consumer.accept(settings);
             return settings;
         });
-        container.registerSigleton(FluentItemScheamFactory.class, SchemaFactory.class);
-        container.registerSigleton(FluentItemApi.class, SimpleItemApi.class);
-        container.registerSigleton(FluentItemRegistry.class, SimpleItemRegistry.class);
-        container.registerSigleton(FluentItemStackMapper.class, ItemStackMapper.class);
-        container.registerSigleton(FluentCraftingRegistry.class, SimpleCraftingRegistry.class);
+        container.registerSingleton(FluentItemScheamFactory.class, SchemaFactory.class);
+        container.registerSingleton(FluentItemApi.class, SimpleItemApi.class);
+        container.registerSingleton(FluentItemRegistry.class, SimpleItemRegistry.class);
+        container.registerSingleton(FluentItemStackMapper.class, ItemStackMapper.class);
+        container.registerSingleton(FluentCraftingRegistry.class, SimpleCraftingRegistry.class);
 
 
-        container.registerSigleton(CraftingListener.class);
-        container.registerSigleton(ItemListener.class);
-        container.registerSigleton(ItemUseListener.class);
+        container.registerSingleton(CraftingListener.class);
+        container.registerSingleton(ItemListener.class);
+        container.registerSingleton(ItemUseListener.class);
     }
 
     @Override

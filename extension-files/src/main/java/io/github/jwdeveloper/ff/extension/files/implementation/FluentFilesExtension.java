@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.extension.files.implementation;
 
-import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.ff.core.injector.api.events.events.OnInjectionEvent;
+
+import io.github.jwdeveloper.dependance.injector.api.containers.Container;
+import io.github.jwdeveloper.dependance.injector.api.events.events.OnInjectionEvent;
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.FluentFile;
 import io.github.jwdeveloper.ff.extension.files.api.FluentFilesManager;
 import io.github.jwdeveloper.ff.extension.files.implementation.config.FluentFilesConfig;
@@ -39,10 +39,8 @@ public class FluentFilesExtension implements FluentApiExtension {
 
         registerFluentFilesToContainer(builderResult, fluentApiBuilder.container());
         fluentApiBuilder.bindToConfig(FluentFilesConfig.class);
-        fluentApiBuilder.container()
-                .register(FluentFilesManager.class,
-                        LifeTime.SINGLETON,
-                        (x) -> registerFileManager(fluentApiBuilder, x, options, builderResult));
+        fluentApiBuilder.container().registerSingleton(FluentFilesManager.class,
+                (x) -> registerFileManager(fluentApiBuilder, x, options, builderResult));
         fluentApiBuilder.container()
                 .configure(containerConfiguration ->
                 {
@@ -63,24 +61,20 @@ public class FluentFilesExtension implements FluentApiExtension {
         manager.stop();
     }
 
-    private void registerFluentFilesToContainer(FluentFileBuilderResult builderResult, FluentApiContainerBuilder container)
-    {
-        for(var model : builderResult.getFluentFileModels())
-        {
-            if(model.hasObject())
-            {
-                container.registerSigleton(model.getClassType(), model.getObject());
+    private void registerFluentFilesToContainer(FluentFileBuilderResult builderResult, FluentApiContainerBuilder container) {
+        for (var model : builderResult.getFluentFileModels()) {
+            if (model.hasObject()) {
+                container.registerSingleton(model.getClassType(), model.getObject());
                 continue;
             }
-            container.registerSigleton(model.getClassType());
+            container.registerSingleton(model.getClassType());
         }
     }
 
     private Object registerFileManager(FluentApiSpigotBuilder builder,
                                        Container container,
                                        FluentFilesOptions options,
-                                       FluentFileBuilderResult builderResult)
-    {
+                                       FluentFileBuilderResult builderResult) {
         var defaultSavingPath = builder.pluginPath().resolve(options.getPath()).toString();
         var config = (FluentFilesConfig) container.find(FluentFilesConfig.class);
         config.setSavingPath(defaultSavingPath);

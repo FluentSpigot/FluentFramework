@@ -1,11 +1,12 @@
 package io.github.jwdeveloper.ff.extension.database.mysql;
 
 
+import io.github.jwdeveloper.dependance.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.extension.database.mysql.factories.SqlConnectionFactory;
 import io.github.jwdeveloper.ff.extension.database.mysql.models.SqlConnection;
 import io.github.jwdeveloper.ff.extension.database.mysql.models.SqlDbContext;
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+
 import io.github.jwdeveloper.ff.extension.database.mysql.models.SqlTable;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;

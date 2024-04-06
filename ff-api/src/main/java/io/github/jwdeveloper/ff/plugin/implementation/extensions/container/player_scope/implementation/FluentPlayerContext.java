@@ -1,10 +1,9 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.implementation;
 
+import io.github.jwdeveloper.dependance.injector.api.containers.Container;
+import io.github.jwdeveloper.dependance.injector.api.models.RegistrationInfo;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
-import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
-import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -14,12 +13,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class FluentPlayerContext {
     private final ConcurrentHashMap<UUID, Container> playerContainers;
-    private final FluentContainer mainContainer;
+    private final Container mainContainer;
     private final List<RegistrationInfo> registrationInfos;
     private final FluentPlayerContextListener listener;
     private final PluginLogger logger;
 
-    public FluentPlayerContext(FluentContainer mainContainer,
+    public FluentPlayerContext(Container mainContainer,
                                List<RegistrationInfo> registrationInfos,
                                FluentPlayerContextListener listener,
                                PluginLogger logger)
@@ -60,6 +59,10 @@ public class FluentPlayerContext {
 
 
     private Container createContainer(UUID uuid) throws Exception {
+//TODO player container
+        throw new Exception("not implemetend Exception!");
+    /*    return null;
+
         return new PlayerContainerBuilderImpl(logger)
                 .setParentContainer(mainContainer)
                 .configure(containerConfiguration ->
@@ -71,6 +74,6 @@ public class FluentPlayerContext {
                     listener.register(uuid);
                     return Bukkit.getPlayer(uuid);
                 })
-                .build();
+                .build();*/
     }
 }

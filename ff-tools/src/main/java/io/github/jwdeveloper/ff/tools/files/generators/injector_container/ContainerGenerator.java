@@ -1,8 +1,9 @@
 package io.github.jwdeveloper.ff.tools.files.generators.injector_container;
 
+import io.github.jwdeveloper.dependance.injector.api.enums.LifeTime;
+import io.github.jwdeveloper.dependance.injector.api.models.RegistrationInfo;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.ff.core.injector.api.models.RegistrationInfo;
+
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 import io.github.jwdeveloper.ff.tools.files.code.ClassCodeBuilder;
 import io.github.jwdeveloper.ff.tools.files.code.MethodCodeGenerator;

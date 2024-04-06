@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.updater.implementation;
 
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config.SubCommandConfig;
 import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
 import io.github.jwdeveloper.ff.extension.updater.api.FluentUpdater;
@@ -41,7 +41,7 @@ public class FluentUpdaterExtension implements FluentApiExtension {
 
         builder.container().registerTransient(FileDowloaderService.class);
         builder.container().registerTransient(MessagesSenderService.class);
-        builder.container().register(FluentUpdater.class, LifeTime.SINGLETON, (c) ->
+        builder.container().registerSingleton(FluentUpdater.class, (c) ->
         {
             UpdateInfoProvider updateProvider = null;
             if (providerOptions instanceof GithubUpdaterOptions githubUpdaterOptions) {

@@ -1,10 +1,10 @@
 package io.github.jwdeveloper.ff.plugin.implementation.config;
 
+import io.github.jwdeveloper.dependance.api.JarScanner;
+import io.github.jwdeveloper.dependance.injector.api.events.events.OnInjectionEvent;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.files.yaml.implementation.SimpleYamlReader;
-import io.github.jwdeveloper.ff.core.injector.api.events.events.OnInjectionEvent;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
-import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
@@ -42,7 +42,7 @@ public class FluentConfigManager {
 
     public void handleRegisterBindings(FluentApiSpigotBuilder extension) {
         for (var bindingClazz : bindings.keySet()) {
-            extension.container().registerSigleton(bindingClazz);
+            extension.container().registerSingleton(bindingClazz);
         }
     }
 

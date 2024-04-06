@@ -25,9 +25,10 @@
 
 package io.github.jwdeveloper.ff.color_picker.implementation.listeners;
 
+import io.github.jwdeveloper.dependance.injector.api.annotations.Inject;
+import io.github.jwdeveloper.dependance.injector.api.annotations.Injection;
 import io.github.jwdeveloper.ff.color_picker.implementation.ColorPicker;
-import io.github.jwdeveloper.ff.core.injector.api.annotations.Inject;
-import io.github.jwdeveloper.ff.core.injector.api.annotations.Injection;
+
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventBase;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerChatEvent;

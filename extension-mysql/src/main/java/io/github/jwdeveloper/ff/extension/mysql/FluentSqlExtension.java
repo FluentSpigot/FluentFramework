@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.mysql;
 
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+
 import io.github.jwdeveloper.ff.extension.mysql.implementation.DbContext;
 import io.github.jwdeveloper.ff.extension.mysql.implementation.SqlInitializer;
 import io.github.jwdeveloper.ff.extension.mysql.implementation.models.SqlConnectionModel;
@@ -33,7 +33,7 @@ public class FluentSqlExtension implements FluentApiExtension {
     @Override
     public void onConfiguration(FluentApiSpigotBuilder builder) {
         if (contextClass != null) {
-            builder.container().register(contextClass, LifeTime.SINGLETON);
+            builder.container().registerSingleton(contextClass);
             return;
         }
 
@@ -46,7 +46,7 @@ public class FluentSqlExtension implements FluentApiExtension {
             throw new RuntimeException("SqlDbContext class not found");
         }
         contextClass = contextClassOptional.get();
-        builder.container().register(contextClass, LifeTime.SINGLETON);
+        builder.container().registerSingleton(contextClass);
     }
 
     @Override

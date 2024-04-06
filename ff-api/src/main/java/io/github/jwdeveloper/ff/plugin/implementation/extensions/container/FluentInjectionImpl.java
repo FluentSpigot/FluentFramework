@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.container;
 
-import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
-import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
+
+import io.github.jwdeveloper.dependance.injector.api.containers.Container;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.implementation.FluentPlayerContext;
 import org.bukkit.entity.Player;
 
@@ -11,11 +11,10 @@ import java.util.Collection;
 import java.util.UUID;
 
 public class FluentInjectionImpl implements FluentInjection {
-    private FluentContainer pluginContainer;
-
+    private Container pluginContainer;
     private FluentPlayerContext playerContext;
 
-    public FluentInjectionImpl(FluentContainer pluginContainer, FluentPlayerContext playerContext) {
+    public FluentInjectionImpl(Container pluginContainer, FluentPlayerContext playerContext) {
         this.pluginContainer = pluginContainer;
         this.playerContext = playerContext;
     }
@@ -53,21 +52,27 @@ public class FluentInjectionImpl implements FluentInjection {
     }
 
     public <T> T findPlayerScopeInjection(Class<T> injectionType, Player player) {
-        return (T) playerContext.find(injectionType, player);
+
+        throw new RuntimeException("NOT IMPLEMENETED PLAYER SCOPE");
+
+       // return (T) playerContext.find(injectionType, player);
     }
 
     public <T> T findPlayerScopeInjection(Class<T> injectionType, UUID player) {
-        return (T) playerContext.find(injectionType, player);
+        throw new RuntimeException("NOT IMPLEMENETED PLAYER SCOPE");
+     //   return (T) playerContext.find(injectionType, player);
     }
 
     @Override
     public void clearPlayerScope(Player player) {
-        playerContext.clear(player);
+        throw new RuntimeException("NOT IMPLEMENETED PLAYER SCOPE");
+     //   playerContext.clear(player);
     }
 
     @Override
     public void clearPlayerScope(UUID player) {
-        playerContext.clear(player);
+        throw new RuntimeException("NOT IMPLEMENETED PLAYER SCOPE");
+       // playerContext.clear(player);
     }
 
     public Container getContainer() {

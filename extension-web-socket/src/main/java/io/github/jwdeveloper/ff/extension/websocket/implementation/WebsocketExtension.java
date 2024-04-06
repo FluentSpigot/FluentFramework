@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.extension.websocket.implementation;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.extension.websocket.api.FluentWebsocket;
 import io.github.jwdeveloper.ff.extension.websocket.api.FluentWebsocketPacket;
 import io.github.jwdeveloper.ff.extension.websocket.api.data.WebsocketOptions;
@@ -33,8 +32,8 @@ public class WebsocketExtension implements FluentApiExtension {
         consumer.accept(options);
 
         builder.bindToConfig(WebSocketConfig.class, options.getConfigPath());
-        builder.container().registerList(FluentWebsocketPacket.class, LifeTime.SINGLETON);
-        builder.container().registerSigleton(FluentWebsocket.class, container ->
+        builder.container().registerSingletonList(FluentWebsocketPacket.class);
+        builder.container().registerSingleton(FluentWebsocket.class, container ->
         {
             var webSocketConfig = (WebSocketConfig)container.find(WebSocketConfig.class);
             var logger = builder.logger();

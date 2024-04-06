@@ -1,10 +1,8 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.implementation;
 
-import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.ff.core.injector.api.models.InjectionInfo;
-import io.github.jwdeveloper.ff.core.injector.api.provider.InstanceProvider;
-import io.github.jwdeveloper.ff.core.injector.implementation.utilites.Messages;
+import io.github.jwdeveloper.dependance.injector.api.containers.Container;
+import io.github.jwdeveloper.dependance.injector.api.models.InjectionInfo;
+import io.github.jwdeveloper.dependance.injector.api.provider.InstanceProvider;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -12,7 +10,7 @@ import java.util.Map;
 
 public class PlayerContextInstanceProvider implements InstanceProvider {
 
-    private Container parentContainer;
+ /*   private Container parentContainer;
 
     public PlayerContextInstanceProvider(Container parentContainer)
     {
@@ -65,5 +63,10 @@ public class PlayerContextInstanceProvider implements InstanceProvider {
                 };
         info.setInstnace(result);
         return result;
+    }
+*/
+    @Override
+    public Object getInstance(InjectionInfo info, Container container) throws Exception {
+        return null;
     }
 }

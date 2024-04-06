@@ -1,11 +1,13 @@
 package io.github.jwdeveloper.ff.plugin.addons;
 
+import io.github.jwdeveloper.dependance.implementation.common.JarScannerImpl;
+import io.github.jwdeveloper.dependance.implementation.common.JarScannerOptions;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.ExtentionPriority;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
-import io.github.jwdeveloper.ff.plugin.implementation.assemby_scanner.JarScannerImpl;
+
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -35,7 +37,10 @@ public class AddonsExtension implements FluentApiExtension {
             try {
                 var classLoader = new AddonsClassLoader(this.getClass().getClassLoader(), addonPath);
                 var loadedClasses = classLoader.loadAll();
-                var addonExtensions = getFluentApiExtensions(addonPath, new JarScannerImpl(loadedClasses, builder.logger()));
+
+                var jarScannerOptions = new JarScannerOptions();
+                loadedClasses.forEach(jarScannerOptions::includeClass);
+                var addonExtensions = getFluentApiExtensions(addonPath, new JarScannerImpl(jarScannerOptions, builder.plugin().getLogger()));
                 extensions.put(addonPath, addonExtensions);
                 builder.jarScanner().addClasses(loadedClasses);
             } catch (Exception e) {

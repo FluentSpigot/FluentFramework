@@ -1,9 +1,10 @@
 package io.github.jwdeveloper.ff.extension.gameobject.neww.prefab;
 
+import io.github.jwdeveloper.dependance.injector.api.annotations.Injection;
+import io.github.jwdeveloper.dependance.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.core.common.TextBuilder;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
-import io.github.jwdeveloper.ff.core.injector.api.annotations.Injection;
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+
 import io.github.jwdeveloper.ff.extension.gameobject.neww.impl.core.GameComponent;
 import io.github.jwdeveloper.ff.extension.gameobject.neww.prefab.model_loader.LoadeModelFromJson;
 import lombok.Data;
