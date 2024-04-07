@@ -1,6 +1,7 @@
 package io.github.jw.spigot.ff.example;
 
-import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
+import io.github.jwdeveloper.ff.extension.bai.BlockAndItemsApi;
+import io.github.jwdeveloper.ff.extension.bai.BlocksAndItemsFramework;
 import io.github.jwdeveloper.ff.plugin.FluentPlugin;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
@@ -12,15 +13,16 @@ public final class ExampleFFPlugin extends JavaPlugin implements FluentApiExtens
 
     @Override
     public void onConfiguration(FluentApiSpigotBuilder builder) {
+        builder.useExtension(BlocksAndItemsFramework.use());
+        builder.useExtension(new Extension());
 
     }
 
     @Override
     public void onFluentApiEnable(FluentApiSpigot fluentAPI) throws Exception {
+        var bai = fluentAPI.container().findInjection(BlockAndItemsApi.class);
 
-        var clazz = fluentAPI.container().findInjection(ExampleConfig.class);
-        var exampleString = fluentAPI.container().findInjection(String.class);
-        FluentLogger.LOGGER.info("Example string has value", exampleString);
+
     }
 
     @Override

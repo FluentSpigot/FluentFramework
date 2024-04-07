@@ -2,12 +2,14 @@ package io.github.jwdeveloper.ff.core.cache.api;
 
 import java.io.Closeable;
 import java.time.Duration;
+import java.util.function.Supplier;
 
-public interface PluginCache extends Closeable
-{
+public interface PluginCache extends Closeable {
     boolean contains(String key);
 
     Object get(String key);
+
+    <T> T getOrCreate(String key, Supplier<T> creator);
 
     void refresh(String key);
 

@@ -39,6 +39,7 @@ import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermissionBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.implementation.FluentPermissionBuilderImpl;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.implementation.FluentPermissionExtension;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player.PlayerContainerBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.listeners.ChatInputListener;
 import io.github.jwdeveloper.ff.plugin.api.logger.LoggerConfiguration;
 import io.github.jwdeveloper.ff.plugin.implementation.logger.LoggerConfigurationImpl;
@@ -62,6 +63,8 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     private final LoggerConfigurationImpl loggerConfiguration;
     private final FluentConfigManager configManager;
     private final FluentApiMeta fluentApiMeta;
+
+    private final PlayerContainerBuilder playerContainerBuilder;
 
 
     @Override
@@ -159,6 +162,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         fluentPermissionBuilder = new FluentPermissionBuilderImpl(plugin);
         configManager = new FluentConfigManager(jarScanner, logger, config);
         loggerConfiguration = new LoggerConfigurationImpl(logger, plugin);
+        playerContainerBuilder = new PlayerContainerBuilder();
     }
 
 
@@ -185,8 +189,6 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
             }
         });
         extensionsManager.onConfiguration(this);
-
-
         containerBuilder.registerSingleton(Plugin.class, plugin);
         containerBuilder.registerSingleton(FluentConfig.class, configManager.getConfig());
         containerBuilder.registerSingleton(FluentTaskFactory.class, taskFactory);
@@ -201,14 +203,16 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         containerBuilder.registerSingleton(Gson.class, JsonUtility.getGson());
         containerBuilder.registerSingleton(PluginCache.class, PluginCacheImpl.class);
         containerBuilder.registerSingleton(ChatInputListener.class);
+        containerBuilder.scan(jarScanner);
         containerBuilder.configure(config ->
         {
             config.onInjection(configManager::onConfigOptionsInjectionCall);
+            config.onRegistration(playerContainerBuilder::handleRegistrationEvent);
         });
-        containerBuilder.scan(jarScanner);
 
         var container = containerBuilder.build();
-        var injection = new FluentInjectionImpl(container, null);
+        var playerContainer = playerContainerBuilder.build(container);
+        var injection = new FluentInjectionImpl(container, playerContainer);
 
         final var mediator = injection.findInjection(FluentMediator.class);
         final var permissions = injection.findInjection(FluentPermission.class);

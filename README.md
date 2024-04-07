@@ -48,8 +48,6 @@ https://jitpack.io/#jwdeveloper/FluentFramework
  </dependeices>
 ```
 
-
-
 ```java
 package io.github.jw.spigot.backpack;
 
@@ -58,17 +56,15 @@ import io.github.jw.spigot.backpack.commands.PluginCommands;
 import io.github.jw.spigot.backpack.config.PluginConsts;
 import io.github.jw.spigot.backpack.config.PluginSettings;
 import io.github.jwdeveloper.ff.extension.gui.FluentInventoryApi;
-import io.github.jwdeveloper.ff.extension.items.FluentItemFramework;
+import io.github.jwdeveloper.ff.extension.bai.items.FluentItemFramework;
 import io.github.jwdeveloper.ff.plugin.FluentPlugin;
 import io.github.jwdeveloper.ff.plugin.FluentPluginBuilder;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PluginMain extends JavaPlugin {
 
     @Override
-    public void onEnable() 
-    {
+    public void onEnable() {
         FluentPlugin.initialize(this)
                 .withBstatsMetrics(PluginConsts.METRICS_ID)
                 .withExtension(new BackpackPluginExtension())
