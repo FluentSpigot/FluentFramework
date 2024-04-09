@@ -13,8 +13,7 @@ import lombok.Data;
 import java.util.function.Consumer;
 
 @Data
-public class FluentFilesOptions extends ExtensionOptions implements FileFilesBuilder
-{
+public class FluentFilesOptions extends ExtensionOptions implements FileFilesBuilder {
     // server/plugins/<plugin>/ + path
     private String path = "files";
 
@@ -64,7 +63,7 @@ public class FluentFilesOptions extends ExtensionOptions implements FileFilesBui
 
 
     @Override
-    public <T extends FileWatcher> void addFileWatcher( Class<T> repository) {
+    public <T extends FileWatcher> void addFileWatcher(Class<T> repository) {
         builder.addFileWatcher(repository);
     }
 
@@ -74,8 +73,12 @@ public class FluentFilesOptions extends ExtensionOptions implements FileFilesBui
     }
 
 
-    public <T extends FolderWatcher> void  addFolderWatcher(T watcher)
-    {
+    public <T extends FolderWatcher> void addFolderWatcher(T watcher) {
         builder.addFolderWatcher(watcher);
+    }
+
+    @Override
+    public <T extends FolderWatcher> void addFolderWatcher(T watcher, String path) {
+        builder.addFolderWatcher(watcher, path);
     }
 }

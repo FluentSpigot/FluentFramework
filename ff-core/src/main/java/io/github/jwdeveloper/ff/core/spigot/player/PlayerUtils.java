@@ -23,6 +23,10 @@ public class PlayerUtils {
         player.playSound(player.getLocation(), sound, volume, pitch);
     }
 
+
+    public static boolean giveItem(Player player, ItemStack itemStack) {
+        return giveItem(player,itemStack,player1 -> {});
+    }
     public static boolean giveItem(Player player, ItemStack itemStack, Consumer<Player> ifThereIsNoSlot) {
         var slot = getEmptyEquipmentSlot(player);
         if (slot == -1) {

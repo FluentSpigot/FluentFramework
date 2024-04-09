@@ -27,7 +27,7 @@ public class ResourcepackExtention implements FluentApiExtension {
         options = new ResourcepackOptions();
         consumer.accept(options);
 
-        builder.container().registerSigleton(FluentResourcepack.class, FluentResourcepackImpl.class);
+        builder.container().registerSingleton(FluentResourcepack.class, FluentResourcepackImpl.class);
         builder.bindToConfig(ResourcepackConfig.class, options.getConfigPath());
         builder.defaultCommand().subCommandsConfig(subCommandConfig ->
         {

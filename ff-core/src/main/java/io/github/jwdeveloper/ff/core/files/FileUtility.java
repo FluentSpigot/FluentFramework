@@ -11,6 +11,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -286,6 +287,10 @@ public interface FileUtility {
     static void saveToFile(String path, String name, String content) throws IOException {
         ensurePath(path);
         Files.write(content.getBytes(), new File(Path.of(path, name).toString()));
+    }
+
+    public static void copyFile(Path sourcePath, Path destPath) throws IOException {
+        java.nio.file.Files.copy(sourcePath, destPath, StandardCopyOption.REPLACE_EXISTING);
     }
 
     public static List<String> findAllYmlFiles(File file) {

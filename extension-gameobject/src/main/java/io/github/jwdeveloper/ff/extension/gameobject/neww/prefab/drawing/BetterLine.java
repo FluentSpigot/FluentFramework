@@ -1,7 +1,8 @@
 package io.github.jwdeveloper.ff.extension.gameobject.neww.prefab.drawing;
 
-import io.github.jwdeveloper.ff.core.injector.api.annotations.Injection;
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+
+import io.github.jwdeveloper.dependance.injector.api.annotations.Injection;
+import io.github.jwdeveloper.dependance.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.extension.gameobject.neww.AngleCalculator;
 import io.github.jwdeveloper.ff.extension.gameobject.neww.impl.TransformationUtility;
 import io.github.jwdeveloper.ff.extension.gameobject.neww.impl.core.GameComponent;

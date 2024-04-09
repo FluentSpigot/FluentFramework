@@ -1,8 +1,8 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.container;
 
-import io.github.jwdeveloper.ff.core.injector.api.containers.Container;
-import io.github.jwdeveloper.ff.core.injector.api.containers.FluentContainer;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player_scope.implementation.FluentPlayerContext;
+
+import io.github.jwdeveloper.dependance.injector.api.containers.Container;
+import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.player.PlayerContainer;
 import org.bukkit.entity.Player;
 
 import java.lang.annotation.Annotation;
@@ -11,13 +11,12 @@ import java.util.Collection;
 import java.util.UUID;
 
 public class FluentInjectionImpl implements FluentInjection {
-    private FluentContainer pluginContainer;
+    private Container pluginContainer;
+    private PlayerContainer playerContainer;
 
-    private FluentPlayerContext playerContext;
-
-    public FluentInjectionImpl(FluentContainer pluginContainer, FluentPlayerContext playerContext) {
+    public FluentInjectionImpl(Container pluginContainer, PlayerContainer playerContainer) {
         this.pluginContainer = pluginContainer;
-        this.playerContext = playerContext;
+        this.playerContainer = playerContainer;
     }
 
     @Override
@@ -33,7 +32,7 @@ public class FluentInjectionImpl implements FluentInjection {
         return (T) pluginContainer.find(injectionType);
     }
 
-    public <T> T findInjection(Class<T> injectionType, Type ... genericTypes) {
+    public <T> T findInjection(Class<T> injectionType, Type... genericTypes) {
         return (T) pluginContainer.find(injectionType, genericTypes);
     }
 
@@ -53,21 +52,22 @@ public class FluentInjectionImpl implements FluentInjection {
     }
 
     public <T> T findPlayerScopeInjection(Class<T> injectionType, Player player) {
-        return (T) playerContext.find(injectionType, player);
+
+        return (T) playerContainer.find(player.getUniqueId(), injectionType);
     }
 
-    public <T> T findPlayerScopeInjection(Class<T> injectionType, UUID player) {
-        return (T) playerContext.find(injectionType, player);
+    public <T> T findPlayerScopeInjection(Class<T> injectionType, UUID playerUuid) {
+        return (T) playerContainer.find(playerUuid, injectionType);
     }
 
     @Override
     public void clearPlayerScope(Player player) {
-        playerContext.clear(player);
+        playerContainer.clear(player.getUniqueId());
     }
 
     @Override
     public void clearPlayerScope(UUID player) {
-        playerContext.clear(player);
+        playerContainer.clear(player);
     }
 
     public Container getContainer() {

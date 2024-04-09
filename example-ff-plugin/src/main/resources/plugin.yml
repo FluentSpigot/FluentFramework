@@ -1,0 +1,4 @@
+name: example-ff-plugin
+version: '${project.version}'
+main: io.github.jw.spigot.ff.example.ExampleFFPlugin
+api-version: '1.19'

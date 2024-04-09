@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class PluginCacheImpl implements PluginCache {
     private final Map<String, CacheObjectData> cacheMap = new HashMap<>();
@@ -33,6 +34,19 @@ public class PluginCacheImpl implements PluginCache {
             remove(key);
         }
         return data.getObject();
+    }
+
+    @Override
+    public <T> T getOrCreate(String key, Supplier<T> creator)
+    {
+        if(contains(key))
+        {
+            return (T)get(key);
+        }
+
+        var obj = creator.get();
+        set(key,obj);
+        return (T)obj;
     }
 
     @Override

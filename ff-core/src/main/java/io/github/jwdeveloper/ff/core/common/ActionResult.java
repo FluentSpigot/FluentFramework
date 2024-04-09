@@ -2,6 +2,8 @@ package io.github.jwdeveloper.ff.core.common;
 
 import lombok.Data;
 
+import java.util.Optional;
+
 @Data
 public class ActionResult<T> {
     private boolean success = true;
@@ -71,6 +73,11 @@ public class ActionResult<T> {
 
     public static <T> ActionResult<T> failed(T target, String message) {
         return new ActionResult<>(target, false, message);
+    }
+
+
+    public static <T> ActionResult<T> fromOptional(Optional<T> optional) {
+        return optional.map(ActionResult::success).orElseGet(ActionResult::failed);
     }
 
 }

@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.commands;
 
-import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandRegistry;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleCommandManger;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.CommandBuilderImpl;
@@ -11,17 +11,17 @@ public class FluentCommand {
     private static SimpleCommandManger manger;
 
     public static SimpleCommandBuilder create(String name) {
-        var manager = getManager();
+        var manager = getRegistry();
         return new CommandBuilderImpl(name,manager);
     }
 
-    public static FluentCommandManger getManager() {
+    public static FluentCommandRegistry getRegistry() {
         if (manger == null) {
             throw new RuntimeException("Fluent commands are disabled, use to enable it FluentCommand.enable(plugin)");
         }
         return manger;
     }
-    public static FluentCommandManger enable(Plugin plugin) {
+    public static FluentCommandRegistry enable(Plugin plugin) {
         if (manger != null) {
             manger.onPluginStop(new PluginDisableEvent(plugin));
         }

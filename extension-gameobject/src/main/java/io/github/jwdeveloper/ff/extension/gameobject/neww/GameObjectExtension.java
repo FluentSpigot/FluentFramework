@@ -14,7 +14,7 @@ public class GameObjectExtension implements FluentApiExtension
     {
 
 
-        builder.container().registerSigleton(GameObjectEngine.class);
+        builder.container().registerSingleton(GameObjectEngine.class);
     }
 
 

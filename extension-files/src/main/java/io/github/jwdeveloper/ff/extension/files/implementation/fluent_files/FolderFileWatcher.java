@@ -29,7 +29,13 @@ public class FolderFileWatcher implements FluentFile<FolderWatcher> {
         {
             try {
                 run(ctx);
-            } catch (Exception e) {
+            }
+            catch (InterruptedException ex)
+            {
+                //pass
+
+            }
+            catch (Exception e) {
 
               FluentLogger.LOGGER.error("FolderWatcherError",e);
             }
@@ -115,9 +121,13 @@ public class FolderFileWatcher implements FluentFile<FolderWatcher> {
             model.setState(FileState.UPDATED);
             return model;
 
-        } catch (NoSuchFileException noSuchFileException) {
+        }
+
+        catch (NoSuchFileException noSuchFileException) {
             model.setState(FileState.DELETED);
-        } catch (Exception e) {
+        }
+
+        catch (Exception e) {
             throw new RuntimeException(e);
         }
         return model;

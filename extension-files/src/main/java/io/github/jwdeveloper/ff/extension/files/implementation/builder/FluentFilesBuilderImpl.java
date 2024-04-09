@@ -118,8 +118,21 @@ public class FluentFilesBuilderImpl implements FileFilesBuilder {
             model.setClassType(watcher.getClass());
             model.setObject(watcher);
             model.setType(FluentFileType.FolderWatcher);
+
         });
     }
+
+    @Override
+    public <T extends FolderWatcher> void addFolderWatcher(T watcher, String path) {
+        addFluentFile(model ->
+        {
+            model.setClassType(watcher.getClass());
+            model.setObject(watcher);
+            model.setType(FluentFileType.FolderWatcher);
+            model.setCustomPath(path);
+        });
+    }
+
 
     public FluentFileBuilderResult build() {
         return result;

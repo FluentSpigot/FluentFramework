@@ -1,12 +1,13 @@
 package io.github.jwdeveloper.ff.extension.gameobject.neww.prefab.drawing;
 
-import io.github.jwdeveloper.ff.core.injector.api.annotations.Injection;
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+
+import io.github.jwdeveloper.dependance.injector.api.annotations.Injection;
+import io.github.jwdeveloper.dependance.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.extension.gameobject.neww.impl.core.GameComponent;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Color;
-import org.bukkit.Material;
+
 import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.EntityType;

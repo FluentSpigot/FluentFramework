@@ -1,12 +1,13 @@
 package io.github.jwdeveloper.ff.plugin.implementation.config.migrations;
 
+import io.github.jwdeveloper.dependance.api.JarScanner;
 import io.github.jwdeveloper.ff.core.common.java.ObjectUtility;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.common.versions.VersionCompare;
 import io.github.jwdeveloper.ff.core.common.versions.VersionNumberComparator;
-import io.github.jwdeveloper.ff.plugin.api.assembly_scanner.JarScanner;
+import io.github.jwdeveloper.dependance.api.JarScanner;
 import io.github.jwdeveloper.ff.plugin.api.config.migrations.ConfigMigrator;
 import io.github.jwdeveloper.ff.plugin.api.config.migrations.ExtensionMigration;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;

@@ -1,8 +1,9 @@
 package io.github.jwdeveloper.ff.extension.gameobject.neww.prefab.drawing;
 
 
-import io.github.jwdeveloper.ff.core.injector.api.annotations.Injection;
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
+
+import io.github.jwdeveloper.dependance.injector.api.annotations.Injection;
+import io.github.jwdeveloper.dependance.injector.api.enums.LifeTime;
 import io.github.jwdeveloper.ff.extension.gameobject.neww.api.core.ComponentData;
 import io.github.jwdeveloper.ff.extension.gameobject.neww.impl.core.GameComponent;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;

@@ -9,7 +9,7 @@ public class ConfigOptionsTest extends FluentApiTest {
     @Override
     public void onBuild(FluentApiSpigotBuilder fluentApiBuilder) {
         fluentApiBuilder.bindToConfig(TestConfig.class);
-        fluentApiBuilder.container().registerSigleton(ExampleManager.class);
+        fluentApiBuilder.container().registerSingleton(ExampleManager.class);
     }
 
     @Test

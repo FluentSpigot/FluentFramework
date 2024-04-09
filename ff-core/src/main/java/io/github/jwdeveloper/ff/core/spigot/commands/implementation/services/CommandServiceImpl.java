@@ -22,8 +22,6 @@ import java.util.List;
 
 public class CommandServiceImpl implements CommandService {
 
-    private Plugin plugin;
-
     @Override
     public boolean hasSenderAccess(CommandSender commandSender, List<AccessType> commandAccessType) {
 
@@ -40,7 +38,7 @@ public class CommandServiceImpl implements CommandService {
     @Override
     public CommandTarget isSubcommandInvoked(SimpleCommand command, String[] args) {
 
-        if (args.length == 0 || command.getSubCommands().size() == 0) {
+        if (args.length == 0 || command.getSubCommands().isEmpty()) {
             return new CommandTarget(command, args);
         }
         var arguments = command.getArguments();
@@ -59,8 +57,8 @@ public class CommandServiceImpl implements CommandService {
         if (subCommandOptional.isEmpty()) {
             return new CommandTarget(command, args);
         }
-        String[] part = Arrays.copyOfRange(args, subCommandIndex, args.length);
-        return isSubcommandInvoked(subCommandOptional.get(), part);
+        var subCommandArgs = Arrays.copyOfRange(args, subCommandIndex, args.length);
+        return isSubcommandInvoked(subCommandOptional.get(), subCommandArgs);
     }
 
     @Override

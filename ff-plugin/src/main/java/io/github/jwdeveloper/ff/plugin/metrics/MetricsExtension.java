@@ -17,7 +17,7 @@ public class MetricsExtension implements FluentApiExtension {
         }
 
         var metrics = new MetricsLite(builder.plugin(), metricsId);
-        builder.container().registerSigleton(MetricsLite.class, metrics);
+        builder.container().registerSingleton(MetricsLite.class, metrics);
     }
 
 }

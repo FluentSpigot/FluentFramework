@@ -2,8 +2,6 @@ package io.github.jwdeveloper.ff.extension.translator.implementation;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
-import io.github.jwdeveloper.ff.core.injector.api.enums.LifeTime;
-import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslator;
 import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslatorOptions;
 import io.github.jwdeveloper.ff.extension.translator.implementation.base.LanguagesDictionary;
@@ -40,15 +38,14 @@ public class FluentTranslationExtension implements FluentApiExtension {
         FileUtility.ensurePath(translatorPath.toString());
 
         builder.bindToConfig(TranslatorConfig.class, options.getConfigPath());
-        builder.container().registerSigleton(LanguagesDictionary.class, languagesDictionary);
-        builder.container()
-                .register(FluentTranslator.class, LifeTime.SINGLETON, (x) ->
-                {
-                    var logger = (PlayerLogger) x.find(PlayerLogger.class);
-                    var config = (FluentConfigFile<TranslatorConfig>) x.find(FluentConfigFile.class, TranslatorConfig.class);
-                    var simpleTranslator = new SimpleTranslator(builder.logger());
-                    return new FluentTranslatorImpl(translatorPath, simpleTranslator, config, logger);
-                });
+        builder.container().registerSingleton(LanguagesDictionary.class, languagesDictionary);
+        builder.container().registerSingleton(FluentTranslator.class, (x) ->
+        {
+            var logger = (PlayerLogger) x.find(PlayerLogger.class);
+            var config = (FluentConfigFile<TranslatorConfig>) x.find(FluentConfigFile.class, TranslatorConfig.class);
+            var simpleTranslator = new SimpleTranslator(builder.logger());
+            return new FluentTranslatorImpl(translatorPath, simpleTranslator, config, logger);
+        });
 
         builder.permissions()
                 .defaultPermissions()
@@ -58,8 +55,7 @@ public class FluentTranslationExtension implements FluentApiExtension {
                     p.setDescription("Change plugin language");
                 });
 
-        if(options.isAddCommands())
-        {
+        if (options.isAddCommands()) {
             builder.defaultCommand()
                     .subCommandsConfig(subCommandConfig ->
                     {

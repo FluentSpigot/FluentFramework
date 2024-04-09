@@ -1,0 +1,15 @@
+{
+    "providers": [
+		{"type": "bitmap", "file": "custom/menus/drill_cart.png", "ascent":19, "height":256, "chars": ["\uE452"]},
+		{"type": "bitmap", "file": "custom/menus/backpacks_menu.png", "ascent":19, "height":256, "chars": ["\uE451"]},
+		{"type": "bitmap", "file": "custom/space_split.png", "ascent":-32768, "height":-3, "chars": ["\uF831"]},
+		{"type": "bitmap", "file": "custom/space_split.png", "ascent":-32768, "height":-4, "chars": ["\uF832"]},
+		{"type": "bitmap", "file": "custom/space_split.png", "ascent":-32768, "height":-5, "chars": ["\uF833"]},
+		{"type": "bitmap", "file": "custom/space_split.png", "ascent":-32768, "height":-6, "chars": ["\uF834"]},
+		{"type": "bitmap", "file": "custom/space_split.png", "ascent":-32768, "height":-7, "chars": ["\uF835"]},
+		{"type": "bitmap", "file": "custom/space_split.png", "ascent":-32768, "height":-10, "chars": ["\uF836"]},
+		{"type": "bitmap", "file": "custom/space_split.png", "ascent":-32768, "height":-115, "chars": ["\uF840"]},
+		{"type": "bitmap", "file": "custom/space_split.png", "ascent":-32768, "height":-179, "chars": ["\uF841"]},
+		{"type": "bitmap", "file": "custom/space_split.png", "ascent":-32768, "height":-1, "chars": ["\uF900"]}
+    ]
+}

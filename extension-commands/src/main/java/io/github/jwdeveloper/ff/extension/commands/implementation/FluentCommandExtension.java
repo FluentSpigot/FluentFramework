@@ -46,7 +46,7 @@ public class FluentCommandExtension implements FluentApiExtension {
         }
 
         for (var invoker : invokers) {
-            builder.container().registerSigleton(invoker.getCommandClass());
+            builder.container().registerSingleton(invoker.getCommandClass());
         }
     }
 
