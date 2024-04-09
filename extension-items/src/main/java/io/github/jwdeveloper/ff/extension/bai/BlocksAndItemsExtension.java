@@ -6,12 +6,14 @@ import io.github.jwdeveloper.ff.extension.bai.common.listeners.BlockListener;
 import io.github.jwdeveloper.ff.extension.bai.common.listeners.CraftingListener;
 import io.github.jwdeveloper.ff.extension.bai.common.listeners.ItemListener;
 import io.github.jwdeveloper.ff.extension.bai.common.listeners.ItemUseListener;
+import io.github.jwdeveloper.ff.extension.bai.craftings.FluentCraftingExtension;
 import io.github.jwdeveloper.ff.extension.bai.items.FluentItemExtension;
 import io.github.jwdeveloper.ff.extension.bai.common.FrameworkSettings;
 import io.github.jwdeveloper.ff.extension.bai.items.api.schema.FluentItemSchema;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.Plugin;
 
@@ -48,6 +50,7 @@ public class BlocksAndItemsExtension implements FluentApiExtension {
 
         builder.useExtension(new FluentItemExtension());
         builder.useExtension(new FluentBlockExtension());
+        builder.useExtension(new FluentCraftingExtension());
     }
 
     @Override
@@ -70,7 +73,7 @@ public class BlocksAndItemsExtension implements FluentApiExtension {
         settings.setIdKey(new NamespacedKey(plugin, "fluent.bai.id"));
         settings.setStorageKey(new NamespacedKey(plugin, "fluent.bai.storage"));
         settings.setTagKey(new NamespacedKey(plugin, "fluent.bai.tag"));
-
+        settings.setBlockMaterial(Material.BARRIER);
         settings.setDefaultSchema(new FluentItemSchema());
         return settings;
     }

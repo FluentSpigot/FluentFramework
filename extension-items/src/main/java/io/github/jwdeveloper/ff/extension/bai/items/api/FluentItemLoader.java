@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.bai.items.api;
 
-import io.github.jwdeveloper.ff.extension.bai.items.api.crafting.FluentCraftingBuilder;
+import io.github.jwdeveloper.ff.extension.bai.craftings.api.builder.FluentCraftingBuilder;
 import io.github.jwdeveloper.ff.extension.bai.items.api.mappers.FluentSchemaMapper;
 
 import java.util.List;

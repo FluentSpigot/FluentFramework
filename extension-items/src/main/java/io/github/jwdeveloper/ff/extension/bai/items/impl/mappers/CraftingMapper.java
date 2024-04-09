@@ -4,11 +4,10 @@ import io.github.jwdeveloper.ff.core.common.ActionResult;
 import io.github.jwdeveloper.ff.core.common.TextBuilder;
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
-import io.github.jwdeveloper.ff.core.mapper.validators.ValidationResult;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItem;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItemRegistry;
 import io.github.jwdeveloper.ff.extension.bai.common.FrameworkSettings;
-import io.github.jwdeveloper.ff.extension.bai.items.api.crafting.FluentCrafting;
+import io.github.jwdeveloper.ff.extension.bai.craftings.api.FluentCrafting;
 import io.github.jwdeveloper.ff.extension.bai.items.api.mappers.FluentCraftingMapper;
 import org.bukkit.Material;
 import org.bukkit.persistence.PersistentDataType;
@@ -59,7 +58,7 @@ public class CraftingMapper implements FluentCraftingMapper {
                 }
             }
         }
-        return ValidationResult.success(fluentCrafting);
+        return ActionResult.success(fluentCrafting);
     }
 
     private ActionResult<String[]> getRowData(String row) {
@@ -136,7 +135,7 @@ public class CraftingMapper implements FluentCraftingMapper {
         for (var mat : materials) {
             sb.textNewLine("- " + mat.name());
         }
-        return ValidationResult.failed(sb.toString());
+        return ActionResult.failed(sb.toString());
     }
 
     public static String[] createArrayFromIndexes(String[] inputArray, int indexes) {

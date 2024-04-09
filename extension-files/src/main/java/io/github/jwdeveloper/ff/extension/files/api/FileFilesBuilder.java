@@ -29,4 +29,6 @@ public interface FileFilesBuilder
     <T extends FileWatcher> void addFileWatcher(T repository);
 
      <T extends FolderWatcher> void  addFolderWatcher(T watcher);
+
+     <T extends FolderWatcher> void addFolderWatcher(T watcher, String path);
 }

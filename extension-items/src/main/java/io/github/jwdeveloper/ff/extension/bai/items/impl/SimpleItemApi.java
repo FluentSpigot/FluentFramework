@@ -3,7 +3,7 @@ package io.github.jwdeveloper.ff.extension.bai.items.impl;
 import io.github.jwdeveloper.ff.core.common.ActionResult;
 import io.github.jwdeveloper.ff.extension.bai.items.api.*;
 import io.github.jwdeveloper.ff.extension.bai.common.FrameworkSettings;
-import io.github.jwdeveloper.ff.extension.bai.items.api.crafting.FluentCraftingRegistry;
+import io.github.jwdeveloper.ff.extension.bai.craftings.api.FluentCraftingRegistry;
 import io.github.jwdeveloper.ff.extension.bai.items.api.itemstack.FluentItemStack;
 import io.github.jwdeveloper.ff.extension.bai.items.api.mappers.FluentItemStackMapper;
 import io.github.jwdeveloper.ff.extension.bai.items.impl.mappers.CraftingMapper;

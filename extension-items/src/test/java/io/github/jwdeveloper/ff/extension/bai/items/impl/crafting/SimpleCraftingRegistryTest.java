@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.extension.bai.items.impl.crafting;
 
+import io.github.jwdeveloper.ff.extension.bai.craftings.impl.SimpleCraftingRegistry;
 import org.junit.jupiter.api.BeforeAll;
 
 public class SimpleCraftingRegistryTest {

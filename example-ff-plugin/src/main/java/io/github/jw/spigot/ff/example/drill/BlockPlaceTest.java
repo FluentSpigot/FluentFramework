@@ -28,20 +28,9 @@ public class BlockPlaceTest {
                 {
                     schema.withName("lead-ore");
                     schema.withCustomModelId(1);
-                    schema.withMaterial(Material.IRON_INGOT);
+                    schema.withMaterial(Material.PRISMARINE_SHARD);
                     schema.withDisplayName("Lead Ore");
                     schema.withStackable(false);
-                }).buildAndRegister();
-
-        fluentAPI.createCommand("block-test")
-                .eventsConfig(eventConfig ->
-                {
-                    eventConfig.onPlayerExecute(playerCommandEvent ->
-                    {
-                        var itemStack = item.toItemStack();
-                        var player = playerCommandEvent.getPlayer();
-                        PlayerUtils.giveItem(player, itemStack);
-                    });
                 }).buildAndRegister();
 
         fluentAPI.events().onEvent(BlockBreakEvent.class, blockBreakEvent ->

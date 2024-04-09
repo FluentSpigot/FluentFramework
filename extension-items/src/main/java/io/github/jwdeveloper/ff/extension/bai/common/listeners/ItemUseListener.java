@@ -81,7 +81,7 @@ public class ItemUseListener extends EventBase {
         return Optional.of(fluentItemEvent);
     }
 
-    private FluentItemUseEvent.Action getUseAction(PlayerInteractEvent event) {
+    public static FluentItemUseEvent.Action getUseAction(PlayerInteractEvent event) {
         var player = event.getPlayer();
         if (player.isSneaking()) {
             switch (event.getAction()) {

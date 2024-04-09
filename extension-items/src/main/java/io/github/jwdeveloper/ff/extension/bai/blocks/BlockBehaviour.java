@@ -2,7 +2,6 @@ package io.github.jwdeveloper.ff.extension.bai.blocks;
 
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.FluentBlock;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.FluentBlockRegistry;
-import io.github.jwdeveloper.ff.extension.bai.blocks.impl.SimpleBlockRegistry;
 import io.github.jwdeveloper.ff.extension.bai.common.api.FluentItemBehaviour;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItem;
 import io.github.jwdeveloper.ff.extension.bai.items.impl.events.FluentItemUseEvent;
@@ -28,8 +27,14 @@ public class BlockBehaviour implements FluentItemBehaviour {
         registry.register(fluentBlock);
     }
 
+    private boolean justPlaced = false;
     public void handleBlockPlace(FluentItemUseEvent event) {
         if (!(event.getSpigotEvent() instanceof PlayerInteractEvent spigotEvent)) {
+            return;
+        }
+        if(justPlaced == true)
+        {
+            justPlaced = false;
             return;
         }
         var clickedBlock = spigotEvent.getClickedBlock();
@@ -37,7 +42,10 @@ public class BlockBehaviour implements FluentItemBehaviour {
         {
             return;
         }
+
         var location = spigotEvent.getClickedBlock().getLocation();
-        fluentBlock.spawnAt(location.add(spigotEvent.getBlockFace().getDirection()));
+        fluentBlock.placeAt(event.getPlayer(), location.add(spigotEvent.getBlockFace().getDirection()));
+        justPlaced = true;
+        event.setCancelled(true);
     }
 }

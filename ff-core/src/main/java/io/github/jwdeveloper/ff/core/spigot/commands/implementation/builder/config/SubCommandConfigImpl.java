@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.config;
 
-import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandRegistry;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config.SubCommandConfig;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleCommand;
@@ -12,9 +12,9 @@ import java.util.function.Consumer;
 public class SubCommandConfigImpl implements SubCommandConfig {
 
     private final List<SimpleCommand> commands;
-    private final FluentCommandManger manger;
+    private final FluentCommandRegistry manger;
 
-    public SubCommandConfigImpl(List<SimpleCommand> commands, FluentCommandManger manger) {
+    public SubCommandConfigImpl(List<SimpleCommand> commands, FluentCommandRegistry manger) {
         this.commands = commands;
         this.manger = manger;
     }

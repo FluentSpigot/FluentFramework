@@ -15,16 +15,14 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class TitleComponent implements InventoryComponent {
-    private List<TitleGuiModel> titleGuiModels;
-    private Map<String, String> titleCache;
+    private final List<TitleGuiModel> titleGuiModels = new ArrayList<>();
+    private final Map<String, String> titleCache = new HashMap<>();
     private final InventoryRef inventoryRef = new InventoryRef();
 
     @Override
     public void onInitialization(InventoryDecorator decorator, InventoryApi inventoryApi) {
         decorator.withInventoryReference(inventoryRef);
         decorator.withEvents(e -> e.onRefresh(this::onRefresh));
-        titleGuiModels = new ArrayList<>();
-        titleCache = new HashMap<>();
     }
 
     public void addTitleModel(TitleGuiModel titleGuiModel) {

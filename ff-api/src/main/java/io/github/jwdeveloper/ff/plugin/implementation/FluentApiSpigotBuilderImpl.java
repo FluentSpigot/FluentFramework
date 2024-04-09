@@ -12,7 +12,7 @@ import io.github.jwdeveloper.ff.plugin.api.logger.PlayerLogger;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandRegistry;
 import io.github.jwdeveloper.ff.core.spigot.events.FluentEvent;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
@@ -58,7 +58,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
     private final JarScanner jarScanner;
     private final PluginLogger logger;
     private final FluentTaskFactory taskFactory;
-    private final FluentCommandManger commandManger;
+    private final FluentCommandRegistry commandManger;
     private final FluentEventManager eventManager;
     private final LoggerConfigurationImpl loggerConfiguration;
     private final FluentConfigManager configManager;
@@ -193,7 +193,7 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         containerBuilder.registerSingleton(FluentConfig.class, configManager.getConfig());
         containerBuilder.registerSingleton(FluentTaskFactory.class, taskFactory);
         containerBuilder.registerSingleton(FluentEventManager.class, eventManager);
-        containerBuilder.registerSingleton(FluentCommandManger.class, commandManger);
+        containerBuilder.registerSingleton(FluentCommandRegistry.class, commandManger);
         containerBuilder.registerSingleton(PluginLogger.class, loggerConfiguration.getPluginLogger());
         containerBuilder.registerSingleton(PlayerLogger.class, loggerConfiguration.getPlayerLogger());
         containerBuilder.registerSingleton(FluentApiMeta.class, fluentApiMeta);

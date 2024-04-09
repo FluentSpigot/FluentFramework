@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.plugin.implementation;
 
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandRegistry;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.CommandBuilderImpl;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
@@ -27,7 +27,7 @@ public final class FluentApiSpigot {
     private final FluentApiMeta fluentApiMeta;
     private final FluentEventManager fluentEvents;
     private final FluentTaskFactory simpleTasks;
-    private final FluentCommandManger commandManger;
+    private final FluentCommandRegistry commandManger;
     private final FluentApiExtensionsManager extensionsManager;
     private final PluginLogger logger;
 
@@ -41,7 +41,7 @@ public final class FluentApiSpigot {
             FluentPermission permission,
             FluentApiExtensionsManager extensionsManager,
             PluginLogger logger,
-            FluentCommandManger commandManger,
+            FluentCommandRegistry commandManger,
             FluentEventManager eventManager,
             FluentTaskFactory taskManager,
             FluentApiMeta fluentApiMeta,
@@ -94,7 +94,7 @@ public final class FluentApiSpigot {
         return simpleTasks;
     }
 
-    public FluentCommandManger commands() {
+    public FluentCommandRegistry commands() {
         return commandManger;
     }
 

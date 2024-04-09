@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder;
 
-import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandManger;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandRegistry;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.BuilderConfig;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config.ArgumentConfig;
@@ -31,10 +31,10 @@ public class CommandBuilderImpl implements SimpleCommandBuilder {
 
     protected final CommandModel model;
     private final Map<Consumer, BuilderConfig> configs;
-    private final FluentCommandManger manger;
+    private final FluentCommandRegistry manger;
 
     public CommandBuilderImpl(String commandName,
-                              FluentCommandManger manger) {
+                              FluentCommandRegistry manger) {
         configs = new LinkedHashMap<>();
         eventsService = new EventsServiceImpl();
         commandService = new CommandServiceImpl();

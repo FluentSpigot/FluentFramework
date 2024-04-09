@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.bai.common.listeners;
 
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventBase;
-import io.github.jwdeveloper.ff.extension.bai.items.api.crafting.FluentCraftingRegistry;
+import io.github.jwdeveloper.ff.extension.bai.craftings.api.FluentCraftingRegistry;
 import io.github.jwdeveloper.ff.extension.bai.items.impl.events.FluentItemCraftEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,8 +28,14 @@ public class CraftingListener extends EventBase {
             return;
         }
         var crafting = optional.get();
-        var fluentItem = crafting.getFluentItem();
         var itemStack = crafting.getOutput(matrix);
+        var fluentItem = crafting.getFluentItem();
+        if(fluentItem == null)
+        {
+            event.getInventory().setResult(itemStack);
+            return;
+        }
+
         var craftingEvent = new FluentItemCraftEvent(fluentItem, itemStack);
         fluentItem.events().getOnCrafting().invoke(craftingEvent);
         if (craftingEvent.isCanceled()) {

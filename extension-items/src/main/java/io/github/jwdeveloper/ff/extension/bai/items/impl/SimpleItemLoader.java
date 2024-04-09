@@ -5,12 +5,12 @@ import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItem;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItemBuilder;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItemLoader;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItemRegistry;
-import io.github.jwdeveloper.ff.extension.bai.items.api.crafting.FluentCraftingBuilder;
-import io.github.jwdeveloper.ff.extension.bai.items.api.crafting.FluentCraftingRegistry;
+import io.github.jwdeveloper.ff.extension.bai.craftings.api.builder.FluentCraftingBuilder;
+import io.github.jwdeveloper.ff.extension.bai.craftings.api.FluentCraftingRegistry;
 import io.github.jwdeveloper.ff.extension.bai.items.api.mappers.FluentCraftingMapper;
 import io.github.jwdeveloper.ff.extension.bai.items.api.mappers.FluentItemStackMapper;
 import io.github.jwdeveloper.ff.extension.bai.items.api.mappers.FluentSchemaMapper;
-import io.github.jwdeveloper.ff.extension.bai.items.impl.crafting.SimpleCraftingBuilder;
+import io.github.jwdeveloper.ff.extension.bai.craftings.impl.SimpleCraftingBuilder;
 import io.github.jwdeveloper.ff.extension.bai.items.impl.mappers.ScheamMapper;
 import io.github.jwdeveloper.ff.extension.bai.items.impl.schema.SchemaFactory;
 import org.bukkit.configuration.ConfigurationSection;
@@ -96,8 +96,9 @@ public class SimpleItemLoader implements FluentItemLoader {
                 continue;
             }
             var fluentCrafting = result.getContent();
-            onCraftingBuilder.accept(new SimpleCraftingBuilder(fluentCrafting));
-            craftingRegistry.register(fluentCrafting);
+            var craftingBuilder = new SimpleCraftingBuilder(fluentCrafting,craftingRegistry);
+            onCraftingBuilder.accept(craftingBuilder);
+            craftingBuilder.buildAndRegister();
         }
         return fluentItems;
     }

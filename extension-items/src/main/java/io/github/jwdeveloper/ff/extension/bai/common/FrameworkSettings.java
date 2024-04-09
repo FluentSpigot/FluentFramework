@@ -2,6 +2,7 @@ package io.github.jwdeveloper.ff.extension.bai.common;
 
 import io.github.jwdeveloper.ff.extension.bai.items.api.schema.FluentItemSchema;
 import lombok.Data;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 
 import java.util.UUID;
@@ -17,6 +18,7 @@ public class FrameworkSettings {
     NamespacedKey tagKey;
 
     UUID pluginSessionId;
+    Material blockMaterial;
     FluentItemSchema defaultSchema;
 
 

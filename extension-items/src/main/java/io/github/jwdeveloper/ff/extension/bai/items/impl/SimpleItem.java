@@ -59,7 +59,13 @@ public class SimpleItem implements FluentItem {
             return false;
         }
 
-        return itemStack.getItemMeta().getDisplayName().equals(getSchema().getDisplayName());
+        var result = mapper.fromItemStack(itemStack);
+        if(result.isFailed())
+        {
+            return false;
+        }
+        var content = result.getContent();
+        return content.getFluentItem().equals(this);
     }
 
     @Override

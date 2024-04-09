@@ -43,17 +43,6 @@ public class BlockCanon {
                     schema.withStackable(false);
                 }).buildAndRegister();
 
-        fluentApi.createCommand("canon")
-                .eventsConfig(eventConfig ->
-                {
-                    eventConfig.onPlayerExecute(playerCommandEvent ->
-                    {
-                        var itemStack = item.toItemStack();
-                        var player = playerCommandEvent.getPlayer();
-                        PlayerUtils.giveItem(player, itemStack);
-                    });
-                }).buildAndRegister();
-
         fluentApi.events().onEvent(PlayerInteractEvent.class, event ->
         {
             handleCanon(event, item);

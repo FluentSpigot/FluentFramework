@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -306,5 +307,11 @@ public class ButtonUI {
         return itemStack.hasItemMeta() ? itemStack.getItemMeta() : Bukkit.getItemFactory().getItemMeta(itemStack.getType());
     }
 
+
+    public void fromItemStack(ItemStack itemStack)
+    {
+        setMaterial(itemStack.getType());
+        setItemMeta(itemStack.getItemMeta());
+    }
 
 }

@@ -110,5 +110,17 @@
             <version>0.0.7-Release</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.FluentSpigot</groupId>
+            <artifactId>extension-inventory-gui</artifactId>
+            <version>0.0.7-Release</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.FluentSpigot</groupId>
+            <artifactId>extension-resourcepack</artifactId>
+            <version>0.0.7-Release</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

@@ -24,21 +24,21 @@ public class DisplayFactory {
 
     public Display createDisplay(Location spawnLoc, ItemStack itemStack) {
         ItemDisplay blockDisplay = (ItemDisplay) spawnLoc.getWorld().spawnEntity(spawnLoc, EntityType.ITEM_DISPLAY);
-        blockDisplay.setItemStack(itemStack);
-        Vector3f translation = new Vector3f(0.5f, 0.5f, 0.5f);
-        AxisAngle4f axisAngleRotMat = new AxisAngle4f((float) Math.PI, new Vector3f(0, 1, 0));
-        Transformation transformation = new Transformation(
+        var translation = new Vector3f(0.5f, 0.5f, 0.5f);
+        var axisAngleRotMat = new AxisAngle4f((float) Math.PI, new Vector3f(0, 1, 0));
+        var transformation = new Transformation(
                 translation,
                 axisAngleRotMat,
-                new Vector3f(1f, 1f, 1f),
+                new Vector3f(1, 1, 1),
                 axisAngleRotMat
         );
-        blockDisplay.setInterpolationDuration(25);
+        blockDisplay.setItemStack(itemStack);
+        blockDisplay.setInterpolationDuration(0);
         blockDisplay.setTransformation(transformation);
+        // blockDisplay.setBrightness(new Display.Brightness(15, 15));
         //blockDisplay.setGlowing(true);
         blockDisplay.setPersistent(false);
-
-        pluginCache.set(spawnLoc.toString(),blockDisplay);
+        pluginCache.set(spawnLoc.toString(), blockDisplay);
         fluentEventManager.onEvent(PluginDisableEvent.class, pluginDisableEvent ->
         {
             blockDisplay.remove();

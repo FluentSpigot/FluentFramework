@@ -1,0 +1,22 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "minecraft:item/prismarine_shard"
+  },
+  "overrides": [
+  { "predicate": {"custom_model_data": 504}, "model": "custom/backtools/basic_backpack"},
+  { "predicate": {"custom_model_data": 505}, "model": "custom/backtools/bee_backpack"},
+  { "predicate": {"custom_model_data": 506}, "model": "custom/backtools/enderman_backpack"},
+  { "predicate": {"custom_model_data": 507}, "model": "custom/backtools/slime_backpack"},
+  { "predicate": {"custom_model_data": 508}, "model": "custom/backtools/iron_golem_backpack"},
+  { "predicate": {"custom_model_data": 509}, "model": "custom/backtools/ghast_backpack"},
+  { "predicate": {"custom_model_data": 510}, "model": "custom/backtools/warden_backpack"},
+  { "predicate": {"custom_model_data": 511}, "model": "custom/backtools/guardian_backpack"},
+  { "predicate": {"custom_model_data": 512}, "model": "custom/backtools/wither_backpack"},
+  { "predicate": {"custom_model_data": 513}, "model": "custom/backtools/ore_block"},
+  { "predicate": {"custom_model_data": 514}, "model": "custom/backtools/miner"},
+  { "predicate": {"custom_model_data": 515}, "model": "custom/backtools/miner2"},
+  { "predicate": {"custom_model_data": 516}, "model": "custom/backtools/miner3"},
+    { "predicate": {"custom_model_data": 517}, "model": "custom/backtools/miner_cart"}
+  ]
+}

@@ -54,7 +54,7 @@ public class SimpleCommand extends Command {
         this.setDescription(commandModel.getDescription());
         this.setUsage(commandModel.getUsageMessage());
         this.setLabel(commandModel.getLabel());
-        if (commandModel.getPermissions().size() != 0) {
+        if (!commandModel.getPermissions().isEmpty()) {
             this.setPermission(commandModel.getPermissions().get(0));
         }
     }

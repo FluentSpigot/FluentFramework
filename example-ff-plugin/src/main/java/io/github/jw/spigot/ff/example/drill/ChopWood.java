@@ -33,16 +33,7 @@ public class ChopWood {
                     schema.withStackable(false);
                 }).buildAndRegister();
 
-        fluentAPI.createCommand("saw")
-                .eventsConfig(eventConfig ->
-                {
-                    eventConfig.onPlayerExecute(playerCommandEvent ->
-                    {
-                        var itemStack = item.toItemStack();
-                        var player = playerCommandEvent.getPlayer();
-                        PlayerUtils.giveItem(player, itemStack);
-                    });
-                }).buildAndRegister();
+
     }
 
 

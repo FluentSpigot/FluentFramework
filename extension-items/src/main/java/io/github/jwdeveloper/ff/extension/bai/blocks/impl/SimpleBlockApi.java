@@ -8,17 +8,15 @@ import io.github.jwdeveloper.ff.extension.bai.blocks.api.FluentBlockRegistry;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.builder.BlockBuilder;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.FluentBlockInstance;
 import io.github.jwdeveloper.ff.extension.bai.blocks.impl.builder.BlockBehaviourBuilder;
+import io.github.jwdeveloper.ff.extension.bai.common.FrameworkSettings;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItem;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItemApi;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItemLoader;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.Display;
 import org.bukkit.inventory.ItemStack;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,10 +25,14 @@ public class SimpleBlockApi implements FluentBlockApi {
 
     private final PluginCache pluginCache;
     private final FluentBlockRegistry registry;
+    private final FrameworkSettings settings;
 
-    public SimpleBlockApi(PluginCache pluginCache, FluentBlockRegistry simpleBlockRegistry) {
+    public SimpleBlockApi(PluginCache pluginCache,
+                          FluentBlockRegistry simpleBlockRegistry,
+                          FrameworkSettings settings) {
         this.pluginCache = pluginCache;
         this.registry = simpleBlockRegistry;
+        this.settings = settings;
     }
 
     @Override
@@ -45,19 +47,33 @@ public class SimpleBlockApi implements FluentBlockApi {
 
     @Override
     public ActionResult<FluentBlockInstance> fromMinecraftBlock(Block block) {
-        if (!block.getType().equals(Material.BARRIER)) {
+
+        if (block == null) {
+            return ActionResult.failed("null");
+        }
+        if (!block.getType().equals(settings.getBlockMaterial()))
+        {
             return ActionResult.failed("not barrier");
         }
         if (block.getMetadata("custom-block").isEmpty()) {
             return ActionResult.failed("not custom block");
         }
 
-        var entity = pluginCache.get(block.getLocation().toString());
-        if (entity == null) {
-            return ActionResult.failed("block display not found!");
+        var cacheId = block.getLocation().toString();
+        if(!pluginCache.contains(cacheId))
+        {
+            //TODO initialize item display!
+            return ActionResult.failed("item display is empty");
         }
 
-        var instance = new SimpleBlockInstance(block,  (Display) entity, null);
+        var itemDisplay = pluginCache.get(cacheId);
+        var blockName = block.getMetadata("custom-block").get(0);
+        var fluentBlock = findFluentBlock(blockName.asString());
+        if (fluentBlock.isEmpty()) {
+            return ActionResult.failed("fluent block not found!");
+        }
+
+        var instance = new SimpleBlockInstance(block, (Display) itemDisplay, fluentBlock.get());
         return ActionResult.success(instance);
     }
 
