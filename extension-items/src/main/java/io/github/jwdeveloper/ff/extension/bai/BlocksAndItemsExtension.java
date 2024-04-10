@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.bai;
 
 import io.github.jwdeveloper.ff.extension.bai.blocks.FluentBlockExtension;
-import io.github.jwdeveloper.ff.extension.bai.blocks.impl.DisplayFactory;
+import io.github.jwdeveloper.ff.extension.bai.common.DisplayFactory;
 import io.github.jwdeveloper.ff.extension.bai.common.listeners.BlockListener;
 import io.github.jwdeveloper.ff.extension.bai.common.listeners.CraftingListener;
 import io.github.jwdeveloper.ff.extension.bai.common.listeners.ItemListener;

@@ -12,6 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Interaction;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -24,6 +25,7 @@ public class SimpleBlockInstance implements FluentBlockInstance {
     private Block block;
     private Display display;
     private FluentBlock fluentBlock;
+
 
     public SimpleBlockInstance(Block block, Display blockDisplay, FluentBlock fluentBlock) {
         this.block = block;

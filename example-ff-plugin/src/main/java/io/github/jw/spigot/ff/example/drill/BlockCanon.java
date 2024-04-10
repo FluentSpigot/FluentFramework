@@ -31,6 +31,7 @@ public class BlockCanon {
     private ObserverBag<Boolean> isCanonActive = ObserverBag.create(false);
 
     public void register(FluentApiSpigot fluentApi) {
+
         pluginCache = FluentApi.container().findInjection(PluginCache.class);
         var itemApi = fluentApi.container().findInjection(FluentItemApi.class);
         var item = itemApi.addItem()

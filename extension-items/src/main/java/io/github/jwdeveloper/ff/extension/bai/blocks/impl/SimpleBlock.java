@@ -3,17 +3,17 @@ package io.github.jwdeveloper.ff.extension.bai.blocks.impl;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.FluentBlock;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.FluentBlockInstance;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.data.*;
-import io.github.jwdeveloper.ff.extension.bai.blocks.api.data.drop.FluentBlockDrop;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.data.drop.FluentBlockDrops;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.data.state.FluentBlockStates;
 import io.github.jwdeveloper.ff.extension.bai.blocks.impl.events.FluentBlockPlacedEvent;
+import io.github.jwdeveloper.ff.extension.bai.common.DisplayFactory;
 import io.github.jwdeveloper.ff.extension.bai.common.FrameworkSettings;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItem;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Interaction;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
 /**
@@ -65,8 +65,17 @@ public class SimpleBlock implements FluentBlock {
         block.setType(settings.getBlockMaterial());
         block.setMetadata("custom-block", new FixedMetadataValue(FluentApi.plugin(), fluentItem.getSchema().getName()));
         block.getLocation().getWorld().playSound(block.getLocation(), this.sounds().getPlace(), 1, 1);
+
         var blockDisplay = displayFactory.createDisplay(location, fluentItem.toItemStack());
         var instance = new SimpleBlockInstance(block, blockDisplay, this);
+
+
+        var interLoc = location.clone().add(0.5f, 0, 0.5f);
+        Interaction interaction = (Interaction) location.getWorld().spawnEntity(interLoc, EntityType.INTERACTION);
+        interaction.setResponsive(false);
+        interaction.setPersistent(false);
+
+
         events().getOnPlaced().invoke(new FluentBlockPlacedEvent(instance));
         return instance;
     }

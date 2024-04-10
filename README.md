@@ -1,6 +1,6 @@
 
 https://jitpack.io/#jwdeveloper/FluentFramework
-
+https://www.gamergeeks.net/apps/minecraft/give-command-generator
 ```code
 	<repositories>
 		<repository>

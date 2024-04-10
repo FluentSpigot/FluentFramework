@@ -12,6 +12,7 @@
     <name>example-ff-plugin</name>
 
     <properties>
+        <spigot>1.20.4-R0.1-SNAPSHOT</spigot>
         <java.version>16</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -37,6 +38,39 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>net.md-5</groupId>
+                <artifactId>specialsource-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>remap</goal>
+                        </goals>
+                        <id>remap-obf</id>
+                        <configuration>
+                            <srgIn>org.spigotmc:minecraft-server:${spigot}:txt:maps-mojang</srgIn>
+                            <reverse>true</reverse>
+                            <remappedDependencies>org.spigotmc:spigot:${spigot}:jar:remapped-mojang</remappedDependencies>
+                            <remappedArtifactAttached>true</remappedArtifactAttached>
+                            <remappedClassifierName>remapped-obf</remappedClassifierName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>remap</goal>
+                        </goals>
+                        <id>remap-spigot</id>
+                        <configuration>
+                            <inputFile>${project.build.directory}/${project.artifactId}-${project.version}-remapped-obf.jar</inputFile>
+                            <srgIn>org.spigotmc:minecraft-server:${spigot}:csrg:maps-spigot</srgIn>
+                            <remappedDependencies>org.spigotmc:spigot:${spigot}:jar:remapped-obf</remappedDependencies>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -72,7 +106,14 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.19.4-R0.1-SNAPSHOT</version>
+            <version>${spigot}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>${spigot}</version>
+            <classifier>remapped-mojang</classifier>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -83,13 +124,13 @@
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>ff-plugin</artifactId>
-            <version>0.0.7-Release</version>
+            <version>0.0.8-Release</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>ff-plugin-tests</artifactId>
-            <version>0.0.7-Release</version>
+            <version>0.0.8-Release</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -107,19 +148,19 @@
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>extension-items</artifactId>
-            <version>0.0.7-Release</version>
+            <version>0.0.8-Release</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>extension-inventory-gui</artifactId>
-            <version>0.0.7-Release</version>
+            <version>0.0.8-Release</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>extension-resourcepack</artifactId>
-            <version>0.0.7-Release</version>
+            <version>0.0.8-Release</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

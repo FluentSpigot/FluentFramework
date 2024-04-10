@@ -4,20 +4,17 @@ import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.particles.FluentParticle;
 import io.github.jwdeveloper.ff.core.spigot.particles.api.ParticleDisplayMode;
 import io.github.jwdeveloper.ff.extension.bai.BlockAndItemsApi;
-import io.github.jwdeveloper.ff.extension.bai.blocks.impl.DisplayFactory;
+import io.github.jwdeveloper.ff.extension.bai.common.DisplayFactory;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItemApi;
 import io.github.jwdeveloper.ff.extension.bai.items.impl.events.FluentItemUseEvent;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import org.bukkit.Material;
 import org.bukkit.Particle;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Minecart;
-import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 public class MiningCart {

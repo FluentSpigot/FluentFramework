@@ -1,4 +1,4 @@
-package io.github.jwdeveloper.ff.extension.bai.blocks.impl;
+package io.github.jwdeveloper.ff.extension.bai.common;
 
 import io.github.jwdeveloper.ff.core.cache.api.PluginCache;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;

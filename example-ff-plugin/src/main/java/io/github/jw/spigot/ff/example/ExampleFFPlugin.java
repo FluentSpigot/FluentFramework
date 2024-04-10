@@ -1,5 +1,6 @@
 package io.github.jw.spigot.ff.example;
 
+import io.github.jw.spigot.ff.example.commands.EntityTest;
 import io.github.jw.spigot.ff.example.drill.MiningCartInventory;
 import io.github.jw.spigot.ff.example.menu.ItemMenuExtension;
 import io.github.jw.spigot.ff.example.resource.ResourcepackWatcher;
@@ -37,9 +38,14 @@ public final class ExampleFFPlugin extends JavaPlugin implements FluentApiExtens
                 .withExtension(this)
                 .withFiles(fluentFilesOptions ->
                 {
-                    var outputPath = "C:\\Users\\ja\\AppData\\Roaming\\.minecraft\\resourcepacks\\testresourcepack";
+                    var outputPath = "C:\\Users\\ja\\curseforge\\minecraft\\Instances\\ServerTester\\resourcepacks\\resourcepack";
+                   // var outputPath = "C:\\Users\\ja\\AppData\\Roaming\\.minecraft\\resourcepacks\\testresourcepack";
                     var inputPath = "D:\\Git\\fluent-framework\\example-ff-plugin\\resourcepack";
                     fluentFilesOptions.addFolderWatcher(new ResourcepackWatcher(inputPath, outputPath), inputPath);
+                })
+                .withCommand(fluentCommandOptions ->
+                {
+                    fluentCommandOptions.addCommand(EntityTest.class);
                 })
                 .withTranslator()
                 .create();

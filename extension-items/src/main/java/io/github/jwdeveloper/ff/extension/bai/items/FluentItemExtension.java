@@ -24,10 +24,6 @@ public class FluentItemExtension implements FluentApiExtension {
         container.registerSingleton(FluentItemApi.class, SimpleItemApi.class);
         container.registerSingleton(FluentItemRegistry.class, SimpleItemRegistry.class);
         container.registerSingleton(FluentItemStackMapper.class, ItemStackMapper.class);
-
-
-
-
     }
 
 

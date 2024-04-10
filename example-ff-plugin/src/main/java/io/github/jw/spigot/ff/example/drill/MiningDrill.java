@@ -6,8 +6,6 @@ import com.comphenix.protocol.wrappers.BlockPosition;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItemApi;
 import io.github.jwdeveloper.ff.extension.bai.items.impl.events.FluentItemUseEvent;
-import io.github.jwdeveloper.ff.extension.gui.FluentInventoryApi;
-import io.github.jwdeveloper.ff.extension.gui.api.FluentInventory;
 import io.github.jwdeveloper.ff.extension.gui.api.InventoryApi;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
@@ -18,7 +16,6 @@ import org.bukkit.SoundCategory;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.minecart.StorageMinecart;
 import org.bukkit.event.inventory.InventoryOpenEvent;
@@ -123,32 +120,35 @@ public class MiningDrill {
     }
 
 
+    private static void sendBrakingPacket(int step, Block block) {
+        var manager = FluentApi.container().findInjection(ProtocolManager.class);
+        var blockBreakAnimation = manager.createPacket(PacketType.Play.Server.BLOCK_BREAK_ANIMATION);
+        var random = new Random();
+        blockBreakAnimation.getIntegers()
+                .write(0, random.nextInt())
+                .write(1, step );
+
+        BlockPosition position = new BlockPosition(block.getX(), block.getY(), block.getZ());
+        blockBreakAnimation.getBlockPositionModifier().write(0, position);
+        for (var onpl : Bukkit.getOnlinePlayers()) {
+            try {
+                manager.sendServerPacket(onpl, blockBreakAnimation);
+            } catch (InvocationTargetException e) {
+                FluentLogger.LOGGER.error(e);
+            }
+        }
+    }
+
     private static void sendBlockBreakingAnimation(Block block, Entity player) {
         block.getWorld().playSound(block.getLocation(), Sound.BLOCK_STONE_HIT, 0.5f, 1);
+
         FluentApi.tasks().taskTimer(2, (iteration, task) ->
                 {
-                    var manager = FluentApi.container().findInjection(ProtocolManager.class);
-                    var blockBreakAnimation = manager.createPacket(PacketType.Play.Server.BLOCK_BREAK_ANIMATION);
-                    int entityId = new Random().nextInt(Integer.MAX_VALUE);
-
-                    blockBreakAnimation.getIntegers()
-                            .write(0, entityId)
-                            .write(1, iteration);
-
-
-                    BlockPosition position = new BlockPosition(block.getX(), block.getY(), block.getZ());
-                    blockBreakAnimation.getBlockPositionModifier().write(0, position);
-                    for (var onpl : Bukkit.getOnlinePlayers()) {
-                        try {
-                            manager.sendServerPacket(onpl, blockBreakAnimation);
-                        } catch (InvocationTargetException e) {
-                            FluentLogger.LOGGER.error(e);
-                        }
-                    }
-
+                    sendBrakingPacket(iteration%9, block);
                 }).stopAfterIterations(10)
                 .onStop(simpleTaskTimer ->
                 {
+                    sendBrakingPacket(123, block);
                     block.getWorld().playSound(block.getLocation(), Sound.BLOCK_STONE_HIT, 0.5f, 1);
                     var drop = block.getDrops();
                     for (var d : drop) {
@@ -166,8 +166,10 @@ public class MiningDrill {
                     }
 
                     block.setType(Material.AIR);
+                    sendBrakingPacket(123, block);
                 })
                 .start();
+
     }
 
 

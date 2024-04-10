@@ -1,18 +1,15 @@
 package io.github.jwdeveloper.ff.extension.bai.blocks.impl.builder;
 
-import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.extension.bai.blocks.BlockBehaviour;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.FluentBlockRegistry;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.builder.*;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.data.FluentBlockSchema;
-import io.github.jwdeveloper.ff.extension.bai.blocks.impl.DisplayFactory;
+import io.github.jwdeveloper.ff.extension.bai.common.DisplayFactory;
 import io.github.jwdeveloper.ff.extension.bai.blocks.impl.SimpleBlock;
-import io.github.jwdeveloper.ff.extension.bai.blocks.impl.SimpleBlockRegistry;
 import io.github.jwdeveloper.ff.extension.bai.common.api.FluentItemBehaviour;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItem;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItemRegistry;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
-import org.bukkit.Material;
 
 public class BlockBehaviourBuilder implements BlockBuilder {
 
