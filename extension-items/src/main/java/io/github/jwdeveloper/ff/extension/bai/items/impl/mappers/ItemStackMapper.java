@@ -29,7 +29,7 @@ public class ItemStackMapper implements FluentItemStackMapper {
         if (optional.isFailed()) {
             throw new RuntimeException("Unable to map item meta " + optional.getMessage());
         }
-        itemStack.setItemMeta(optional.getContent());
+        itemStack.setItemMeta(optional.getObject());
         return itemStack;
     }
 
@@ -49,7 +49,7 @@ public class ItemStackMapper implements FluentItemStackMapper {
         if (optionalMeta.isFailed()) {
             return optionalMeta.cast();
         }
-        var fluentItemMeta = optionalMeta.getContent();
+        var fluentItemMeta = optionalMeta.getObject();
         var optional = itemRegistry.findByName(fluentItemMeta.getUniqueName());
         if (optional.isEmpty()) {
             return ActionResult.failed("Item is " + fluentItemMeta.getUniqueName() + "not registered!");

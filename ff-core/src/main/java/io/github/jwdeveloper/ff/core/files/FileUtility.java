@@ -2,6 +2,7 @@ package io.github.jwdeveloper.ff.core.files;
 
 import com.google.common.io.Files;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -228,7 +229,13 @@ public interface FileUtility {
     }
     public static YamlConfiguration loadFileFromResponse(String fileName, Class<?> clazz) {
         var classLoader = clazz.getClassLoader();
-        try (var inputStream = classLoader.getResourceAsStream(fileName)) {
+        try (var inputStream = classLoader.getResourceAsStream(fileName))
+        {
+            if(Bukkit.getServer().getClass().getName().contains("ServerMock"))
+            {
+                return new YamlConfiguration();
+            }
+
             if (inputStream == null) {
                 throw new RuntimeException("Default config has not been found!");
             }

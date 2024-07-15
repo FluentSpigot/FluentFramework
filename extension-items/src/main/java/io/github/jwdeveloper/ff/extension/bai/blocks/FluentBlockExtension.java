@@ -4,7 +4,7 @@ import io.github.jwdeveloper.ff.extension.bai.blocks.api.FluentBlockApi;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.FluentBlockRegistry;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.builder.BlockBuilder;
 import io.github.jwdeveloper.ff.extension.bai.blocks.impl.SimpleBlockApi;
-import io.github.jwdeveloper.ff.extension.bai.common.DisplayFactory;
+import io.github.jwdeveloper.ff.extension.bai.common.DisplayItemFactory;
 import io.github.jwdeveloper.ff.extension.bai.blocks.impl.SimpleBlockRegistry;
 import io.github.jwdeveloper.ff.extension.bai.blocks.impl.builder.BlockBehaviourBuilder;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
@@ -18,6 +18,6 @@ public class FluentBlockExtension implements FluentApiExtension {
         container.registerSingleton(FluentBlockApi.class, SimpleBlockApi.class);
         container.registerSingleton(FluentBlockRegistry.class, SimpleBlockRegistry.class);
         container.registerTransient(BlockBuilder.class, BlockBehaviourBuilder.class);
-        container.registerSingleton(DisplayFactory.class);
+        container.registerSingleton(DisplayItemFactory.class);
     }
 }

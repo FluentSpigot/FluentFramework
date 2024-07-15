@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.common;
 
-import io.github.jwdeveloper.ff.core.common.java.MathUtility;
+import io.github.jwdeveloper.ff.core.common.java.MathUtils;
 import org.bukkit.ChatColor;
 
 import java.util.Arrays;
@@ -30,17 +30,17 @@ public class TextBuilder<SELF extends TextBuilder<SELF>> {
 
     public SELF floor(double number)
     {
-        return  text(MathUtility.floor(number));
+        return  text(MathUtils.floor(number));
     }
 
     public SELF floor(float number)
     {
-        return text(MathUtility.floor(number));
+        return text(MathUtils.floor(number));
     }
 
     public SELF floor(int number)
     {
-        return text(MathUtility.floor(number));
+        return text(MathUtils.floor(number));
     }
 
     public SELF text(Object text) {

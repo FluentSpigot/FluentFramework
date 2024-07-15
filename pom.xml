@@ -39,6 +39,7 @@
         <module>extension-advancements</module>
         <module>extension-styles</module>
         <module>extension-items</module>
+        <module>extension-animtaitons</module>
     </modules>
 
 
@@ -109,11 +110,9 @@
         <dependency>
             <groupId>com.github.jwdeveloper.DepenDance</groupId>
             <artifactId>DepenDance-Full</artifactId>
-            <version>0.0.6-Release</version>
+            <version>0.0.18-Release</version>
             <scope>compile</scope>
         </dependency>
-
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

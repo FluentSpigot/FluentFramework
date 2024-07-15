@@ -1,0 +1,15 @@
+example:
+  name: "Test animation"
+  duration: "ticks:100"
+  body:
+    - "[s] x:1 y:2 z:3"
+    - "[r] x:1 y:2 z:3"
+    - "[w] ticks:12"
+  hand:
+    - "[s] x:1 y:2 z:3"
+    - "[r] x:1 y:2 z:3"
+    - "[w] ticks:12"
+  arm:
+    - "[s] x:1 y:2 z:3"
+    - "[r] x:1 y:2 z:3"
+    - "[w] ticks:12"

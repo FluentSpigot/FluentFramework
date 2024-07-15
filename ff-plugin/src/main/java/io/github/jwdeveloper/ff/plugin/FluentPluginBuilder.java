@@ -1,9 +1,9 @@
 package io.github.jwdeveloper.ff.plugin;
 
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
-import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
-import io.github.jwdeveloper.ff.extension.commands.FluentCommandAPI;
-import io.github.jwdeveloper.ff.extension.commands.api.FluentCommandOptions;
+import io.github.jwdeveloper.ff.core.spigot.commands.SimpleCommandApi;
+import io.github.jwdeveloper.ff.extension.commands.FluentCommandFramework;
+import io.github.jwdeveloper.ff.extension.commands.api.data.FluentCommandOptions;
 import io.github.jwdeveloper.ff.extension.files.FluentFilesApi;
 import io.github.jwdeveloper.ff.extension.files.implementation.config.FluentFilesOptions;
 import io.github.jwdeveloper.ff.extension.translator.FluentTranslatorAPI;
@@ -11,7 +11,6 @@ import io.github.jwdeveloper.ff.extension.translator.api.FluentTranslatorOptions
 import io.github.jwdeveloper.ff.extension.updater.FluentUpdaterApi;
 import io.github.jwdeveloper.ff.extension.updater.api.UpdaterApiOptions;
 import io.github.jwdeveloper.ff.plugin.addons.AddonsApi;
-import io.github.jwdeveloper.ff.plugin.addons.AddonsExtension;
 import io.github.jwdeveloper.ff.plugin.addons.AddonsOptions;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiBuilder;
@@ -69,7 +68,7 @@ public class FluentPluginBuilder {
     }
 
     public FluentPluginBuilder withCommand(Consumer<FluentCommandOptions> options) {
-        apiExtensions.add(FluentCommandAPI.use(options));
+        apiExtensions.add(FluentCommandFramework.use(options));
         return this;
     }
 
@@ -112,7 +111,7 @@ public class FluentPluginBuilder {
         });
 
         if (api.meta().isDebug()) {
-            FluentCommand.create("disable")
+            SimpleCommandApi.create("disable")
                     .propertiesConfig(propertiesConfig ->
                     {
                         propertiesConfig.setDescription("Command only for plugin development purpose. Can be only trigger by Console. disables all plugins");
@@ -131,7 +130,7 @@ public class FluentPluginBuilder {
                     .buildAndRegister();
 
 
-            FluentCommand.create("debbug")
+            SimpleCommandApi.create("debbug")
                     .propertiesConfig(propertiesConfig ->
                     {
                         propertiesConfig.setDescription("Command only for plugin development purpose. Can be only trigger by Console. disables all plugins");

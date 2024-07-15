@@ -1,6 +1,5 @@
 package io.github.jwdeveloper.ff.extension.bai.common.listeners;
 
-import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventBase;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItemApi;
 import io.github.jwdeveloper.ff.extension.bai.items.impl.events.FluentItemUseEvent;
@@ -61,7 +60,7 @@ public class ItemUseListener extends EventBase {
         if (optional.isFailed()) {
             return Optional.empty();
         }
-        var fluentItemStack = optional.getContent();
+        var fluentItemStack = optional.getObject();
         var fluentItem = fluentItemStack.getFluentItem();
         if (!fluentItem.canPlayerUse(player)) {
             return Optional.empty();

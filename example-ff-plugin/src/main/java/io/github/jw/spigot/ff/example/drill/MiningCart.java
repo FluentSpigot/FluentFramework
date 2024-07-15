@@ -4,7 +4,7 @@ import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.particles.FluentParticle;
 import io.github.jwdeveloper.ff.core.spigot.particles.api.ParticleDisplayMode;
 import io.github.jwdeveloper.ff.extension.bai.BlockAndItemsApi;
-import io.github.jwdeveloper.ff.extension.bai.common.DisplayFactory;
+import io.github.jwdeveloper.ff.extension.bai.common.DisplayItemFactory;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItemApi;
 import io.github.jwdeveloper.ff.extension.bai.items.impl.events.FluentItemUseEvent;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
@@ -78,7 +78,7 @@ public class MiningCart {
 
 
         var item = FluentApi.container().findInjection(FluentItemApi.class).findFluentItem("mining-drill-cart").get();
-        var factory = FluentApi.container().findInjection(DisplayFactory.class);
+        var factory = FluentApi.container().findInjection(DisplayItemFactory.class);
 
         var display = factory.createDisplay(cart.getLocation(), item.toItemStack());
         cart.addPassenger(display);

@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.files.api.fluent_files.repository;
 
 
-import io.github.jwdeveloper.ff.core.common.java.ObjectUtility;
+import io.github.jwdeveloper.ff.core.common.java.ObjectUtils;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import lombok.Data;
 import org.bukkit.Material;
@@ -24,7 +24,7 @@ public abstract class DataModel {
     public <T extends DataModel> Optional<T> copy() {
         try {
 
-            var result = (T) ObjectUtility.copyObjectDeep(this,getClass());
+            var result = (T) ObjectUtils.copyObjectDeep(this,getClass());
             return Optional.of(result);
         } catch (Exception e) {
             FluentLogger.LOGGER.error("Can not copy object for class " + this.getClass().getSimpleName(), e);

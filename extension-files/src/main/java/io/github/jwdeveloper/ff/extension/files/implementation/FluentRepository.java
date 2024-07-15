@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.files.implementation;
 
-import io.github.jwdeveloper.ff.core.common.java.ObjectUtility;
+import io.github.jwdeveloper.ff.core.common.java.ObjectUtils;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.repository.DataModel;
 import io.github.jwdeveloper.ff.extension.files.api.fluent_files.repository.SaveableRepository;
@@ -102,7 +102,7 @@ public class FluentRepository<T extends DataModel> implements SaveableRepository
             return false;
 
         try {
-            ObjectUtility.copyToObjectDeep(data, optional.get());
+            ObjectUtils.copyToObjectDeep(data, optional.get());
             return true;
         } catch (Exception e) {
             FluentLogger.LOGGER.error("Unable to update element in " + getClass().getSimpleName() + " repository", e);

@@ -3,6 +3,7 @@ package io.github.jwdeveloper.ff.core.common.java;
 import io.github.jwdeveloper.ff.core.spigot.messages.message.MessageBuilder;
 
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class JavaUtils
 {
@@ -46,5 +47,20 @@ public class JavaUtils
            builder.text(builder).space();
        }
        throw new RuntimeException(builder.toString());
+    }
+
+    public static boolean waitUntil(Supplier<Boolean> action)
+    {
+        while (!action.get())
+        {
+            try {
+                Thread.sleep(1);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

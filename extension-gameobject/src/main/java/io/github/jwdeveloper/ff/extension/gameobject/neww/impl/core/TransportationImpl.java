@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.gameobject.neww.impl.core;
 
 import io.github.jwdeveloper.ff.extension.gameobject.neww.api.core.Transportation;
-import io.github.jwdeveloper.ff.extension.gameobject.neww.impl.TransformationUtility;
+import io.github.jwdeveloper.ff.core.common.TransformationUtility;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.util.Transformation;

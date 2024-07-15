@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.core.hitbox;
 
-import io.github.jwdeveloper.ff.core.common.java.MathUtility;
+import io.github.jwdeveloper.ff.core.common.java.MathUtils;
 import io.github.jwdeveloper.ff.core.spigot.particles.api.ParticleDisplayMode;
 import io.github.jwdeveloper.ff.core.spigot.particles.api.ParticleSettings;
 import io.github.jwdeveloper.ff.core.spigot.particles.implementation.SimpleParticle;
@@ -28,7 +28,7 @@ public class HitBoxDisplay {
 
     public HitBoxDisplay(InteractiveHitBox hitBox) {
         this.hitBox = hitBox;
-        lineColor = Color.fromRGB(MathUtility.getRandom(0, 255), MathUtility.getRandom(0, 255), MathUtility.getRandom(0, 255));
+        lineColor = Color.fromRGB(MathUtils.getRandom(0, 255), MathUtils.getRandom(0, 255), MathUtils.getRandom(0, 255));
         lineOptions = new Particle.DustOptions(lineColor, particleSize);
         task = getHitboxDisplay();
     }

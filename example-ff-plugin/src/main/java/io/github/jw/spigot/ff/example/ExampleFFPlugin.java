@@ -1,9 +1,14 @@
 package io.github.jw.spigot.ff.example;
 
+import immersive.ImmersiveBlocksExtension;
+import io.github.jw.spigot.ff.example.commands.AnimationCmd;
+import io.github.jw.spigot.ff.example.commands.DisplayEntity;
 import io.github.jw.spigot.ff.example.commands.EntityTest;
+import io.github.jw.spigot.ff.example.commands.RandomStuff;
 import io.github.jw.spigot.ff.example.drill.MiningCartInventory;
 import io.github.jw.spigot.ff.example.menu.ItemMenuExtension;
 import io.github.jw.spigot.ff.example.resource.ResourcepackWatcher;
+import io.github.jwdeveloper.ff.DisplayModelFramework;
 import io.github.jwdeveloper.ff.extension.bai.BlockAndItemsApi;
 import io.github.jwdeveloper.ff.extension.bai.BlocksAndItemsFramework;
 import io.github.jwdeveloper.ff.extension.gui.FluentInventoryApi;
@@ -20,7 +25,9 @@ public final class ExampleFFPlugin extends JavaPlugin implements FluentApiExtens
     public void onConfiguration(FluentApiSpigotBuilder builder) {
         builder.useExtension(BlocksAndItemsFramework.use());
         builder.useExtension(FluentInventoryApi.use());
+        builder.useExtension(DisplayModelFramework.use());
         builder.useExtension(new ItemMenuExtension());
+        builder.useExtension(new ImmersiveBlocksExtension());
         builder.container().registerSingleton(MiningCartInventory.class);
         builder.useExtension(new Extension());
     }
@@ -45,7 +52,11 @@ public final class ExampleFFPlugin extends JavaPlugin implements FluentApiExtens
                 })
                 .withCommand(fluentCommandOptions ->
                 {
+
                     fluentCommandOptions.addCommand(EntityTest.class);
+                    fluentCommandOptions.addCommand(RandomStuff.class);
+                    fluentCommandOptions.addCommand(AnimationCmd.class);
+                    fluentCommandOptions.addCommand(DisplayEntity.class);
                 })
                 .withTranslator()
                 .create();

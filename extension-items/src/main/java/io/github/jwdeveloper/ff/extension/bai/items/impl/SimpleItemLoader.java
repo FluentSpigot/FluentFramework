@@ -95,7 +95,7 @@ public class SimpleItemLoader implements FluentItemLoader {
                 FluentLogger.LOGGER.error("Unable to load crafting", item.getSchema().getName(), result.getMessage());
                 continue;
             }
-            var fluentCrafting = result.getContent();
+            var fluentCrafting = result.getObject();
             var craftingBuilder = new SimpleCraftingBuilder(fluentCrafting,craftingRegistry);
             onCraftingBuilder.accept(craftingBuilder);
             craftingBuilder.buildAndRegister();

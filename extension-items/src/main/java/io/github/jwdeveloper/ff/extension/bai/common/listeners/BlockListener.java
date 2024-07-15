@@ -26,7 +26,7 @@ public class BlockListener extends EventBase {
             return;
         }
         var action = ItemUseListener.getUseAction(event);
-        var blockInstance = actionResult.getContent();
+        var blockInstance = actionResult.getObject();
         var fluentItemEvent = new FluentBlockClickEvent(blockInstance,
                 event.getPlayer(),
                 event.getBlockFace(),
@@ -44,7 +44,7 @@ public class BlockListener extends EventBase {
         if (actionResult.isFailed()) {
             return;
         }
-        var fluentBlockInstance = actionResult.getContent();
+        var fluentBlockInstance = actionResult.getObject();
         fluentBlockInstance.destroy(event.getPlayer().getInventory().getItemInMainHand(), event.getPlayer());
     }
 
@@ -67,7 +67,7 @@ public class BlockListener extends EventBase {
         if (actionResult.isFailed()) {
             return;
         }
-        var blockInstance = actionResult.getContent();
+        var blockInstance = actionResult.getObject();
         blockInstance.damage();
     }
 

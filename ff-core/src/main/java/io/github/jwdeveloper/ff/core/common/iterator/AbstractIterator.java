@@ -39,6 +39,13 @@ public class AbstractIterator<T> {
         return target.get(index);
     }
 
+    public boolean isDone() {
+        return position >= target.size();
+    }
+
+    public boolean hasNext() {
+        return position + 1 < target.size();
+    }
 
     public boolean isValid() {
         return current != null && !current.equals(defaultValue);

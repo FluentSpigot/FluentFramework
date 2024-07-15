@@ -39,9 +39,9 @@ public class ItemMetaValidatorTests
 
         //Assert
         Assertions.assertTrue(result.isSuccess());
-        Assertions.assertTrue(result.hasContent());
+        Assertions.assertTrue(result.hasObject());
         Assertions.assertFalse(result.hasMessage());
-        Assertions.assertEquals(itemMeta, result.getContent());
+        Assertions.assertEquals(itemMeta, result.getObject());
     }
 
 
@@ -59,9 +59,9 @@ public class ItemMetaValidatorTests
 
         //Assert
         Assertions.assertTrue(result.isSuccess());
-        Assertions.assertTrue(result.hasContent());
+        Assertions.assertTrue(result.hasObject());
         Assertions.assertFalse(result.hasMessage());
-        Assertions.assertEquals(itemMeta, result.getContent());
+        Assertions.assertEquals(itemMeta, result.getObject());
     }
 
     @Test
@@ -78,9 +78,9 @@ public class ItemMetaValidatorTests
 
         //Assert
         Assertions.assertTrue(result.isSuccess());
-        Assertions.assertTrue(result.hasContent());
+        Assertions.assertTrue(result.hasObject());
         Assertions.assertFalse(result.hasMessage());
-        Assertions.assertEquals(itemMeta, result.getContent());
+        Assertions.assertEquals(itemMeta, result.getObject());
     }
 
     @Test
@@ -97,8 +97,8 @@ public class ItemMetaValidatorTests
 
         //Assert
         Assertions.assertTrue(result.isSuccess());
-        Assertions.assertTrue(result.hasContent());
+        Assertions.assertTrue(result.hasObject());
         Assertions.assertFalse(result.hasMessage());
-        Assertions.assertEquals(itemMeta, result.getContent());
+        Assertions.assertEquals(itemMeta, result.getObject());
     }
 }

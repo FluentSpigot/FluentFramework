@@ -1,0 +1,17 @@
+
+
+
+crafting:
+  store: true
+  show: true
+
+enchant:
+  store: true
+  show: true
+
+furnace:
+  store: true
+  show: true
+
+
+chest:

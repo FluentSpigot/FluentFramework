@@ -1,11 +1,11 @@
 package io.github.jwdeveloper.ff.plugin.implementation.extensions.command;
 
-import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandRegistry;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.SimpleCommandRegistry;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
-import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.CommandBuilderImpl;
-public class FluentApiDefaultCommandBuilder extends CommandBuilderImpl implements FluentApiCommandBuilder
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.SimpleCommandBuilderImpl;
+public class FluentApiDefaultCommandBuilder extends SimpleCommandBuilderImpl implements FluentApiCommandBuilder
 {
-    public FluentApiDefaultCommandBuilder(String commandName, FluentCommandRegistry manger)
+    public FluentApiDefaultCommandBuilder(String commandName, SimpleCommandRegistry manger)
     {
         super(commandName, manger);
     }

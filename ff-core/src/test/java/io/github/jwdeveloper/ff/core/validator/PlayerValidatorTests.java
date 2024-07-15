@@ -39,9 +39,9 @@ public class PlayerValidatorTests {
 
         //Assert
         Assertions.assertTrue(result.isSuccess());
-        Assertions.assertTrue(result.hasContent());
+        Assertions.assertTrue(result.hasObject());
         Assertions.assertFalse(result.hasMessage());
-        Assertions.assertEquals(player, result.getContent());
+        Assertions.assertEquals(player, result.getObject());
     }
 
     @Test

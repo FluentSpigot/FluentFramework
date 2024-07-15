@@ -6,6 +6,9 @@ import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import java.util.function.Consumer;
 
 public class BlocksAndItemsFramework {
+
+    public static Class<BlockAndItemsApi> API = BlockAndItemsApi.class;
+
     public static FluentApiExtension use(Consumer<FrameworkSettings> settingsConsumer) {
         return new BlocksAndItemsExtension(settingsConsumer);
     }

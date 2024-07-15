@@ -45,7 +45,7 @@ public class CraftingMapper implements FluentCraftingMapper {
             }
 
             var col = -1;
-            for (var itemName : rowOptional.getContent()) {
+            for (var itemName : rowOptional.getObject()) {
                 col++;
                 var index = row * 3 + col;
                 var materialname = itemName;

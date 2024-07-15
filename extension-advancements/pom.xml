@@ -23,6 +23,12 @@
             <version>2.2.7</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.FluentSpigot</groupId>
+            <artifactId>ff-api</artifactId>
+            <version>0.0.9-Release</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 

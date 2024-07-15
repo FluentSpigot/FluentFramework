@@ -1,7 +1,7 @@
 package io.github.jwdeveloper.ff.extension.bai;
 
 import io.github.jwdeveloper.ff.extension.bai.blocks.FluentBlockExtension;
-import io.github.jwdeveloper.ff.extension.bai.common.DisplayFactory;
+import io.github.jwdeveloper.ff.extension.bai.common.DisplayItemFactory;
 import io.github.jwdeveloper.ff.extension.bai.common.listeners.BlockListener;
 import io.github.jwdeveloper.ff.extension.bai.common.listeners.CraftingListener;
 import io.github.jwdeveloper.ff.extension.bai.common.listeners.ItemListener;
@@ -34,7 +34,7 @@ public class BlocksAndItemsExtension implements FluentApiExtension {
         var container = builder.container();
 
         container.registerSingleton(BlockAndItemsApi.class);
-        container.registerSingleton(DisplayFactory.class);
+        container.registerSingleton(DisplayItemFactory.class);
         container.registerSingleton(FrameworkSettings.class, container1 ->
         {
             var settings = getDefaultSettings(builder.plugin());

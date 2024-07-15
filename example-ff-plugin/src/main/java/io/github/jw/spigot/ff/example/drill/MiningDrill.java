@@ -46,7 +46,7 @@ public class MiningDrill {
                 inventory.open((Player) event.getPlayer());
                 return;
             }
-            var a = fluentItem.getContent();
+            var a = fluentItem.getObject();
             if (a.getFluentItem().getSchema().getName().equals("mining-drill")) {
                 MiningCart.createMiningCart(cart);
                 return;
@@ -184,7 +184,6 @@ public class MiningDrill {
 
         for (var a = -1; a <= 1; a++) {
             for (var b = -1; b <= 1; b++) {
-
                 int dx = 0;
                 int dy = 0;
                 int dz = 0;
@@ -215,8 +214,6 @@ public class MiningDrill {
                 blocks.add(relativeBlock);
             }
         }
-
-
         return blocks;
     }
 }

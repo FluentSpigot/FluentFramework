@@ -12,7 +12,7 @@
     <name>example-ff-plugin</name>
 
     <properties>
-        <spigot>1.20.4-R0.1-SNAPSHOT</spigot>
+        <spigot>1.19.4-R0.1-SNAPSHOT</spigot>
         <java.version>16</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -74,6 +74,38 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.0</version> <!-- Use the latest version -->
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>all</shadedClassifierName>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <minimizeJar>true</minimizeJar>
+                            <artifactSet>
+                                <includes>
+                                    <include>*:*</include>
+                                </includes>
+                            </artifactSet>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>**/*.proto</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -124,13 +156,13 @@
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>ff-plugin</artifactId>
-            <version>0.0.8-Release</version>
+            <version>0.0.9-Release</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>ff-plugin-tests</artifactId>
-            <version>0.0.8-Release</version>
+            <version>0.0.9-Release</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -148,19 +180,31 @@
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>extension-items</artifactId>
-            <version>0.0.8-Release</version>
+            <version>0.0.9-Release</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>extension-inventory-gui</artifactId>
-            <version>0.0.8-Release</version>
+            <version>0.0.9-Release</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>extension-resourcepack</artifactId>
-            <version>0.0.8-Release</version>
+            <version>0.0.9-Release</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.FluentSpigot</groupId>
+            <artifactId>ff-core</artifactId>
+            <version>0.0.9-Release</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.FluentSpigot</groupId>
+            <artifactId>extension-animtaitons</artifactId>
+            <version>0.0.9-Release</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

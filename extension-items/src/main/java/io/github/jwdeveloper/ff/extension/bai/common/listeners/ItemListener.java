@@ -27,7 +27,7 @@ public class ItemListener extends EventBase {
         if (optional.isFailed()) {
             return;
         }
-        var fluentItemStack = optional.getContent();
+        var fluentItemStack = optional.getObject();
         var fluentItem = fluentItemStack.getFluentItem();
         if (event.getEntity() instanceof Player player) {
             if (!fluentItem.canPlayerUse(player)) {
@@ -48,7 +48,7 @@ public class ItemListener extends EventBase {
         if (optional.isFailed()) {
             return;
         }
-        var fluentItemStack = optional.getContent();
+        var fluentItemStack = optional.getObject();
         var player = event.getPlayer();
         var fluentItemEvent = new FluentItemDropEvent(player, fluentItemStack);
         fluentItemStack.getFluentItem().events().getOnDrop().invoke(fluentItemEvent);
@@ -65,7 +65,7 @@ public class ItemListener extends EventBase {
         if (optional.isFailed()) {
             return;
         }
-        var fluentItemStack = optional.getContent();
+        var fluentItemStack = optional.getObject();
         var fluentItem = fluentItemStack.getFluentItem();
         var fluentItemEvent = new FluentItemSpawnEvent(fluentItem, itemStack);
         fluentItem.events().getOnSpawn().invoke(fluentItemEvent);
@@ -79,7 +79,7 @@ public class ItemListener extends EventBase {
         if (optional.isFailed()) {
             return;
         }
-        var fluentItemStack = optional.getContent();
+        var fluentItemStack = optional.getObject();
         var fluentItem = fluentItemStack.getFluentItem();
         var player = event.getPlayer();
         if (!fluentItem.canPlayerUse(player)) {

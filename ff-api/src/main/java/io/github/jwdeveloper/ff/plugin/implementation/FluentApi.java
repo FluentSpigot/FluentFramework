@@ -1,6 +1,7 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
 
+import io.github.jwdeveloper.ff.core.cache.api.PluginCache;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
@@ -62,6 +63,8 @@ public class FluentApi {
     public static PluginLogger logger() {
         return getFluentApiSpigot().logger();
     }
+
+    public static PluginCache cache() {return getFluentApiSpigot().cache();}
 
     public static FluentValidator validator() {
         return getFluentApiSpigot().validator();

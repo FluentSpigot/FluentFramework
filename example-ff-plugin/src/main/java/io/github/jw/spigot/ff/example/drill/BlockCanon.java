@@ -2,10 +2,9 @@ package io.github.jw.spigot.ff.example.drill;
 
 import io.github.jwdeveloper.ff.core.cache.api.PlayerCache;
 import io.github.jwdeveloper.ff.core.cache.api.PluginCache;
-import io.github.jwdeveloper.ff.core.common.java.MathUtility;
+import io.github.jwdeveloper.ff.core.common.java.MathUtils;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.observer.implementation.ObserverBag;
-import io.github.jwdeveloper.ff.core.spigot.player.PlayerUtils;
 import io.github.jwdeveloper.ff.core.spigot.tasks.implementation.SimpleTaskTimer;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItem;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItemApi;
@@ -16,6 +15,8 @@ import org.bukkit.entity.*;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.server.PluginDisableEvent;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
 import org.joml.AxisAngle4f;
@@ -30,8 +31,14 @@ public class BlockCanon {
     private PluginCache pluginCache;
     private ObserverBag<Boolean> isCanonActive = ObserverBag.create(false);
 
+
+    Team sculkTeam;
+
     public void register(FluentApiSpigot fluentApi) {
 
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+        sculkTeam = scoreboard.getTeam("sculkTeam");
+        sculkTeam.setColor(ChatColor.RED);
         pluginCache = FluentApi.container().findInjection(PluginCache.class);
         var itemApi = fluentApi.container().findInjection(FluentItemApi.class);
         var item = itemApi.addItem()
@@ -72,8 +79,11 @@ public class BlockCanon {
 
         var player = playerInteractEvent.getPlayer();
         var playerCache = FluentApi.container().findPlayerScopeInjection(PlayerCache.class, player);
-        var display = playerCache.getOrCreate("display", () -> createDisplay(player.getLocation(), Material.GLASS));
-        var task = playerCache.getOrCreate("task", () -> canonSelectorTask(player, display, playerCache));
+        //var display = playerCache.getOrCreate("display", () -> createDisplay(player.getLocation(), Material.GLASS));
+
+        var selector = playerCache.getOrCreate("selector", () -> createSelectorEntity(player.getLocation()));
+        var task = playerCache.getOrCreate("task", () -> canonSelectorTask(player, selector, playerCache));
+        task.start();
         isCanonActive.set(true);
 
         var location = playerCache.getOrCreate("loc", () -> player.getLocation());
@@ -85,60 +95,80 @@ public class BlockCanon {
 
     }
 
-    private void createAnimation(Location location, Location target, Material material) {
-        var display = createDisplay(location, material);
-     //   display.setInterpolationDelay(0);
-        display.setInterpolationDuration(40);
-        var tranform = display.getTransformation();
-        tranform.getScale().set(0,0,0);
-        display.setTransformation(tranform);
-        display.setGlowing(false);
-        FluentApi.tasks().taskLater(() ->
-        {
-            tranform.getScale().set(1,1,1);
-         //   display.setTransformation(tranform);
-        },1);
-        FluentApi.tasks().taskTimer(1, (iteration, task) ->
-                {
-                    var i = iteration * 1.0f / (100);
-                    i *= 1.3f;
-                    if (i > 1 || display.getLocation().getBlock().getLocation().equals(target.getBlock().getLocation())) {
-                        display.remove();
-                        target.getBlock().setType(material);
-                        task.stop();
-                        return;
-                    }
-                    FluentLogger.LOGGER.info("scale",i);
-
-                    display.setTransformation(tranform);
-                    var newLocation = MathUtility.lerp(display.getLocation(), target, i);
-                    display.teleport(newLocation);
-                })
-                .onStop(simpleTaskTimer ->
-                {
-                    display.remove();
-                })
-                .start();
-
+    private Entity createSelectorEntity(Location location) {
+        var w = location.getWorld();
+        location.setYaw(0);
+        location.setPitch(0);
+        var e = (Slime) w.spawnEntity(location, EntityType.SLIME);
+        e.setSize(2);
+        e.setAI(false);
+        e.setInvisible(true);
+        e.setGlowing(true);
+        e.setAware(false);
+        e.setInvulnerable(true);
+        e.setVisualFire(false);
+        e.setCollidable(false);
+        e.setGliding(false);
+        e.setGravity(false);
+        e.setPersistent(false);
+        e.setPortalCooldown(0);
+        sculkTeam.addEntry(e.getUniqueId().toString());
+        return e;
     }
 
-    private SimpleTaskTimer canonSelectorTask(Player player, BlockDisplay blockDisplay, PlayerCache pluginCache) {
+    private void createAnimation(Location location, Location target, Material material) {
+        var display = createDisplay(location, material);
+        display.setGlowing(false);
+        sculkTeam.addEntry(display.getUniqueId().toString());
+        var trn = display.getTransformation();
+        var loc = display.getLocation();
+        var diff = target.clone().subtract(loc);
+
+
+        loc.getWorld().spawn(loc, ItemDisplay.class, (itemDisplay) ->
+        {
+            Transformation transformation = itemDisplay.getTransformation();
+            transformation.getScale().set(5, 5, 5);
+            display.setTransformation(transformation);
+        });
+
+
+        trn.getTranslation().set(diff.toVector().toVector3d().add(-0.5, 0, -0.5));
+
+        display.setInterpolationDuration(20);
+        display.setInterpolationDelay(-1);
+        display.setTransformation(trn);
+        FluentApi.tasks().taskLater(() ->
+        {
+            display.remove();
+            target.getBlock().setType(material);
+            FluentLogger.LOGGER.info("update material", material);
+        }, 21);
+    }
+
+    private SimpleTaskTimer canonSelectorTask(Player player, Entity blockDisplay, PlayerCache pluginCache) {
 
         var canonTask = FluentApi.tasks().taskTimer(1, (iteration, task) ->
         {
             var rayLocation = ray(player.getEyeLocation(), 30);
             var loc = rayLocation.getBlock().getLocation();
+            loc.add(0.5f, 0, 0.5f);
+            loc.setYaw(0);
+            loc.setPitch(0);
             blockDisplay.teleport(loc);
+            blockDisplay.setGlowing(true);
             pluginCache.set("loc", loc);
         });
         isCanonActive.subscribe(aBoolean ->
         {
             if (aBoolean) {
                 canonTask.start();
-                blockDisplay.setBlock(Material.GLASS.createBlockData());
+                blockDisplay.setGlowing(true);
+                //  blockDisplay.setBlock(Material.GLASS.createBlockData());
             } else {
                 canonTask.stop();
-                blockDisplay.setBlock(Material.AIR.createBlockData());
+                blockDisplay.setGlowing(false);
+                //    blockDisplay.setBlock(Material.AIR.createBlockData());
             }
 
         });

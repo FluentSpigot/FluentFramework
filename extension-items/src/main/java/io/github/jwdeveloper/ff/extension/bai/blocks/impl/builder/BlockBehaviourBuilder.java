@@ -4,7 +4,7 @@ import io.github.jwdeveloper.ff.extension.bai.blocks.BlockBehaviour;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.FluentBlockRegistry;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.builder.*;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.data.FluentBlockSchema;
-import io.github.jwdeveloper.ff.extension.bai.common.DisplayFactory;
+import io.github.jwdeveloper.ff.extension.bai.common.DisplayItemFactory;
 import io.github.jwdeveloper.ff.extension.bai.blocks.impl.SimpleBlock;
 import io.github.jwdeveloper.ff.extension.bai.common.api.FluentItemBehaviour;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItem;
@@ -18,11 +18,11 @@ public class BlockBehaviourBuilder implements BlockBuilder {
     private final SoundsBuilder soundsBuilder;
     private final StatesBuilder statesBuilder;
     private final FluentBlockSchema fluentBlockSchema;
-    private final DisplayFactory displayFactory;
+    private final DisplayItemFactory displayFactory;
     private final FluentBlockRegistry registry;
 
 
-    public BlockBehaviourBuilder(FluentBlockRegistry simpleBlockRegistry, DisplayFactory displayFactory)
+    public BlockBehaviourBuilder(FluentBlockRegistry simpleBlockRegistry, DisplayItemFactory displayFactory)
     {
         dropsBuilder = new DropsBuilder(FluentApi.container().findInjection(FluentItemRegistry.class));
         eventsBuilder = new EventsBuilder();

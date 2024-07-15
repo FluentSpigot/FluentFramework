@@ -84,7 +84,7 @@ public class SimpleBlockApi implements FluentBlockApi {
         if (actionResult.isFailed()) {
             return actionResult.cast();
         }
-        return fromFluentItem(actionResult.getContent().getFluentItem());
+        return fromFluentItem(actionResult.getObject().getFluentItem());
     }
 
     @Override

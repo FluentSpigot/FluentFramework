@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class SimpleItem implements FluentItem {
@@ -64,7 +63,7 @@ public class SimpleItem implements FluentItem {
         {
             return false;
         }
-        var content = result.getContent();
+        var content = result.getObject();
         return content.getFluentItem().equals(this);
     }
 

@@ -6,7 +6,7 @@ import io.github.jwdeveloper.ff.extension.bai.blocks.api.data.*;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.data.drop.FluentBlockDrops;
 import io.github.jwdeveloper.ff.extension.bai.blocks.api.data.state.FluentBlockStates;
 import io.github.jwdeveloper.ff.extension.bai.blocks.impl.events.FluentBlockPlacedEvent;
-import io.github.jwdeveloper.ff.extension.bai.common.DisplayFactory;
+import io.github.jwdeveloper.ff.extension.bai.common.DisplayItemFactory;
 import io.github.jwdeveloper.ff.extension.bai.common.FrameworkSettings;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItem;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
@@ -39,7 +39,7 @@ public class SimpleBlock implements FluentBlock {
     private final FluentBlockDrops fluentBlockDrop;
     private final FluentBlockStates fluentBlockState;
     private final FluentItem fluentItem;
-    private final DisplayFactory displayFactory;
+    private final DisplayItemFactory displayFactory;
 
     public SimpleBlock(
             FluentItem fluentItem,
@@ -48,7 +48,7 @@ public class SimpleBlock implements FluentBlock {
             FluentBlockSchema fluentBlockSchema,
             FluentBlockSounds fluentBlockSounds,
             FluentBlockDrops fluentBlockDrop,
-            DisplayFactory displayFactory) {
+            DisplayItemFactory displayFactory) {
         this.fluentBlockEvents = fluentBlockEvents;
         this.fluentBlockSchema = fluentBlockSchema;
         this.fluentBlockSounds = fluentBlockSounds;

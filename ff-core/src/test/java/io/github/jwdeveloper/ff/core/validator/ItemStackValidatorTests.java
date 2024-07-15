@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.core.validator;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
-import be.seeseemelk.mockbukkit.ServerMock;
 import io.github.jwdeveloper.ff.core.validator.implementation.item.MaterialType;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -38,9 +37,9 @@ public class ItemStackValidatorTests
 
         //Assert
         Assertions.assertTrue(result.isSuccess());
-        Assertions.assertTrue(result.hasContent());
+        Assertions.assertTrue(result.hasObject());
         Assertions.assertFalse(result.hasMessage());
-        Assertions.assertEquals(itemStack, result.getContent());
+        Assertions.assertEquals(itemStack, result.getObject());
     }
 
     @Test
@@ -55,9 +54,9 @@ public class ItemStackValidatorTests
 
         //Assert
         Assertions.assertTrue(result.isSuccess());
-        Assertions.assertTrue(result.hasContent());
+        Assertions.assertTrue(result.hasObject());
         Assertions.assertFalse(result.hasMessage());
-        Assertions.assertEquals(itemStack, result.getContent());
+        Assertions.assertEquals(itemStack, result.getObject());
     }
 
     @Test
@@ -72,9 +71,9 @@ public class ItemStackValidatorTests
 
         //Assert
         Assertions.assertTrue(result.isSuccess());
-        Assertions.assertTrue(result.hasContent());
+        Assertions.assertTrue(result.hasObject());
         Assertions.assertFalse(result.hasMessage());
-        Assertions.assertEquals(itemStack, result.getContent());
+        Assertions.assertEquals(itemStack, result.getObject());
     }
 
 }

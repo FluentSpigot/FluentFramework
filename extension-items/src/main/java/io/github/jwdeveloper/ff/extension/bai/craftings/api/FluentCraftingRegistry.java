@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.bai.craftings.api;
 
-import io.github.jwdeveloper.ff.extension.bai.common.api.Registry;
+import io.github.jwdeveloper.ff.core.common.registry.Registry;
 import io.github.jwdeveloper.ff.extension.bai.items.api.FluentItem;
 import org.bukkit.inventory.ItemStack;
 

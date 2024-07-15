@@ -1,6 +1,6 @@
 package io.github.jwdeveloper.ff.extension.files.implementation.fluent_files;
 
-import io.github.jwdeveloper.ff.core.common.java.ObjectUtility;
+import io.github.jwdeveloper.ff.core.common.java.ObjectUtils;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.files.json.JsonUtility;
 import io.github.jwdeveloper.ff.extension.files.api.FluentFileModel;
@@ -37,7 +37,7 @@ public class JsonFileWrapper implements FluentFile<Object> {
     public void load() {
         try {
             var loadFromFile = JsonUtility.load(config.getSavingPath(), fileObject.getClass().getSimpleName(), fileObject.getClass());
-            ObjectUtility.copyToObjectDeep(loadFromFile, fileObject);
+            ObjectUtils.copyToObjectDeep(loadFromFile, fileObject);
         } catch (Exception e) {
             throw new RuntimeException("Unable to load json file", e);
         }

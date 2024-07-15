@@ -1,10 +1,10 @@
 package io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.config;
 
-import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandRegistry;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.SimpleCommandRegistry;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config.SubCommandConfig;
 import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleCommand;
-import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.CommandBuilderImpl;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.SimpleCommandBuilderImpl;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -12,9 +12,9 @@ import java.util.function.Consumer;
 public class SubCommandConfigImpl implements SubCommandConfig {
 
     private final List<SimpleCommand> commands;
-    private final FluentCommandRegistry manger;
+    private final SimpleCommandRegistry manger;
 
-    public SubCommandConfigImpl(List<SimpleCommand> commands, FluentCommandRegistry manger) {
+    public SubCommandConfigImpl(List<SimpleCommand> commands, SimpleCommandRegistry manger) {
         this.commands = commands;
         this.manger = manger;
     }
@@ -38,7 +38,7 @@ public class SubCommandConfigImpl implements SubCommandConfig {
 
     @Override
     public SubCommandConfig addSubCommand(String name, Consumer<SimpleCommandBuilder> config) {
-        var builder = new CommandBuilderImpl(name,  manger);
+        var builder = new SimpleCommandBuilderImpl(name,  manger);
         config.accept(builder);
         return addSubCommand(builder.build());
     }

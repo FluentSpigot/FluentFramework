@@ -4,9 +4,10 @@ import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancellationTo
 import io.github.jwdeveloper.ff.core.spigot.tasks.implementation.SimpleTaskTimer;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.io.Closeable;
 import java.util.function.Consumer;
 
-public interface FluentTaskFactory {
+public interface FluentTaskFactory  extends Closeable {
     SimpleTaskTimer taskTimer(int ticks, TaskAction task);
     SimpleTaskTimer taskTimer(int ticks, TaskAction task, CancellationToken cancelationToken);
 
@@ -21,4 +22,6 @@ public interface FluentTaskFactory {
     void taskAsync(Consumer<CancellationToken> action, CancellationToken ctx);
 
     void taskAsync(Runnable action, CancellationToken ctx);
+
+    CancellationToken createCancelationToken();
 }

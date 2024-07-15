@@ -1,5 +1,6 @@
 package io.github.jwdeveloper.ff.core.spigot.tasks.implementation;
 
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancellationToken;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.cancelation.CancelationTokenSource;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class SimpleTaskFactory implements FluentTaskFactory, Closeable {
+public class SimpleTaskFactory implements FluentTaskFactory  {
     private final Plugin plugin;
     private final PluginLogger logger;
     private final CancelationTokenSource cancelationTokenSource;
@@ -32,7 +33,8 @@ public class SimpleTaskFactory implements FluentTaskFactory, Closeable {
     }
 
     @Override
-    public SimpleTaskTimer taskTimer(int ticks, TaskAction task, CancellationToken cancelationToken) {
+    public SimpleTaskTimer taskTimer(int ticks, TaskAction task, CancellationToken cancelationToken)
+    {
         cancelationTokenSource.attacheToken(cancelationToken);
         return new SimpleTaskTimer(ticks, task, plugin, logger, cancelationToken);
     }
@@ -59,6 +61,10 @@ public class SimpleTaskFactory implements FluentTaskFactory, Closeable {
     @Override
     public void taskAsync(Consumer<CancellationToken> action, CancellationToken ctx) {
         cancelationTokenSource.attacheToken(ctx);
+        if(ctx.isCancel())
+        {
+            return;
+        }
         taskAsync(() ->
         {
             action.accept(ctx);
@@ -83,9 +89,15 @@ public class SimpleTaskFactory implements FluentTaskFactory, Closeable {
         thread.start();
     }
 
+    @Override
+    public CancellationToken createCancelationToken() {
+        return cancelationTokenSource.createToken();
+    }
+
 
     @Override
-    public void close() {
+    public void close()
+    {
         cancelationTokenSource.cancel();
         for (var task : asyncThreads) {
             try {

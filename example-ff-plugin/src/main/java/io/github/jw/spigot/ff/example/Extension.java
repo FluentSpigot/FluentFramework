@@ -4,6 +4,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import io.github.jw.spigot.ff.example.aib.ExampleBlockItem;
 import io.github.jw.spigot.ff.example.drill.*;
+import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
@@ -14,7 +15,10 @@ public class Extension implements FluentApiExtension {
     public void onConfiguration(FluentApiSpigotBuilder builder) {
         builder.container().registerSingleton(ProtocolManager.class, e -> ProtocolLibrary.getProtocolManager());
 
-
+        builder.container().scan(Extension.class, (classes, containerBuilder) ->
+        {
+            FluentLogger.LOGGER.info("hello 2reloareloadworld!", classes.size());
+        });
     }
 
     @Override

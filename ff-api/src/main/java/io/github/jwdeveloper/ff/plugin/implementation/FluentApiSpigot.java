@@ -1,10 +1,11 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
+import io.github.jwdeveloper.ff.core.cache.api.PluginCache;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.FluentCommandRegistry;
+import io.github.jwdeveloper.ff.core.spigot.commands.api.SimpleCommandRegistry;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
-import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.CommandBuilderImpl;
+import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.SimpleCommandBuilderImpl;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
@@ -27,11 +28,12 @@ public final class FluentApiSpigot {
     private final FluentApiMeta fluentApiMeta;
     private final FluentEventManager fluentEvents;
     private final FluentTaskFactory simpleTasks;
-    private final FluentCommandRegistry commandManger;
+    private final SimpleCommandRegistry commandManger;
     private final FluentApiExtensionsManager extensionsManager;
     private final PluginLogger logger;
-
     private final FluentValidator validator;
+
+    private final PluginCache pluginCache;
 
     public FluentApiSpigot(
             Plugin plugin,
@@ -41,12 +43,13 @@ public final class FluentApiSpigot {
             FluentPermission permission,
             FluentApiExtensionsManager extensionsManager,
             PluginLogger logger,
-            FluentCommandRegistry commandManger,
+            SimpleCommandRegistry commandManger,
             FluentEventManager eventManager,
             FluentTaskFactory taskManager,
             FluentApiMeta fluentApiMeta,
             FluentMessages fluentMessages,
-            FluentValidator validator) {
+            FluentValidator validator,
+            PluginCache pluginCache) {
         this.plugin = plugin;
         this.fluentConfig = fluentConfig;
         this.extensionsManager = extensionsManager;
@@ -60,6 +63,7 @@ public final class FluentApiSpigot {
         simpleMessages = fluentMessages;
         this.fluentApiMeta = fluentApiMeta;
         this.validator = validator;
+        this.pluginCache = pluginCache;
     }
 
     public void enable() {
@@ -94,12 +98,12 @@ public final class FluentApiSpigot {
         return simpleTasks;
     }
 
-    public FluentCommandRegistry commands() {
+    public SimpleCommandRegistry commands() {
         return commandManger;
     }
 
     public SimpleCommandBuilder createCommand(String commandName) {
-        return new CommandBuilderImpl(commandName, commandManger);
+        return new SimpleCommandBuilderImpl(commandName, commandManger);
     }
 
     public FluentMessages messages() {
@@ -121,11 +125,17 @@ public final class FluentApiSpigot {
     public String dataPath() {
         return path() + FileUtility.separator() + "data";
     }
-    public FluentApiMeta meta() { return fluentApiMeta;}
 
-    public FluentValidator validator()
-    {
+    public FluentApiMeta meta() {
+        return fluentApiMeta;
+    }
+
+    public FluentValidator validator() {
         return validator;
+    }
+
+    public PluginCache cache() {
+        return pluginCache;
     }
 }
 

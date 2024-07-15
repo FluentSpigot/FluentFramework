@@ -26,14 +26,14 @@
 package io.github.jwdeveloper.ff.color_picker.implementation.commands;
 
 import io.github.jwdeveloper.ff.color_picker.implementation.ColorPicker;
-import io.github.jwdeveloper.ff.core.spigot.commands.FluentCommand;
+import io.github.jwdeveloper.ff.core.spigot.commands.SimpleCommandApi;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.ArgumentType;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 
 public class ColorPickerCommand {
     public static SimpleCommandBuilder getCommand() {
-       return FluentCommand.create("colors")
+       return SimpleCommandApi.create("colors")
                .propertiesConfig(propertiesConfig ->
                {
                    propertiesConfig.setDescription("command used for internal color picker system, just ignore it");

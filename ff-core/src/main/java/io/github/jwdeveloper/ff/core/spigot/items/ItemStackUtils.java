@@ -3,6 +3,8 @@ package io.github.jwdeveloper.ff.core.spigot.items;
 import com.google.common.io.BaseEncoding;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.entity.Item;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -13,9 +15,10 @@ import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ItemStackUtils
-{
+public class ItemStackUtils {
 
     /**
      * Converts the player inventory to a String array of Base64 strings. First string is the content and second string is the armor.
@@ -29,15 +32,14 @@ public class ItemStackUtils
         String content = toBase64(playerInventory);
         String armor = itemStackArrayToBase64(playerInventory.getArmorContents());
 
-        return new String[] { content, armor };
+        return new String[]{content, armor};
     }
 
     /**
-     *
      * A method to serialize an {@link ItemStack} array to Base64 String.
-     *
-     * <p />
-     *
+     * <p>
+     * <p/>
+     * <p>
      * Based off of {@link #toBase64(Inventory)}.
      *
      * @param items to turn into a Base64 String.
@@ -67,9 +69,9 @@ public class ItemStackUtils
 
     /**
      * A method to serialize an inventory to Base64 string.
-     *
-     * <p />
-     *
+     * <p>
+     * <p/>
+     * <p>
      * Special thanks to Comphenix in the Bukkit forums or also known
      * as aadnk on GitHub.
      *
@@ -100,12 +102,34 @@ public class ItemStackUtils
         }
     }
 
+
+    public static String toBase64(ItemStack[] items) throws IllegalStateException {
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
+
+            // Write the size of the inventory
+            dataOutput.writeInt(items.length);
+
+            // Save every element in the list
+            for (int i = 0; i < items.length; i++) {
+                dataOutput.writeObject(items[i]);
+            }
+
+            // Serialize that array
+            dataOutput.close();
+            return Base64Coder.encodeLines(outputStream.toByteArray());
+        } catch (Exception e) {
+            throw new IllegalStateException("Unable to save item stacks.", e);
+        }
+    }
+
+
     /**
-     *
      * A method to get an {@link Inventory} from an encoded, Base64, string.
-     *
-     * <p />
-     *
+     * <p>
+     * <p/>
+     * <p>
      * Special thanks to Comphenix in the Bukkit forums or also known
      * as aadnk on GitHub.
      *
@@ -135,9 +159,9 @@ public class ItemStackUtils
 
     /**
      * Gets an array of ItemStacks from Base64 string.
-     *
-     * <p />
-     *
+     * <p>
+     * <p/>
+     * <p>
      * Base off of {@link #fromBase64(String)}.
      *
      * @param data Base64 string to convert to ItemStack array.
@@ -198,5 +222,48 @@ public class ItemStackUtils
     public static ItemStack deserializeFromFormattingCodes(String s) {
         s = s.replace(String.valueOf(ChatColor.COLOR_CHAR), "").toUpperCase();
         return deserializeItemStack(BaseEncoding.base16().decode(s));
+    }
+
+    public static List<ItemStack> getNotEmptyItemStack(ItemStack[] array) {
+        var result = new ArrayList<ItemStack>();
+        for (var item : array) {
+            if (item == null) {
+                continue;
+            }
+            if (item.getType().isAir()) {
+                continue;
+            }
+            result.add(item);
+        }
+        return result;
+    }
+
+    public static boolean isEmptyArray(ItemStack[] array) {
+        var size = array.length;
+        var emptySlots = 0;
+        for (var item : array) {
+            if (item == null) {
+                emptySlots++;
+                continue;
+            }
+            if (item.getType().isAir()) {
+                emptySlots++;
+                continue;
+            }
+        }
+        return size == emptySlots;
+    }
+
+    public static void dropItems(Location location, ItemStack[] itemStacks) {
+        var world = location.getWorld();
+        for (var it : itemStacks) {
+            if (it == null) {
+                continue;
+            }
+            if (it.getType().isAir()) {
+                continue;
+            }
+            world.dropItem(location, it);
+        }
     }
 }
