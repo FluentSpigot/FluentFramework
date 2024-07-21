@@ -10,6 +10,7 @@ public class BlocksAndItemsFramework {
     public static Class<BlockAndItemsApi> API = BlockAndItemsApi.class;
 
     public static FluentApiExtension use(Consumer<FrameworkSettings> settingsConsumer) {
+
         return new BlocksAndItemsExtension(settingsConsumer);
     }
 

@@ -54,14 +54,14 @@ public class CommandApiImpl implements CommandApi {
         if (optional.isEmpty()) {
             return ActionResult.failed("command not found");
         }
-        return ActionResult.success(new CommandWrapper(optional.get()));
+        return ActionResult.success(new CommandWrapper(optional.get(), commandManager));
     }
 
     @Override
     public List<FluentCommand> findAll() {
         return commandManager.getSimpleCommands()
                 .stream()
-                .map(simpleCommand -> (FluentCommand) new CommandWrapper(simpleCommand))
+                .map(simpleCommand -> (FluentCommand) new CommandWrapper(simpleCommand, commandManager))
                 .toList();
     }
 
