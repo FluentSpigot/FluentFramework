@@ -15,6 +15,7 @@
         <spigot>1.19.4-R0.1-SNAPSHOT</spigot>
         <java.version>16</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <ff.version>0.0.10-Release</ff.version>
     </properties>
 
     <build>
@@ -55,7 +56,8 @@
                         <configuration>
                             <srgIn>org.spigotmc:minecraft-server:${spigot}:txt:maps-mojang</srgIn>
                             <reverse>true</reverse>
-                            <remappedDependencies>org.spigotmc:spigot:${spigot}:jar:remapped-mojang</remappedDependencies>
+                            <remappedDependencies>org.spigotmc:spigot:${spigot}:jar:remapped-mojang
+                            </remappedDependencies>
                             <remappedArtifactAttached>true</remappedArtifactAttached>
                             <remappedClassifierName>remapped-obf</remappedClassifierName>
                         </configuration>
@@ -67,7 +69,9 @@
                         </goals>
                         <id>remap-spigot</id>
                         <configuration>
-                            <inputFile>${project.build.directory}/${project.artifactId}-${project.version}-remapped-obf.jar</inputFile>
+                            <inputFile>
+                                ${project.build.directory}/${project.artifactId}-${project.version}-remapped-obf.jar
+                            </inputFile>
                             <srgIn>org.spigotmc:minecraft-server:${spigot}:csrg:maps-spigot</srgIn>
                             <remappedDependencies>org.spigotmc:spigot:${spigot}:jar:remapped-obf</remappedDependencies>
                         </configuration>
@@ -156,13 +160,13 @@
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>ff-plugin</artifactId>
-            <version>0.0.9-Release</version>
+            <version>${ff.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>ff-plugin-tests</artifactId>
-            <version>0.0.9-Release</version>
+            <version>${ff.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -180,31 +184,31 @@
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>extension-items</artifactId>
-            <version>0.0.9-Release</version>
+            <version>${ff.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>extension-inventory-gui</artifactId>
-            <version>0.0.9-Release</version>
+            <version>${ff.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>extension-resourcepack</artifactId>
-            <version>0.0.9-Release</version>
+            <version>${ff.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>ff-core</artifactId>
-            <version>0.0.9-Release</version>
+            <version>${ff.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>extension-animtaitons</artifactId>
-            <version>0.0.9-Release</version>
+            <version>${ff.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

@@ -26,50 +26,32 @@
 package io.github.jwdeveloper.ff.color_picker.implementation.commands;
 
 import io.github.jwdeveloper.ff.color_picker.implementation.ColorPicker;
-import io.github.jwdeveloper.ff.core.spigot.commands.SimpleCommandApi;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.ArgumentType;
-import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
+import io.github.jwdeveloper.spigot.commands.builder.CommandBuilder;
 
 public class ColorPickerCommand {
-    public static SimpleCommandBuilder getCommand() {
-       return SimpleCommandApi.create("colors")
-               .propertiesConfig(propertiesConfig ->
-               {
-                   propertiesConfig.setDescription("command used for internal color picker system, just ignore it");
-                   propertiesConfig.setHideFromTabDisplay(true);
-               })
-                .subCommandsConfig(subCommandConfig ->
-                {
-                    subCommandConfig.addSubCommand("page",
-                            commandBuilder ->
-                            {
-                                commandBuilder.argumentsConfig(argumentConfig ->
-                                {
-                                    argumentConfig.addArgument("color", ArgumentType.TEXT);
-                                });
-                                commandBuilder.eventsConfig(eventConfig ->
-                                {
-                                    eventConfig.onPlayerExecute(event ->
-                                    {
-                                        var value = event.getCommandArgs()[0];
-                                        var picker = FluentApi.container().findInjection(ColorPicker.class);
-                                        picker.handlePageSelection(event.getPlayer(), value);
-                                    });
-                                });
-                            });
-                })
-                .eventsConfig(eventConfig ->
-                {
-                    eventConfig.onPlayerExecute(event ->
-                    {
-                        if(!event.getPlayer().isOp())
-                        {
-                            return;
-                        }
-                        event.getPlayer().sendMessage("Command used for internal color picker system, just ignore it");
-                    });
-                });
+    public static CommandBuilder getCommand(CommandBuilder builder) {
+        builder.withDescription("command used for internal color picker system, just ignore it");
+        builder.withHideFromSuggestions(true);
+        builder.onPlayerExecute(event ->
+        {
+            if (!event.sender().isOp()) {
+                return;
+            }
+            event.sender().sendMessage("Command used for internal color picker system, just ignore it");
+        });
+
+
+        builder.addSubCommand("page", subBuilder ->
+        {
+            subBuilder.addArgument("color");
+            subBuilder.onPlayerExecute(event ->
+            {
+                var color = event.getText("color");
+                var picker = event.command().container().find(ColorPicker.class);
+                picker.handlePageSelection(event.sender(), color);
+            });
+        });
+        return builder;
     }
 
 }

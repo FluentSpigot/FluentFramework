@@ -16,10 +16,7 @@ public class ColorPickerExtension implements FluentApiExtension {
         container.registerSingleton(ColorsService.class);
         container.registerSingleton(ColorsRepository.class);
         container.registerSingleton(ColorPickerWidget.class);
-        builder.defaultCommand()
-                .subCommandsConfig(subCommandConfig ->
-                {
-                    subCommandConfig.addSubCommand(ColorPickerCommand.getCommand());
-                });
+        builder.mainCommand().addSubCommand("colors", ColorPickerCommand::getCommand);
+
     }
 }

@@ -2,7 +2,6 @@ package io.github.jwdeveloper.ff.extension.resourcepack.implementation;
 
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.extension.resourcepack.api.FluentResourcepack;
 import io.github.jwdeveloper.ff.extension.resourcepack.api.ResourcepackOptions;
 import io.github.jwdeveloper.ff.extension.resourcepack.implementation.data.ResourcepackConfig;
@@ -11,6 +10,7 @@ import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.plugin.implementation.config.options.FluentConfigFile;
+import io.github.jwdeveloper.spigot.commands.builder.CommandBuilder;
 
 import java.util.function.Consumer;
 
@@ -29,70 +29,41 @@ public class ResourcepackExtention implements FluentApiExtension {
 
         builder.container().registerSingleton(FluentResourcepack.class, FluentResourcepackImpl.class);
         builder.bindToConfig(ResourcepackConfig.class, options.getConfigPath());
-        builder.defaultCommand().subCommandsConfig(subCommandConfig ->
+        builder.mainCommand().addSubCommand(options.getCommandName(), subBuilder ->
         {
-            var fullCommandName = "/" + builder.defaultCommand().getName() + " " + options.getCommandName();
-            subCommandConfig.addSubCommand(options.getCommandName(), commandBuilder ->
-            {
-                commandBuilder.propertiesConfig(propertiesConfig ->
-                {
-                    propertiesConfig.setDescription("Manage plugin resourcepack");
-                    propertiesConfig.setUsageMessage(fullCommandName);
-                });
-                commandBuilder.subCommandsConfig(subCommandConfig1 ->
-                {
-                    subCommandConfig1.addSubCommand("download", e -> downloadCommand(e, fullCommandName));
-                    subCommandConfig1.addSubCommand("link", e -> linkCommand(e, fullCommandName));
-                });
-
-            });
+            subBuilder.withDescription("Manages plugin resource packs");
+            subBuilder.addSubCommand("download", this::downloadCommand);
+            subBuilder.addSubCommand("link", this::linkCommand);
         });
     }
 
     @Override
-    public void onFluentApiEnable(FluentApiSpigot fluentAPI) throws Exception {
+    public void onFluentApiEnable(FluentApiSpigot fluentAPI) {
 
         var config = (FluentConfigFile<ResourcepackConfig>) fluentAPI.container().findInjection(FluentConfigFile.class, ResourcepackConfig.class);
-        if (StringUtils.isNullOrEmpty(config.get().getUrl()))
-        {
-                 config.get().setUrl(options.getResourcepackUrl());
-                 config.save();
+        if (StringUtils.isNullOrEmpty(config.get().getUrl())) {
+            config.get().setUrl(options.getResourcepackUrl());
+            config.save();
         }
-
     }
 
-    public void downloadCommand(SimpleCommandBuilder commandBuilder, String commandName) {
-        commandBuilder.propertiesConfig(propertiesConfig ->
-                {
-                    propertiesConfig.setDescription("downloads plugin resourcepack");
-                    propertiesConfig.setUsageMessage(commandName + " download");
-                })
-                .eventsConfig(eventConfig ->
-                {
-                    eventConfig.onPlayerExecute(event ->
-                    {
-                        var service = FluentApi.container().findInjection(FluentResourcepack.class);
-                        service.downloadResourcepack(event.getPlayer());
-                    });
-                });
+    public void downloadCommand(CommandBuilder commandBuilder) {
+        commandBuilder.withDescription("Downloads plugin resource pack");
+        commandBuilder.onPlayerExecute(event ->
+        {
+            var service = FluentApi.container().findInjection(FluentResourcepack.class);
+            service.downloadResourcepack(event.sender());
+        });
     }
 
-    public void linkCommand(SimpleCommandBuilder commandBuilder, String commandName) {
-        commandBuilder.propertiesConfig(propertiesConfig ->
-                {
-                    propertiesConfig.setDescription("Sending to player resourcepack link");
-                    propertiesConfig.setUsageMessage(commandName + " link");
-                })
-                .eventsConfig(eventConfig ->
-                {
-                    eventConfig.onPlayerExecute(event ->
-                    {
-                        var service = FluentApi.container().findInjection(FluentResourcepack.class);
-                        service.sendResourcepackInfo(event.getPlayer());
-                    });
-                });
+    public void linkCommand(CommandBuilder commandBuilder) {
+        commandBuilder.withDescription("Sending to player resource pack link");
+        commandBuilder.onPlayerExecute(event ->
+        {
+            var service = FluentApi.container().findInjection(FluentResourcepack.class);
+            service.sendResourcepackInfo(event.sender());
+        });
     }
-
 
     @Override
     public String getVersion() {

@@ -5,11 +5,48 @@
     <modelVersion>4.0.0</modelVersion>
 
 
-
     <groupId>com.github.FluentSpigot</groupId>
     <artifactId>fluent-framework</artifactId>
     <packaging>pom</packaging>
     <version>0.0.10-Release</version>
+
+
+    <description>Highly elastic and customizable framework for Spigot plugins</description>
+    <url>https://github.com/FluentSpigot/FluentFramework</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+
+    <distributionManagement>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+
+    <scm>
+        <connection>scm:git:git://github.com/FluentSpigot/FluentFramework.git</connection>
+        <developerConnection>scm:git:ssh://github.com:FluentSpigot/FluentFramework.git</developerConnection>
+        <url>http://github.com/FluentSpigot/FluentFramework/tree/master</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>JWDeveloper</name>
+            <email>jacekwoln@gmail.com</email>
+            <organization>Github</organization>
+            <organizationUrl>https://github.com/jwdeveloper</organizationUrl>
+        </developer>
+    </developers>
 
 
     <modules>
@@ -20,7 +57,6 @@
 
         <module>extension-translator</module>
         <module>extension-updater</module>
-        <module>extension-commands</module>
         <module>extension-files</module>
 
         <module>ff-plugin</module>
@@ -48,6 +84,8 @@
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <commands.version>1.0.6</commands.version>
+        <spigot.version>1.19.4-R0.1-SNAPSHOT</spigot.version>
     </properties>
 
     <build>
@@ -69,14 +107,14 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.2.3</version>
-                    <configuration>
-                        <skipTests>true</skipTests>
-                    </configuration>
-                </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.3</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -102,9 +140,15 @@
 
     <dependencies>
         <dependency>
+            <groupId>io.github.jwdeveloper.spigot.commands</groupId>
+            <artifactId>commands-framework-core</artifactId>
+            <version>${commands.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.19.4-R0.1-SNAPSHOT</version>
+            <version>${spigot.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

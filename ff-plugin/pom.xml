@@ -32,12 +32,6 @@
         </dependency>
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
-            <artifactId>extension-commands</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.FluentSpigot</groupId>
             <artifactId>extension-files</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>

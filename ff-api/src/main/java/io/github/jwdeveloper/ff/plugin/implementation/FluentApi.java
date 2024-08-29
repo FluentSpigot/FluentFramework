@@ -4,7 +4,6 @@ package io.github.jwdeveloper.ff.plugin.implementation;
 import io.github.jwdeveloper.ff.core.cache.api.PluginCache;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
@@ -13,6 +12,7 @@ import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.FluentInjection;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator.FluentMediator;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermission;
+import io.github.jwdeveloper.spigot.commands.builder.CommandBuilder;
 import org.bukkit.plugin.Plugin;
 
 public class FluentApi {
@@ -64,13 +64,15 @@ public class FluentApi {
         return getFluentApiSpigot().logger();
     }
 
-    public static PluginCache cache() {return getFluentApiSpigot().cache();}
+    public static PluginCache cache() {
+        return getFluentApiSpigot().cache();
+    }
 
     public static FluentValidator validator() {
         return getFluentApiSpigot().validator();
     }
 
-    public static SimpleCommandBuilder createCommand(String commandName) {
+    public static CommandBuilder createCommand(String commandName) {
         return getFluentApiSpigot().createCommand(commandName);
     }
 
@@ -81,6 +83,7 @@ public class FluentApi {
     public static boolean isTestEnvironment() {
         return fluentApiSpigot.plugin().getClass().getSimpleName().contains("MockPlugin");
     }
+
     /*public static FluentParticlebuilder particles() {
         return getFluentApiSpigot().particles();
     }*/

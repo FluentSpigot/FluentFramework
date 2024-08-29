@@ -1,21 +1,23 @@
 package io.github.jwdeveloper.ff.plugin.implementation;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
+
 import io.github.jwdeveloper.ff.core.common.versions.VersionCompare;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.implementation.config.options.PluginState;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiDefaultCommandBuilder;
+import io.github.jwdeveloper.spigot.commands.builder.CommandBuilder;
 import org.bukkit.plugin.Plugin;
+
 
 public class FluentApiMeta {
     private final FluentConfig config;
     private final Plugin plugin;
     private final String path = "plugin-meta.environment";
-    private final FluentApiDefaultCommandBuilder defaultCommandBuilder;
+    private final CommandBuilder defaultCommandBuilder;
     private final PluginState pluginState;
 
-    public FluentApiMeta(FluentConfig config, Plugin plugin, FluentApiDefaultCommandBuilder builder) {
+    public FluentApiMeta(FluentConfig config, Plugin plugin, CommandBuilder builder) {
         this.config = config;
         this.defaultCommandBuilder = builder;
         this.plugin = plugin;
@@ -52,7 +54,7 @@ public class FluentApiMeta {
     }
 
     public String getDefaultCommandName() {
-        return defaultCommandBuilder.getName();
+        return defaultCommandBuilder.properties().name();
     }
 
     public boolean isPluginUpdated() {
