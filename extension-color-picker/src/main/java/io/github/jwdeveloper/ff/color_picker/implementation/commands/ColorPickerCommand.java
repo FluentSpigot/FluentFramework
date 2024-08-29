@@ -26,7 +26,7 @@
 package io.github.jwdeveloper.ff.color_picker.implementation.commands;
 
 import io.github.jwdeveloper.ff.color_picker.implementation.ColorPicker;
-import io.github.jwdeveloper.spigot.commands.builder.CommandBuilder;
+import io.github.jwdeveloper.spigot.commands.api.builder.CommandBuilder;
 
 public class ColorPickerCommand {
     public static CommandBuilder getCommand(CommandBuilder builder) {

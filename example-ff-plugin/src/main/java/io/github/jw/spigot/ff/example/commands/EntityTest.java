@@ -1,10 +1,9 @@
 package io.github.jw.spigot.ff.example.commands;
 
-import io.github.jwdeveloper.ff.core.spigot.commands.api.enums.ArgumentType;
-import io.github.jwdeveloper.ff.extension.commands.api.annotations.Argument;
-import io.github.jwdeveloper.ff.extension.commands.api.annotations.Command;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 
+import io.github.jwdeveloper.spigot.commands.api.annotations.FArgument;
+import io.github.jwdeveloper.spigot.commands.api.annotations.FCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -17,14 +16,14 @@ import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.ItemStack;
 
 
-@Command(name = "entity-test")
+@FCommand(name = "entity-test")
 public class EntityTest {
 
     ItemDisplay itemDisplay;
     private int duration = 20;
 
 
-    @Command
+    @FCommand
     public void cmd(Player player) {
         var it = getItemDisplay(player.getLocation());
 
@@ -39,9 +38,9 @@ public class EntityTest {
     }
 
 
-    @Command(name = "summon")
-    @Argument(name = "material")
-    @Argument(name = "custom-model-id", argumentType = ArgumentType.INT)
+    @FCommand(name = "summon")
+    @FArgument(name = "material")
+    @FArgument(name = "custom-model-id", type = "Number")
     public void summon(Player player, String material, int customModelId) {
         var display = getItemDisplay(player.getLocation());
         var mat = Material.valueOf(material.toUpperCase());
@@ -55,15 +54,15 @@ public class EntityTest {
 
 
 
-    @Command(name = "rotate")
+    @FCommand(name = "rotate")
     public void rotate(Player player) {
 
         getItemDisplay(player.getLocation());
 
     }
 
-    @Command(name = "scale")
-    @Argument(name = "factor", argumentType = ArgumentType.INT)
+    @FCommand(name = "scale")
+    @FArgument(name = "factor", type = "Number")
     public void scale(Player player, int factor) {
         var id = getItemDisplay(player.getLocation());
         var tr = id.getTransformation();
@@ -76,8 +75,8 @@ public class EntityTest {
 
     }
 
-    @Command(name = "interpolation")
-    @Argument(name = "tick", argumentType = ArgumentType.INT)
+    @FCommand(name = "interpolation")
+    @FArgument(name = "tick", type = "Number")
     public void interpolation(Player player, int tick) {
         var id = getItemDisplay(player.getLocation());
 

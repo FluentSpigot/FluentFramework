@@ -10,7 +10,6 @@ import immersive.listeners.BlocksListener;
 import immersive.listeners.PlayerListener;
 import io.github.jwdeveloper.ff.core.cache.api.PluginCache;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
-import io.github.jwdeveloper.ff.extension.commands.FluentCommandFramework;
 import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
@@ -38,9 +37,8 @@ public class ImmersiveBlocksExtension implements FluentApiExtension {
     public void onFluentApiEnable(FluentApiSpigot fluentAPI) throws Exception {
 
 
-        var commands = fluentAPI.container().findInjection(FluentCommandFramework.API);
+        var commands = fluentAPI.commands();
 
-        var mainCmd = commands.findCommand("main").getObject();
 
 
 

@@ -7,8 +7,8 @@ import io.github.jwdeveloper.ff.animations.api.AnimationApi;
 import io.github.jwdeveloper.ff.core.common.java.MathUtils;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.displays.DisplayUtils;
-import io.github.jwdeveloper.ff.extension.commands.api.annotations.Command;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
+import io.github.jwdeveloper.spigot.commands.api.annotations.FCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -26,11 +26,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 import java.util.UUID;
 
-@Command(name = "random-stuff")
+@FCommand(name = "random-stuff")
 public class RandomStuff {
 
 
-    @Command(name = "spanwtest")
+    @FCommand(name = "spanwtest")
     public void tes2t(Player player) {
         var w = player.getLocation().getWorld();
         var e = (Interaction) w.spawnEntity(player.getLocation(), EntityType.INTERACTION);
@@ -38,7 +38,7 @@ public class RandomStuff {
     }
 
 
-    @Command(name = "display-test")
+    @FCommand(name = "display-test")
     public void follow(Player player) {
         var pl = player.getLocation();
         var display = DisplayUtils.newItemDisplay(new ItemStack(Material.DIAMOND_BLOCK), pl);
@@ -59,7 +59,7 @@ public class RandomStuff {
 
     }
 
-    @Command(name = "barrer-test")
+    @FCommand(name = "barrer-test")
     public void asdd(Player player) {
         var pl = player.getLocation();
         var display = DisplayUtils.newBlockDisplay(pl,Material.BARRIER);
@@ -71,7 +71,7 @@ public class RandomStuff {
 
     }
 
-    @Command(name = "row")
+    @FCommand(name = "row")
     public void createRowOfBlocks(Player player) {
         var material = player.getInventory().getItemInMainHand();
         if (material == null) {
@@ -88,13 +88,13 @@ public class RandomStuff {
 
     }
 
-    @Command(name = "exp")
+    @FCommand(name = "exp")
     public void exp(Player player) {
         player.setLevel(100);
     }
 
 
-    @Command(name = "spawn-pig")
+    @FCommand(name = "spawn-pig")
     public void spawnEntity(Player player) {
         var manager = FluentApi.container().findInjection(ProtocolManager.class);
         var blockBreakAnimation = manager.createPacket(PacketType.Play.Server.SPAWN_ENTITY);
@@ -132,7 +132,7 @@ public class RandomStuff {
     }
 
 
-    @Command(name = "entity-animation")
+    @FCommand(name = "entity-animation")
     public void test(Player player) {
         var itemStack = DisplayUtils.newItemDisplay(new ItemStack(Material.DIAMOND), player.getLocation());
         var api = FluentApi.container().findInjection(AnimationApi.class);
@@ -148,7 +148,7 @@ public class RandomStuff {
         api.playAnimation(animation, itemStack);
     }
 
-    @Command(name = "entity-circle-animation")
+    @FCommand(name = "entity-circle-animation")
     public void doCirleAnimation(Player player) {
         var itemStack = DisplayUtils.newItemDisplay(new ItemStack(Material.DIAMOND), player.getLocation());
         var api = FluentApi.container().findInjection(AnimationApi.class);
@@ -190,7 +190,7 @@ public class RandomStuff {
 
     }
 
-    @Command(name = "anim-rotate")
+    @FCommand(name = "anim-rotate")
     public void rotateAnim(Player player) {
 
 
@@ -237,7 +237,7 @@ public class RandomStuff {
 
     }
 
-    @Command(name = "fluent-transform")
+    @FCommand(name = "fluent-transform")
     public void fluentUpdate(Player player) {
         var delay = 60;
         var itemStack = DisplayUtils.newItemDisplay(new ItemStack(Material.DIAMOND), player.getLocation().add(0, 1, 0));
@@ -252,7 +252,7 @@ public class RandomStuff {
         updater.start();
     }
 
-    @Command(name = "animation")
+    @FCommand(name = "animation")
     public void asda(Player player) {
         var manager = FluentApi.container().findInjection(ProtocolManager.class);
         var blockBreakAnimation = manager.createPacket(PacketType.Play.Server.ANIMATION);

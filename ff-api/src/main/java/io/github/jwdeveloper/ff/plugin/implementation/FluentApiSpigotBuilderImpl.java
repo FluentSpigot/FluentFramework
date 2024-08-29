@@ -38,9 +38,11 @@ import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.playe
 import io.github.jwdeveloper.ff.plugin.implementation.listeners.ChatInputListener;
 import io.github.jwdeveloper.ff.plugin.api.logger.LoggerConfiguration;
 import io.github.jwdeveloper.ff.plugin.implementation.logger.LoggerConfigurationImpl;
-import io.github.jwdeveloper.spigot.commands.Commands;
+
 import io.github.jwdeveloper.spigot.commands.CommandsFramework;
-import io.github.jwdeveloper.spigot.commands.builder.CommandBuilder;
+
+import io.github.jwdeveloper.spigot.commands.api.Commands;
+import io.github.jwdeveloper.spigot.commands.api.builder.CommandBuilder;
 import lombok.SneakyThrows;
 import org.bukkit.plugin.Plugin;
 

@@ -12,9 +12,8 @@ import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtensionsManager;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.FluentInjection;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator.FluentMediator;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermission;
-import io.github.jwdeveloper.spigot.commands.Command;
-import io.github.jwdeveloper.spigot.commands.Commands;
-import io.github.jwdeveloper.spigot.commands.builder.CommandBuilder;
+import io.github.jwdeveloper.spigot.commands.api.Commands;
+import io.github.jwdeveloper.spigot.commands.api.builder.CommandBuilder;
 import org.bukkit.plugin.Plugin;
 
 public final class FluentApiSpigot {

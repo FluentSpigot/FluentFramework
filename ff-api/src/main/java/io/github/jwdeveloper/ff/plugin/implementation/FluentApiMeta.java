@@ -6,7 +6,8 @@ import io.github.jwdeveloper.ff.core.common.versions.VersionCompare;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.implementation.config.options.PluginState;
-import io.github.jwdeveloper.spigot.commands.builder.CommandBuilder;
+
+import io.github.jwdeveloper.spigot.commands.api.builder.CommandBuilder;
 import org.bukkit.plugin.Plugin;
 
 

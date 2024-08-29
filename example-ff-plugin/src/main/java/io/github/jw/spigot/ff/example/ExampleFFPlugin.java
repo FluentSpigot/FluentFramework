@@ -50,13 +50,12 @@ public final class ExampleFFPlugin extends JavaPlugin implements FluentApiExtens
                     var inputPath = "D:\\Git\\fluent-framework\\example-ff-plugin\\resourcepack";
                     fluentFilesOptions.addFolderWatcher(new ResourcepackWatcher(inputPath, outputPath), inputPath);
                 })
-                .withCommand(fluentCommandOptions ->
+                .withCommand(options ->
                 {
-
-                    fluentCommandOptions.addCommand(EntityTest.class);
-                    fluentCommandOptions.addCommand(RandomStuff.class);
-                    fluentCommandOptions.addCommand(AnimationCmd.class);
-                    fluentCommandOptions.addCommand(DisplayEntity.class);
+                    options.create(EntityTest.class);
+                    options.create(RandomStuff.class);
+                    options.create(AnimationCmd.class);
+                    options.create(DisplayEntity.class);
                 })
                 .withTranslator()
                 .create();

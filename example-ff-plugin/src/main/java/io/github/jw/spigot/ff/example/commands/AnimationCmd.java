@@ -3,8 +3,8 @@ package io.github.jw.spigot.ff.example.commands;
 import io.github.jwdeveloper.ff.animations.api.AnimationApi;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
 import io.github.jwdeveloper.ff.core.spigot.displays.DisplayUtils;
-import io.github.jwdeveloper.ff.extension.commands.api.annotations.Command;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
+import io.github.jwdeveloper.spigot.commands.api.annotations.FCommand;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -14,7 +14,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 import java.io.IOException;
 
-@Command(name = "animations")
+@FCommand(name = "animations")
 public class AnimationCmd {
 
     private String animationPath = "D:\\Git\\fluent-framework\\example-ff-plugin\\resourcepack\\assets\\minecraft\\models\\custom\\backtools\\example_model.animation.json";
@@ -24,7 +24,7 @@ public class AnimationCmd {
         this.api = api;
     }
 
-    @Command(name = "play")
+    @FCommand(name = "play")
     public void play(Player player) throws IOException {
         var entity = entity(player.getLocation());
         var content = FileUtility.loadFileContent(animationPath);

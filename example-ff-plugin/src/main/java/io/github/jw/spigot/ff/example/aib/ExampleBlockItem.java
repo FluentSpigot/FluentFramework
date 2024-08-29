@@ -65,14 +65,11 @@ public class ExampleBlockItem {
                 .buildAndRegister();
 
         FluentApi.createCommand("diamond-test")
-                .eventsConfig(eventConfig ->
+                .onPlayerExecute(eventConfig ->
                 {
-                    eventConfig.onPlayerExecute(playerCommandEvent ->
-                    {
-                        customDiamond.give(playerCommandEvent.getPlayer());
-                    });
+                    customDiamond.give(eventConfig.sender());
                 })
-                .buildAndRegister();
+                .register();
 
 
     }

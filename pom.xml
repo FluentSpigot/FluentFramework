@@ -11,6 +11,17 @@
     <version>0.0.10-Release</version>
 
 
+
+    <properties>
+        <java.version>16</java.version>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <commands.version>1.0.8</commands.version>
+        <spigot.version>1.19.4-R0.1-SNAPSHOT</spigot.version>
+    </properties>
+
+
     <description>Highly elastic and customizable framework for Spigot plugins</description>
     <url>https://github.com/FluentSpigot/FluentFramework</url>
 
@@ -79,14 +90,6 @@
     </modules>
 
 
-    <properties>
-        <java.version>16</java.version>
-        <maven.compiler.source>16</maven.compiler.source>
-        <maven.compiler.target>16</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <commands.version>1.0.6</commands.version>
-        <spigot.version>1.19.4-R0.1-SNAPSHOT</spigot.version>
-    </properties>
 
     <build>
         <plugins>

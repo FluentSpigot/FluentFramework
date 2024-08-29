@@ -8,8 +8,8 @@ import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.api.logger.LoggerConfiguration;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiMeta;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermissionBuilder;
-import io.github.jwdeveloper.spigot.commands.Commands;
-import io.github.jwdeveloper.spigot.commands.builder.CommandBuilder;
+import io.github.jwdeveloper.spigot.commands.api.Commands;
+import io.github.jwdeveloper.spigot.commands.api.builder.CommandBuilder;
 import org.bukkit.plugin.Plugin;
 
 import java.nio.file.Path;

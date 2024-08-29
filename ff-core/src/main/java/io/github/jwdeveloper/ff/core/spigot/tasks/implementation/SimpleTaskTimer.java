@@ -45,6 +45,9 @@ public class SimpleTaskTimer {
     }
 
     public SimpleTaskTimer startAsync() {
+
+
+
         if (onStart != null)
             onStart.accept(this);
         bukkitTask = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, this::taskBody, runAfter, speed);

@@ -2,7 +2,7 @@ package io.github.jwdeveloper.ff.tools.description.spigot;
 
 import io.github.jwdeveloper.ff.core.common.java.StringUtils;
 import io.github.jwdeveloper.ff.tools.description.documentation.api.builders.YmlBuilder;
-import io.github.jwdeveloper.ff.core.spigot.commands.implementation.SimpleCommand;
+import io.github.jwdeveloper.spigot.commands.api.Command;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,10 +11,9 @@ import java.util.List;
 public class CommandsDocumentationGenerator {
 
 
-
     private List<String> allCommandsNames = new ArrayList<>();
 
-    public String generate(Collection<SimpleCommand> commands) {
+    public String generate(Collection<Command> commands) {
 
         var commandInfoBuilder = createYmlBuilder();
         commandInfoBuilder.newLine();
@@ -29,8 +28,7 @@ public class CommandsDocumentationGenerator {
 
         var output = createYmlBuilder();
         output.addComment("Commands");
-        for(var cmd : allCommandsNames)
-        {
+        for (var cmd : allCommandsNames) {
             output.addComment(cmd);
         }
         output.addSection(commandInfoResult);
@@ -42,94 +40,78 @@ public class CommandsDocumentationGenerator {
     }
 
 
-    private void renderCommandInfo(YmlBuilder builder, SimpleCommand command) {
-        if (command.getCommandModel().isHideFromDocumentation()) {
-            return;
-        }
-
+    private void renderCommandInfo(YmlBuilder builder, Command command) {
         var defaultOffset = 2;
         var propertyOffset = 4;
         var listOffset = 6;
-        var model = command.getCommandModel();
-        var title = StringUtils.isNullOrEmpty(model.getUsageMessage()) ? model.getName() : model.getUsageMessage();
+        var model = command.properties();
+        var title = StringUtils.isNullOrEmpty(model.usageMessage()) ? model.name() : model.usageMessage();
         builder.addComment(title);
         allCommandsNames.add(title);
-        builder.addSection(model.getName(), defaultOffset);
-        if (!command.getSubCommands().isEmpty()) {
+        builder.addSection(model.name(), defaultOffset);
+        if (!command.children().isEmpty()) {
             builder.addSection("children", propertyOffset);
-            for (var subCommand : command.getSubCommands()) {
-                builder.addListProperty(subCommand.getName(), listOffset);
+            for (var subCommand : command.children()) {
+                builder.addListProperty(subCommand.name(), listOffset);
             }
         }
 
-        if (!model.getPermissions().isEmpty()) {
+        if (!model.permission().isEmpty()) {
             builder.addSection("permissions", propertyOffset);
-            for (var permission : model.getPermissions()) {
-                builder.addListProperty(permission, listOffset);
-            }
+            builder.addListProperty(model.permission(), listOffset);
         }
 
 
-        if (!model.getCommandAccesses().isEmpty()) {
-            builder.addSection("can-use", propertyOffset);
-            for (var access : model.getCommandAccesses()) {
+        if (!model.excludedSenders().isEmpty()) {
+            builder.addSection("can-not-use", propertyOffset);
+            for (var access : model.excludedSenders()) {
                 builder.addListProperty(access.name().toLowerCase(), listOffset);
             }
         }
 
-        if (!model.isAllParametersRequired()) {
-            builder.addProperty("all-arguments-required", model.isAllParametersRequired(), propertyOffset);
-        }
 
-        if (model.getArguments().size() > 0) {
+        if (!command.arguments().isEmpty()) {
             builder.addSection("arguments", propertyOffset);
-            for (var argument : model.getArguments()) {
-                builder.addListSection(argument.getName(), listOffset);
-                builder.addProperty("type", argument.getType().name().toLowerCase(), listOffset + 4);
-                if (!StringUtils.isNullOrEmpty(argument.getDescription())) {
-                    builder.addProperty("description", argument.getDescription(), listOffset + 4);
-                }
-                var tabCompliter = argument.getTabCompleter().get();
-                if (!tabCompliter.isEmpty()) {
-                    builder.addSection("options", listOffset + 4);
-                    for (var tab : tabCompliter) {
-                        builder.addListProperty(tab, listOffset + 8);
-                    }
+            for (var argument : command.arguments()) {
+                builder.addListSection(argument.name(), listOffset);
+                builder.addProperty("type", argument.type(), listOffset + 4);
+                if (!StringUtils.isNullOrEmpty(argument.name())) {
+                    builder.addProperty("description", argument.description(), listOffset + 4);
                 }
             }
         }
 
-        if (!StringUtils.isNullOrEmpty(model.getShortDescription())) {
-            builder.addProperty("short-description", model.getShortDescription(), propertyOffset);
+        if (!StringUtils.isNullOrEmpty(model.shortDescription())) {
+            builder.addProperty("short-description", model.shortDescription(), propertyOffset);
         }
 
-        if (!StringUtils.isNullOrEmpty(model.getDescription())) {
-            builder.addProperty("description", model.getDescription(), propertyOffset);
+        if (!StringUtils.isNullOrEmpty(model.description())) {
+            builder.addProperty("description", model.description(), propertyOffset);
         }
 
-        if (!StringUtils.isNullOrEmpty(model.getLabel())) {
-            builder.addProperty("label", model.getLabel(), propertyOffset);
+        if (!StringUtils.isNullOrEmpty(model.label())) {
+            builder.addProperty("label", model.label(), propertyOffset);
         }
 
-        if (!StringUtils.isNullOrEmpty(model.getUsageMessage())) {
-            builder.addProperty("usage", model.getUsageMessage(), propertyOffset);
+        if (!StringUtils.isNullOrEmpty(model.usageMessage())) {
+            builder.addProperty("usage", model.usageMessage(), propertyOffset);
         }
 
-        if (!StringUtils.isNullOrEmpty(model.getPermissionMessage())) {
-            builder.addProperty("permission-message", model.getPermissionMessage(), propertyOffset);
+        if (!StringUtils.isNullOrEmpty(model.permission())) {
+            builder.addProperty("permission-message", model.permission(), propertyOffset);
         }
 
-        for (var subCommand : command.getSubCommands()) {
+        for (var subCommand : command.children()) {
             renderCommandInfo(builder, subCommand);
         }
         builder.newLine();
     }
 
 
-    private void renderCommandTreeMember(YmlBuilder builder, SimpleCommand command, int offset) {
-        builder.addSection(command.getName(), offset);
+    private void renderCommandTreeMember(YmlBuilder builder, Command command, int offset) {
+        builder.addSection(command.name(), offset);
         offset = offset + 2;
-        for (var subCommand : command.getSubCommands()) {
+        for (var subCommand : command.children()) {
             renderCommandTreeMember(builder, subCommand, offset);
         }
     }

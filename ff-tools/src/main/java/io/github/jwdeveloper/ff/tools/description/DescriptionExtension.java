@@ -64,7 +64,7 @@ public class DescriptionExtension implements FluentApiExtension {
     private DescriptionDecorator getCommandsDecorator(FluentApiSpigot fluentApiSpigot) {
         var imageUrl = bannersPath +"/commands.svg";
         var generator = new CommandsDocumentationGenerator();
-        var content = generator.generate(fluentApiSpigot.commands().getSimpleCommands());
+        var content = generator.generate(fluentApiSpigot.commands().findAll());
         return new SectionWithImageElement("commands", imageUrl, content);
     }
 

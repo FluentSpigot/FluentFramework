@@ -8,9 +8,10 @@ import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.logger.PlayerLogger;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import io.github.jwdeveloper.ff.plugin.implementation.config.options.FluentConfigFile;
-import io.github.jwdeveloper.spigot.commands.builder.CommandBuilder;
-import io.github.jwdeveloper.spigot.commands.data.ActionResult;
-import io.github.jwdeveloper.spigot.commands.data.DisplayAttribute;
+
+import io.github.jwdeveloper.spigot.commands.api.builder.CommandBuilder;
+import io.github.jwdeveloper.spigot.commands.api.data.ActionResult;
+import io.github.jwdeveloper.spigot.commands.api.data.DisplayAttribute;
 import org.bukkit.ChatColor;
 
 public class TranslatorCommand {

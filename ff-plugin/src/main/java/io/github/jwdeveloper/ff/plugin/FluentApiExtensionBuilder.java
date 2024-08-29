@@ -9,7 +9,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.function.Consumer;
 
-public class FluentApiExtentionBuilder
+public class FluentApiExtensionBuilder
 {
     private String version;
 
@@ -25,7 +25,7 @@ public class FluentApiExtentionBuilder
     private final Plugin plugin;
 
 
-    public FluentApiExtentionBuilder(Plugin plugin)
+    public FluentApiExtensionBuilder(Plugin plugin)
     {
         name = StringUtils.EMPTY;
         version = StringUtils.EMPTY;
@@ -37,32 +37,32 @@ public class FluentApiExtentionBuilder
     }
 
 
-    public FluentApiExtentionBuilder onConfiguration(Consumer<FluentApiSpigotBuilder> event) {
+    public FluentApiExtensionBuilder onConfiguration(Consumer<FluentApiSpigotBuilder> event) {
         onConfiguration = event;
         return this;
     }
 
-    public FluentApiExtentionBuilder onFluentApiEnable(Consumer<FluentApiSpigot> event) {
+    public FluentApiExtensionBuilder onFluentApiEnable(Consumer<FluentApiSpigot> event) {
         onEnable = event;
         return this;
     }
 
-    public FluentApiExtentionBuilder onFluentApiDisabled(Consumer<FluentApiSpigot> event) {
+    public FluentApiExtensionBuilder onFluentApiDisabled(Consumer<FluentApiSpigot> event) {
         onDisable = event;
         return this;
     }
 
-    public FluentApiExtentionBuilder withPriority(ExtentionPriority priority) {
+    public FluentApiExtensionBuilder withPriority(ExtentionPriority priority) {
         this.priority = priority;
         return this;
     }
 
-    public FluentApiExtentionBuilder withVersion(String version) {
+    public FluentApiExtensionBuilder withVersion(String version) {
         this.version = version;
         return this;
     }
 
-    public FluentApiExtentionBuilder withName(String name) {
+    public FluentApiExtensionBuilder withName(String name) {
         this.name = name;
         return this;
     }

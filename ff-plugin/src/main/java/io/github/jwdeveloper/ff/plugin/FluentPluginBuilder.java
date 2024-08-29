@@ -10,9 +10,12 @@ import io.github.jwdeveloper.ff.extension.updater.api.UpdaterApiOptions;
 import io.github.jwdeveloper.ff.plugin.addons.AddonsApi;
 import io.github.jwdeveloper.ff.plugin.addons.AddonsOptions;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
+import io.github.jwdeveloper.ff.plugin.commands.CommandsExtension;
+import io.github.jwdeveloper.ff.plugin.commands.CommandsOptions;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.plugin.metrics.BstatsApi;
+import io.github.jwdeveloper.spigot.commands.api.Commands;
 import org.bukkit.*;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
@@ -37,8 +40,8 @@ public class FluentPluginBuilder {
         return this;
     }
 
-    public FluentPluginBuilder withCustomExtension(Consumer<FluentApiExtentionBuilder> builderConsumer) {
-        var builder = new FluentApiExtentionBuilder(plugin);
+    public FluentPluginBuilder withCustomExtension(Consumer<FluentApiExtensionBuilder> builderConsumer) {
+        var builder = new FluentApiExtensionBuilder(plugin);
         builderConsumer.accept(builder);
         apiExtensions.add(builder.build());
         return this;
@@ -56,6 +59,12 @@ public class FluentPluginBuilder {
 
     public FluentPluginBuilder withTranslator() {
         apiExtensions.add(FluentTranslatorAPI.use());
+        return this;
+    }
+
+    public FluentPluginBuilder withCommand(Consumer<CommandsOptions> commands)
+    {
+        apiExtensions.add(new CommandsExtension(commands));
         return this;
     }
 

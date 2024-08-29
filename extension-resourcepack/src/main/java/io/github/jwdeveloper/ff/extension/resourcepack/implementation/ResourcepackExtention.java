@@ -10,7 +10,7 @@ import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiSpigot;
 import io.github.jwdeveloper.ff.plugin.implementation.config.options.FluentConfigFile;
-import io.github.jwdeveloper.spigot.commands.builder.CommandBuilder;
+import io.github.jwdeveloper.spigot.commands.api.builder.CommandBuilder;
 
 import java.util.function.Consumer;
 
