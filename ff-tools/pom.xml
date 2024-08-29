@@ -5,7 +5,7 @@
     <parent>
         <artifactId>fluent-framework</artifactId>
         <groupId>com.github.FluentSpigot</groupId>
-        <version>0.0.10-Release</version>
+        <version>0.0.11-Release</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -24,7 +24,7 @@
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>ff-core</artifactId>
-            <version>0.0.10-Release</version>
+            <version>0.0.11-Release</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
