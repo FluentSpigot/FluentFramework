@@ -7,9 +7,10 @@ import io.github.jwdeveloper.ff.plugin.api.FluentApiSpigotBuilder;
 import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.api.logger.LoggerConfiguration;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermissionBuilder;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
+import io.github.jwdeveloper.spigot.commands.Commands;
+import io.github.jwdeveloper.spigot.commands.builder.CommandBuilder;
 import org.bukkit.plugin.Plugin;
 
 import java.nio.file.Path;
@@ -34,8 +35,13 @@ public class FluentApiBuilder implements FluentApiSpigotBuilder {
     }
 
     @Override
-    public FluentApiCommandBuilder defaultCommand() {
-        return builder.defaultCommand();
+    public CommandBuilder mainCommand() {
+        return builder.mainCommand();
+    }
+
+    @Override
+    public Commands commands() {
+        return builder.commands();
     }
 
     @Override

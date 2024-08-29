@@ -1,9 +1,6 @@
 package io.github.jwdeveloper.ff.plugin;
 
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
-import io.github.jwdeveloper.ff.core.spigot.commands.SimpleCommandApi;
-import io.github.jwdeveloper.ff.extension.commands.FluentCommandFramework;
-import io.github.jwdeveloper.ff.extension.commands.api.data.FluentCommandOptions;
 import io.github.jwdeveloper.ff.extension.files.FluentFilesApi;
 import io.github.jwdeveloper.ff.extension.files.implementation.config.FluentFilesOptions;
 import io.github.jwdeveloper.ff.extension.translator.FluentTranslatorAPI;
@@ -67,18 +64,14 @@ public class FluentPluginBuilder {
         return this;
     }
 
-    public FluentPluginBuilder withCommand(Consumer<FluentCommandOptions> options) {
-        apiExtensions.add(FluentCommandFramework.use(options));
-        return this;
-    }
-
     public FluentPluginBuilder withAddons(Consumer<AddonsOptions> options) {
         apiExtensions.add(AddonsApi.use(options));
         return this;
     }
 
     public FluentPluginBuilder withAddons() {
-        return withAddons((x)->{});
+        return withAddons((x) -> {
+        });
     }
 
     public FluentPluginBuilder withBstatsMetrics(int bstatsMetricsId) {
@@ -111,51 +104,34 @@ public class FluentPluginBuilder {
         });
 
         if (api.meta().isDebug()) {
-            SimpleCommandApi.create("disable")
-                    .propertiesConfig(propertiesConfig ->
-                    {
-                        propertiesConfig.setDescription("Command only for plugin development purpose. Can be only trigger by Console. disables all plugins");
-                        propertiesConfig.setUsageMessage("/disable");
-                        propertiesConfig.setHideFromTabDisplay(true);
-                        propertiesConfig.setHideFromDocumentation(true);
-                    })
-                    .eventsConfig(eventConfig ->
-                    {
-                        eventConfig.onConsoleExecute(consoleCommandEvent ->
-                        {
-                            Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Plugins disabled");
-                            Bukkit.getPluginManager().disablePlugins();
-                        });
-                    })
-                    .buildAndRegister();
 
-
-            SimpleCommandApi.create("debbug")
-                    .propertiesConfig(propertiesConfig ->
+            api.createCommand("disable")
+                    .withDescription("Command only for plugin development purpose. Can be only trigger by Console. disables all plugins")
+                    .withUsageMessage("/disable")
+                    .withHideFromSuggestions(true)
+                    .onConsoleExecute(consoleCommandSenderCommandEvent ->
                     {
-                        propertiesConfig.setDescription("Command only for plugin development purpose. Can be only trigger by Console. disables all plugins");
-                        propertiesConfig.setUsageMessage("/debbug");
-                        propertiesConfig.setHideFromTabDisplay(true);
-                        propertiesConfig.setHideFromDocumentation(true);
-                    })
-                    .eventsConfig(eventConfig ->
-                    {
-                        eventConfig.onPlayerExecute(playerCommandEvent ->
-                        {
-                            if (!playerCommandEvent.getPlayer().isOp()) {
-                                return;
-                            }
+                        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Plugins disabled");
+                        Bukkit.getPluginManager().disablePlugins();
+                    }).register();
 
-                            var world = Bukkit.getWorld("debbugworld");
-                            if (world == null) {
-                                world = Bukkit.createWorld(new WorldCreator("debbugworld").type(WorldType.FLAT));
-                            }
-                            world.setDifficulty(Difficulty.PEACEFUL);
-                            world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
-                            world.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
-                            playerCommandEvent.getPlayer().teleport(world.getSpawnLocation());
-                        });
-                    }).buildAndRegister();
+            api.createCommand("debug")
+                    .withDescription("Command only for plugin development purpose. Can be only trigger by Console. disables all plugins")
+                    .withHideFromSuggestions(true)
+                    .onPlayerExecute(event ->
+                    {
+                        if (!event.sender().isOp()) {
+                            return;
+                        }
+                        var world = Bukkit.getWorld("debbugworld");
+                        if (world == null) {
+                            world = Bukkit.createWorld(new WorldCreator("debbugworld").type(WorldType.FLAT));
+                        }
+                        world.setDifficulty(Difficulty.PEACEFUL);
+                        world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+                        world.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
+                        event.sender().teleport(world.getSpawnLocation());
+                    }).register();
         }
         return api;
     }

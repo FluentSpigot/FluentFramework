@@ -3,9 +3,6 @@ package io.github.jwdeveloper.ff.plugin.implementation;
 import io.github.jwdeveloper.ff.core.cache.api.PluginCache;
 import io.github.jwdeveloper.ff.core.logger.plugin.PluginLogger;
 import io.github.jwdeveloper.ff.core.files.FileUtility;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.SimpleCommandRegistry;
-import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.SimpleCommandBuilder;
-import io.github.jwdeveloper.ff.core.spigot.commands.implementation.builder.SimpleCommandBuilderImpl;
 import io.github.jwdeveloper.ff.core.spigot.events.api.FluentEventManager;
 import io.github.jwdeveloper.ff.core.spigot.messages.FluentMessages;
 import io.github.jwdeveloper.ff.core.spigot.tasks.api.FluentTaskFactory;
@@ -15,6 +12,9 @@ import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtensionsManager;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.container.FluentInjection;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.mediator.FluentMediator;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermission;
+import io.github.jwdeveloper.spigot.commands.Command;
+import io.github.jwdeveloper.spigot.commands.Commands;
+import io.github.jwdeveloper.spigot.commands.builder.CommandBuilder;
 import org.bukkit.plugin.Plugin;
 
 public final class FluentApiSpigot {
@@ -23,17 +23,19 @@ public final class FluentApiSpigot {
     private final FluentMediator fluentMediator;
     private final FluentConfig fluentConfig;
     private final FluentPermission fluentPermission;
+
     private final Plugin plugin;
     private final FluentMessages simpleMessages;
     private final FluentApiMeta fluentApiMeta;
     private final FluentEventManager fluentEvents;
     private final FluentTaskFactory simpleTasks;
-    private final SimpleCommandRegistry commandManger;
     private final FluentApiExtensionsManager extensionsManager;
+
     private final PluginLogger logger;
     private final FluentValidator validator;
-
     private final PluginCache pluginCache;
+
+    private final Commands commands;
 
     public FluentApiSpigot(
             Plugin plugin,
@@ -43,7 +45,7 @@ public final class FluentApiSpigot {
             FluentPermission permission,
             FluentApiExtensionsManager extensionsManager,
             PluginLogger logger,
-            SimpleCommandRegistry commandManger,
+            Commands commands,
             FluentEventManager eventManager,
             FluentTaskFactory taskManager,
             FluentApiMeta fluentApiMeta,
@@ -53,7 +55,7 @@ public final class FluentApiSpigot {
         this.plugin = plugin;
         this.fluentConfig = fluentConfig;
         this.extensionsManager = extensionsManager;
-        this.commandManger = commandManger;
+        this.commands = commands;
         this.logger = logger;
         fluentInjection = injection;
         fluentMediator = mediator;
@@ -98,12 +100,12 @@ public final class FluentApiSpigot {
         return simpleTasks;
     }
 
-    public SimpleCommandRegistry commands() {
-        return commandManger;
+    public Commands commands() {
+        return commands;
     }
 
-    public SimpleCommandBuilder createCommand(String commandName) {
-        return new SimpleCommandBuilderImpl(commandName, commandManger);
+    public CommandBuilder createCommand(String pattern) {
+        return commands().create(pattern);
     }
 
     public FluentMessages messages() {

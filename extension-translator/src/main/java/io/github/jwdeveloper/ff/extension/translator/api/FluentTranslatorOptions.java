@@ -12,7 +12,7 @@ public class FluentTranslatorOptions extends ExtensionOptions
 
       private boolean addCommands = true;
 
-      private String permissionName = "language";
+      private String permission = "language";
 
       // server/plugins/<plugin>/ + translationsPath
       private String translationsPath = "languages";

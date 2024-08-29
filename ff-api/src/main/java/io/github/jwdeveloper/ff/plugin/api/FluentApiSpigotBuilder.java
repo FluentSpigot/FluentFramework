@@ -7,15 +7,17 @@ import io.github.jwdeveloper.ff.plugin.api.config.FluentConfig;
 import io.github.jwdeveloper.ff.plugin.api.extention.FluentApiExtension;
 import io.github.jwdeveloper.ff.plugin.api.logger.LoggerConfiguration;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApiMeta;
-import io.github.jwdeveloper.ff.plugin.implementation.extensions.command.FluentApiCommandBuilder;
 import io.github.jwdeveloper.ff.plugin.implementation.extensions.permissions.api.FluentPermissionBuilder;
+import io.github.jwdeveloper.spigot.commands.Commands;
+import io.github.jwdeveloper.spigot.commands.builder.CommandBuilder;
 import org.bukkit.plugin.Plugin;
 
 import java.nio.file.Path;
 
 
 public interface FluentApiSpigotBuilder {
-    FluentApiCommandBuilder defaultCommand();
+    CommandBuilder mainCommand();
+    Commands commands();
 
     FluentApiContainerBuilder container();
 

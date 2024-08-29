@@ -1,7 +1,6 @@
 package io.github.jwdeveloper.ff.extension.updater.implementation;
 
 
-import io.github.jwdeveloper.ff.core.spigot.commands.api.builder.config.SubCommandConfig;
 import io.github.jwdeveloper.ff.core.spigot.permissions.api.PermissionModel;
 import io.github.jwdeveloper.ff.extension.updater.api.FluentUpdater;
 import io.github.jwdeveloper.ff.extension.updater.api.UpdateInfoProvider;
@@ -62,7 +61,16 @@ public class FluentUpdaterExtension implements FluentApiExtension {
 
 
         builder.permissions().registerPermission(this::createPermission);
-        builder.defaultCommand().subCommandsConfig(x -> createCommand(x, builder.defaultCommand().getName()));
+        builder.mainCommand().addSubCommand(updaterApiOptions.getCommandName(), subBuilder ->
+        {
+            subBuilder.withPermission(updaterApiOptions.getPermission());
+            subBuilder.withDescription("Download plugin latest version, can be trigger both by player or console");
+            subBuilder.onExecute(event ->
+            {
+                var updater = event.command().container().find(FluentUpdater.class);
+                updater.downloadUpdateAsync(event.sender());
+            });
+        });
     }
 
     @Override
@@ -73,37 +81,16 @@ public class FluentUpdaterExtension implements FluentApiExtension {
         if (config.isForceUpdate())
             updater.downloadUpdateAsync(Bukkit.getConsoleSender());
 
-        if (config.getCheckUpdateConfig().isCheckUpdate())
-        {
+        if (config.getCheckUpdateConfig().isCheckUpdate()) {
             updater.checkUpdateAsync(Bukkit.getConsoleSender());
         }
 
     }
 
 
-    private void createCommand(SubCommandConfig config, String defaultCommandName) {
-        config.addSubCommand(updaterApiOptions.getCommandName(), commandBuilder ->
-        {
-            commandBuilder.propertiesConfig(propertiesConfig ->
-                    {
-                        propertiesConfig.addPermissions(updaterApiOptions.getPermissionName());
-                        propertiesConfig.setDescription("Download plugin latest version, can be trigger both by player or console");
-                        propertiesConfig.setUsageMessage("/" + defaultCommandName + " " + updaterApiOptions.getCommandName());
-                    })
-                    .eventsConfig(eventConfig ->
-                    {
-                        eventConfig.onExecute(consoleCommandEvent ->
-                        {
-                            var updater = FluentApi.container().findInjection(FluentUpdater.class);
-                            updater.downloadUpdateAsync(consoleCommandEvent.getSender());
-                        });
-                    });
-        });
-    }
-
     private void createPermission(PermissionModel model) {
 
-        model.setName(updaterApiOptions.getPermissionName());
+        model.setName(updaterApiOptions.getPermission());
         model.setDescription("Players with this permission can update plugin");
     }
 

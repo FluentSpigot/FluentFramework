@@ -13,7 +13,7 @@ public class UpdaterApiOptions extends ExtensionOptions
 
     private String commandName = "updater";
 
-    private String permissionName = "updater";
+    private String permission = "updater";
 
     public UpdaterApiOptions()
     {

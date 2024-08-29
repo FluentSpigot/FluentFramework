@@ -51,20 +51,18 @@ public class FluentTranslationExtension implements FluentApiExtension {
                 .defaultPermissions()
                 .getCommands().registerChild(p ->
                 {
-                    p.setName(options.getPermissionName());
+                    p.setName(options.getPermission());
                     p.setDescription("Change plugin language");
                 });
 
         if (options.isAddCommands()) {
-            builder.defaultCommand()
-                    .subCommandsConfig(subCommandConfig ->
-                    {
-                        var languageCmd = new TranslatorCommand(builder.defaultCommand(),
-                                builder.config(),
-                                options,
-                                languagesDictionary);
-                        subCommandConfig.addSubCommand(languageCmd.create());
-                    });
+
+            var languageCommandDecorator = new TranslatorCommand(
+                    builder.config(),
+                    options,
+                    languagesDictionary);
+
+            builder.mainCommand().addSubCommand(options.getCommandName(), languageCommandDecorator::decorate);
         }
     }
 
