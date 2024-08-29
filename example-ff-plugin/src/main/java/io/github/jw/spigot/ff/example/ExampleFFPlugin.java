@@ -26,18 +26,13 @@ public final class ExampleFFPlugin extends JavaPlugin implements FluentApiExtens
         builder.useExtension(BlocksAndItemsFramework.use());
         builder.useExtension(FluentInventoryApi.use());
         builder.useExtension(DisplayModelFramework.use());
-        builder.useExtension(new ItemMenuExtension());
+
+   //     builder.useExtension(new ItemMenuExtension());
         builder.useExtension(new ImmersiveBlocksExtension());
-        builder.container().registerSingleton(MiningCartInventory.class);
-        builder.useExtension(new Extension());
+      //  builder.container().registerSingleton(MiningCartInventory.class);
+     //   builder.useExtension(new Extension());
     }
 
-    @Override
-    public void onFluentApiEnable(FluentApiSpigot fluentAPI) throws Exception {
-        var bai = fluentAPI.container().findInjection(BlockAndItemsApi.class);
-
-
-    }
 
     @Override
     public void onEnable() {

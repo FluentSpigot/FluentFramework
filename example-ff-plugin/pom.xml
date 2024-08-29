@@ -15,7 +15,7 @@
         <spigot>1.19.4-R0.1-SNAPSHOT</spigot>
         <java.version>16</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <ff.version>0.0.10-Release</ff.version>
+        <ff.version>0.0.11-Release</ff.version>
     </properties>
 
     <build>
@@ -145,18 +145,7 @@
             <version>${spigot}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <version>${spigot}</version>
-            <classifier>remapped-mojang</classifier>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.comphenix.protocol</groupId>
-            <artifactId>ProtocolLib</artifactId>
-            <version>4.8.0</version>
-        </dependency>
+
         <dependency>
             <groupId>com.github.FluentSpigot</groupId>
             <artifactId>ff-plugin</artifactId>

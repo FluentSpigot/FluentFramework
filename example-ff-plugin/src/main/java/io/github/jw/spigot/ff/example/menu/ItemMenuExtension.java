@@ -21,12 +21,9 @@ public class ItemMenuExtension implements FluentApiExtension {
         var invComponent = fluentAPI.container().findInjection(ItemMenuComponent.class);
         var inv = inventoryFramework.inventory().create(invComponent);
         fluentAPI.createCommand("item-menu")
-                .eventsConfig(eventConfig ->
+                .onPlayerExecute(playerCommandEvent ->
                 {
-                    eventConfig.onPlayerExecute(playerCommandEvent ->
-                    {
-                        inv.open(playerCommandEvent.getPlayer());
-                    });
-                }).buildAndRegister();
+                    inv.open(playerCommandEvent.sender());
+                }).register();
     }
 }

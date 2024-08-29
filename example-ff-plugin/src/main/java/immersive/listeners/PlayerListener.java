@@ -5,10 +5,13 @@ import io.github.jwdeveloper.ff.core.common.java.MathUtils;
 import io.github.jwdeveloper.ff.core.logger.plugin.FluentLogger;
 import io.github.jwdeveloper.ff.core.spigot.displays.DisplayUtils;
 import io.github.jwdeveloper.ff.core.spigot.events.implementation.EventBase;
+import io.github.jwdeveloper.ff.core.spigot.tasks.implementation.SimpleTaskTimer;
 import io.github.jwdeveloper.ff.plugin.implementation.FluentApi;
-import net.minecraft.world.entity.vehicle.MinecartChest;
+
+import io.github.jwdeveloper.spigot.commands.impl.data.Ref;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.Container;
 import org.bukkit.entity.*;
@@ -28,22 +31,28 @@ public class PlayerListener extends EventBase {
     }
 
 
+    Location prviousLoc;
+
     public void playerRayTrace() {
+
+
         FluentApi.tasks().taskTimer(20, (iteration, task) ->
         {
             for (var player : Bukkit.getOnlinePlayers()) {
+
+
+                prviousLoc = player.getLocation();
+
                 var block = player.getTargetBlockExact(4);
                 if (block != null) {
-                    if(handleBlock(block, player))
-                    {
+                    if (handleBlock(block, player)) {
                         return;
                     }
                 }
                 var entitis = player.getNearbyEntities(4, 4, 4);
                 for (var entity : entitis) {
 
-                    if(handleEntity(entity, player))
-                    {
+                    if (handleEntity(entity, player)) {
                         return;
                     }
                 }
@@ -95,8 +104,7 @@ public class PlayerListener extends EventBase {
             return false;
         }
 
-        if(entity instanceof Display)
-        {
+        if (entity instanceof Display) {
             return false;
         }
 
@@ -159,14 +167,24 @@ public class PlayerListener extends EventBase {
             text.setBackgroundColor(Color.GREEN);
             root.addPassenger(item);
             root.addPassenger(text);
+            prviousLoc = player.getLocation();
+
             FluentApi.tasks().taskTimer(1, (iteration, task) ->
             {
-                item.setRotation(player.getLocation().getYaw(), player.getLocation().getPitch());
-                text.setRotation(player.getLocation().getYaw(), player.getLocation().getPitch());
+                if (player.getLocation().toVector().equals(prviousLoc.toVector())) {
+                    item.setRotation(prviousLoc.getYaw(), prviousLoc.getPitch());
+                    text.setRotation(prviousLoc.getYaw(), prviousLoc.getPitch());
+
+                } else {
+                    item.setRotation(player.getLocation().getYaw(), player.getLocation().getPitch());
+                    text.setRotation(player.getLocation().getYaw(), player.getLocation().getPitch());
+                }
+                prviousLoc = player.getLocation();
             }).start();
             FluentApi.cache().set(text);
             FluentApi.cache().set(item);
         }
+
         var task = FluentApi.tasks().taskTimer(1, (iteration, t) ->
         {
             root.setRotation(player.getLocation().getYaw(), player.getLocation().getPitch());

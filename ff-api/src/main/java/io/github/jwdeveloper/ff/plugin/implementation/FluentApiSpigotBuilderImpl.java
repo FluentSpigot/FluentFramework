@@ -152,13 +152,11 @@ public class FluentApiSpigotBuilderImpl implements FluentApiSpigotBuilder {
         eventManager = FluentEvent.enable(plugin);
         taskFactory = FluentTask.enable(plugin);
 
-
         var jarScannerOptions = new JarScannerOptions();
         jarScannerOptions.setRootPackage(plugin.getClass());
         jarScanner = new JarScannerImpl(jarScannerOptions, plugin.getLogger());
         jarScanner.initialize();
         containerBuilder = new FluentApiContainerBuilder();
-
 
         commands = CommandsFramework.enable(plugin, containerBuilder);
         defaultCommandBuilder = commands.create(plugin.getName());

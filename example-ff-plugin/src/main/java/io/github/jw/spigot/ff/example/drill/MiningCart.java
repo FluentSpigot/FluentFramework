@@ -132,7 +132,7 @@ public class MiningCart {
                 return;
             }
             var blockFace = directionBlockHigher.getFace(cart.getLocation().add(0, 1, 0).getBlock());
-            MiningDrill.doDrill(directionBlockHigher, blockFace, cart);
+         //   MiningDrill.doDrill(directionBlockHigher, blockFace, cart);
         }).start();
     }
 

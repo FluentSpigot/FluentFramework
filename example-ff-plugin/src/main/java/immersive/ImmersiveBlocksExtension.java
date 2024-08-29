@@ -6,6 +6,7 @@ import immersive.handlers.AnvilBlock;
 import immersive.handlers.CraftingBlock;
 import immersive.handlers.EnchantBlock;
 import immersive.common.ImpersiveBlockApiImpl;
+import immersive.handlers.FurnaceBlock;
 import immersive.listeners.BlocksListener;
 import immersive.listeners.PlayerListener;
 import io.github.jwdeveloper.ff.core.cache.api.PluginCache;
@@ -18,14 +19,14 @@ public class ImmersiveBlocksExtension implements FluentApiExtension {
     @Override
     public void onConfiguration(FluentApiSpigotBuilder builder) {
 
-
         var container = builder.container();
         container.registerSingleton(BlocksListener.class);
-        container.registerSingleton(PlayerListener.class);
+//        container.registerSingleton(PlayerListener.class);
         container.registerSingleton(BlocksHandler.class);
         container.registerSingleton(ImmersiveBlockApi.class, ImpersiveBlockApiImpl.class);
 
         container.registerSingleton(ImmersiveBlockHandler.class, CraftingBlock.class);
+        container.registerSingleton(ImmersiveBlockHandler.class, FurnaceBlock.class);
         container.registerSingleton(ImmersiveBlockHandler.class, AnvilBlock.class);
         container.registerSingleton(ImmersiveBlockHandler.class, EnchantBlock.class);
 
@@ -35,25 +36,14 @@ public class ImmersiveBlocksExtension implements FluentApiExtension {
 
     @Override
     public void onFluentApiEnable(FluentApiSpigot fluentAPI) throws Exception {
-
-
-        var commands = fluentAPI.commands();
-
-
-
-
         var cls = fluentAPI.container().findAllByInterface(ImmersiveBlockHandler.class);
         cls.forEach(immersiveBlock ->
         {
             FluentLogger.LOGGER.info("Handler!", immersiveBlock.getClass().getName());
         });
 
-
-        //TODO FIX
-        //var listeners = fluentAPI.container().findAllBySuperClass(EventBase.class);
-
         fluentAPI.container().findInjection(BlocksListener.class);
-        fluentAPI.container().findInjection(PlayerListener.class);
+     //   fluentAPI.container().findInjection(PlayerListener.class);
     }
 
     @Override
