@@ -14,37 +14,11 @@ https://www.gamergeeks.net/apps/minecraft/give-command-generator
 ```code
 
  <dependencies>
-
-	<dependency>
-	    <groupId>com.github.jwdeveloper.FluentFramework</groupId>
-	    <artifactId>extension-web-socket</artifactId>
-	    <version>0.0.5-Release</version>
-	</dependency>
-
-	<dependency>
-	    <groupId>com.github.jwdeveloper.FluentFramework</groupId>
-	    <artifactId>extension-translator</artifactId>
-	    <version>0.0.5-Release</version>
-	</dependency>
-
-	<dependency>
-	    <groupId>com.github.jwdeveloper.FluentFramework</groupId>
-	    <artifactId>ff-api</artifactId>
-	    <version>0.0.5-Release</version>
-	</dependency>
-
  	<dependency>
 	    <groupId>com.github.jwdeveloper.FluentFramework</groupId>
 	    <artifactId>ff-plugin</artifactId>
-	    <version>0.0.5-Release</version>
+	    <version>0.0.11-Release</version>
 	</dependency>
-
-	 <dependency>
-	    <groupId>com.github.jwdeveloper.FluentFramework</groupId>
-	    <artifactId>ff-core</artifactId>
-	    <version>0.0.5-Release</version>
-	 </dependency>
-
  </dependeices>
 ```
 
